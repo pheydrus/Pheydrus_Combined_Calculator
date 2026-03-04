@@ -25,7 +25,7 @@ export const EMPTY_CLIENT_INTAKE: ClientIntakeData = {
 };
 
 export const PREFERRED_SOLUTION_LABELS: Record<PreferredSolution, string> = {
-  coaching: '1:1 Coaching',
+  coaching: '1:1 Done For You Calls',
   workshops: 'Group Workshops',
   'self-study': 'Self-Study',
   all: 'All of the above',
