@@ -6,6 +6,7 @@ import {
   ResultsPage,
   ClientAssessmentPage,
   ClientResultsPage,
+  ClientDemoPage,
 } from './views';
 import {
   TransitsPage,
@@ -32,6 +33,7 @@ function App() {
         {/* Client-facing assessment (no layout shell) */}
         <Route path="client" element={<ClientAssessmentPage />} />
         <Route path="client/results" element={<ClientResultsPage />} />
+        <Route path="client/demo" element={<ClientDemoPage />} />
         {/* Standalone calculator pages (no layout shell) */}
         <Route path="transits" element={<TransitsPage />} />
         <Route path="life-path" element={<LifePathPage />} />
