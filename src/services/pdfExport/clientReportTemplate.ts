@@ -21,7 +21,10 @@ import {
 // ── Helpers ──────────────────────────────────────────────────────────────────
 
 function esc(s: string): string {
-  return s.replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' }[c] ?? c));
+  return s.replace(
+    /[&<>"']/g,
+    (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' })[c] ?? c
+  );
 }
 
 function pillarScore(p: PillarSummary): number {
@@ -57,7 +60,11 @@ const GOAL_LABEL: Record<GoalCategory, string> = {
 
 // ── Page 1: The Big Reveal ───────────────────────────────────────────────────
 
-function renderPage1(results: ConsolidatedResults, intake: ClientIntakeData, goal: GoalCategory): string {
+function renderPage1(
+  results: ConsolidatedResults,
+  intake: ClientIntakeData,
+  _goal: GoalCategory
+): string {
   const { diagnostic } = results;
   if (!diagnostic) return '<p>No diagnostic data available.</p>';
 
@@ -87,15 +94,17 @@ function renderPage1(results: ConsolidatedResults, intake: ClientIntakeData, goa
   const timelineHtml = longest
     ? `<p style="margin:0 0 6px;">Based on your active malefic transits, if you continue navigating this the same way, the current pattern is positioned to persist for approximately <strong style="color:#dc2626;">${formatDuration(longest.endYear)}</strong>.</p>
        <p style="margin:0;color:#6b7280;">The longest-running active pressure comes from <strong>${esc(longest.planet)}</strong> transiting your House ${longest.house} — a slow-moving outer planet that does not back down quickly. This is not a forecast of doom; it is a map. Knowing the terrain is the first step to navigating it differently.</p>`
-    : `<p style="margin:0;color:#6b7280;">No long-running malefic transits were identified in your active Pillar 2 window — the timing pressure you\'re experiencing may be shorter-cycle and more manageable than it feels.</p>`;
+    : `<p style="margin:0;color:#6b7280;">No long-running malefic transits were identified in your active Pillar 2 window — the timing pressure you're experiencing may be shorter-cycle and more manageable than it feels.</p>`;
 
-  const zeroMsg = total === 0
-    ? `<p style="color:#059669;font-style:italic;">Your current energetic configuration shows minimal active pressure — your structural blueprint, timing, and environment are in relative alignment. The obstacles you\'re navigating may stem more from mindset and behavioral patterns than from energetic headwinds.</p>`
-    : '';
+  const zeroMsg =
+    total === 0
+      ? `<p style="color:#059669;font-style:italic;">Your current energetic configuration shows minimal active pressure — your structural blueprint, timing, and environment are in relative alignment. The obstacles you're navigating may stem more from mindset and behavioral patterns than from energetic headwinds.</p>`
+      : '';
 
-  const goalExcerpt = intake.desiredOutcome.length > 120
-    ? intake.desiredOutcome.slice(0, 120) + '…'
-    : intake.desiredOutcome;
+  const goalExcerpt =
+    intake.desiredOutcome.length > 120
+      ? intake.desiredOutcome.slice(0, 120) + '…'
+      : intake.desiredOutcome;
 
   return `
   <!-- PAGE 1: THE BIG REVEAL -->
@@ -126,7 +135,9 @@ function renderPage1(results: ConsolidatedResults, intake: ClientIntakeData, goa
 
       ${zeroMsg}
 
-      ${total > 0 ? `
+      ${
+        total > 0
+          ? `
       <!-- Pillar 1 -->
       <div style="display:flex;gap:12px;margin-bottom:16px;align-items:flex-start;">
         <div style="min-width:52px;padding:6px 0;text-align:center;">
@@ -159,10 +170,12 @@ function renderPage1(results: ConsolidatedResults, intake: ClientIntakeData, goa
         </div>
         <div style="flex:1;padding-top:4px;">
           <div style="font-size:13px;font-weight:700;color:#2d2a3e;margin-bottom:3px;">Pillar 3 — Your Environmental Energy</div>
-          <p style="margin:0;font-size:12px;color:#4a4560;line-height:1.6;">This comes from your current location and home address. Of the three layers, environment is the most immediately actionable — it can be changed. A misaligned environment doesn\'t cause the pattern, but it amplifies every other pressure point and makes the climb steeper than it needs to be.</p>
+          <p style="margin:0;font-size:12px;color:#4a4560;line-height:1.6;">This comes from your current location and home address. Of the three layers, environment is the most immediately actionable — it can be changed. A misaligned environment doesn't cause the pattern, but it amplifies every other pressure point and makes the climb steeper than it needs to be.</p>
         </div>
       </div>
-      ` : ''}
+      `
+          : ''
+      }
     </div>
 
     <!-- Pattern Timeline -->
@@ -182,7 +195,9 @@ function renderPillarBullets(
   goal: GoalCategory,
   transits: ConsolidatedResults['calculators']['transits']
 ): string {
-  const scoringItems = pillar.items.filter((i) => i.grade === 'F' || i.grade === 'C' || i.grade === 'A');
+  const scoringItems = pillar.items.filter(
+    (i) => i.grade === 'F' || i.grade === 'C' || i.grade === 'A'
+  );
   if (scoringItems.length === 0) {
     return '<p style="color:#059669;font-size:12px;margin:8px 0 0;font-style:italic;">No significant pressure identified in this pillar — this dimension is working in your favor.</p>';
   }
@@ -192,7 +207,9 @@ function renderPillarBullets(
       const interp = getItemInterpretation(item, goal, transits?.transits ?? []);
       const color = bulletColor(item.grade);
       const isAddress = item.section === 'Address';
-      const label = isAddress ? `&#127968;&nbsp; Address Energy` : `&#9679;&nbsp; ${esc(item.source)}`;
+      const label = isAddress
+        ? `&#127968;&nbsp; Address Energy`
+        : `&#9679;&nbsp; ${esc(item.source)}`;
       return `
     <div style="display:flex;gap:10px;margin-bottom:14px;align-items:flex-start;">
       <div style="width:3px;min-height:100%;background:${color};border-radius:2px;margin-top:2px;flex-shrink:0;"></div>
@@ -208,14 +225,18 @@ function renderPillarBullets(
     .join('');
 }
 
-function renderPage2(results: ConsolidatedResults, intake: ClientIntakeData, goal: GoalCategory): string {
+function renderPage2(
+  results: ConsolidatedResults,
+  _intake: ClientIntakeData,
+  goal: GoalCategory
+): string {
   const { diagnostic } = results;
   if (!diagnostic) return '';
 
   const [p1, p2, p3] = diagnostic.pillars;
 
   const pillarIntros: Record<1 | 2 | 3, string> = {
-    1: `These are the energetic signatures encoded in your birth chart — the structural blueprint you came in with. They don\'t expire, but they can be mastered. What follows are the specific placements creating the most friction for your goal of ${GOAL_LABEL[goal].toLowerCase()}.`,
+    1: `These are the energetic signatures encoded in your birth chart — the structural blueprint you came in with. They don't expire, but they can be mastered. What follows are the specific placements creating the most friction for your goal of ${GOAL_LABEL[goal].toLowerCase()}.`,
     2: `These are the slow-moving planetary forces currently transiting your chart — the timing window you are in right now. Each one includes how long it runs, giving you an honest timeline rather than an open-ended question mark.`,
     3: `Your current location and home address are either amplifying or dampening every other pressure in your chart. What follows is how your environmental energy is specifically interacting with your goal.`,
   };

@@ -1,6 +1,22 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Layout } from './components';
-import { HomePage, CalculatorPage, ResultsPage, ClientAssessmentPage, ClientResultsPage } from './views';
+import {
+  HomePage,
+  CalculatorPage,
+  ResultsPage,
+  ClientAssessmentPage,
+  ClientResultsPage,
+} from './views';
+import {
+  TransitsPage,
+  LifePathPage,
+  NumerologyPage,
+  WordNumerologyPage,
+  AdvancedNumerologyPage,
+  NatalChartPage,
+  RelocationPage,
+  FengShuiPage,
+} from './views/standalone';
 import './App.css';
 
 function App() {
@@ -16,6 +32,15 @@ function App() {
         {/* Client-facing assessment (no layout shell) */}
         <Route path="client" element={<ClientAssessmentPage />} />
         <Route path="client/results" element={<ClientResultsPage />} />
+        {/* Standalone calculator pages (no layout shell) */}
+        <Route path="transits" element={<TransitsPage />} />
+        <Route path="life-path" element={<LifePathPage />} />
+        <Route path="numerology" element={<NumerologyPage />} />
+        <Route path="numerology/word" element={<WordNumerologyPage />} />
+        <Route path="numerology/aw" element={<AdvancedNumerologyPage />} />
+        <Route path="astro" element={<NatalChartPage />} />
+        <Route path="relocation" element={<RelocationPage />} />
+        <Route path="feng-shui" element={<FengShuiPage />} />
       </Routes>
     </BrowserRouter>
   );

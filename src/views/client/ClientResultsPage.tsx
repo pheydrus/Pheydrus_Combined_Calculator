@@ -50,7 +50,15 @@ const GOAL_LABEL: Record<GoalCategory, string> = {
 
 // ── Sub-components ────────────────────────────────────────────────────────────
 
-function InterpBullet({ item, goal, transits }: { item: GradeItem; goal: GoalCategory; transits: PlanetaryTransit[] }) {
+function InterpBullet({
+  item,
+  goal,
+  transits,
+}: {
+  item: GradeItem;
+  goal: GoalCategory;
+  transits: PlanetaryTransit[];
+}) {
   const text = getItemInterpretation(item, goal, transits);
   const borderCls = GRADE_BORDER[item.grade] ?? 'border-l-gray-300';
   const bgCls = GRADE_BG[item.grade] ?? 'bg-gray-50';
@@ -86,7 +94,7 @@ function PillarDeepDiveCard({
   transits: PlanetaryTransit[];
 }) {
   const scoringItems = pillar.items.filter(
-    (i) => i.grade === 'F' || i.grade === 'C' || i.grade === 'A',
+    (i) => i.grade === 'F' || i.grade === 'C' || i.grade === 'A'
   );
 
   const PILLAR_BADGE: Record<1 | 2 | 3, string> = {
@@ -119,7 +127,8 @@ function PillarDeepDiveCard({
 
       {scoringItems.length === 0 ? (
         <p className="text-sm text-emerald-600 italic">
-          No significant pressure identified in this pillar — this dimension is working in your favor.
+          No significant pressure identified in this pillar — this dimension is working in your
+          favor.
         </p>
       ) : (
         <div className="space-y-3">
@@ -138,9 +147,8 @@ export function ClientResultsPage() {
   const location = useLocation();
   const navigate = useNavigate();
 
-  const state = location.state as
-    | { results: ConsolidatedResults; intake: ClientIntakeData }
-    | null;
+  const state = location.state as { results: ConsolidatedResults; intake: ClientIntakeData } | null;
+  const [isExporting, setIsExporting] = useState(false);
 
   if (!state?.results) {
     return (
@@ -160,13 +168,17 @@ export function ClientResultsPage() {
   }
 
   const { results, intake } = state;
-  const [isExporting, setIsExporting] = useState(false);
 
   const goal = detectGoalCategory(intake.desiredOutcome);
   const transits = results.calculators.transits?.transits ?? [];
-  const [p1, p2, p3] = results.diagnostic.pillars;
+  const diagnostic = results.diagnostic;
 
-  const longest = getLongestMaleficTransit(results.diagnostic.allItems, transits);
+  if (!diagnostic) {
+    return <p className="text-red-500">No diagnostic data available.</p>;
+  }
+
+  const [p1, p2, p3] = diagnostic.pillars;
+  const longest = getLongestMaleficTransit(diagnostic.allItems, transits);
 
   const pillarIntros: Record<1 | 2 | 3, string> = {
     1: `These are the energetic signatures encoded in your birth chart — the structural blueprint you came in with. They don't expire, but they can be mastered. What follows are the specific placements creating the most friction for your goal of ${GOAL_LABEL[goal].toLowerCase()}.`,
@@ -188,7 +200,6 @@ export function ClientResultsPage() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-[#faf8f5] to-[#f0ebe0] py-12 px-4">
       <div className="max-w-3xl mx-auto space-y-6">
-
         {/* Brand header */}
         <div className="text-center mb-4">
           <h1 className="text-3xl font-bold text-[#2d2a3e]">Your Pheydrus Report</h1>
@@ -204,9 +215,7 @@ export function ClientResultsPage() {
             {intake.desiredOutcome && (
               <IntakRow label="Desired outcome (90 days)" value={intake.desiredOutcome} />
             )}
-            {intake.obstacle && (
-              <IntakRow label="Main obstacle" value={intake.obstacle} />
-            )}
+            {intake.obstacle && <IntakRow label="Main obstacle" value={intake.obstacle} />}
             {intake.patternYear && (
               <IntakRow label="Pattern noticed since" value={intake.patternYear} />
             )}
@@ -250,10 +259,9 @@ export function ClientResultsPage() {
               <strong>{formatDuration(longest.endYear)}</strong>.
             </p>
             <p className="text-sm text-gray-500 leading-relaxed">
-              The longest-running active pressure comes from{' '}
-              <strong>{longest.planet}</strong> transiting your House {longest.house} — a
-              slow-moving outer planet that does not back down quickly. This is not a forecast of
-              doom; it is a map.
+              The longest-running active pressure comes from <strong>{longest.planet}</strong>{' '}
+              transiting your House {longest.house} — a slow-moving outer planet that does not back
+              down quickly. This is not a forecast of doom; it is a map.
             </p>
           </div>
         )}
