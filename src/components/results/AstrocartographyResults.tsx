@@ -101,7 +101,10 @@ export function AstrocartographyResults({ result }: AstrocartographyResultsProps
       {/* Benefic section */}
       <ResultSection title="Astrocartography Lines" defaultOpen={true}>
         <p className="text-sm text-gray-400 mb-5">
-          Cities within 9° orb where each benefic planet is angular. Sorted by tightest orb.
+          <span className="font-semibold text-emerald-700">Benefic planets — go here.</span> Cities
+          within 9° orb where Sun, Moon, Venus, or Jupiter is angular. These locations tend to
+          support growth, joy, love, and abundance. Sorted by tightest orb (strongest influence
+          first).
         </p>
 
         {Object.keys(byPlanet).length === 0 ? (
@@ -118,8 +121,10 @@ export function AstrocartographyResults({ result }: AstrocartographyResultsProps
       {/* Warning section */}
       <ResultSection title="Places to Avoid" defaultOpen={true}>
         <p className="text-sm text-gray-400 mb-5">
-          Cities within 9° orb where challenging planets are angular. Living near these lines may
-          intensify difficulty, conflict, or stress in the themes of each angle.
+          <span className="font-semibold text-red-700">Malefic planets — avoid these.</span> Cities
+          within 9° orb where Mars, Saturn, Neptune, or Pluto is angular. Living near these lines
+          may intensify challenge, conflict, restriction, or chaos. Sorted by tightest orb (strongest
+          influence first).
         </p>
 
         {Object.keys(byWarningPlanet).length === 0 ? (
