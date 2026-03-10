@@ -308,4 +308,5 @@ export interface AstrocartographyLine {
 
 export interface AstrocartographyResult {
   lines: AstrocartographyLine[];
+  warningLines: AstrocartographyLine[];
 }

@@ -23,6 +23,7 @@ import type { Angles } from '../../utils/astro/types';
 // ─── Constants ───────────────────────────────────────────────────────────────
 
 const BENEFIC_PLANETS = ['Sun', 'Moon', 'Venus', 'Jupiter'] as const;
+const MALEFIC_PLANETS = ['Mars', 'Saturn', 'Neptune', 'Pluto'] as const;
 
 /** Default orb threshold in degrees. */
 const DEFAULT_ORB = 9;
@@ -100,7 +101,7 @@ export async function calculateAstrocartography(
   // Accumulator: planet → angle → sorted hits
   type Hit = { orb: number; point: AstrocartographyPoint };
   const hitMap: Record<string, Record<string, Hit[]>> = {};
-  for (const planet of BENEFIC_PLANETS) {
+  for (const planet of [...BENEFIC_PLANETS, ...MALEFIC_PLANETS]) {
     hitMap[planet] = { ASC: [], DSC: [], MC: [], IC: [] };
   }
 
@@ -113,7 +114,7 @@ export async function calculateAstrocartography(
       continue; // skip if ephemeris fails for this location
     }
 
-    for (const planet of BENEFIC_PLANETS) {
+    for (const planet of [...BENEFIC_PLANETS, ...MALEFIC_PLANETS]) {
       const planetLon = planetLongitudes[planet];
       if (typeof planetLon !== 'number') continue;
 
@@ -137,22 +138,29 @@ export async function calculateAstrocartography(
     }
   }
 
-  // Build result lines sorted by orb
+  // Build benefic lines sorted by orb
   const lines: AstrocartographyLine[] = [];
-
   for (const planet of BENEFIC_PLANETS) {
     for (const angleKey of ['ASC', 'DSC', 'MC', 'IC'] as const) {
       const hits = hitMap[planet][angleKey];
       if (hits.length === 0) continue;
-
       hits.sort((a, b) => a.orb - b.orb);
-      const topPoints = hits.slice(0, MAX_RESULTS_PER_LINE).map((h) => h.point);
-
-      lines.push({ planet, angle: angleKey, points: topPoints });
+      lines.push({ planet, angle: angleKey, points: hits.slice(0, MAX_RESULTS_PER_LINE).map((h) => h.point) });
     }
   }
 
-  return { lines };
+  // Build malefic (warning) lines sorted by orb
+  const warningLines: AstrocartographyLine[] = [];
+  for (const planet of MALEFIC_PLANETS) {
+    for (const angleKey of ['ASC', 'DSC', 'MC', 'IC'] as const) {
+      const hits = hitMap[planet][angleKey];
+      if (hits.length === 0) continue;
+      hits.sort((a, b) => a.orb - b.orb);
+      warningLines.push({ planet, angle: angleKey, points: hits.slice(0, MAX_RESULTS_PER_LINE).map((h) => h.point) });
+    }
+  }
+
+  return { lines, warningLines };
 }
 
 /**

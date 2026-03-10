@@ -10,6 +10,10 @@ const PLANET_COLORS: Record<string, { bg: string; text: string; border: string }
   Moon: { bg: 'bg-sky-50', text: 'text-sky-800', border: 'border-sky-200' },
   Venus: { bg: 'bg-rose-50', text: 'text-rose-800', border: 'border-rose-200' },
   Jupiter: { bg: 'bg-emerald-50', text: 'text-emerald-800', border: 'border-emerald-200' },
+  Mars: { bg: 'bg-red-50', text: 'text-red-800', border: 'border-red-200' },
+  Saturn: { bg: 'bg-stone-100', text: 'text-stone-700', border: 'border-stone-300' },
+  Neptune: { bg: 'bg-indigo-50', text: 'text-indigo-800', border: 'border-indigo-200' },
+  Pluto: { bg: 'bg-purple-50', text: 'text-purple-900', border: 'border-purple-200' },
 };
 
 const ANGLE_LABEL: Record<string, string> = {
@@ -25,7 +29,6 @@ const ANGLE_DESC: Record<string, string> = {
   MC: 'Career, status & public image',
   IC: 'Home, roots & private life',
 };
-
 
 function PlanetSection({ line }: { line: AstrocartographyLine }) {
   const colors = PLANET_COLORS[line.planet] ?? {
@@ -54,6 +57,33 @@ function PlanetSection({ line }: { line: AstrocartographyLine }) {
   );
 }
 
+function PlanetGroup({ planet, lines }: { planet: string; lines: AstrocartographyLine[] }) {
+  const colors = PLANET_COLORS[planet] ?? {
+    bg: 'bg-slate-50',
+    text: 'text-slate-800',
+    border: 'border-slate-200',
+  };
+  return (
+    <div>
+      <h3 className={`text-base font-bold mb-3 ${colors.text}`}>{planet}</h3>
+      <div className="space-y-2">
+        {lines.map((line, i) => (
+          <PlanetSection key={i} line={line} />
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function groupByPlanet(lines: AstrocartographyLine[]): Record<string, AstrocartographyLine[]> {
+  const map: Record<string, AstrocartographyLine[]> = {};
+  for (const line of lines) {
+    if (!map[line.planet]) map[line.planet] = [];
+    map[line.planet].push(line);
+  }
+  return map;
+}
+
 export function AstrocartographyResults({ result }: AstrocartographyResultsProps) {
   if (!result) {
     return (
@@ -63,47 +93,46 @@ export function AstrocartographyResults({ result }: AstrocartographyResultsProps
     );
   }
 
-  if (result.lines.length === 0) {
-    return (
-      <ResultSection title="Astrocartography Lines" defaultOpen={true}>
-        <p className="text-gray-400 text-center py-4">No lines found</p>
-      </ResultSection>
-    );
-  }
-
-  // Group lines by planet
-  const byPlanet: Record<string, AstrocartographyLine[]> = {};
-  for (const line of result.lines) {
-    if (!byPlanet[line.planet]) byPlanet[line.planet] = [];
-    byPlanet[line.planet].push(line);
-  }
+  const byPlanet = groupByPlanet(result.lines);
+  const byWarningPlanet = groupByPlanet(result.warningLines ?? []);
 
   return (
-    <ResultSection title="Astrocartography Lines" defaultOpen={true}>
-      <p className="text-sm text-gray-400 mb-5">
-        Cities within 9° orb where each benefic planet is angular. Sorted by tightest orb.
-      </p>
+    <>
+      {/* Benefic section */}
+      <ResultSection title="Astrocartography Lines" defaultOpen={true}>
+        <p className="text-sm text-gray-400 mb-5">
+          Cities within 9° orb where each benefic planet is angular. Sorted by tightest orb.
+        </p>
 
-      <div className="space-y-6">
-        {Object.entries(byPlanet).map(([planet, lines]) => {
-          const colors = PLANET_COLORS[planet] ?? {
-            bg: 'bg-slate-50',
-            text: 'text-slate-800',
-            border: 'border-slate-200',
-          };
-          return (
-            <div key={planet}>
-              <h3 className={`text-base font-bold mb-3 ${colors.text}`}>{planet}</h3>
-              <div className="space-y-2">
-                {lines.map((line, i) => (
-                  <PlanetSection key={i} line={line} />
-                ))}
-              </div>
-            </div>
-          );
-        })}
-      </div>
-    </ResultSection>
+        {Object.keys(byPlanet).length === 0 ? (
+          <p className="text-gray-400 text-center py-4">No lines found</p>
+        ) : (
+          <div className="space-y-6">
+            {Object.entries(byPlanet).map(([planet, lines]) => (
+              <PlanetGroup key={planet} planet={planet} lines={lines} />
+            ))}
+          </div>
+        )}
+      </ResultSection>
+
+      {/* Warning section */}
+      <ResultSection title="Places to Avoid" defaultOpen={true}>
+        <p className="text-sm text-gray-400 mb-5">
+          Cities within 9° orb where challenging planets are angular. Living near these lines may
+          intensify difficulty, conflict, or stress in the themes of each angle.
+        </p>
+
+        {Object.keys(byWarningPlanet).length === 0 ? (
+          <p className="text-gray-400 text-center py-4">No warning lines found</p>
+        ) : (
+          <div className="space-y-6">
+            {Object.entries(byWarningPlanet).map(([planet, lines]) => (
+              <PlanetGroup key={planet} planet={planet} lines={lines} />
+            ))}
+          </div>
+        )}
+      </ResultSection>
+    </>
   );
 }
 
