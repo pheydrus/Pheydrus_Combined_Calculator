@@ -57,6 +57,10 @@ export {
   type PlanetWithHouse,
   type ZodiacSigns,
   type Zodiacs,
+  type AstrocartographyInput,
+  type AstrocartographyResult,
+  type AstrocartographyLine,
+  type AstrocartographyPoint,
 } from './calculators';
 
 // Re-export form models (Feature 2)
