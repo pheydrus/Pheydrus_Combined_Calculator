@@ -28,7 +28,7 @@ const BENEFIC_PLANETS = ['Sun', 'Moon', 'Venus', 'Jupiter'] as const;
 // Denser grid improves chances of hitting land vs. open ocean.
 // 34° is included to cover the Southern California / Mediterranean band.
 // Avoid latitudes above ~58° where Placidus becomes unreliable.
-const SEARCH_LATITUDES = [-45, -30, -18, -5, 5, 15, 25, 34, 42, 50, 56];
+const SEARCH_LATITUDES = [-45, -33, -20, -8, 3, 12, 22, 31, 38, 44, 51, 56];
 
 // Number of binary-search iterations per point (2^15 ≈ 0.01° precision)
 const BINARY_SEARCH_ITERATIONS = 15;
@@ -159,11 +159,20 @@ async function reverseGeocode(lat: number, lon: number): Promise<string | null> 
     const data = await res.json();
     // Open ocean / unclaimed water — BigDataCloud returns no countryName
     if (!data.countryName) return null;
-    const parts = [
-      data.city || data.locality || data.localityInfo?.administrative?.[2]?.name,
-      data.principalSubdivision,
-      data.countryName,
-    ].filter(Boolean);
+
+    // Walk the administrative hierarchy for the most specific place name.
+    // adminLevel 8 = city/town, 7 = borough, 6 = county, 5 = district, 4 = state region
+    const admins: { adminLevel: number; name: string }[] =
+      data.localityInfo?.administrative ?? [];
+    admins.sort((a, b) => b.adminLevel - a.adminLevel); // most specific first
+    const specificPlace =
+      data.city ||
+      data.locality ||
+      admins.find((a) => a.adminLevel >= 8)?.name ||
+      admins.find((a) => a.adminLevel >= 6)?.name ||
+      admins.find((a) => a.adminLevel >= 4)?.name;
+
+    const parts = [specificPlace, data.principalSubdivision, data.countryName].filter(Boolean);
     return parts.length > 0 ? parts.join(', ') : null;
   } catch {
     return null;
