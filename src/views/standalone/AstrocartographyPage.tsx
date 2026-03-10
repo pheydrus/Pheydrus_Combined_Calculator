@@ -96,7 +96,7 @@ export function AstrocartographyPage() {
           <span className="font-semibold">Angles:</span> ASC · DSC · MC · IC
           <br />
           <span className="text-xs text-[#a08c6e]">
-            Calculation scans 12 latitudes per line — may take 5–10 seconds.
+            Checks ~300 major cities worldwide — may take a few seconds.
           </span>
         </div>
 

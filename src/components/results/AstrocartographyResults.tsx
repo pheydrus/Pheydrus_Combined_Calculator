@@ -26,24 +26,6 @@ const ANGLE_DESC: Record<string, string> = {
   IC: 'Home, roots & private life',
 };
 
-function formatCoord(lat: number, lon: number): string {
-  const latDir = lat >= 0 ? 'N' : 'S';
-  const lonDir = lon >= 0 ? 'E' : 'W';
-  return `${Math.abs(lat).toFixed(1)}°${latDir}, ${Math.abs(lon).toFixed(1)}°${lonDir}`;
-}
-
-/** Deduplicate points by country, keeping one city per country. */
-function deduplicateByCountry(
-  points: AstrocartographyLine['points']
-): AstrocartographyLine['points'] {
-  const seen = new Set<string>();
-  return points.filter((p) => {
-    const country = p.locationName.split(', ').pop() ?? p.region;
-    if (seen.has(country)) return false;
-    seen.add(country);
-    return true;
-  });
-}
 
 function PlanetSection({ line }: { line: AstrocartographyLine }) {
   const colors = PLANET_COLORS[line.planet] ?? {
@@ -51,7 +33,6 @@ function PlanetSection({ line }: { line: AstrocartographyLine }) {
     text: 'text-slate-800',
     border: 'border-slate-200',
   };
-  const dedupedPoints = deduplicateByCountry(line.points);
 
   return (
     <div className={`rounded-lg border ${colors.border} ${colors.bg} p-3`}>
@@ -62,10 +43,10 @@ function PlanetSection({ line }: { line: AstrocartographyLine }) {
         <span className="text-xs text-gray-400">{ANGLE_DESC[line.angle]}</span>
       </div>
       <ul className="space-y-1">
-        {dedupedPoints.map((pt, i) => (
-          <li key={i} className="flex items-center justify-between text-xs">
+        {line.points.map((pt, i) => (
+          <li key={i} className="flex items-center justify-between text-xs gap-2">
             <span className="text-[#2d2a3e] font-medium">{pt.locationName}</span>
-            <span className="text-gray-400 font-mono">{formatCoord(pt.latitude, pt.longitude)}</span>
+            <span className="text-gray-400 font-mono shrink-0">{pt.orb.toFixed(1)}° orb</span>
           </li>
         ))}
       </ul>
@@ -100,8 +81,7 @@ export function AstrocartographyResults({ result }: AstrocartographyResultsProps
   return (
     <ResultSection title="Astrocartography Lines" defaultOpen={true}>
       <p className="text-sm text-gray-400 mb-5">
-        Geographic locations where each benefic planet is exactly angular. Each row shows a
-        distinct region the line passes through and its coordinates.
+        Cities within 5° orb where each benefic planet is angular. Sorted by tightest orb.
       </p>
 
       <div className="space-y-6">
