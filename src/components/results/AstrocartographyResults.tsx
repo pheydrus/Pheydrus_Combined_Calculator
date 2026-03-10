@@ -81,7 +81,7 @@ export function AstrocartographyResults({ result }: AstrocartographyResultsProps
   return (
     <ResultSection title="Astrocartography Lines" defaultOpen={true}>
       <p className="text-sm text-gray-400 mb-5">
-        Cities within 5° orb where each benefic planet is angular. Sorted by tightest orb.
+        Cities within 9° orb where each benefic planet is angular. Sorted by tightest orb.
       </p>
 
       <div className="space-y-6">

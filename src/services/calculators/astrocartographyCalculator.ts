@@ -25,7 +25,7 @@ import type { Angles } from '../../utils/astro/types';
 const BENEFIC_PLANETS = ['Sun', 'Moon', 'Venus', 'Jupiter'] as const;
 
 /** Default orb threshold in degrees. */
-const DEFAULT_ORB = 5;
+const DEFAULT_ORB = 9;
 
 /** Max cities to return per planet × angle combination. */
 const MAX_RESULTS_PER_LINE = 5;
