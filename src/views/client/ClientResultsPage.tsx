@@ -541,7 +541,7 @@ export function ClientResultsPage() {
         {/* Recommendation: Calendly CTA */}
         {showCalendlyCTA && (
           <div className="bg-gradient-to-br from-[#2d2a3e] to-[#1a1828] rounded-2xl shadow-lg p-7 text-white">
-            <p className="text-xs font-bold uppercase tracking-widest text-[#c4a96b] mb-3">
+            <p className="text-lg font-extrabold uppercase tracking-widest text-[#c4a96b] mb-3">
               Your Recommended Next Step
             </p>
             <h2 className="text-xl font-bold mb-3 leading-snug">
@@ -570,7 +570,7 @@ export function ClientResultsPage() {
               href="https://calendly.com/pheydrus_strategy/1-1-alignment-strategy-call-clone-1"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-block px-7 py-3.5 bg-[#c4a96b] hover:bg-[#d4b97b] text-[#1a1828] font-bold rounded-xl transition-colors text-sm"
+              className="inline-block px-7 py-3.5 bg-[#c4a96b] hover:bg-[#d4b97b] text-white font-bold rounded-xl transition-colors text-sm"
             >
               Book Your 1:1 Alignment &amp; Strategy Call →
             </a>
