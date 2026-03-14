@@ -68,6 +68,23 @@ export async function calculateHumanDesign(
   const birthJD = birthLocalToJulianDay({ date: dateStr, time: timeStr, timeZone });
   const designJD = await getDesignJulianDay(birthJD);
 
+  const [personalityLons, designLons] = await Promise.all([
+    getPlanetLongitudes(birthJD),
+    getPlanetLongitudes(designJD),
+  ]);
+
+  // DEBUG — raw longitudes
+  console.log('[HD] personality longitudes:', JSON.stringify(
+    Object.fromEntries(Object.entries(personalityLons).filter(([k]) =>
+      ['Jupiter','Saturn','Uranus','True Node','Sun'].includes(k)
+    ).map(([k, v]) => [k, +v.toFixed(4)]))
+  ));
+  console.log('[HD] design longitudes:', JSON.stringify(
+    Object.fromEntries(Object.entries(designLons).filter(([k]) =>
+      ['Sun','Jupiter','Saturn','Uranus','True Node'].includes(k)
+    ).map(([k, v]) => [k, +v.toFixed(4)]))
+  ));
+
   const [personalityGates, designGates] = await Promise.all([
     getHDGates(birthJD),
     getHDGates(designJD),
