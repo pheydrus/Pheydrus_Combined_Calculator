@@ -92,14 +92,14 @@ describe('reduceToSingleDigitOnly', () => {
 // MAIN CALCULATOR
 // ============================================================================
 describe('chaldeanNumerologyCalculator', () => {
-  it('calculates "5B" correctly', () => {
-    // 5 + B(2) = 7
-    expect(chaldeanNumerologyCalculator(['5B'])).toBe(7);
+  it('calculates "7A" correctly', () => {
+    // 7 + A(1) = 8
+    expect(chaldeanNumerologyCalculator(['7A'])).toBe(8);
   });
 
   it('calculates pure number string', () => {
-    // "14952": 1+4+9+5+2 = 21 → 2+1 = 3
-    expect(chaldeanNumerologyCalculator(['14952'])).toBe(3);
+    // "12345": 1+2+3+4+5 = 15 → 1+5 = 6
+    expect(chaldeanNumerologyCalculator(['12345'])).toBe(6);
   });
 
   it('preserves master number 11', () => {
@@ -116,12 +116,12 @@ describe('chaldeanNumerologyCalculator', () => {
   });
 
   it('handles space-separated words', () => {
-    // "Day lily": D(4)+a(1)+y(1)=6, l(3)+i(1)+l(3)+y(1)=8 → 6+8=14 → 1+4=5
-    expect(chaldeanNumerologyCalculator(['Day lily'])).toBe(5);
+    // "Maple Lane": M(4)+a(1)+p(8)+l(3)+e(5)=21, L(3)+a(1)+n(5)+e(5)=14 → 21+14=35 → 3+5=8
+    expect(chaldeanNumerologyCalculator(['Maple Lane'])).toBe(8);
   });
 
   it('handles multiple array elements', () => {
-    const result = chaldeanNumerologyCalculator(['5B', '14952']);
+    const result = chaldeanNumerologyCalculator(['7A', '12345']);
     expect(typeof result).toBe('number');
     expect(result).toBeGreaterThan(0);
     expect(result).toBeLessThanOrEqual(33);

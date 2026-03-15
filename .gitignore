@@ -24,3 +24,10 @@ dist-ssr
 *.sw?
 
 .vercel
+
+# Generated knowledge base (rebuilt from data/Train_CMO at build time)
+public/knowledge-base
+
+# Environment
+.env
+.env.local

@@ -112,8 +112,6 @@ export function UnifiedInputForm({ onSubmit, isLoading = false }: UnifiedInputFo
               error={errors.currentLocation}
             />
           </div>
-
-
         </div>
       </FormSection>
 
@@ -128,7 +126,7 @@ export function UnifiedInputForm({ onSubmit, isLoading = false }: UnifiedInputFo
               type="text"
               value={formData.l1}
               onChange={(e) => setField('l1', e.target.value)}
-              placeholder="e.g., 5B, Unit 202"
+              placeholder="e.g., 7A, Unit 202"
               className={inputClass}
             />
           </div>
@@ -141,7 +139,7 @@ export function UnifiedInputForm({ onSubmit, isLoading = false }: UnifiedInputFo
               type="text"
               value={formData.streetNumber}
               onChange={(e) => setField('streetNumber', e.target.value)}
-              placeholder="e.g., 14952"
+              placeholder="e.g., 742"
               className={inputClass}
             />
           </div>

@@ -45,7 +45,7 @@ export function longitudeToGateLine(longitude: number): GateLine {
  */
 export async function getDesignJulianDay(birthJD: number): Promise<number> {
   const sunAtBirth = await calcBodyLongitude(birthJD, BODY_SUN);
-  const targetLon = ((sunAtBirth - 88) % 360 + 360) % 360;
+  const targetLon = (((sunAtBirth - 88) % 360) + 360) % 360;
 
   // Initial estimate: Sun moves ~1°/day → 88 days back
   let jd = birthJD - 88;
@@ -53,7 +53,7 @@ export async function getDesignJulianDay(birthJD: number): Promise<number> {
   for (let i = 0; i < 50; i++) {
     const sunLon = await calcBodyLongitude(jd, BODY_SUN);
     // Shortest-arc difference
-    let diff = ((targetLon - sunLon + 180) % 360 + 360) % 360 - 180;
+    const diff = ((((targetLon - sunLon + 180) % 360) + 360) % 360) - 180;
     if (Math.abs(diff) < 0.0001) break;
     // Correct by days (Sun ~ 1°/day = 365.25 days/360°)
     jd += (diff / 360) * 365.25;
@@ -94,21 +94,13 @@ export function getDefinedCentersAndChannels(allGates: Set<number>): {
 
 // ── Motor → Throat connectivity ───────────────────────────────────────────────
 
-const MOTOR_CENTERS: ReadonlySet<string> = new Set([
-  'Sacral',
-  'Solar Plexus',
-  'Root',
-  'Ego',
-]);
+const MOTOR_CENTERS: ReadonlySet<string> = new Set(['Sacral', 'Solar Plexus', 'Root', 'Ego']);
 
 /**
  * BFS through defined channels to check if any motor center connects to Throat.
  * Handles both direct and indirect connections.
  */
-function isMotorConnectedToThroat(
-  allGates: Set<number>,
-  definedCenters: Set<CenterName>
-): boolean {
+function isMotorConnectedToThroat(allGates: Set<number>, definedCenters: Set<CenterName>): boolean {
   if (!definedCenters.has('Throat')) return false;
 
   // Build adjacency graph from active channels

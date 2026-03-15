@@ -15,9 +15,19 @@ const GRADE_COLORS: Record<
   FinalGrade,
   { bg: string; text: string; border: string; label: string }
 > = {
-  A: { bg: 'bg-emerald-50', text: 'text-emerald-700', border: 'border-emerald-400', label: 'Excellent' },
+  A: {
+    bg: 'bg-emerald-50',
+    text: 'text-emerald-700',
+    border: 'border-emerald-400',
+    label: 'Excellent',
+  },
   B: { bg: 'bg-blue-50', text: 'text-blue-700', border: 'border-blue-400', label: 'Good' },
-  C: { bg: 'bg-amber-50', text: 'text-amber-700', border: 'border-amber-400', label: 'Challenging' },
+  C: {
+    bg: 'bg-amber-50',
+    text: 'text-amber-700',
+    border: 'border-amber-400',
+    label: 'Challenging',
+  },
   F: { bg: 'bg-red-50', text: 'text-red-700', border: 'border-red-400', label: 'Difficult' },
 };
 
@@ -43,15 +53,21 @@ function pieArcPath(cx: number, cy: number, r: number, startDeg: number, endDeg:
 }
 
 function FSourcePieChart({ pillars, score }: { pillars: readonly PillarSummary[]; score: number }) {
-  const cx = 90, cy = 90, r = 72;
+  const cx = 90,
+    cy = 90,
+    r = 72;
 
   if (score === 0) {
     return (
       <div className="flex flex-col items-center gap-2">
         <svg viewBox="0 0 180 180" className="w-32 h-32">
           <circle cx={cx} cy={cy} r={r} fill="#10b981" />
-          <text x={cx} y={cy - 7} textAnchor="middle" fill="white" fontSize="14" fontWeight="bold">All</text>
-          <text x={cx} y={cy + 12} textAnchor="middle" fill="white" fontSize="14" fontWeight="bold">A&apos;s</text>
+          <text x={cx} y={cy - 7} textAnchor="middle" fill="white" fontSize="14" fontWeight="bold">
+            All
+          </text>
+          <text x={cx} y={cy + 12} textAnchor="middle" fill="white" fontSize="14" fontWeight="bold">
+            A&apos;s
+          </text>
         </svg>
         <p className="text-xs text-emerald-700 font-semibold">Zero Pressure Points</p>
       </div>
@@ -59,23 +75,22 @@ function FSourcePieChart({ pillars, score }: { pillars: readonly PillarSummary[]
   }
 
   // Each pillar's weighted score: F=1pt, C=0.5pt
-  let angle = 0;
-  const slices = pillars
-    .map((p, i) => {
-      const pillarScore = p.fCount + p.cCount * 0.5;
-      if (pillarScore === 0) return null;
-      const sweep = (pillarScore / score) * 360;
-      const slice = {
-        path: pieArcPath(cx, cy, r, angle, angle + sweep),
-        color: PILLAR_COLORS[i],
-        name: p.name,
-        pillarScore,
-        pct: Math.round((pillarScore / score) * 100),
-      };
-      angle += sweep;
-      return slice;
-    })
-    .filter(Boolean);
+  const slices = pillars.reduce<
+    Array<{ path: string; color: string; name: string; pillarScore: number; pct: number }>
+  >((acc, p, i) => {
+    const pillarScore = p.fCount + p.cCount * 0.5;
+    if (pillarScore === 0) return acc;
+    const startAngle = acc.reduce((sum, s) => sum + (s.pillarScore / score) * 360, 0);
+    const sweep = (pillarScore / score) * 360;
+    acc.push({
+      path: pieArcPath(cx, cy, r, startAngle, startAngle + sweep),
+      color: PILLAR_COLORS[i],
+      name: p.name,
+      pillarScore,
+      pct: Math.round((pillarScore / score) * 100),
+    });
+    return acc;
+  }, []);
 
   return (
     <div className="flex items-center gap-5">
@@ -85,14 +100,18 @@ function FSourcePieChart({ pillars, score }: { pillars: readonly PillarSummary[]
         )}
       </svg>
       <div className="space-y-2">
-        <p className="text-xs font-semibold text-[#6b6188] uppercase tracking-wide mb-1">Unseen Force Factors</p>
+        <p className="text-xs font-semibold text-[#6b6188] uppercase tracking-wide mb-1">
+          Unseen Force Factors
+        </p>
         {slices.map((s, i) =>
           s ? (
             <div key={i} className="flex items-center gap-2">
               <div className="w-2.5 h-2.5 rounded-full shrink-0" style={{ background: s.color }} />
               <span className="text-xs text-[#2d2a3e] font-medium">{s.name}</span>
               <span className="text-xs font-bold text-[#2d2a3e]">{s.pct}%</span>
-              <span className="text-xs text-gray-400">({s.pillarScore % 1 === 0 ? s.pillarScore : s.pillarScore.toFixed(1)} pts)</span>
+              <span className="text-xs text-gray-400">
+                ({s.pillarScore % 1 === 0 ? s.pillarScore : s.pillarScore.toFixed(1)} pts)
+              </span>
             </div>
           ) : null
         )}
@@ -125,24 +144,41 @@ function computeHouseGrades(items: GradeItem[]): Record<number, 'F' | 'C' | 'A' 
   return result;
 }
 
-function houseSegmentPath(cx: number, cy: number, outerR: number, innerR: number, startDeg: number): string {
+function houseSegmentPath(
+  cx: number,
+  cy: number,
+  outerR: number,
+  innerR: number,
+  startDeg: number
+): string {
   const endDeg = startDeg - 30;
   const toRad = (d: number) => (d * Math.PI) / 180;
-  const s1 = { x: cx + outerR * Math.cos(toRad(startDeg)), y: cy + outerR * Math.sin(toRad(startDeg)) };
+  const s1 = {
+    x: cx + outerR * Math.cos(toRad(startDeg)),
+    y: cy + outerR * Math.sin(toRad(startDeg)),
+  };
   const e1 = { x: cx + outerR * Math.cos(toRad(endDeg)), y: cy + outerR * Math.sin(toRad(endDeg)) };
   const e2 = { x: cx + innerR * Math.cos(toRad(endDeg)), y: cy + innerR * Math.sin(toRad(endDeg)) };
-  const s2 = { x: cx + innerR * Math.cos(toRad(startDeg)), y: cy + innerR * Math.sin(toRad(startDeg)) };
+  const s2 = {
+    x: cx + innerR * Math.cos(toRad(startDeg)),
+    y: cy + innerR * Math.sin(toRad(startDeg)),
+  };
   return `M ${s1.x.toFixed(1)} ${s1.y.toFixed(1)} A ${outerR} ${outerR} 0 0 0 ${e1.x.toFixed(1)} ${e1.y.toFixed(1)} L ${e2.x.toFixed(1)} ${e2.y.toFixed(1)} A ${innerR} ${innerR} 0 0 1 ${s2.x.toFixed(1)} ${s2.y.toFixed(1)} Z`;
 }
 
 function HouseWheel({ items, label }: { items: GradeItem[]; label?: string }) {
-  const cx = 90, cy = 90;
-  const outerR = 82, innerR = 48, labelR = 67;
+  const cx = 90,
+    cy = 90;
+  const outerR = 82,
+    innerR = 48,
+    labelR = 67;
   const houseGrades = computeHouseGrades(items);
 
   return (
     <div className="flex flex-col items-center shrink-0">
-      {label && <p className="text-xs font-semibold text-[#6b6188] uppercase tracking-wide mb-1">{label}</p>}
+      {label && (
+        <p className="text-xs font-semibold text-[#6b6188] uppercase tracking-wide mb-1">{label}</p>
+      )}
       <svg viewBox="0 0 180 180" className="w-32 h-32">
         {Array.from({ length: 12 }, (_, i) => {
           const houseNum = i + 1;
@@ -175,13 +211,23 @@ function HouseWheel({ items, label }: { items: GradeItem[]; label?: string }) {
           );
         })}
         <circle cx={cx} cy={cy} r={innerR - 2} fill="white" />
-        <text x={cx - outerR + 6} y={cy - 4} textAnchor="middle" fill="#9ca3af" fontSize="7">AC</text>
-        <text x={cx + outerR - 6} y={cy - 4} textAnchor="middle" fill="#9ca3af" fontSize="7">DC</text>
+        <text x={cx - outerR + 6} y={cy - 4} textAnchor="middle" fill="#9ca3af" fontSize="7">
+          AC
+        </text>
+        <text x={cx + outerR - 6} y={cy - 4} textAnchor="middle" fill="#9ca3af" fontSize="7">
+          DC
+        </text>
       </svg>
       <div className="flex gap-3 text-xs mt-0.5">
-        <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-red-400 inline-block" /> F</span>
-        <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-amber-400 inline-block" /> C</span>
-        <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-emerald-500 inline-block" /> A</span>
+        <span className="flex items-center gap-1">
+          <span className="w-2 h-2 rounded-full bg-red-400 inline-block" /> F
+        </span>
+        <span className="flex items-center gap-1">
+          <span className="w-2 h-2 rounded-full bg-amber-400 inline-block" /> C
+        </span>
+        <span className="flex items-center gap-1">
+          <span className="w-2 h-2 rounded-full bg-emerald-500 inline-block" /> A
+        </span>
       </div>
     </div>
   );
@@ -314,13 +360,19 @@ export function AngularDiagnosticResults({ result }: AngularDiagnosticResultsPro
               </div>
               <div className="text-right">
                 <p className="text-xs text-[#6b6188]">Score</p>
-                <p className="text-2xl font-bold text-[#6b6188]">{result.score % 1 === 0 ? result.score : result.score.toFixed(1)}</p>
+                <p className="text-2xl font-bold text-[#6b6188]">
+                  {result.score % 1 === 0 ? result.score : result.score.toFixed(1)}
+                </p>
               </div>
               <div
                 className={`w-16 h-16 rounded-lg flex flex-col items-center justify-center border-2 ${gradeStyle.border} ${gradeStyle.bg}`}
               >
-                <span className={`text-3xl font-black ${gradeStyle.text}`}>{result.finalGrade}</span>
-                <span className={`text-[10px] font-medium ${gradeStyle.text}`}>{gradeStyle.label}</span>
+                <span className={`text-3xl font-black ${gradeStyle.text}`}>
+                  {result.finalGrade}
+                </span>
+                <span className={`text-[10px] font-medium ${gradeStyle.text}`}>
+                  {gradeStyle.label}
+                </span>
               </div>
             </div>
           </div>
@@ -330,7 +382,11 @@ export function AngularDiagnosticResults({ result }: AngularDiagnosticResultsPro
             <FSourcePieChart pillars={result.pillars} score={result.score} />
             <div className="flex gap-5 flex-wrap">
               {result.pillars.map((pillar) => (
-                <HouseWheel key={pillar.pillar} items={pillar.items} label={`P${pillar.pillar}: ${pillar.name}`} />
+                <HouseWheel
+                  key={pillar.pillar}
+                  items={pillar.items}
+                  label={`P${pillar.pillar}: ${pillar.name}`}
+                />
               ))}
             </div>
           </div>

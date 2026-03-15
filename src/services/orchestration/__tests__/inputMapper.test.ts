@@ -42,7 +42,7 @@ const fullFormData: FormData = {
   birthLocation: testCity,
   currentLocation: testDestination,
   risingSign: 'Leo',
-  l1: '5B',
+  l1: '7A',
   streetNumber: '123',
   l2: 'Main Street',
   postalCode: '10001',
@@ -165,7 +165,7 @@ describe('Input Mapper: Address Numerology (standalone equivalence)', () => {
     //   })
     // The combined flow maps: l1→unitNumber, streetNumber→streetNumber, l2→streetName
     expect(result).toEqual({
-      unitNumber: '5B',
+      unitNumber: '7A',
       streetNumber: '123',
       streetName: 'Main Street',
       postalCode: '10001',
@@ -177,9 +177,9 @@ describe('Input Mapper: Address Numerology (standalone equivalence)', () => {
   it('extracts birth year from dateOfBirth string', () => {
     const result = mapToAddressNumerologyInput({
       ...fullFormData,
-      dateOfBirth: '2002-08-28',
+      dateOfBirth: '1988-03-12',
     });
-    expect(result.birthYear).toBe('2002');
+    expect(result.birthYear).toBe('1988');
   });
 });
 

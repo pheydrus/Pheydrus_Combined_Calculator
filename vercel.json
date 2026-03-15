@@ -16,10 +16,5 @@
       ]
     }
   ],
-  "rewrites": [
-    {
-      "source": "/((?!assets|ephe).*)",
-      "destination": "/index.html"
-    }
-  ]
+  "rewrites": []
 }

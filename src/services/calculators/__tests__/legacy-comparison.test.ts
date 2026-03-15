@@ -358,162 +358,160 @@ describe('Legacy Comparison: Address Numerology', () => {
 
   it('should build levels dynamically from non-empty fields', () => {
     const result = calculateAddressNumerology({
-      unitNumber: '5B',
-      streetNumber: '14952',
-      streetName: 'Day lily',
-      postalCode: '32824',
-      homeYear: '2090',
-      birthYear: '2002',
+      unitNumber: '7A',
+      streetNumber: '12345',
+      streetName: 'Maple Lane',
+      postalCode: '90210',
+      homeYear: '2015',
+      birthYear: '1995',
     });
 
-    // 4 fields populated + 1 unconscious = 5 levels
+    // 4 fields populated + 1 combined = 5 levels
     expect(result.levels).toHaveLength(5);
     expect(result.levels[0].level).toBe('L1');
-    expect(result.levels[0].value).toBe('5B');
+    expect(result.levels[0].value).toBe('7A');
     expect(result.levels[0].name).toBe('Unit Number');
     expect(result.levels[1].level).toBe('L2');
-    expect(result.levels[1].value).toBe('14952');
+    expect(result.levels[1].value).toBe('12345');
     expect(result.levels[1].name).toBe('Building/House Number');
     expect(result.levels[2].level).toBe('L3');
-    expect(result.levels[2].value).toBe('Day lily');
+    expect(result.levels[2].value).toBe('Maple Lane');
     expect(result.levels[2].name).toBe('Street Name');
     expect(result.levels[3].level).toBe('L4');
-    expect(result.levels[3].value).toBe('32824');
+    expect(result.levels[3].value).toBe('90210');
     expect(result.levels[3].name).toBe('Postal Code');
     expect(result.levels[4].level).toBe('L5');
-    expect(result.levels[4].name).toBe('Level');
+    expect(result.levels[4].name).toBe('L3');
   });
 
-  it('L5 unconscious value: L1+L2A+L3 when all three present', () => {
+  it('L3 combined value: L1+L2A+L3 when all three present', () => {
     const result = calculateAddressNumerology({
-      unitNumber: '5B',
-      streetNumber: '14952',
-      streetName: 'Day lily',
-      postalCode: '32824',
-      homeYear: '2090',
-      birthYear: '2002',
+      unitNumber: '7A',
+      streetNumber: '12345',
+      streetName: 'Maple Lane',
+      postalCode: '90210',
+      homeYear: '2015',
+      birthYear: '1995',
     });
 
-    // Legacy: if L1 && L2B && L3 → unconsciousValue = [L1, L2B, L3]
-    const l5 = result.levels.find((l) => l.name === 'Level');
-    expect(l5).toBeDefined();
-    expect(l5!.value).toBe('5B + 14952 + Day lily');
+    // Combined L3 level is added after all individual levels
+    const l3Combined = result.levels.find((l) => l.name === 'L3');
+    expect(l3Combined).toBeDefined();
+    expect(l3Combined!.value).toBe('7A + 12345 + Maple Lane');
   });
 
-  it('L5 unconscious: L1+L2A when only those two present (no street name)', () => {
+  it('L3 combined: L1+L2A when only those two present (no street name)', () => {
     const result = calculateAddressNumerology({
-      unitNumber: '5B',
-      streetNumber: '14952',
+      unitNumber: '7A',
+      streetNumber: '12345',
       streetName: '',
       postalCode: '',
       homeYear: '',
-      birthYear: '2002',
+      birthYear: '1995',
     });
 
-    const l5 = result.levels.find((l) => l.name === 'Level');
-    expect(l5).toBeDefined();
-    expect(l5!.value).toBe('5B + 14952');
+    const l3Combined = result.levels.find((l) => l.name === 'L3');
+    expect(l3Combined).toBeDefined();
+    expect(l3Combined!.value).toBe('7A + 12345');
   });
 
-  it('L5 unconscious: L2A+L3 when no unit number', () => {
+  it('L3 combined: L2A+L3 when no unit number', () => {
     const result = calculateAddressNumerology({
       unitNumber: '',
-      streetNumber: '14952',
-      streetName: 'Day lily',
+      streetNumber: '12345',
+      streetName: 'Maple Lane',
       postalCode: '',
       homeYear: '',
-      birthYear: '2002',
+      birthYear: '1995',
     });
 
-    const l5 = result.levels.find((l) => l.name === 'Level');
-    expect(l5).toBeDefined();
-    expect(l5!.value).toBe('14952 + Day lily');
+    const l3Combined = result.levels.find((l) => l.name === 'L3');
+    expect(l3Combined).toBeDefined();
+    expect(l3Combined!.value).toBe('12345 + Maple Lane');
   });
 
-  it('No L5 when only L1 and L3 (no streetNumber) - matches legacy', () => {
-    // Legacy with buildingNumberAndName commented out:
-    // L2B (streetNumber) is null → none of the priority conditions match
-    // So NO unconscious value is created
+  it('L3 combined added even with L1 and L3 only (no streetNumber)', () => {
     const result = calculateAddressNumerology({
-      unitNumber: '5B',
+      unitNumber: '7A',
       streetNumber: '',
-      streetName: 'Day lily',
+      streetName: 'Maple Lane',
       postalCode: '',
       homeYear: '',
-      birthYear: '2002',
+      birthYear: '1995',
     });
 
-    // Only L1 and L2 (unit + street name), NO L3 unconscious
-    expect(result.levels).toHaveLength(2);
-    const l5 = result.levels.find((l) => l.name === 'Level');
-    expect(l5).toBeUndefined();
+    // 2 individual levels + 1 L3 combined
+    expect(result.levels).toHaveLength(3);
+    const l3Combined = result.levels.find((l) => l.name === 'L3');
+    expect(l3Combined).toBeDefined();
+    expect(l3Combined!.value).toBe('7A + Maple Lane');
   });
 
-  it('No L5 when only one field provided', () => {
+  it('L3 combined added even with single field', () => {
     const result = calculateAddressNumerology({
       unitNumber: '',
       streetNumber: '',
       streetName: 'Broadway',
       postalCode: '',
       homeYear: '',
-      birthYear: '2002',
+      birthYear: '1995',
     });
 
-    expect(result.levels).toHaveLength(1);
+    // 1 individual level + 1 L3 combined
+    expect(result.levels).toHaveLength(2);
     expect(result.levels[0].value).toBe('Broadway');
+    const l3Combined = result.levels.find((l) => l.name === 'L3');
+    expect(l3Combined).toBeDefined();
   });
 
   // ---- Numerology calculations ----
 
-  it('Chaldean numerology for "5B" should be correct', () => {
-    // "5B" → findNumerology("5B") = 5 + B(2) = 7
-    const result = chaldeanNumerologyCalculator(['5B']);
-    expect(result).toBe(7);
+  it('Chaldean numerology for "7A" should be correct', () => {
+    // "7A" → findNumerology("7A") = 7 + A(1) = 8
+    const result = chaldeanNumerologyCalculator(['7A']);
+    expect(result).toBe(8);
   });
 
-  it('Chaldean numerology for "14952" should be correct', () => {
-    // "14952" → findNumerology("14952") = 1+4+9+5+2 = 21 → 2+1 = 3
-    const result = chaldeanNumerologyCalculator(['14952']);
+  it('Chaldean numerology for "12345" should be correct', () => {
+    // "12345" → 1+2+3+4+5 = 15 → 1+5 = 6
+    const result = chaldeanNumerologyCalculator(['12345']);
+    expect(result).toBe(6);
+  });
+
+  it('Chaldean numerology for "Maple Lane" should be correct', () => {
+    // "Maple Lane" → "Lane" stripped as suffix → "Maple"
+    // M(4)+a(1)+p(8)+l(3)+e(5) = 21 → 2+1 = 3
+    const result = chaldeanNumerologyCalculator(['Maple']);
     expect(result).toBe(3);
   });
 
-  it('Chaldean numerology for "Day lily" should be correct', () => {
-    // "Day lily" → split by space → ["Day", "lily"]
-    // findNumerology("Day") = D(4) + A(1) + Y(1) = 6
-    // findNumerology("lily") = L(3) + I(1) + L(3) + Y(1) = 8
-    // sum = 6 + 8 = 14
-    // findNumerology("14") = 1+4 = 5
-    const result = chaldeanNumerologyCalculator(['Day lily']);
-    expect(result).toBe(5);
-  });
-
-  it('Full address numerology values match legacy', () => {
+  it('Full address numerology values match expected', () => {
     const result = calculateAddressNumerology({
-      unitNumber: '5B',
-      streetNumber: '14952',
-      streetName: 'Day lily',
-      postalCode: '32824',
-      homeYear: '2090',
-      birthYear: '2002',
+      unitNumber: '7A',
+      streetNumber: '12345',
+      streetName: 'Maple Lane',
+      postalCode: '90210',
+      homeYear: '2015',
+      birthYear: '1995',
     });
 
-    expect(result.levels[0].number).toBe(7); // 5B → 7
-    expect(result.levels[1].number).toBe(3); // 14952 → 3
-    expect(result.levels[2].number).toBe(5); // Day lily → 5
-    // 32824 → 3+2+8+2+4 = 19 → 1+9 = 10 → 1+0 = 1
-    expect(result.levels[3].number).toBe(1);
+    expect(result.levels[0].number).toBe(8); // 7A → 8
+    expect(result.levels[1].number).toBe(6); // 12345 → 6
+    expect(result.levels[2].number).toBe(3); // Maple Lane (stripped: Maple) → 3
+    // 90210 → 9+0+2+1+0 = 12 → 1+2 = 3
+    expect(result.levels[3].number).toBe(3);
   });
 
   // ---- Extended meanings ----
 
   it('levels should have extended meanings (themes, challenges, gifts, reflection)', () => {
     const result = calculateAddressNumerology({
-      unitNumber: '5B',
+      unitNumber: '7A',
       streetNumber: '',
       streetName: '',
       postalCode: '',
       homeYear: '',
-      birthYear: '2002',
+      birthYear: '1995',
     });
 
     const l1 = result.levels[0];
@@ -526,20 +524,20 @@ describe('Legacy Comparison: Address Numerology', () => {
 
   // ---- Chinese zodiac compatibility ----
 
-  it('Zodiac compatibility for Horse (2002) + Horse (2090) should work', () => {
+  it('Zodiac compatibility for Pig (1995) + Goat (2015) should work', () => {
     const result = calculateAddressNumerology({
       unitNumber: '',
       streetNumber: '',
       streetName: '',
       postalCode: '',
-      homeYear: '2090',
-      birthYear: '2002',
+      homeYear: '2015',
+      birthYear: '1995',
     });
 
-    // 2002: (2002-4)%12 = 6 → Horse
-    expect(result.birthZodiac).toBe('Horse');
-    // 2090: (2090-4)%12 = 2086%12 = 10 → Dog
-    expect(result.homeZodiac).toBe('Dog');
+    // 1995: (1995-4)%12 = 11 → Pig
+    expect(result.birthZodiac).toBe('Pig');
+    // 2015: (2015-4)%12 = 7 → Goat
+    expect(result.homeZodiac).toBe('Goat');
 
     // Compatibility should be a valid string
     expect(typeof result.compatibility).toBe('string');
@@ -553,12 +551,12 @@ describe('Legacy Comparison: Address Numerology', () => {
       streetName: '',
       postalCode: '',
       homeYear: '2000',
-      birthYear: '2002',
+      birthYear: '1995',
     });
 
     expect(result.birthZodiacMeaning).not.toBeNull();
-    expect(result.birthZodiacMeaning!.name).toBe('Horse');
-    expect(result.birthZodiacMeaning!.themes.toLowerCase()).toContain('freedom');
+    expect(result.birthZodiacMeaning!.name).toBe('Pig');
+    expect(result.birthZodiacMeaning!.themes.toLowerCase()).toContain('compassion');
 
     expect(result.homeZodiacMeaning).not.toBeNull();
     expect(result.homeZodiacMeaning!.name).toBe('Dragon');
@@ -572,7 +570,7 @@ describe('Legacy Comparison: Address Numerology', () => {
       streetName: '',
       postalCode: '',
       homeYear: '',
-      birthYear: '2002',
+      birthYear: '1995',
     });
 
     expect(result.homeZodiac).toBe('Unknown');
@@ -702,22 +700,22 @@ describe('House Accuracy: All 12 rising signs × current transit planets', () =>
 
   it('Aries rising (idx 0)', () => {
     const h = getHouses(calculateTransits({ risingSign: 'Aries' }));
-    expect(h.pluto).toBe(11);   // Aquarius(10-0+12)%12+1 = 11
-    expect(h.neptune).toBe(1);  // Aries  (0-0+12)%12+1  = 1
+    expect(h.pluto).toBe(11); // Aquarius(10-0+12)%12+1 = 11
+    expect(h.neptune).toBe(1); // Aries  (0-0+12)%12+1  = 1
     expect(h.saturn).toBe(1);
-    expect(h.uranus).toBe(3);   // Gemini (2-0+12)%12+1  = 3
-    expect(h.nn).toBe(12);      // Pisces (11-0+12)%12+1 = 12
-    expect(h.sn).toBe(6);       // Virgo  (5-0+12)%12+1  = 6
+    expect(h.uranus).toBe(3); // Gemini (2-0+12)%12+1  = 3
+    expect(h.nn).toBe(12); // Pisces (11-0+12)%12+1 = 12
+    expect(h.sn).toBe(6); // Virgo  (5-0+12)%12+1  = 6
   });
 
   it('Taurus rising (idx 1)', () => {
     const h = getHouses(calculateTransits({ risingSign: 'Taurus' }));
-    expect(h.pluto).toBe(10);   // (10-1+12)%12+1 = 10
+    expect(h.pluto).toBe(10); // (10-1+12)%12+1 = 10
     expect(h.neptune).toBe(12); // (0-1+12)%12+1  = 12
     expect(h.saturn).toBe(12);
-    expect(h.uranus).toBe(2);   // (2-1+12)%12+1  = 2
-    expect(h.nn).toBe(11);      // (11-1+12)%12+1 = 11
-    expect(h.sn).toBe(5);       // (5-1+12)%12+1  = 5
+    expect(h.uranus).toBe(2); // (2-1+12)%12+1  = 2
+    expect(h.nn).toBe(11); // (11-1+12)%12+1 = 11
+    expect(h.sn).toBe(5); // (5-1+12)%12+1  = 5
   });
 
   it('Gemini rising (idx 2)', () => {
@@ -732,92 +730,92 @@ describe('House Accuracy: All 12 rising signs × current transit planets', () =>
 
   it('Cancer rising (idx 3)', () => {
     const h = getHouses(calculateTransits({ risingSign: 'Cancer' }));
-    expect(h.pluto).toBe(8);    // (10-3+12)%12+1 = 8
+    expect(h.pluto).toBe(8); // (10-3+12)%12+1 = 8
     expect(h.neptune).toBe(10); // (0-3+12)%12+1  = 10
     expect(h.saturn).toBe(10);
-    expect(h.uranus).toBe(12);  // (2-3+12)%12+1  = 12
-    expect(h.nn).toBe(9);       // (11-3+12)%12+1 = 9
-    expect(h.sn).toBe(3);       // (5-3+12)%12+1  = 3
+    expect(h.uranus).toBe(12); // (2-3+12)%12+1  = 12
+    expect(h.nn).toBe(9); // (11-3+12)%12+1 = 9
+    expect(h.sn).toBe(3); // (5-3+12)%12+1  = 3
   });
 
   it('Leo rising (idx 4)', () => {
     const h = getHouses(calculateTransits({ risingSign: 'Leo' }));
-    expect(h.pluto).toBe(7);    // (10-4+12)%12+1 = 7
-    expect(h.neptune).toBe(9);  // (0-4+12)%12+1  = 9
+    expect(h.pluto).toBe(7); // (10-4+12)%12+1 = 7
+    expect(h.neptune).toBe(9); // (0-4+12)%12+1  = 9
     expect(h.saturn).toBe(9);
-    expect(h.uranus).toBe(11);  // (2-4+12)%12+1  = 11
-    expect(h.nn).toBe(8);       // (11-4+12)%12+1 = 8
-    expect(h.sn).toBe(2);       // (5-4+12)%12+1  = 2
+    expect(h.uranus).toBe(11); // (2-4+12)%12+1  = 11
+    expect(h.nn).toBe(8); // (11-4+12)%12+1 = 8
+    expect(h.sn).toBe(2); // (5-4+12)%12+1  = 2
   });
 
   it('Virgo rising (idx 5)', () => {
     const h = getHouses(calculateTransits({ risingSign: 'Virgo' }));
-    expect(h.pluto).toBe(6);    // (10-5+12)%12+1 = 6
-    expect(h.neptune).toBe(8);  // (0-5+12)%12+1  = 8
+    expect(h.pluto).toBe(6); // (10-5+12)%12+1 = 6
+    expect(h.neptune).toBe(8); // (0-5+12)%12+1  = 8
     expect(h.saturn).toBe(8);
-    expect(h.uranus).toBe(10);  // (2-5+12)%12+1  = 10
-    expect(h.nn).toBe(7);       // (11-5+12)%12+1 = 7
-    expect(h.sn).toBe(1);       // (5-5+12)%12+1  = 1
+    expect(h.uranus).toBe(10); // (2-5+12)%12+1  = 10
+    expect(h.nn).toBe(7); // (11-5+12)%12+1 = 7
+    expect(h.sn).toBe(1); // (5-5+12)%12+1  = 1
   });
 
   it('Libra rising (idx 6)', () => {
     const h = getHouses(calculateTransits({ risingSign: 'Libra' }));
-    expect(h.pluto).toBe(5);    // (10-6+12)%12+1 = 5
-    expect(h.neptune).toBe(7);  // (0-6+12)%12+1  = 7
+    expect(h.pluto).toBe(5); // (10-6+12)%12+1 = 5
+    expect(h.neptune).toBe(7); // (0-6+12)%12+1  = 7
     expect(h.saturn).toBe(7);
-    expect(h.uranus).toBe(9);   // (2-6+12)%12+1  = 9
-    expect(h.nn).toBe(6);       // (11-6+12)%12+1 = 6
-    expect(h.sn).toBe(12);      // (5-6+12)%12+1  = 12
+    expect(h.uranus).toBe(9); // (2-6+12)%12+1  = 9
+    expect(h.nn).toBe(6); // (11-6+12)%12+1 = 6
+    expect(h.sn).toBe(12); // (5-6+12)%12+1  = 12
   });
 
   it('Scorpio rising (idx 7)', () => {
     const h = getHouses(calculateTransits({ risingSign: 'Scorpio' }));
-    expect(h.pluto).toBe(4);    // (10-7+12)%12+1 = 4
-    expect(h.neptune).toBe(6);  // (0-7+12)%12+1  = 6
+    expect(h.pluto).toBe(4); // (10-7+12)%12+1 = 4
+    expect(h.neptune).toBe(6); // (0-7+12)%12+1  = 6
     expect(h.saturn).toBe(6);
-    expect(h.uranus).toBe(8);   // (2-7+12)%12+1  = 8
-    expect(h.nn).toBe(5);       // (11-7+12)%12+1 = 5
-    expect(h.sn).toBe(11);      // (5-7+12)%12+1  = 11
+    expect(h.uranus).toBe(8); // (2-7+12)%12+1  = 8
+    expect(h.nn).toBe(5); // (11-7+12)%12+1 = 5
+    expect(h.sn).toBe(11); // (5-7+12)%12+1  = 11
   });
 
   it('Sagittarius rising (idx 8) — all 6 planets', () => {
     const h = getHouses(calculateTransits({ risingSign: 'Sagittarius' }));
-    expect(h.pluto).toBe(3);    // Aquarius  (10-8+12)%12+1 = 3
-    expect(h.neptune).toBe(5);  // Aries     (0-8+12)%12+1  = 5
+    expect(h.pluto).toBe(3); // Aquarius  (10-8+12)%12+1 = 3
+    expect(h.neptune).toBe(5); // Aries     (0-8+12)%12+1  = 5
     expect(h.saturn).toBe(5);
-    expect(h.uranus).toBe(7);   // Gemini    (2-8+12)%12+1  = 7
-    expect(h.nn).toBe(4);       // Pisces    (11-8+12)%12+1 = 4
-    expect(h.sn).toBe(10);      // Virgo     (5-8+12)%12+1  = 10
+    expect(h.uranus).toBe(7); // Gemini    (2-8+12)%12+1  = 7
+    expect(h.nn).toBe(4); // Pisces    (11-8+12)%12+1 = 4
+    expect(h.sn).toBe(10); // Virgo     (5-8+12)%12+1  = 10
   });
 
   it('Capricorn rising (idx 9)', () => {
     const h = getHouses(calculateTransits({ risingSign: 'Capricorn' }));
-    expect(h.pluto).toBe(2);    // (10-9+12)%12+1 = 2
-    expect(h.neptune).toBe(4);  // (0-9+12)%12+1  = 4
+    expect(h.pluto).toBe(2); // (10-9+12)%12+1 = 2
+    expect(h.neptune).toBe(4); // (0-9+12)%12+1  = 4
     expect(h.saturn).toBe(4);
-    expect(h.uranus).toBe(6);   // (2-9+12)%12+1  = 6
-    expect(h.nn).toBe(3);       // (11-9+12)%12+1 = 3
-    expect(h.sn).toBe(9);       // (5-9+12)%12+1  = 9
+    expect(h.uranus).toBe(6); // (2-9+12)%12+1  = 6
+    expect(h.nn).toBe(3); // (11-9+12)%12+1 = 3
+    expect(h.sn).toBe(9); // (5-9+12)%12+1  = 9
   });
 
   it('Aquarius rising (idx 10)', () => {
     const h = getHouses(calculateTransits({ risingSign: 'Aquarius' }));
-    expect(h.pluto).toBe(1);    // (10-10+12)%12+1 = 1
-    expect(h.neptune).toBe(3);  // (0-10+12)%12+1  = 3
+    expect(h.pluto).toBe(1); // (10-10+12)%12+1 = 1
+    expect(h.neptune).toBe(3); // (0-10+12)%12+1  = 3
     expect(h.saturn).toBe(3);
-    expect(h.uranus).toBe(5);   // (2-10+12)%12+1  = 5
-    expect(h.nn).toBe(2);       // (11-10+12)%12+1 = 2
-    expect(h.sn).toBe(8);       // (5-10+12)%12+1  = 8
+    expect(h.uranus).toBe(5); // (2-10+12)%12+1  = 5
+    expect(h.nn).toBe(2); // (11-10+12)%12+1 = 2
+    expect(h.sn).toBe(8); // (5-10+12)%12+1  = 8
   });
 
   it('Pisces rising (idx 11)', () => {
     const h = getHouses(calculateTransits({ risingSign: 'Pisces' }));
-    expect(h.pluto).toBe(12);   // (10-11+12)%12+1 = 12
-    expect(h.neptune).toBe(2);  // (0-11+12)%12+1  = 2
+    expect(h.pluto).toBe(12); // (10-11+12)%12+1 = 12
+    expect(h.neptune).toBe(2); // (0-11+12)%12+1  = 2
     expect(h.saturn).toBe(2);
-    expect(h.uranus).toBe(4);   // (2-11+12)%12+1  = 4
-    expect(h.nn).toBe(1);       // (11-11+12)%12+1 = 1
-    expect(h.sn).toBe(7);       // (5-11+12)%12+1  = 7
+    expect(h.uranus).toBe(4); // (2-11+12)%12+1  = 4
+    expect(h.nn).toBe(1); // (11-11+12)%12+1 = 1
+    expect(h.sn).toBe(7); // (5-11+12)%12+1  = 7
   });
 });
 

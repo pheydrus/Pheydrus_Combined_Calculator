@@ -19,6 +19,11 @@ export function Layout() {
                 Calculator
               </NavLink>
             </li>
+            <li>
+              <NavLink to="/chat" className={({ isActive }) => (isActive ? 'active' : '')}>
+                Chat
+              </NavLink>
+            </li>
           </ul>
         </nav>
       </header>

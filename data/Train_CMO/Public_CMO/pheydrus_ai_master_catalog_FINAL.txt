@@ -1,0 +1,916 @@
+PHEYDRUS AI MASTER PRODUCT CATALOG
+WITH DIAGNOSTIC ROUTING, GROWTH MODE & WATERFALL LOGIC 3.0
+===============================================================================
+
+THIS FILE IS THE PRODUCT + DECISION SOURCE OF TRUTH.
+THE AI MUST NOT RECOMMEND PRODUCTS WITHOUT APPLYING THIS LOGIC FIRST.
+
+This file works in tandem with a separate SALES SCRIPT that:
+• gathers the user’s story
+• identifies duration, urgency, and readiness
+• asks permission before diagnosis or recommendation
+
+This file determines:
+• WHICH TRACK applies
+• WHICH TIER is appropriate
+• WHAT THE SMALLEST HELPFUL NEXT STEP IS
+
+-------------------------------------------------------------------------------
+UNIVERSAL DIAGNOSTIC AXES (APPLIES TO LOVE, MONEY, CAREER, PURPOSE)
+-------------------------------------------------------------------------------
+
+DO NOT ROUTE BY SURFACE TOPIC ALONE (e.g. “love problem”, “money problem”).
+
+Every issue must first be classified using TWO axes:
+
+AXIS 1 — ROOT CAUSE LOCATION
+AXIS 2 — MODE OF GROWTH
+
+-------------------------------------------------------------------------------
+AXIS 1 — ROOT CAUSE LOCATION
+-------------------------------------------------------------------------------
+
+Determine whether the primary block is:
+
+A) A PAST PATTERN still running the system
+B) A CURRENT MISALIGNMENT with who the user is now
+
+DO NOT assume the user knows which one applies.
+Clarify if needed.
+
+PAST PATTERN (→ HERO’S JOURNEY)
+• Repeating behaviors or choices
+• Emotional triggers, attachment wounds
+• Self-sabotage, avoidance, addiction
+• “I know better but still do the same thing”
+• Therapy or insight helped but blind spots remain
+• Identity shaped by unresolved past experiences
+
+ROUTE TO: HERO’S JOURNEY (HJ)
+
+CURRENT MISALIGNMENT (→ ARTIST’S WAY)
+• “I’ve done the work but life hasn’t caught up”
+• Sudden blocks starting in a specific year
+• External stagnation despite internal growth
+• Timing, environment, or phase-of-life mismatch
+• Old identity shed; new identity not yet supported
+
+ROUTE TO: ARTIST’S WAY (AW)
+
+IF UNCLEAR OR BOTH:
+• Default to ARTIST’S WAY first
+• This is diagnostic and non-retraumatizing
+• Do NOT reopen trauma unless clearly needed
+
+-------------------------------------------------------------------------------
+AXIS 2 — MODE OF GROWTH
+-------------------------------------------------------------------------------
+
+Determine HOW the user grows best right now.
+
+This axis exists to correctly route BUSINESS GROWTH.
+
+REFLECTIVE / INTEGRATIVE GROWTH
+• Understand → process → integrate → then act
+• Needs insight, healing, or alignment first
+
+→ HERO’S JOURNEY or ARTIST’S WAY
+
+ACTION-BASED GROWTH
+• Acts → chooses → creates → learns about self through doing
+• Gains clarity by building, shipping, and experimenting
+• Does NOT require being “fully healed”
+
+→ BUSINESS GROWTH (BG) MAY BE APPROPRIATE
+
+IMPORTANT:
+Business Growth is NOT avoidance by default.
+It is a valid self-discovery pathway when action is energizing rather than defensive.
+
+AVOID ROUTING TO BG WHEN:
+• Action is used to escape emotional processing
+• Past patterns actively sabotage basic follow-through
+• The user feels frozen, dysregulated, or overwhelmed
+
+-------------------------------------------------------------------------------
+TRACK DEFINITIONS
+-------------------------------------------------------------------------------
+
+BUSINESS GROWTH (BG)
+• Purpose: Make your first dollar online using your authentic voice
+• Orientation: 0 → 100 execution and creation
+• Growth Style: Heal and discover self THROUGH action and choice
+• Includes identity discovery via energy blueprint + content creation
+
+HERO’S JOURNEY (HJ)
+• Purpose: Heal the past; resolve blind spots and emotional patterns
+• Orientation: Identity repair and nervous system rewiring
+• Growth Style: Reflective and integrative
+
+ARTIST’S WAY (AW)
+• Purpose: Call in a new identity aligned with current timing
+• Orientation: Environment, cycles, and future-phase alignment
+• Growth Style: Strategic realignment and embodiment
+
+-------------------------------------------------------------------------------
+EXPERIENTIAL MEANING OF PRODUCT TIERS
+-------------------------------------------------------------------------------
+
+LOW-TICKET TRAINING (60–90 min)
+• FORMAT: Single-session training + tools/calculators
+• PURPOSE: Quick clarity and diagnosis
+• NOT FOR: execution, implementation, or full resolution
+
+COURSE (Mini / 21-day)
+• FORMAT: Self-paced, multi-module course
+• PURPOSE: Structured understanding of root causes
+• NOT FOR: accountability or real-time execution
+
+1:1 CALL (UPSELL)
+• FORMAT: Live personalized session with a coach
+• PURPOSE: Fast clarity WITH guidance
+• BEST FOR: Users who don’t want to interpret alone
+
+FULL PROGRAM
+• FORMAT: Multi-week guided container
+• PURPOSE: Execution, rewiring, identity shift
+• ONLY WHEN: User wants real change + guided support now
+
+-------------------------------------------------------------------------------
+GLOBAL WATERFALL LOGIC 3.0 (NON-NEGOTIABLE)
+-------------------------------------------------------------------------------
+
+ALWAYS RECOMMEND THE SMALLEST HELPFUL NEXT STEP FIRST:
+
+TRAINING → COURSE → 1:1 CALL → FULL PROGRAM
+
+Never recommend a FULL PROGRAM unless ALL are true:
+1) The issue is long-standing
+2) The user wants real change within 30–90 days
+3) The user explicitly wants guided or ongoing support
+
+-------------------------------------------------------------------------------
+LOVE & MONEY ROUTING NOTES (IMPORTANT)
+-------------------------------------------------------------------------------
+
+LOVE:
+• Attachment, trauma, repeating partners → HERO’S JOURNEY
+• “I’ve healed but nothing’s changed” / timing-based → ARTIST’S WAY
+
+MONEY / CAREER:
+• Fear, worth, sabotage, avoidance → HERO’S JOURNEY
+• Skills present but income blocked → ARTIST’S WAY
+• Ready to build and monetize through action → BUSINESS GROWTH
+
+-------------------------------------------------------------------------------
+ORIGINAL PRODUCT CATALOG (AUTHORITATIVE — DO NOT EDIT BELOW)
+-------------------------------------------------------------------------------
+
+
+# PHEYDRUS PRODUCT CATALOG
+## Official Product Reference for Public CMO
+## Last Updated: 1/28/26
+
+This is the authoritative source for all Pheydrus products, pricing, and purchase links.
+When recommending products, ALWAYS use the information from this catalog.
+
+================================================================================
+##                        ARTIST'S WAY (AW) PRODUCTS
+================================================================================
+
+## PRODUCT: Real Estate Numerology
+
+**Category:** AW | Low Ticket / Add-on
+**Product Type:** Webinar
+**Current Price:** $40
+**Payment Plan Available:** No
+
+**Pay In Full Link:** [NEEDS LINK - marked as "--" in source]
+**Payment Plan Link:** N/A
+
+**Supporting Content:** N/A
+
+### Product Description
+During this 1 hour training, understand how different house numbers influence love, money, career, and peace of mind.
+
+Decode what your current space is "teaching" you — and what you may need to shift.
+
+Align your address with your life path or business goals for amplified manifestation.
+
+You will also get a cheatsheet and automatic address calculator.
+
+### Ideal Prospect
+You're curious about how your address and home affect your mood, clarity, and results. You want practical energy practices that create real shifts in your space and life.
+
+---
+
+## PRODUCT: Feng Shui
+
+**Category:** AW | Low Ticket / Add-on
+**Product Type:** Webinar
+**Current Price:** $40
+**Payment Plan Available:** No
+
+**Pay In Full Link:** https://pheydrusacademy.samcart.com/products/master-year-of-the-horse-with-your-home
+**Payment Plan Link:** N/A
+
+**Supporting Content:** N/A
+
+### Product Description
+60 min exclusive training, with worksheets
+Align with the Horse Year by creating a home environment that supports reflection, transformation, and steady growth
+Learn where to place saltwater jars to absorb negative energy and balance the flow of chi in your space
+Discover the best and worst corners of your home in 2026 based on energetic principles to enhance harmony and reduce conflict
+
+### Ideal Prospect
+You want to align your home with your life goals and understand the energetic impact of your living space.
+
+---
+
+## PRODUCT: Outer Planets
+
+**Category:** AW | Low Ticket / Add-on
+**Product Type:** Webinar
+**Current Price:** $50
+**Payment Plan Available:** No
+
+**Pay In Full Link:** https://pheydrusacademy.samcart.com/products/outer-planets
+**Payment Plan Link:** N/A
+
+**Supporting Content:** Has transcript
+
+### Product Description
+Did you know the outer planets decide your next chapter?
+Pluto. Neptune. Uranus.
+(The same forces that shifted Taylor Swift's entire love timeline.)
+These planets rewrite your reality for the next 20 years — and no one escapes their impact. But you can use them strategically.
+
+In this 90-min training you'll learn:
+• Automatic calculator to get your outer-planet transits
+• How to read your chart (step-by-step), and what they mean
+• What's coming next — and how to benefit from it
+
+Includes calculator + worksheets + replay so you know exactly where these transits hit your chart.
+
+### Ideal Prospect
+You're curious about the deeper forces that shape your future and how to use planetary transits strategically to your advantage.
+
+---
+
+## PRODUCT: Portal Activation
+
+**Category:** AW | Low Ticket / Add-on
+**Product Type:** Program
+**Current Price:** $111
+**Payment Plan Available:** No
+
+**Pay In Full Link:** https://pheydrusmetaverse.com/checkout/portalactivation
+**Payment Plan Link:** N/A
+
+**Supporting Content:** N/A
+
+### Product Description
+Elevate Your Environment, Accelerate Your Identity through a 3-module workshop that teaches you how to shift the energy of your home so it supports your next-level identity.
+
+Using Feng Shui, Astrocartography, and Real Estate Numerology, you'll learn how to create environmental shifts — one of the fastest ways to rewire your brain, increase momentum, and step into a more aligned version of yourself.
+
+What You Get:
+Module 1 — Feng Shui: Reorganize the energy of your home so it supports focus, clarity, love, and success
+Module 2 — Astrocartography: Learn to invite supportive global energies using simple, symbolic practices
+Module 3 — Real Estate Numerology: Understand the energetic signature of your address and how it shapes your habits, patterns, and potential
+
+Self-paced access with worksheets and tools.
+
+### Ideal Prospect
+You feel stuck in your current space and ready for something new. You want deeper, practical energy practices that create real environmental shifts to support your goals.
+
+---
+
+## PRODUCT: Portal Activation - 1:1 Call
+
+**Category:** AW | Upsell
+**Product Type:** Program
+**Current Price:** $375
+**Payment Plan Available:** No
+
+**Pay In Full Link:** https://pheydrusmetaverse.com/portal-activation-1-1
+**Payment Plan Link:** N/A
+
+**Supporting Content:** N/A
+
+### Product Description
+Transform Your Home and Address into a Luck-Magnet through a personalized 45-minute 1:1 call with detailed environmental reports.
+
+This is a deeper, more personalized implementation of the Portal Activation program. If you've ever felt like opportunities come close—the job, the client, the love, the breakthrough—but slip away at the last second, your environment may be the root cause.
+
+Understand the current energies of your home, address, and city, and optimize them for your future income, relationships, and success patterns.
+
+You'll receive:
+1. Personalized Feng Shui and Real Estate Numerology analysis: Your setup for money, love, and stability, plus insights into what your address amplifies, suppresses, or disrupts, and how to fix energetic leaks
+2. Astrocartography Insights for 3 Specific Locations: How your current location is affecting your life, whether you're meant to stay or move, and evaluations for your career, love, and abundance
+
+A personalized roadmap to align your environment with your goals.
+
+### Ideal Prospect
+You want personalized guidance on how to optimize your home and address to support your goals for money, love, career, and stability.
+
+---
+
+## PRODUCT: UNLOCK FULL AW + FULL HJ Bundle + Six 1:1 Calls
+
+**Category:** AW | Upsell
+**Product Type:** Bundle
+**Current Price:** $4,444
+**Payment Plan Available:** Yes (3x $1,333)
+
+**Pay In Full Link:** https://pheydrusacademy.mysamcart.com/checkout/aw-hj-bundle-calls3333
+**Payment Plan Link:** https://pheydrusacademy.mysamcart.com/checkout/aw-hj-bundle-calls3333
+
+**Supporting Content:** N/A
+
+### Product Description
+Quantum Leap by aligning your environment, timing, and identity so everything shifts at once.
+
+This comprehensive bundle combines Artist's Way and Hero's Journey to take you from the inside-out, helping you activate the identity your future requires and align it with the astrological seasons that support your next chapter. Includes 6 total 1:1 calls with 95%+ student success rate.
+
+Why This Works:
+Break 5+ year negative financial and romantic patterns. Find the edge to grow and scale a business that's been stuck. Call in aligned, committed relationships. Shift timelines and step into your next identity.
+
+The Inner Game First: Artist's Way prepares you by helping you understand your gifts, magnetism, and purpose. Then you align your timing and environment to match your new identity. Identity → Timing → Environment → Life.
+
+An intensive curriculum combining neuroscience, astrology, human design, feng shui, and real estate numerology:
+• Get to your Life's Penthouse: Get clear on who you're becoming and stop emotional leaks that hold you back
+• Activate Your Gifts + Magnetism: Understand your natural talents, who ignites you, and your purpose
+• Align Timing + Environment With Your Evolution: Use astrocartography, feng shui, and numerology to match your inner shift with the right seasons and spaces
+• Step Into Your Penthouse Life: Live from clarity, creativity, and expansive opportunity
+
+What You Get:
+Both Artist's Way and Hero's Journey full courses with 6 personal 1:1 coaching calls to help you understand yourself, the timing of your life, and how to optimize your environment.
+
+Perfect if you feel like your money or business has plateaued, your romantic patterns repeat, your life has been paused for years, or you've done the healing work but nothing has truly changed. You're ready for real transformation.
+
+
+### Ideal Prospect
+You feel your money or business has plateaued, your romantic patterns repeat, or your life has been on pause. You've done healing and personal development work but nothing has truly changed. You're ready to activate a new identity and shift your environment to match it. With a 95%+ success rate, this is a complete system to help you quantum leap into your next chapter.
+
+---
+
+## PRODUCT: UNLOCK FULL AW Bundle (Course Only)
+
+**Category:** AW | Downsell
+**Product Type:** Bundle
+**Current Price:** $1,899
+**Payment Plan Available:** Yes (3x $760)
+
+**Pay In Full Link:** https://pheydrusacademy.mysamcart.com/checkout/full-aw-bundle-1899
+**Payment Plan Link:** https://pheydrusacademy.mysamcart.com/checkout/full-aw-bundle-1899
+
+**Supporting Content:** N/A
+
+### Product Description
+The full Artist's Way course bundle without 1:1 live calls. Self-paced access to all Artist's Way modules.
+
+### Ideal Prospect
+You want the full Artist's Way curriculum but prefer self-paced learning without live coaching calls.
+
+---
+
+## PRODUCT: Pheydrus Course Bundle
+
+**Category:** AW | Downsell
+**Product Type:** Bundle
+**Current Price:** $399
+**Payment Plan Available:** No
+
+**Pay In Full Link:** https://pheydrusmetaverse.com/checkout/pheydrus-courses-bundle-full-copy
+**Payment Plan Link:** N/A
+
+**Supporting Content:** N/A
+
+### Product Description
+Entry-level bundle including core courses for self-paced learning.
+
+### Ideal Prospect
+You want to explore multiple Pheydrus courses at an accessible price point with self-paced flexibility.
+
+================================================================================
+##                        HERO'S JOURNEY (HJ) PRODUCTS
+================================================================================
+
+## PRODUCT: Rewrite Your Past in 4 Steps
+
+**Category:** HJ | Low Ticket / Add-on
+**Product Type:** Webinar
+**Current Price:** $25
+**Payment Plan Available:** No
+
+**Pay In Full Link:** https://pheydrusacademy.samcart.com/products/rsvp-4-steps-to-letting-go
+**Payment Plan Link:** N/A
+
+**Supporting Content:** Has transcript
+
+### Product Description
+In this 60 min training, learn how to rewrite Your Past Without Reliving It
+
+You can understand your past—and still feel held back by it.
+
+That's because insight alone doesn't release emotional memory.
+
+The body lets go when the story finally makes sense.
+
+In this training, you'll learn how to communicate with the limbic brain using the only language it understands: a structured story, guided by the Hero's Journey.
+
+But this isn't a generic framework.
+
+You'll move through the Hero's Journey through the filter of your own energetic blueprint—using key astrological and Human Design placements to reveal:
+
+where your blind spots live
+why certain patterns repeat
+how obstacles shape your identity
+and what your experiences have actually been initiating you into
+
+Your chart isn't used for prediction. It's used for context—so your nervous system can stop guessing and start integrating.
+
+By the end of this training, you'll have:
+
+clarity on where you are in your personal arc
+language for your past without self-blame
+a felt sense of closure the body can accept
+and a grounded way to move forward without force or bypassing
+
+This isn't about fixing yourself. It's about completing the story—so the next chapter can begin.
+
+### Ideal Prospect
+You're ready to understand your past with compassion and clarity, and to move forward without dragging old patterns into new decisions.
+
+---
+
+## PRODUCT: 21 DOMA Notion Template
+
+**Category:** HJ | Low Ticket / Add-on
+**Product Type:** Course
+**Current Price:** $25
+**Payment Plan Available:** No
+
+**Pay In Full Link:** https://pheydrusacademy.mysamcart.com/checkout/21-days-of-major-arcana-notion-template
+**Payment Plan Link:** N/A
+
+**Supporting Content:** N/A
+
+### Product Description
+21 Days of Major Arcana Notion Template - a structured digital workspace to explore and journal through the Major Arcana tarot cards.
+
+### Ideal Prospect
+You want a practical tool to explore and track your spiritual journey through the Major Arcana.
+
+---
+
+## PRODUCT: 21 DOMA Course
+
+**Category:** HJ | Low Ticket / Add-on
+**Product Type:** Course
+**Current Price:** $65
+**Payment Plan Available:** No
+
+**Pay In Full Link:** https://pheydrusmetaverse.com/checkout/21-days-of-major-arcana
+**Payment Plan Link:** N/A
+
+**Supporting Content:** N/A
+
+### Product Description
+Don't Stay Stuck: Break Your Patterns, Pain, and Blindspots in 22 Days.
+
+Understand your life using Symbolic Intelligence™. In this course, you'll learn how to:
+• Decode the deeper meaning behind what's happening in your life using tarot, numerology, chakras, and intuitive psychology
+• Make sense of confusion, grief, and life transitions without spending years unpacking it in therapy
+• See patterns, cycles, and blindspots clearly so you stop repeating what's been hurting you
+• Reframe your experiences into clarity and emotional stability using a structured, modern symbolic framework
+• Strengthen your intuition with a system—not guesswork
+
+What You Get:
+• 4 in-depth video modules (~5 hours)
+• Worksheets and cheatsheets
+• 22 days of Major Arcana prompts
+
+### Ideal Prospect
+You feel stuck in patterns you intellectually understand but can't seem to break. You're ready to understand the deeper meaning of your life and your patterns so you can finally move forward.
+
+---
+
+## PRODUCT: DREAM / 21DOMA 1:1 Call
+
+**Category:** HJ | Upsell
+**Product Type:** Program
+**Current Price:** $225
+**Payment Plan Available:** No
+
+**Pay In Full Link:** https://pheydrusmetaverse.com/21-doma-1-1/
+**Payment Plan Link:** N/A
+
+**Supporting Content:** N/A
+
+### Product Description
+Break Your Life Patterns in 60 Minutes through a personalized astrology-based 1:1 call.
+
+"Until you make the unconscious conscious, it will direct your life — and you will call it fate." — Carl Jung
+
+This private 45-minute astrology-based session is your most transformational add-on to 21DOMA. While 21DOMA helps you rewire your brain, this session helps you understand the deeper why behind your patterns in the first place.
+
+A Pheydrus coach uses your astrology to decode your trauma imprints, unconscious desires, emotional addictions, and long-standing blindspots so everything you're learning in 21DOMA lands faster and deeper.
+
+You'll Discover:
+• Trauma & Pattern Diagnosis: The core wounds driving your reactions, the emotional patterns replaying in your life, the triggers that shaped your identity, and the survival strategies that no longer serve you
+• Emotional Blindspot Reveal: Your unconscious addictions, attachment loops, sabotaging beliefs, unmet needs, and hidden desires
+• Reframing & Identity Alignment: A new interpretation of your past and a clear understanding of your old self versus your aligned self
+
+You'll leave with emotional clarity that enhances every module of 21DOMA and a grounded sense of self you can finally trust. This call accelerates your transformation by giving you the emotional and astrological context behind your neural patterns.
+
+### Ideal Prospect
+You've wondered why you pick the same people, sabotage good opportunities, or overreact and shut down. You're ready for the emotional and astrological insights that help you understand your patterns at a deeper level so you can finally make different choices.
+
+---
+
+## PRODUCT: UNLOCK FULL HJ Bundle + Four 1:1 Calls
+
+**Category:** HJ | Upsell
+**Product Type:** Bundle
+**Current Price:** $3,333
+**Payment Plan Available:** Yes (3x $800)
+
+**Pay In Full Link:** https://pheydrusacademy.mysamcart.com/checkout/full-hj-course-bundle-calls-1999
+**Payment Plan Link:** https://pheydrusacademy.mysamcart.com/checkout/full-hj-course-bundle-calls-1999
+
+**Supporting Content:** N/A
+
+### Product Description
+Go Deeper: Shed Your Old Identity and Break Addictions and Toxic Patterns Holding Your Emotional, Romantic, and Financial Life Back in 60 days.
+
+Every hero reaches a turning point: stay in the old story, or become who you're meant to be. Pheydrus's #1 program Hero's Journey takes you into the unknown so you can leave your patterns behind and step into your next chapter. With 2000+ lives transformed and a 95%+ success rate, this comprehensive bundle includes 4 personal 1:1 calls with a Pheydrus coach.
+
+This is the only place where inner work leads to outer transformation.
+
+What You Get:
+The full Hero's Journey course with 4 personal 1:1 coaching calls to help you understand yourself, your emotional patterns, and how to break free from cycles that have held you back.
+
+An intensive curriculum combining neuroscience, intuitive tools, and screenplay techniques:
+• Find Root Cause of Addictions: Turn any emotional or financial challenge into clarity, courage, and momentum
+• Turn Unconscious Desires into Actionable Steps: Get clear on what you want, what's blocking you, and how to become magnetic
+• Emotional Transmutation: Shift from fear and survival-mode into grounded clarity and personal power
+• Money & Abundance Codes: Decode your charts to turn financial blocks into aligned opportunities
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+### Ideal Prospect
+This is for someone who is deeply self-aware, yet still finds themselves repeating patterns they intellectually understand but can't seem to break.
+
+They are not naïve. They've done therapy, reflection, personal development, or spiritual work. They know their behaviors aren't random. And that's exactly what frustrates them most.
+
+They tend to:
+
+Feel pulled by emotional habits that quietly drain their money, energy, and sense of stability — even when they know better
+
+Notice the same financial and romantic cycles repeating, despite learning the lessons "on paper"
+
+Attract intense, chaotic, or emotionally familiar relationships — not because they want drama, but because their nervous system recognizes the pattern faster than their logic can intervene
+
+Live with a persistent inner tension between who they've been conditioned to be and who they feel they're meant to become
+
+Sense that something in them is ready to shift — but feel unclear on where to begin or what actually needs to change
+
+At their core, they are someone who wants alignment, not avoidance. They don't want another temporary fix, distraction, or surface-level reframe. They want the pattern to stop — for real — so they can move forward without dragging the past into every decision.
+
+They are ready for a deeper kind of clarity — one that changes how they choose, not just how they think.
+
+---
+
+## PRODUCT: UNLOCK FULL HJ Bundle (Course Only)
+
+**Category:** HJ | Downsell
+**Product Type:** Bundle
+**Current Price:** $1,499
+**Payment Plan Available:** Yes (3x $600)
+
+**Pay In Full Link:** https://pheydrusacademy.mysamcart.com/checkout/heros-journey-full
+**Payment Plan Link:** https://pheydrusacademy.mysamcart.com/checkout/heros-journey-full
+
+**Supporting Content:** N/A
+
+### Product Description
+The full Hero's Journey course bundle without 1:1 live calls. Self-paced access to all Hero's Journey modules.
+
+### Ideal Prospect
+You want the full Hero's Journey curriculum but prefer self-paced learning without live coaching calls.
+
+---
+
+## PRODUCT: Pheydrus Course Bundle
+
+**Category:** HJ | Downsell
+**Product Type:** Bundle
+**Current Price:** $399
+**Payment Plan Available:** No
+
+**Pay In Full Link:** https://pheydrusmetaverse.com/checkout/pheydrus-courses-bundle-full-copy
+**Payment Plan Link:** N/A
+
+**Supporting Content:** N/A
+
+### Product Description
+Entry-level bundle including core courses for self-paced learning.
+
+### Ideal Prospect
+You want to explore multiple Pheydrus courses at an accessible price point with self-paced flexibility.
+
+================================================================================
+##                        BUSINESS GROWTH (BG) PRODUCTS
+================================================================================
+
+## PRODUCT: Make Money with AI
+
+**Category:** BG | Low Ticket / Add-on
+**Product Type:** Webinar
+**Current Price:** $50
+**Payment Plan Available:** No
+
+**Pay In Full Link:** https://pheydrusacademy.samcart.com/products/make-money-with-aienergy-tools
+**Payment Plan Link:** N/A
+
+**Supporting Content:** Has transcript
+
+### Product Description
+AI isn't why other people are making money online.
+And "authenticity" isn't why you're being ignored.
+
+The real issue?
+Your voice (intellectual property) isn't discovered or structured in a way AI can amplify.
+
+This 60 min training shows you how to use AI + your personal energy blueprint to turn the way you already think, speak, and sell into content that actually converts. You will learn these 4 things:
+
+How to create high-converting, "short" content into $100–$1K in sales, or 15–30% higher conversions with AI See how real momentum starts with strategic short-content scripting, not viral miracles, that compound into consistent revenue.
+
+How to create content that AI can amplify and scale instead of flatten Structure your ideas in a way AI amplifies your voice instead of flattening it into generic noise.
+
+How your energy blueprint reveals how you're meant to communicate, create, teach, and sell Learn how you're naturally wired to speak, persuade, and sell, so your message finally lands the way it's meant to.
+
+Simple AI workflows that turn your words into offers, emails, and sales Use lightweight, non-overwhelming AI workflows to convert your thoughts into offers, emails, and sales assets.
+
+*ALL SALES FINAL*
+
+### Ideal Prospect
+You want to use AI as a tool to amplify your authentic voice and create content that converts, without losing your personal touch.
+
+---
+
+## PRODUCT: Mini BG
+
+**Category:** BG | Low Ticket / Add-on
+**Product Type:** Course
+**Current Price:** $99
+**Payment Plan Available:** No
+
+**Pay In Full Link:** https://pheydrusmetaverse.com/checkout/minibg
+**Payment Plan Link:** N/A
+
+**Supporting Content:** N/A
+
+### Product Description
+Go Viral in 30 Days and Turn Your Ideas Into Intellectual Property Authentically.
+
+People are waiting for your content, story, and teachings. If you've felt overwhelmed about where to start, this crash course gives you the exact clarity you need. This is a zero-fluff, beginner-friendly course created by someone who's helped countless creators go viral using authentic energy, not trends.
+
+What You Get:
+4 foundational video modules and worksheets that simplify content and course creation into clear, doable steps:
+• Timeless Short-Video Strategy: Create videos that resonate, regardless of trends
+• Language That Attracts: Speak in your authentic voice while drawing in aligned followers and buyers
+• From Esoteric to Structured: Turn abstract or spiritual concepts into clear frameworks people can instantly understand
+• Launching With Planets: Align your timing with cosmic momentum for a smoother, more powerful launch
+
+Self-paced learning designed for creators who want to build a course without complicated tech or perfectionism slowing them down.
+
+### Ideal Prospect
+You have real talent, wisdom, or lived experience but no framework to turn it into content or a curriculum people can learn from. You want content that feels like you—not recycled or algorithm-chasing. You're ready to launch successfully and fast with clarity, structure, and direction.
+
+---
+
+## PRODUCT: FYNS (Find Your North Star + Sell)
+
+**Category:** BG | Low Ticket / Add-on
+**Product Type:** Course
+**Current Price:** $75
+**Payment Plan Available:** No
+
+**Pay In Full Link:** https://pheydrusmetaverse.com/checkout/fyns-full
+**Payment Plan Link:** N/A
+
+**Supporting Content:** N/A
+
+### Product Description
+Burnt Out from Your 9-5? Discover Where You're Meant to Shine, Succeed, and Be Seen.
+
+If you feel stuck, uninspired, or unsure what direction to take next, this mini course reveals the soul-aligned path where you naturally rise, attract recognition, and step into your highest potential.
+
+What You Get:
+A concise, high-impact purpose-mapping system that helps you:
+• Decode your true gifts and strengths
+• Identify your purpose-driven career direction
+• Pinpoint where you naturally get recognition and momentum
+
+Self-paced learning designed for anyone ready to move beyond the traditional path.
+
+### Ideal Prospect
+You're burned out or bored with your current path. You know you're meant for more visibility, purpose, or impact. You want clarity on your gifts and the career lane you're built for. You're tired of guessing but don't want the traditional path.
+
+---
+
+## PRODUCT: Mini BG / FYNS 1:1 Call (also known as Business Astrology 1:1)
+
+**Category:** BG | Upsell
+**Product Type:** Program
+**Current Price:** $250 (Normally $555)
+**Payment Plan Available:** No
+
+**Pay In Full Link:** https://pheydrusmetaverse.com/business-astrology-1-1/
+**Alternate Link:** https://pheydrusacademy.mysamcart.com/checkout/businessastrology
+**Payment Plan Link:** N/A
+
+**Supporting Content:** N/A
+
+### Product Description
+End Years of "Why Isn't This Making Money?" Confusion through a personalized 1:1 call with a Pheydrus coach.
+
+When you pair this with the program you've selected, everything accelerates. This session unlocks the exact career and business path that makes you visible, in-demand, and wildly profitable — without wasting years trying to figure it out on your own.
+
+In just 60 minutes, you'll get precision-guided clarity from a Pheydrus coach who personally decodes your Career-Focused Astrology Blueprint. You'll walk away knowing:
+• How to show up more powerfully at your job and impress employers/clients
+• Exactly what business you're meant to build
+• How to stand out from your competition
+• What makes you authentically magnetic
+• What to do next, step-by-step
+
+Decode Your Soul's Money-Making Career Blueprint:
+Your coach dives deep into your chart and maps your Astrological Career Indicators to uncover:
+• The exact work you're designed to do
+• Your real soul gifts versus what you think they are
+• Patterns that silently sabotage success
+• Where you're meant to shine publicly
+• Your effortless money-making lane
+• The message, voice, niche, and direction that feel like you
+• How you naturally attract clients
+
+This is a revenue shortcut—the fastest path to clarity available. Most people spend years trying to figure this out alone. You'll walk away with a clean, grounded, actionable direction in one hour.
+
+### Ideal Prospect
+You've selected a program to clarify your direction, and now you want a personalized roadmap to accelerate your career and business growth. You're ready for concrete guidance on how to show up powerfully and attract the right clients.
+
+---
+
+## PRODUCT: UNLOCK FULL BG Bundle + Three 1:1 Calls
+
+**Category:** BG | Upsell
+**Product Type:** Bundle
+**Current Price:** $2,999
+**Payment Plan Available:** Yes (3x $680)
+
+**Pay In Full Link:** https://pheydrusacademy.mysamcart.com/checkout/business-growth-full-call
+**Payment Plan Link:** https://pheydrusacademy.mysamcart.com/checkout/business-growth-full-call
+
+**Supporting Content:** N/A
+
+### Product Description
+Make Money By Being Yourself: Unlock Content That Goes Viral and Builds a Profitable Business.
+
+This is NOT another business course—it's an 8-week accelerator built for the Age of Aquarius, designed to help you make magnetic content using your energy blueprint and create profitable offers based on your natural gifts.
+
+This comprehensive bundle includes the full Business Growth course plus three 1:1 content coaching calls:
+• 2 Business Astrology Coaching Calls
+• 1 Content Assessment and Optimization Call
+
+An intensive curriculum combining business, spirituality, and content:
+A 7-module roadmap designed to help you:
+• Build magnetic content using your energy blueprint
+• Create profitable offers based on your natural gifts
+• Understand what your audience really wants
+• Break visibility blocks and strengthen your creator identity
+• Master content and energy—the new way to scale in the Age of Aquarius
+
+As Founder HeyJune says: "When you make business content, you're stepping into divine leadership—turning your gift into a portal that expands what people believe is possible."
+
+This is where inner work meets business strategy. Inner work → Outer transformation → Real revenue.
+
+### Ideal Prospect
+This Program Is For You If…
+
+You feel a strong pull to express your ideas, insight, or lived experience — but only if it can be done without burnout or self-betrayal
+
+You want to build a business that grows with your energy, not against it
+
+You're done with hype, urgency, and constant output as a success model
+
+You want self-expression to feel natural, enjoyable, and sustainable — not forced or performative
+
+You know you have something valuable to offer, but every existing model feels misaligned with how you actually function
+
+You're tired of starting strong and losing momentum because the strategy drains you
+
+You want to make your first dollar (and scale) through clarity and coherence — not pressure
+
+You care about long-term stability more than short-term spikes
+
+You want content and offers that reflect your real thinking and values
+
+You're ready to create a business that expands your life instead of consuming it
+
+---
+
+## PRODUCT: UNLOCK FULL BG Bundle (Course Only)
+
+**Category:** BG | Downsell
+**Product Type:** Bundle
+**Current Price:** $1,299
+**Payment Plan Available:** Yes (3x $520)
+
+**Pay In Full Link:** https://pheydrusacademy.mysamcart.com/checkout/bg-course
+**Payment Plan Link:** https://pheydrusacademy.mysamcart.com/checkout/bg-course
+
+**Supporting Content:** N/A
+
+### Product Description
+The full Business Growth course bundle without 1:1 live calls. Self-paced access to all Business Growth modules.
+
+### Ideal Prospect
+You want the full Business Growth curriculum but prefer self-paced learning without live coaching calls.
+
+================================================================================
+##                           QUICK REFERENCE TABLES
+================================================================================
+
+### ARTIST'S WAY (AW) - 8 Products
+| Product | Category | Product Type | Price | Payment Plan | Link |
+|---------|----------|--------------|-------|--------------|------|
+| Real Estate Numerology | Low Ticket | Webinar | $40 | No | [] |
+| Feng Shui | Low Ticket | Webinar | $40 | No | https://pheydrusacademy.samcart.com/products/master-year-of-the-horse-with-your-home |
+| Outer Planets | Low Ticket | Webinar | $50 | No | https://pheydrusacademy.samcart.com/products/outer-planets |
+| Portal Activation | Low Ticket | Program | $111 | No | https://pheydrusmetaverse.com/checkout/portalactivation |
+| Portal Activation 1:1 | Upsell | Program | $375 | No | https://pheydrusmetaverse.com/portal-activation-1-1 |
+| UNLOCK FULL AW + HJ Bundle | Upsell | Bundle | $4,444 | Yes | https://pheydrusacademy.mysamcart.com/checkout/aw-hj-bundle-calls3333 |
+| UNLOCK FULL AW (Course Only) | Downsell | Bundle | $1,899 | Yes | https://pheydrusacademy.mysamcart.com/checkout/full-aw-bundle-1899 |
+| Pheydrus Course Bundle | Downsell | Bundle | $399 | No | https://pheydrusmetaverse.com/checkout/pheydrus-courses-bundle-full-copy |
+
+### HERO'S JOURNEY (HJ) - 7 Products
+| Product | Category | Product Type | Price | Payment Plan | Link |
+|---------|----------|--------------|-------|--------------|------|
+| Rewrite Your Past in 4 Steps | Low Ticket | Webinar | $25 | No | https://pheydrusacademy.samcart.com/products/rsvp-4-steps-to-letting-go |
+| 21 DOMA Notion Template | Low Ticket | Course | $25 | No | https://pheydrusacademy.mysamcart.com/checkout/21-days-of-major-arcana-notion-template |
+| 21 DOMA Course | Low Ticket | Course | $65 | No | https://pheydrusmetaverse.com/checkout/21-days-of-major-arcana |
+| DREAM / 21DOMA 1:1 Call | Upsell | Program | $225 | No | https://pheydrusmetaverse.com/21-doma-1-1/ |
+| UNLOCK FULL HJ Bundle | Upsell | Bundle | $3,333 | Yes | https://pheydrusacademy.mysamcart.com/checkout/full-hj-course-bundle-calls-1999 |
+| UNLOCK FULL HJ (Course Only) | Downsell | Bundle | $1,499 | Yes | https://pheydrusacademy.mysamcart.com/checkout/heros-journey-full |
+| Pheydrus Course Bundle | Downsell | Bundle | $399 | No | https://pheydrusmetaverse.com/checkout/pheydrus-courses-bundle-full-copy |
+
+### BUSINESS GROWTH (BG) - 6 Products
+| Product | Category | Product Type | Price | Payment Plan | Link |
+|---------|----------|--------------|-------|--------------|------|
+| Make Money with AI | Low Ticket | Webinar | $50 | No | https://pheydrusacademy.samcart.com/products/make-money-with-aienergy-tools |
+| Mini BG | Low Ticket | Course | $99 | No | https://pheydrusmetaverse.com/checkout/minibg |
+| FYNS | Low Ticket | Course | $75 | No | https://pheydrusmetaverse.com/checkout/fyns-full |
+| Mini BG / FYNS 1:1 Call / Business Astrology 1:1 | Upsell | Program | $250 | No | https://pheydrusmetaverse.com/business-astrology-1-1/ |
+| UNLOCK FULL BG Bundle | Upsell | Bundle | $2,999 | Yes | https://pheydrusacademy.mysamcart.com/checkout/business-growth-full-call |
+| UNLOCK FULL BG (Course Only) | Downsell | Bundle | $1,299 | Yes | https://pheydrusacademy.mysamcart.com/checkout/bg-course |
+
+================================================================================
+##                              PRICING TIERS
+================================================================================
+
+**Low Ticket (Under $100):** Entry offers, webinars - good for "just exploring"
+**Mid Ticket ($100-$500):** Starter programs - good for "ready to begin"
+**High Ticket ($500+):** Full programs with support - good for "fully committed"
+
+When no payment link exists, suggest: "Book a discovery call to discuss options"
+
+================================================================================

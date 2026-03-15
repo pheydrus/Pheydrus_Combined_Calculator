@@ -44,7 +44,9 @@ function ProgressBar({ step }: { step: number }) {
   return (
     <div className="mb-10">
       <div className="flex justify-between text-xs text-[#9a7d4e] font-semibold mb-2">
-        <span>Step {step} of {TOTAL_STEPS}</span>
+        <span>
+          Step {step} of {TOTAL_STEPS}
+        </span>
         <span>{pct}% complete</span>
       </div>
       <div className="h-2 bg-gray-100 rounded-full overflow-hidden">
@@ -185,12 +187,9 @@ export function ClientAssessmentPage() {
   // Additional intake questionnaire data
   const [intake, setIntake] = useState<ClientIntakeData>(EMPTY_CLIENT_INTAKE);
 
-  const setField = useCallback(
-    <K extends keyof FormData>(key: K, value: FormData[K]) => {
-      setForm((prev) => ({ ...prev, [key]: value }));
-    },
-    []
-  );
+  const setField = useCallback(<K extends keyof FormData>(key: K, value: FormData[K]) => {
+    setForm((prev) => ({ ...prev, [key]: value }));
+  }, []);
 
   const setIntakeField = useCallback(
     <K extends keyof ClientIntakeData>(key: K, value: ClientIntakeData[K]) => {
@@ -199,9 +198,12 @@ export function ClientAssessmentPage() {
     []
   );
 
-  const setLocation = useCallback((key: 'birthLocation' | 'currentLocation', city: CityData | null) => {
-    setForm((prev) => ({ ...prev, [key]: city }));
-  }, []);
+  const setLocation = useCallback(
+    (key: 'birthLocation' | 'currentLocation', city: CityData | null) => {
+      setForm((prev) => ({ ...prev, [key]: city }));
+    },
+    []
+  );
 
   const togglePriorHelp = useCallback((option: PriorHelpOption) => {
     setIntake((prev) => {
@@ -224,12 +226,18 @@ export function ClientAssessmentPage() {
           !!form.dateOfBirth &&
           !!form.timeOfBirth
         );
-      case 2: return !!form.birthLocation && !!form.currentLocation;
-      case 3: return true;
-      case 4: return !!intake.desiredOutcome && !!intake.obstacle;
-      case 5: return !!intake.preferredSolution && !!intake.currentSituation;
-      case 6: return true;
-      default: return false;
+      case 2:
+        return !!form.birthLocation && !!form.currentLocation;
+      case 3:
+        return true;
+      case 4:
+        return !!intake.desiredOutcome && !!intake.obstacle;
+      case 5:
+        return !!intake.preferredSolution && !!intake.currentSituation;
+      case 6:
+        return true;
+      default:
+        return false;
     }
   })();
 
@@ -333,7 +341,9 @@ export function ClientAssessmentPage() {
         return (
           <div>
             <p className={questionClass}>Where were you born, and where do you live now?</p>
-            <p className={subClass}>We use these cities to calculate your natal chart and current transits.</p>
+            <p className={subClass}>
+              We use these cities to calculate your natal chart and current transits.
+            </p>
             <div className="space-y-5">
               <div>
                 <label className={labelClass}>
@@ -387,7 +397,7 @@ export function ClientAssessmentPage() {
                     type="text"
                     value={form.l1}
                     onChange={(e) => setField('l1', e.target.value)}
-                    placeholder="e.g., 5B"
+                    placeholder="e.g., 7A"
                     className={inputClass}
                   />
                 </div>
@@ -397,7 +407,7 @@ export function ClientAssessmentPage() {
                     type="text"
                     value={form.streetNumber}
                     onChange={(e) => setField('streetNumber', e.target.value)}
-                    placeholder="e.g., 14952"
+                    placeholder="e.g., 742"
                     className={inputClass}
                   />
                 </div>
@@ -431,11 +441,14 @@ export function ClientAssessmentPage() {
         return (
           <div>
             <p className={questionClass}>What's holding you back?</p>
-            <p className={subClass}>Be as specific as possible — this helps us tailor your report.</p>
+            <p className={subClass}>
+              Be as specific as possible — this helps us tailor your report.
+            </p>
             <div className="space-y-6">
               <div>
                 <label className={labelClass}>
-                  What is your desired outcome in the next 90 days? <span className="text-[#9a7d4e]">*</span>
+                  What is your desired outcome in the next 90 days?{' '}
+                  <span className="text-[#9a7d4e]">*</span>
                 </label>
                 <textarea
                   value={intake.desiredOutcome}
@@ -459,7 +472,8 @@ export function ClientAssessmentPage() {
               </div>
               <div>
                 <label className={labelClass}>
-                  What year did you first notice the recurring pattern connected to your current obstacle?
+                  What year did you first notice the recurring pattern connected to your current
+                  obstacle?
                 </label>
                 <input
                   type="text"
@@ -519,7 +533,8 @@ export function ClientAssessmentPage() {
               </div>
               <div>
                 <label className={labelClass}>
-                  What best describes your current situation? <span className="text-[#9a7d4e]">*</span>
+                  What best describes your current situation?{' '}
+                  <span className="text-[#9a7d4e]">*</span>
                 </label>
                 <div className="space-y-3">
                   {(Object.entries(CURRENT_SITUATION_LABELS) as [CurrentSituation, string][]).map(

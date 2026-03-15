@@ -93,7 +93,7 @@ describe('Transits Calculator Verification', () => {
 describe('Life Path Calculator Verification', () => {
   const testCases = [
     { birthDate: '1990-05-15', description: 'Birth: 1990-05-15' },
-    { birthDate: '2002-08-28', description: 'Birth: 2002-08-28 (Brandon Yip)' },
+    { birthDate: '2002-08-28', description: 'Birth: 2002-08-28' },
     { birthDate: '1985-12-25', description: 'Birth: 1985-12-25 (Christmas)' },
     { birthDate: '2000-01-01', description: 'Birth: 2000-01-01 (Y2K)' },
     { birthDate: '1975-03-17', description: 'Birth: 1975-03-17' },
@@ -173,14 +173,14 @@ describe('Address Numerology Calculator Verification', () => {
     },
     {
       input: {
-        unitNumber: '5B',
+        unitNumber: '7A',
         streetNumber: '',
         streetName: 'Main Avenue',
         postalCode: '90210',
         homeYear: '1995',
-        birthYear: '2002',
+        birthYear: '1988',
       },
-      description: '5B Main Avenue, 90210',
+      description: '7A Main Avenue, 90210',
     },
     {
       input: {

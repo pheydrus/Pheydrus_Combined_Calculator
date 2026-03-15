@@ -165,7 +165,7 @@ describe('validateRelocationInput', () => {
 describe('validateAddressNumerologyInput', () => {
   it('accepts valid input with all fields', () => {
     const result = validateAddressNumerologyInput({
-      unitNumber: '5B',
+      unitNumber: '7A',
       streetNumber: '123',
       streetName: 'Main St',
       postalCode: '10001',
@@ -177,7 +177,7 @@ describe('validateAddressNumerologyInput', () => {
 
   it('rejects missing birthYear', () => {
     const result = validateAddressNumerologyInput({
-      unitNumber: '5B',
+      unitNumber: '7A',
       birthYear: '',
     });
     expect(result.valid).toBe(false);

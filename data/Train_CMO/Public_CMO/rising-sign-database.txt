@@ -1,0 +1,311 @@
+================================================================================
+RISING SIGN (ASCENDANT) DATABASE
+WITH PRODUCT ROUTING AND CHALLENGE MAPPING
+================================================================================
+This file contains zodiac rising sign information with product recommendations.
+The Rising Sign (Ascendant) represents your outward personality, first impressions,
+and how you approach new situations.
+
+Use this data to build the BRIDGE:
+"Since your rising sign is [X], you might be experiencing [challenge].
+Based on that, [PRODUCT] would help because [reason]."
+================================================================================
+
+--------------------------------------------------------------------------------
+ARIES RISING
+--------------------------------------------------------------------------------
+ELEMENT: Fire
+MODALITY: Cardinal
+THEMES: independence, courage, initiative, self-assertion, pioneering spirit
+
+COMMON CHALLENGES:
+- Starts projects but doesn't finish them
+- Impatience with slow progress
+- Difficulty in partnerships (7th house Libra = needs balance)
+- Career feels restricted (10th house Capricorn = authority issues)
+- Burns out from going too hard too fast
+
+ISSUE → PRODUCT ROUTING:
+- "I keep starting things but never finish" → 21 DOMA ($65) - pattern breaking
+- "I'm stuck in my career" → FYNS ($75) - find your direction
+- "Relationships never work out" → Hero's Journey - 7th house wound work
+- "I want to start a business" → Mini BG ($99) - channel that fire into content
+- "I feel misaligned with my life" → Portal Activation ($111) - environmental reset
+
+BEST ENTRY PRODUCT: Mini BG or FYNS (action-oriented, matches Aries energy)
+
+--------------------------------------------------------------------------------
+TAURUS RISING
+--------------------------------------------------------------------------------
+ELEMENT: Earth
+MODALITY: Fixed
+THEMES: stability, material security, values, sensuality, possessions
+
+COMMON CHALLENGES:
+- Stuck in comfort zone, resistant to change
+- Money blocks or hoarding tendencies
+- Relationships feel intense/transformative (7th house Scorpio)
+- Career feels unstable (10th house Aquarius = unconventional path)
+- Values misaligned with current life
+
+ISSUE → PRODUCT ROUTING:
+- "I feel stuck and can't change" → 21 DOMA ($65) - break fixed patterns
+- "Money feels blocked" → Hero's Journey - 2nd house worth work
+- "My relationship is too intense" → Hero's Journey - Scorpio 7th house
+- "I don't know my purpose" → Artist's Way - realign identity
+- "I want financial freedom" → Business Growth - monetize stability
+
+BEST ENTRY PRODUCT: 21 DOMA or Portal Activation (gentle pattern shift)
+
+--------------------------------------------------------------------------------
+GEMINI RISING
+--------------------------------------------------------------------------------
+ELEMENT: Air
+MODALITY: Mutable
+THEMES: communication, curiosity, ideas, networking, duality
+
+COMMON CHALLENGES:
+- Scattered energy, too many interests
+- Difficulty committing to one path
+- Emotional depth in partnerships (7th house Sagittarius = seeks meaning)
+- Career needs creativity (10th house Pisces = artistic/spiritual work)
+- Overthinking, analysis paralysis
+
+ISSUE → PRODUCT ROUTING:
+- "I have too many ideas" → Mini BG ($99) - structure ideas into content
+- "I can't commit to anything" → FYNS ($75) - find your north star
+- "I overthink everything" → 21 DOMA ($65) - quiet the mental noise
+- "I want to create content" → Mini BG ($99) - perfect for communicators
+- "Relationships lack depth" → Hero's Journey - seek meaningful connection
+
+BEST ENTRY PRODUCT: Mini BG or Make Money with AI (communication-focused)
+
+--------------------------------------------------------------------------------
+CANCER RISING
+--------------------------------------------------------------------------------
+ELEMENT: Water
+MODALITY: Cardinal
+THEMES: emotions, nurturing, family, roots, safety
+
+COMMON CHALLENGES:
+- Over-giving, people-pleasing
+- Difficulty setting boundaries
+- Attracts ambitious/cold partners (7th house Capricorn)
+- Career needs visibility (10th house Aries = needs to lead)
+- Past/family wounds affecting present
+
+ISSUE → PRODUCT ROUTING:
+- "I give too much to others" → Hero's Journey - boundary work
+- "Family patterns repeat" → Hero's Journey - heal root wounds
+- "I'm afraid to be visible" → Business Growth - step into leadership
+- "My partner is emotionally unavailable" → Hero's Journey - 7th house
+- "I feel unsafe in the world" → Portal Activation ($111) - secure environment
+
+BEST ENTRY PRODUCT: 21 DOMA or Rewrite Your Past ($25)
+
+--------------------------------------------------------------------------------
+LEO RISING
+--------------------------------------------------------------------------------
+ELEMENT: Fire
+MODALITY: Fixed
+THEMES: creativity, self-expression, leadership, pride, recognition
+
+COMMON CHALLENGES:
+- Fear of not being seen/recognized
+- Creative blocks
+- Attracts detached partners (7th house Aquarius = needs freedom)
+- Career needs precision (10th house Taurus = build slowly)
+- Ego wounds, rejection sensitivity
+
+ISSUE → PRODUCT ROUTING:
+- "I'm not getting recognition" → FYNS ($75) - find where you shine
+- "I have creative blocks" → Artist's Way - unlock creative identity
+- "My partner is distant" → Hero's Journey - attachment patterns
+- "I want to be a leader" → Business Growth - visibility + content
+- "I fear judgment" → 21 DOMA ($65) - work through ego patterns
+
+BEST ENTRY PRODUCT: FYNS or Mini BG (visibility-focused)
+
+--------------------------------------------------------------------------------
+VIRGO RISING
+--------------------------------------------------------------------------------
+ELEMENT: Earth
+MODALITY: Mutable
+THEMES: service, work, health, detail, improvement
+
+COMMON CHALLENGES:
+- Perfectionism paralysis
+- Over-analyzing, never launching
+- Attracts dreamy/chaotic partners (7th house Pisces)
+- Career needs nurturing (10th house Gemini = communication role)
+- Health anxiety, body disconnection
+
+ISSUE → PRODUCT ROUTING:
+- "I'm a perfectionist and never finish" → Mini BG ($99) - just ship it
+- "I overthink everything" → 21 DOMA ($65) - break analysis loops
+- "My partner is unreliable" → Hero's Journey - Pisces 7th house
+- "I want to help people but don't know how" → FYNS ($75) - service path
+- "I feel disconnected from my body" → Artist's Way - embodiment work
+
+BEST ENTRY PRODUCT: Mini BG or FYNS (structure meets service)
+
+--------------------------------------------------------------------------------
+LIBRA RISING
+--------------------------------------------------------------------------------
+ELEMENT: Air
+MODALITY: Cardinal
+THEMES: relationships, harmony, justice, aesthetics, balance
+
+COMMON CHALLENGES:
+- People-pleasing, losing self in relationships
+- Indecision, waiting for others
+- Attracts intense/controlling partners (7th house Aries)
+- Career needs transformation (10th house Cancer = emotional leadership)
+- Conflict avoidance
+
+ISSUE → PRODUCT ROUTING:
+- "I lose myself in relationships" → Hero's Journey - identity reclamation
+- "I can't make decisions" → FYNS ($75) - find your own direction
+- "My partner is too aggressive" → Hero's Journey - Aries 7th house
+- "I want harmony in my life" → Portal Activation ($111) - balance environment
+- "I avoid conflict" → 21 DOMA ($65) - face shadow patterns
+
+BEST ENTRY PRODUCT: Hero's Journey entry (21 DOMA or Rewrite Your Past)
+
+--------------------------------------------------------------------------------
+SCORPIO RISING
+--------------------------------------------------------------------------------
+ELEMENT: Water
+MODALITY: Fixed
+THEMES: intimacy, power, transformation, secrecy, intensity
+
+COMMON CHALLENGES:
+- Trust issues, fear of betrayal
+- Control patterns in relationships
+- Attracts stubborn/materialistic partners (7th house Taurus)
+- Career needs recognition (10th house Leo = needs spotlight)
+- Holding onto past wounds
+
+ISSUE → PRODUCT ROUTING:
+- "I have trust issues" → Hero's Journey - deep wound work
+- "I can't let go of the past" → Rewrite Your Past ($25) - release trauma
+- "My partner is too materialistic" → Hero's Journey - values alignment
+- "I'm afraid to be seen" → Business Growth - safe visibility
+- "I feel powerless" → Artist's Way - reclaim identity
+
+BEST ENTRY PRODUCT: Rewrite Your Past ($25) or 21 DOMA ($65)
+
+--------------------------------------------------------------------------------
+SAGITTARIUS RISING
+--------------------------------------------------------------------------------
+ELEMENT: Fire
+MODALITY: Mutable
+THEMES: exploration, philosophy, expansion, truth, travel
+
+COMMON CHALLENGES:
+- Commitment issues, always seeking "more"
+- Over-promising, under-delivering
+- Attracts detail-oriented partners (7th house Gemini)
+- Career needs structure (10th house Virgo = needs systems)
+- Restlessness, can't settle
+
+ISSUE → PRODUCT ROUTING:
+- "I can't commit to one thing" → FYNS ($75) - find your north star
+- "I feel restless all the time" → Artist's Way - align with cycles
+- "My partner is too scattered" → Hero's Journey - communication patterns
+- "I want freedom in my career" → Business Growth - build your own path
+- "I keep moving but going nowhere" → 21 DOMA ($65) - break the loop
+
+BEST ENTRY PRODUCT: FYNS or Mini BG (freedom + direction)
+
+--------------------------------------------------------------------------------
+CAPRICORN RISING
+--------------------------------------------------------------------------------
+ELEMENT: Earth
+MODALITY: Cardinal
+THEMES: ambition, authority, structure, discipline, achievement
+
+COMMON CHALLENGES:
+- Workaholic tendencies, neglecting self
+- Fear of failure, playing it safe
+- Attracts emotional/needy partners (7th house Cancer)
+- Career needs balance (10th house Libra = partnerships matter)
+- Cold exterior hiding vulnerability
+
+ISSUE → PRODUCT ROUTING:
+- "I'm burned out from work" → Artist's Way - realign priorities
+- "I'm afraid to take risks" → 21 DOMA ($65) - break safety patterns
+- "My partner is too emotional" → Hero's Journey - emotional integration
+- "I want to build a legacy" → Business Growth Full - scale properly
+- "I feel emotionally blocked" → Hero's Journey - access vulnerability
+
+BEST ENTRY PRODUCT: FYNS or Portal Activation (structured transformation)
+
+--------------------------------------------------------------------------------
+AQUARIUS RISING
+--------------------------------------------------------------------------------
+ELEMENT: Air
+MODALITY: Fixed
+THEMES: innovation, rebellion, humanity, freedom, collective vision
+
+COMMON CHALLENGES:
+- Feeling like an outsider
+- Difficulty with emotional intimacy
+- Attracts dramatic/attention-seeking partners (7th house Leo)
+- Career needs stability (10th house Scorpio = power dynamics)
+- Detachment from self
+
+ISSUE → PRODUCT ROUTING:
+- "I feel like I don't belong" → Artist's Way - find your unique place
+- "I can't connect emotionally" → Hero's Journey - attachment work
+- "My partner needs too much attention" → Hero's Journey - Leo 7th house
+- "I want to change the world" → Business Growth - platform for ideas
+- "I feel disconnected from myself" → 21 DOMA ($65) - reconnect
+
+BEST ENTRY PRODUCT: Make Money with AI ($50) or Mini BG (innovative approach)
+
+--------------------------------------------------------------------------------
+PISCES RISING
+--------------------------------------------------------------------------------
+ELEMENT: Water
+MODALITY: Mutable
+THEMES: spirituality, compassion, dreams, illusions, transcendence
+
+COMMON CHALLENGES:
+- Boundary issues, absorbing others' energy
+- Escapism, avoiding reality
+- Attracts critical/perfectionist partners (7th house Virgo)
+- Career needs grounding (10th house Sagittarius = needs meaning)
+- Identity confusion, shape-shifting
+
+ISSUE → PRODUCT ROUTING:
+- "I absorb everyone's energy" → Portal Activation ($111) - protect your space
+- "I don't know who I am" → Artist's Way - identity discovery
+- "My partner criticizes me" → Hero's Journey - Virgo 7th house
+- "I want meaningful work" → FYNS ($75) - find purposeful direction
+- "I escape instead of facing things" → 21 DOMA ($65) - face patterns
+
+BEST ENTRY PRODUCT: Portal Activation or 21 DOMA (grounding + boundaries)
+
+================================================================================
+QUICK REFERENCE: RISING SIGN → BEST ENTRY PRODUCTS
+================================================================================
+
+| Rising Sign | Best Entry Products | Why |
+|-------------|---------------------|-----|
+| Aries | Mini BG, FYNS | Action-oriented, needs direction |
+| Taurus | 21 DOMA, Portal Activation | Gentle pattern shift |
+| Gemini | Mini BG, Make Money with AI | Communication-focused |
+| Cancer | 21 DOMA, Rewrite Your Past | Emotional healing first |
+| Leo | FYNS, Mini BG | Visibility and recognition |
+| Virgo | Mini BG, FYNS | Structure meets service |
+| Libra | 21 DOMA, Rewrite Your Past | Identity before relationships |
+| Scorpio | Rewrite Your Past, 21 DOMA | Deep wound work |
+| Sagittarius | FYNS, Mini BG | Freedom with direction |
+| Capricorn | FYNS, Portal Activation | Structured transformation |
+| Aquarius | Make Money with AI, Mini BG | Innovative approach |
+| Pisces | Portal Activation, 21 DOMA | Grounding and boundaries |
+
+================================================================================
+END OF RISING SIGN DATABASE
+================================================================================
