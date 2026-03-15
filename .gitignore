@@ -29,4 +29,5 @@ dist-ssr
 public/knowledge-base
 
 # Environment
+.env
 .env.local

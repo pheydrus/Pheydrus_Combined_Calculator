@@ -143,7 +143,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
   try {
     const stream = await client.messages.stream({
-      model: 'claude-sonnet-4-6-20250514',
+      model: 'claude-sonnet-4-20250514',
       max_tokens: 2048,
       system: systemPrompt,
       messages: request.messages.map((m) => ({
