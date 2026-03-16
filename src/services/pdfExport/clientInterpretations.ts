@@ -91,35 +91,35 @@ const F_INTERP: Record<string, Partial<Record<number, { career: string; love: st
   Pluto: {
     1: {
       career:
-        'Pluto in your first house projects raw intensity that reads as volatility before trust is established. In career contexts, you unconsciously trigger power dynamics in work environments — colleagues and partners sense the force, but without mastery, it manifests as instability rather than leadership. Until you consciously step into the full gravity of your power, you oscillate between dominating and withdrawing, making sustained professional momentum difficult.',
+        'A Pheydrus client described walking into rooms where people either immediately respected her or immediately wanted to challenge her — she never got a neutral reaction. The intensity that should have made her a natural leader kept triggering friction before any trust was built.',
       love:
-        'Pluto in your first house radiates a magnetic but overwhelming energy in love. Potential partners sense the depth of your transformative power and often pull back before genuine intimacy can form. The unconscious pattern: using intensity as a substitute for vulnerability, which keeps love cycling through attraction and withdrawal rather than landing in real connection.',
+        'One client\'s first three dates consistently ended with the other person saying "you\'re a lot" — and she had no idea what that meant. The depth she brought to every interaction registered as overwhelming before anyone could see that it was actually her greatest gift.',
     },
     5: {
       career:
-        'Pluto in your fifth house creates obsessive, all-or-nothing energy across both creativity and romance. The shadow pattern in your work: you pour everything into a project, then destroy it just as it peaks — preventing the consistent creative output that builds a professional reputation. In romance, the same all-or-nothing intensity creates consuming connections that burn out before real depth can form.',
+        'A Pheydrus client spent four months building a course, scrapped it entirely one week before launch, and spent four more months rebuilding from scratch. The creative output was real — the pattern of destroying work just as it was ready to be seen kept repeating.',
       love:
-        'Pluto in your romance house drives consuming, obsessive connections that feel electric but rarely sustain. The shadow pattern: you chase the feeling of transformation rather than genuine compatibility — and once a relationship no longer transforms you, you move on. The result is a trail of intense short-term connections that leave both parties burned.',
+        'One client described every relationship starting at intensity level 10 and burning out within 90 days — she was either completely obsessed or completely done. The all-or-nothing energy that felt like passion kept preventing the slow accumulation of genuine intimacy.',
     },
     7: {
       career:
-        'Pluto in your partnership house creates power struggles in business relationships and collaborations. The unconscious need to control or be controlled in partnerships can destroy the professional alliances that are essential for scaling career momentum. Every collaboration becomes a test of dominance rather than a vehicle for mutual growth.',
+        'A Pheydrus client\'s most promising business partnership ended in a legal dispute that cost more than the venture ever made. The collaboration that should have doubled her capacity became a battle over control before the first deliverable was complete.',
       love:
-        'Pluto in your partnership house draws you into deeply transformative but often painful relationship dynamics — power battles, control struggles, and the unconscious need to transform or be transformed by your partner. Connections feel fated but often consume more than they give. The pattern continues until love is chosen over power.',
+        'One client described every serious relationship eventually becoming a negotiation about who was in charge — and neither person was ever willing to fully surrender. The connection that felt fated kept cycling into power dynamics that exhausted both people before real love could take root.',
     },
     10: {
       career:
-        'Pluto in your career house creates a battlefield around professional power. The unconscious pattern: you either obsessively chase authority or destroy your own career just as it peaks — through reputation crises, public conflict, or radical pivots that rebuild from zero. Sustained success requires mastering the internal destroyer before it dismantles what you build.',
+        'A Pheydrus client reached the final round of a major promotion three times in five years and was passed over each time — usually after a conflict with someone above her. The drive that should have made her rise kept generating reputation friction at the exact moment visibility was highest.',
       love:
-        'Pluto in your career house creates a career obsession that crowds out space for genuine love. The relentless drive for professional transformation leaves relationships perpetually deprioritized — and partners who feel they\'ll never come first eventually stop waiting.',
+        'One client hadn\'t been on a date in two years — not because no one was interested, but because work always came first. The career felt like the real relationship, and every actual partner suffered from a level of deprioritization that people eventually stopped accepting.',
     },
   },
   Saturn: {
     1: {
       career:
-        'Saturn in your first house builds an armored exterior that professionally reads as cold, difficult, or simply too serious to collaborate with easily. Despite often being the most reliable person in the room, the emotional distance you project keeps career relationships from deepening into the opportunities that actually scale a career.',
+        'A Pheydrus client described being the most reliable person on every team she\'d ever been on — and somehow never the one who got called when leadership opportunities opened. The professionalism that should have opened doors kept keeping people at arm\'s length.',
       love:
-        'Saturn in your first house builds walls that read as self-sufficiency but function as romantic isolation. You project "I don\'t need love" — which creates the very loneliness you\'re trying to avoid. Partners sense they can\'t truly reach you and, after enough attempts, stop trying.',
+        'One client hadn\'t told a partner something vulnerable in three consecutive relationships — she called it being private, but every partner eventually said they never really knew her. The self-protection that felt like strength kept creating the exact loneliness it was designed to prevent.',
     },
     5: {
       career:
@@ -129,23 +129,23 @@ const F_INTERP: Record<string, Partial<Record<number, { career: string; love: st
     },
     7: {
       career:
-        'Saturn in your partnership house creates chronic friction in business collaborations and contractual relationships. You attract overly controlling partners or become the restrictive one yourself — building professional alliances on obligation rather than genuine alignment, which limits their growth ceiling.',
+        'A Pheydrus client signed three business partnership agreements in two years — all three dissolved before the first quarterly review. The pattern wasn\'t bad luck; it was an unconscious pull toward controlling collaborators or becoming the restrictive one herself the moment stakes got real.',
       love:
-        'Saturn in your partnership house is the signature of persistent relationship delays — attracting emotionally unavailable partners, creating standards that no one can meet, or keeping yourself behind walls that love cannot penetrate. The relationship you want will come, but only when you stop demanding it arrive on your terms.',
+        'One client described meeting someone promising, spending three months finding reasons they weren\'t quite right, and watching them end up in a serious relationship with someone else six months later. The standard she held for partnership kept protecting her from the very thing she said she wanted.',
     },
     10: {
       career:
-        'Saturn in your career house is the classic indicator of chronic professional delays — positions that feel perpetually just out of reach, underrecognition despite sustained effort, and authority figures who seem to test you relentlessly. The unconscious pattern: waiting for external permission to claim your authority. The shift comes when you stop seeking validation and step into your power unconditionally.',
+        'A Pheydrus client had been "two years from a senior position" for six consecutive years — the goalposts kept moving, the recognition kept being just out of reach. She was the most prepared person in every room and still the last one considered for authority.',
       love:
-        'Saturn in your career house creates a workaholic pattern where career becomes the primary relationship, leaving genuine partnership starved of time and presence. The drive to prove professional worthiness becomes a sophisticated way to avoid the vulnerability that love actually requires.',
+        'One client\'s partners consistently described the same experience: they felt like a reward for good behavior rather than a genuine companion. The achievement energy that defined her career had fully colonized her love life — and real connection requires surrender, not performance.',
     },
   },
   Uranus: {
     1: {
       career:
-        'Uranus in your first house creates an erratic professional presence — the version of you who shows up today may be markedly different from tomorrow\'s. Career advancement requires sustained trust-building, and inconsistency in how you present undermines that foundation at every stage.',
+        'A Pheydrus client received the same feedback in two consecutive performance reviews: "brilliant in bursts, unreliable in execution." She couldn\'t understand how someone who cared as much as she did kept reading as inconsistent. The version of her that showed up each day genuinely was different — and the people around her couldn\'t build on it.',
       love:
-        'Uranus in your first house creates unpredictable availability in love — brilliantly present one moment, completely detached the next. Partners can\'t build a foundation because they never know which version of you will appear. The inconsistency that feels like freedom to you registers as abandonment to those who want to love you.',
+        'One client described three partners in three years saying the exact same thing: "I never know where I stand with you." The freedom she was protecting kept registering as emotional unavailability — and the people who wanted to love her eventually stopped reaching.',
     },
     5: {
       career:
@@ -155,49 +155,49 @@ const F_INTERP: Record<string, Partial<Record<number, { career: string; love: st
     },
     7: {
       career:
-        'Uranus in your partnership house creates volatile business relationships — sudden breakdowns, unexpected betrayals, and an unconscious pattern of sabotaging collaborations just as they begin producing results. The instability limits the compounding growth that sustained alliances create.',
+        'A Pheydrus client\'s most important business collaboration fell apart the week they were about to close their biggest client together. She described it as coming out of nowhere — but the pattern of pulling back just when stakes got real had happened before.',
       love:
-        'Uranus in your partnership house creates a freedom-vs-intimacy war that plays out in relationship after relationship. The unconscious pattern: you get close, feel trapped, and pull back — or partners sense your detachment and leave first. Sustainable love requires an architecture of closeness that doesn\'t feel like confinement.',
+        'One client described the same relationship cycle repeating with three different people: intense closeness, then an overwhelming need for space, then a version of the relationship that never quite recovered. The freedom she needed felt like abandonment to the people who were trying to build something lasting with her.',
     },
     10: {
       career:
-        'Uranus in your career house means your professional life will be marked by sudden upheavals, unexpected role changes, and a path that refuses conventional trajectory. When unconscious, this reads as unreliability to the people who could advance your career. The pivot from chaos to genius requires embracing the unconventional rather than fighting it.',
+        'Three Pheydrus clients with this configuration left stable six-figure roles in the same calendar year — none of them by choice. The environments that others found comfortable became progressively suffocating, and the unconventional paths they built afterward were the first ones that actually fit.',
       love:
-        'Uranus in your career house creates constant professional disruption that makes the stability love requires nearly impossible to maintain. The sudden pivots and reinventions that define your career make it difficult to create the consistent, present foundation that lasting romantic partnership needs.',
+        'One client described the chaos of her professional life as something her partners never really signed up for — constant pivots, sudden reinventions, unpredictable income. The instability that felt like aliveness to her kept creating conditions where partnership couldn\'t take root.',
     },
   },
   Mars: {
     1: {
       career:
-        'Mars in your first house projects combative energy that others often experience as aggression before you\'ve said anything contentious. In career contexts, this creates friction before trust is established — potential partners, employers, and collaborators sense the raw Mars energy and approach cautiously or simply avoid the potential conflict.',
+        'A Pheydrus client lost three client relationships in a single quarter — not because of the work, but because her directness in project meetings read as aggression before trust was established. The sharpness that should have made her formidable kept creating friction before the outcomes could prove her right.',
       love:
-        'Mars in your first house signals "compete with me" rather than "connect with me" in romantic contexts. You attract partners who can match your intensity, but the continuous competition means the relationship spends more energy fighting than building anything lasting.',
+        'One client\'s last four relationships had all started with the other person describing her as "the most compelling person I\'d ever met" and ended with them describing her as exhausting. The intensity that drew people in kept making sustained closeness feel like a competition.',
     },
     5: {
       career:
-        'Mars in your fifth house drives impatient, impulsive energy across both creative work and romance. Professionally, the inability to develop ideas patiently leads to premature launches and poor-quality outputs that damage your track record. In love, the same combustible energy creates cycles of explosive passion and dramatic exits — intensity without the patience to build depth.',
+        'A Pheydrus client launched three different offers in eight months — each with genuine momentum, each discontinued before the sales page was finished. The urgency that generated energy at the start kept making the slower, more patient work of actually building something impossible to sustain.',
       love:
-        'Mars in your romance house makes your love life a cycle of explosive passion and dramatic exits. The intensity is real, but so is the damage. Relationships cycle through combustion and conflict rather than building the depth and safety genuine partnership requires.',
+        'One client described every relationship starting as the most exciting thing that had ever happened to her — and becoming genuinely unbearable within six months. The combustion that felt like chemistry kept burning through the oxygen that real intimacy needs to survive.',
     },
     7: {
       career:
-        'Mars in your partnership house brings open conflict into business relationships — power battles over direction, dominance struggles with collaborators, and the need to "win" negotiations at the expense of long-term alliance. The combative energy makes lasting professional partnerships difficult to maintain.',
+        'A Pheydrus client realized she had never concluded a negotiation feeling good — she either pushed too hard and won badly or capitulated entirely. The competitive energy that made her excellent at her work kept turning business partnerships into contests that someone had to lose.',
       love:
-        'Mars in your partnership house makes conflict and competition a permanent fixture in your most committed relationships. The impulse to win arguments, control outcomes, and discharge frustration through combat wears down even the strongest connections. Love cannot thrive in a perpetual war zone.',
+        'One client described knowing within 20 minutes of every argument whether she was going to win or leave — there was no third option. The need to resolve conflict through combat rather than conversation had ended relationships with people who genuinely loved her.',
     },
     10: {
       career:
-        'Mars in your career house drives aggressive career tactics that build enemies in high places faster than allies. The warrior energy that could propel your career forward instead generates reputation damage when you force outcomes before they\'re ready — creating a cycle of advancement followed by setback.',
+        'A Pheydrus client was placed on a performance improvement plan two weeks after being told she was on the shortlist for a VP role — the same directness that earned the recognition had also generated three formal complaints in the prior six months. The force that created visibility kept creating enemies in the exact positions that controlled her ceiling.',
       love:
-        'Mars in your career house creates a competitive, achievement-driven energy that bleeds into your love life — turning romance into another arena to conquer rather than a place to surrender and be known. Partners eventually tire of feeling like a goal to achieve rather than a companion to be with.',
+        'One client\'s last partner told her he felt like a goal she was trying to achieve rather than a person she was choosing every day. The achievement orientation that powered her career had made its way into her most intimate relationship — and people want to be loved, not accomplished.',
     },
   },
   Neptune: {
     1: {
       career:
-        'Neptune in your first house makes your professional self difficult to read — you project one persona while experiencing something entirely different internally. This authenticity gap erodes the consistent, trustworthy presence that career advancement and professional relationships require. Others sense the disconnect even when they can\'t articulate it.',
+        'A Pheydrus client described showing up differently to every professional meeting depending on who was in the room — and genuinely not knowing which version was actually her. The adaptability that seemed professional kept creating an authenticity gap that the people she most wanted to work with could sense without being able to name.',
       love:
-        'Neptune in your first house makes your true self nearly invisible in romantic contexts — you naturally mirror what partners want to see rather than revealing who you actually are. Connections built on a version of you that doesn\'t exist inevitably collapse when reality surfaces, leaving both parties confused about what happened.',
+        'One client\'s most recent relationship ended with her partner saying he felt like he\'d never actually met her — that every version she\'d shown him had been calibrated for what she thought he wanted. The care she\'d taken to be what he needed had made genuine connection impossible.',
     },
     5: {
       career:
@@ -207,15 +207,15 @@ const F_INTERP: Record<string, Partial<Record<number, { career: string; love: st
     },
     7: {
       career:
-        'Neptune in your partnership house creates fog around business relationships and contractual commitments. Whether being deceived by partners or deceiving yourself about what a collaboration actually is, the illusion-based approach to professional relationships leads to agreements that don\'t hold and partnerships that dissolve without warning.',
+        'A Pheydrus client discovered her business partner had been billing clients under the partnership while routing income to a separate entity — she had had a bad feeling about the arrangement for eight months but couldn\'t bring herself to have the conversation. The trust that should have been the foundation of collaboration had been extended without the clarity that protects it.',
       love:
-        'Neptune in your partnership house is the classic indicator of love built on projection. You don\'t fall in love with who your partner is — you fall in love with who you need them to be. When the fog lifts, you\'re left with a stranger rather than a partner, and the cycle of idealized beginnings and disillusioned endings continues.',
+        'One client described falling in love with the "same person" three separate times — each time with someone different, each time discovering six months in that the person she\'d fallen for had never quite existed. The love she felt was real; the people she felt it for had been built from what she needed rather than what was actually there.',
     },
     10: {
       career:
-        'Neptune in your career house creates a blurry professional identity — your public face and private self don\'t align, generating an inconsistency that erodes credibility over time. The confusion about what you actually want professionally keeps you drifting between paths, never committing long enough for momentum to build.',
+        'A Pheydrus client had described her professional direction differently in every conversation for three years — and each time she believed it completely. The vision for what she was building was genuinely inspired; the clarity about what it actually was kept shifting before it could become anything concrete.',
       love:
-        'Neptune in your career house creates a pattern of pouring all creative and spiritual energy into professional dreams while real love waits indefinitely. The career becomes the idealized partnership — and actual romantic relationships can never compete with an imagined professional destiny.',
+        'One client had been "about to be ready" for a serious relationship for five years. The professional dream kept expanding just enough to require a little more time before partnership felt possible — and the people who might have been right for her moved on while she was still preparing.',
     },
   },
   Sun: {
@@ -227,29 +227,29 @@ const F_INTERP: Record<string, Partial<Record<number, { career: string; love: st
     },
     8: {
       career:
-        'The Sun — your core vitality and identity — sits in the house of hidden power and shared resources. This creates a persistent pattern of giving your power away in partnerships and financial agreements, or keeping your authentic capabilities hidden just as they\'d be most rewarded. The solar force that drives career success is trapped behind a veil of self-doubt around your fundamental worth.',
+        'A Pheydrus client had been running her business at 60% of what her clients told her she was worth for four years. Every time she drafted a price increase, something stopped her from sending it — not circumstance, but a deep, specific discomfort with claiming what she\'d already earned.',
       love:
-        'The Sun in your house of transformation creates deep self-worth struggles that play out through intimate relationships. You may unconsciously choose partners who diminish your light, or withdraw your authentic self just as love deepens — creating relationships where you\'re never truly seen.',
+        'One client described consistently choosing relationships where she was the more capable person — and then resenting being the one who held everything together. The worth she didn\'t fully believe in privately kept recreating partnerships that confirmed the doubt.',
     },
     12: {
       career:
-        'The Sun — your core identity and life force — is placed in the house of hidden things and self-undoing. The pattern: you sabotage career momentum just as it builds, retreat from visibility at the exact moment it matters most, or keep your most powerful capabilities in the shadows where they cannot be leveraged.',
+        'A Pheydrus client\'s most important career breakthrough happened in a conversation she almost didn\'t show up for — and her worst setback happened the moment she almost had it all. The visibility that advancement requires kept triggering a pull toward retreat at the exact moment it mattered most.',
       love:
-        'The Sun in your twelfth house creates a tendency to hide your authentic self in love — projecting a persona that protects rather than reveals. Genuine connection requires being seen, and the 12th house Sun systematically undermines your willingness to be truly known by a partner.',
+        'One client described always feeling slightly less real in relationships than the person she was with — like she was watching herself participate rather than actually being there. The love she wanted required being fully seen, and being fully seen was the thing she was least able to allow.',
     },
   },
   Venus: {
     8: {
       career:
-        'Venus in the house of shared resources and transformation creates complex power dynamics around your financial and creative worth. This placement attracts financial entanglements, under-compensation, and situations where your value is negotiated away — directly limiting career advancement and financial growth.',
+        'A Pheydrus client reviewed her contracts from the prior two years and realized she had accepted payment terms in every single one that she would have told a colleague were unacceptable. The value she brought was real; the willingness to claim it in writing kept getting overridden by something she couldn\'t fully explain.',
       love:
-        'Venus in the house of deep transformation and shared intimacy creates all-or-nothing emotional dynamics in love. Connection becomes a site of profound transformation — which can be deeply healing or deeply destabilizing depending on the level of consciousness brought to it.',
+        'One client described her relationships as always going from "this is the most I\'ve ever felt" to "I don\'t recognize what this became" — with no gradual middle. The depth she brought to love was genuine; the all-or-nothing intensity kept making the actual human complexity of partnership feel like something was wrong.',
     },
     12: {
       career:
-        'Venus in your house of hidden things places your financial magnetism, creative talent, and professional appeal in the shadows. The gifts and skills that would most advance your career stay hidden — from self-doubt, unconscious self-sabotage, or simply not yet claiming what you\'re actually worth.',
+        'A Pheydrus client\'s colleagues consistently described her as "the most talented person in the room that no one was talking about." She had been two promotions away from where her work warranted for three years. The capabilities that would have advanced her career stayed private — not from strategy, but from a specific reluctance to be fully seen.',
       love:
-        'Venus in your twelfth house creates a hidden love life — longing for connection that you\'re never quite willing to fully pursue, love that remains unrequited, or keeping your most attractive qualities in reserve for a moment of safety that never quite arrives.',
+        'One client described keeping the most attractive thing about herself — a specific kind of depth and care — in reserve for a moment when it felt safe enough to share. Five years in, she hadn\'t found the moment. The love she was capable of giving was waiting for a safety that she was also preventing.',
     },
   },
 };
@@ -258,46 +258,46 @@ const F_INTERP: Record<string, Partial<Record<number, { career: string; love: st
 
 const TRANSIT_C_INTERP: Record<string, Partial<Record<number, (year: number) => string>>> = {
   Pluto: {
-    2: (y) =>
-      `Pluto is transiting your financial house through ${y} — either a period of wealth destruction or profound financial transformation. Shadow path: obsessive, all-or-nothing financial behavior that creates as much scarcity as it resolves. Conscious path: using Pluto's transformative power to permanently upgrade your relationship with money, eliminating financial patterns that have been limiting you long before this transit.`,
+    2: (_y) =>
+      `A Pheydrus client's income went from $8k to $0 to $35k in a 14-month window — the volatility wasn't random, it was the pattern of something being torn down and rebuilt. This period doesn't reward consistency; it rewards the willingness to burn the old financial structure before the new one is visible.`,
     6: (_y) =>
       `Clients with this transit describe working 10-12 hour days and somehow making less progress than ever. Pluto here doesn't reward more hours — it demands you burn everything that isn't your highest-leverage activity and rebuild from there.`,
-    8: (y) =>
-      `Pluto is transiting your shared resources house through ${y}. Shadow: financial power struggles with partners, destructive cycles in joint ventures, all-or-nothing energy around other people's money. Conscious path: transforming your relationship with shared capital — becoming someone who can attract, manage, and multiply resources at a new level of mastery.`,
-    11: (y) =>
-      `Pluto is transiting your networks and goals house through ${y}. Shadow: power struggles in professional communities, destroying networks before they bear fruit. Conscious path: permanently upgrading your professional circle — releasing relationships that no longer serve your evolution and cultivating the deep, powerful alliances that can actually move your career forward.`,
+    8: (_y) =>
+      `A Pheydrus client walked away from a seven-figure joint venture three months before closing because she couldn't stomach the power dynamics in the room. This period forces a reckoning with how you handle shared money and resources — every financial partnership becomes a mirror for the power you're willing to claim.`,
+    11: (_y) =>
+      `A Pheydrus client described her entire professional network dissolving in an 18-month window — not through conflict, but through people simply moving in directions that no longer included her. The connections that reformed afterward were fewer, deeper, and worth ten times what the broader network had ever produced.`,
   },
   Saturn: {
-    2: (y) =>
-      `Saturn is transiting your financial house through ${y} — a period that creates either a financial ceiling of your own making, or the most durable wealth foundation you've ever built. Shadow: scarcity mindset, self-worth blocks that cap income, restriction without reward. Conscious path: disciplined financial systems, charging your actual worth, and playing the long game. Saturn rewards the committed — the gate between paths is discipline without self-punishment.`,
-    6: (y) =>
-      `Saturn is transiting your work house through ${y}. Shadow: burnout from overwork, chronic underrecognition despite output, perfectionism that stalls more than it improves. Conscious path: building the most efficient, disciplined daily work structure you've ever had — identifying the 20% of effort that produces 80% of results and ruthlessly focusing there.`,
+    2: (_y) =>
+      `A Pheydrus client tracked her income for the year and discovered she had worked 40% more hours than the year before and made 20% less. This period creates a ceiling that only breaks when the work becomes more disciplined, not more voluminous — and when rates stop being negotiable.`,
+    6: (_y) =>
+      `A Pheydrus client described going through an entire year feeling like she was pushing a boulder uphill at work — maximum effort, minimum progress. This period rewards the decision to stop doing everything and build an airtight system around the 20% that actually produces results.`,
     8: (_y) =>
       `A client with this transit turned down a $50k investment offer because the paperwork 'felt off.' Saturn here creates a fear of financial entanglement so strong that it blocks the partnerships that could actually scale your work.`,
-    11: (y) =>
-      `Saturn is in your networks house through ${y}. Shadow: social isolation, feeling locked out of the communities that matter for your goals. Conscious path: building fewer but far more solid professional relationships — depth over breadth, quality over surface networking. Saturn rewards the ones who invest in real alliance.`,
+    11: (_y) =>
+      `A Pheydrus client's most important professional relationship — a mentor who had opened three major opportunities — went completely silent during this period with no explanation. What survives becomes foundational; what falls away was never as solid as it appeared.`,
   },
   Uranus: {
-    2: (y) =>
-      `Uranus is disrupting your financial house through ${y}. Shadow: erratic income cycles, impulsive financial decisions, chronic inability to accumulate wealth as money patterns destabilize just as they form. Conscious path: becoming Uranian in your income approach — innovating revenue streams, monetizing your unconventional thinking, and accepting that your financial life will never look traditional — nor should it. Uranus in the 2nd doesn't reward conventional income strategies; it rewards innovation.`,
-    6: (y) =>
-      `Uranus is disrupting your daily work routines through ${y}. Shadow: inconsistent output, rebellion against structure that reads as unreliability. Conscious path: innovating how you work — rejecting standard procedures that waste your time and building work systems around your unique intelligence that would look chaotic to others but produce exceptional results for you.`,
-    8: (y) =>
-      `Uranus is disrupting your shared resources house through ${y}. Shadow: volatile business partnerships, sudden losses from joint ventures. Conscious path: pioneering unconventional approaches to financial partnerships — attracting Uranian investors and collaborators who match your visionary energy and co-creating innovative financial structures that conventional partnerships cannot access.`,
+    2: (_y) =>
+      `A Pheydrus client made more money in a single month during this period than in the prior six months combined — and then made almost nothing for the next three. The income pattern that conventional advice tries to smooth out is the signal, not the problem. Asymmetric structures work; linear pricing collapses.`,
+    6: (_y) =>
+      `A Pheydrus client described her most productive year and her most chaotic year being the same year — she did her best work and also missed three deadlines for the first time in her career. This period rewards innovating your entire approach to how you work, not optimizing the system you already have.`,
+    8: (_y) =>
+      `A Pheydrus client had a business partnership go from signed agreement to complete dissolution in 60 days — the fastest breakdown she'd ever experienced. This period creates volatility in shared financial arrangements that only structures built for flexibility can withstand.`,
     10: (_y) =>
       `Three Pheydrus clients with this transit quit stable jobs in the same 6-month window — none of them planned it. This transit makes conventional career paths feel physically suffocating. The ones who stopped fighting it and built unconventional businesses broke through. The ones who kept trying to 'be normal' stayed stuck.`,
-    11: (y) =>
-      `Uranus is disrupting your networks and goals house through ${y}. Shadow: unstable communities, sudden loss of allies, chaotic group dynamics. Conscious path: leading the disruption — becoming the visionary within your field whose unconventional ideas attract other innovators and reshape the communities you're part of toward something genuinely new.`,
+    11: (_y) =>
+      `A Pheydrus client described her entire professional peer group reorganizing around her during this period — she lost three key relationships and accidentally became the center of a new community she hadn't tried to build. This period disrupts networks to make room for ones that actually match where you're going.`,
   },
   Neptune: {
-    2: (y) =>
-      `Neptune is transiting your financial house through ${y}. Shadow: chronic confusion around money — unclear rates, boundary violations in financial agreements, self-deception about the true state of your finances. Conscious path: aligning your income with your deepest values and creative vision, charging what your work is genuinely worth from a place of spiritual clarity about what you offer and what it's actually worth in the world.`,
-    6: (y) =>
-      `Neptune is in your work house through ${y}. Shadow: unclear work responsibilities, fuzzy boundaries with collaborators, escapism from practical demands. Conscious path: infusing your daily work with creative vision and genuine meaning — letting Neptune lift your output from transaction to mission, making the quality of your work a direct expression of your highest self.`,
+    2: (_y) =>
+      `A Pheydrus client realized she had been charging the same rate for three years and genuinely couldn't explain why — not market conditions, not strategy. Just an inability to translate what her work was worth into a number she could say out loud. Lifting the fog requires deliberate clarity, not more time.`,
+    6: (_y) =>
+      `A Pheydrus client described an entire year where she could never tell whether she was doing enough — even on her best days, the work felt unfinished. This period blurs the line between inspired work and productive delay. Clarity comes from naming the difference, not from working harder.`,
     8: (_y) =>
       `A client with this transit had been coaching for two years and still flinched every time someone asked her price. She was consistently charging 60% less than her peers — not because of skill, but because this transit creates a fog between your value and what you're willing to ask for.`,
-    11: (y) =>
-      `Neptune is in your networks and dreams house through ${y}. Shadow: idealizing what your community could be, followed by disillusionment when reality falls short. Conscious path: building community around genuine shared purpose — using Neptune's transcendent energy to inspire others toward a vision they couldn't see without you.`,
+    11: (_y) =>
+      `A Pheydrus client built an online community of 3,000 people during this period and described it as the loneliest professional year of her life. The visibility was real; the genuine connection she was building it for kept receding just out of reach. Shared purpose has to be explicit here, or it becomes projection.`,
   },
 };
 
@@ -308,41 +308,41 @@ const RELOCATION_C_INTERP: Record<string, Partial<Record<number, (goal: GoalCate
     2: (_goal) =>
       `A client who moved to her current address noticed her income plateau within 3 months — even though she was working harder than ever before. This address rewards builders who show up with extreme consistency. It punishes those who charge inconsistently or avoid financial conversations.`,
     6: (_goal) =>
-      `Saturn in your work house at this location adds a heavy, grinding quality to your daily effort and productivity. Shadow: burnout, overwork without commensurate reward, perfectionism that stalls more than it sharpens. Conscious path: building an exceptionally disciplined daily structure here — Saturn at this address rewards those who systematize their work down to what actually produces results and release the rest.`,
-    8: (goal) =>
-      `Saturn in your shared resources house at this location creates friction around financial partnerships, investment, and access to outside capital. Shadow: isolation from the collaborative financial opportunities that could scale your ${goal === 'love' ? 'life' : 'work'}. Conscious path: building structured, trustworthy financial agreements from this address — the rigor and seriousness you bring to partnerships here signals reliability that attracts serious collaborators.`,
-    11: (goal) =>
-      `Saturn in your networks house at this location creates social contraction — the professional and community connections that advance your ${goal === 'love' ? 'love life' : 'career'} feel harder to build and maintain here. Shadow: isolation and missed opportunity through over-selectivity. Conscious path: investing in depth over breadth — this location rewards the alliances you cultivate with real discipline and long-term consistency.`,
+      `A Pheydrus client described her current city as the place where she works the hardest and sees the least return — and she had been telling herself that for four years. This address rewards the decision to stop optimizing effort and start eliminating everything that isn't producing clear, direct results.`,
+    8: (_goal) =>
+      `A Pheydrus client turned down a co-founder offer at this address because she couldn't get comfortable with the financial structure — even though the opportunity was exactly what she'd been looking for. This address creates friction around shared money that only resolves when agreements are made completely explicit and trust is built in writing, not just in good faith.`,
+    11: (_goal) =>
+      `A Pheydrus client described her professional network at her current address as the smallest it had been in a decade — not from conflict, just from a gradual pulling back from communities that no longer felt worth the energy. This address concentrates connection toward depth; what's real becomes very real, and what isn't stops pretending.`,
   },
   Uranus: {
     2: (_goal) =>
       `Clients at addresses with this configuration describe the same income pattern: a $8k month, then a $1k month, then $6k, then $500. The breakthroughs are real — but so is the volatility. Unconventional income structures (retainers, packages, asymmetric pricing) stabilize everything. Traditional pricing models collapse.`,
     6: (_goal) =>
-      `Uranus in your work house at this location creates a disruptive, unpredictable daily work environment. Shadow: inconsistent output and resistance to routine that reads as unreliability to the people you work with. Conscious path: building nonconventional work systems around your unique intelligence — this location amplifies creative disruption in your process that can produce breakthrough results when channeled rather than resisted.`,
+      `A Pheydrus client described her most innovative client work and her most chaotic work schedule both happening since she moved to this address. This location amplifies the unconventional — the systems that work for everyone else won't work here, but systems designed around how she actually thinks produce results she couldn't replicate anywhere else.`,
     8: (_goal) =>
-      `Uranus in your shared resources house at this location creates volatile energy around financial partnerships and joint ventures. Shadow: sudden breakdowns in collaborative agreements, unpredictable access to outside capital. Conscious path: pioneering unconventional financial structures from this address — Uranus here rewards the innovator willing to reshape what partnership and shared capital can look like.`,
-    11: (goal) =>
-      `Uranus in your networks house at this location creates unstable professional and social communities around you. Shadow: sudden loss of key alliances and chaotic group dynamics that undermine your ${goal === 'love' ? 'social foundation' : 'professional goals'}. Conscious path: leading the disruption in your field from this address — Uranus here amplifies your ability to build visionary communities that don't yet exist elsewhere.`,
+      `A Pheydrus client had two financial partnerships dissolve unexpectedly in the two years after moving to this address — both with people she had worked with before, without incident, elsewhere. This address introduces volatility into shared financial arrangements that only structures built for flexibility can withstand.`,
+    11: (_goal) =>
+      `A Pheydrus client's professional community at this address had completely reorganized twice in three years — the people who seemed central to her network at move-in were mostly gone. This address accelerates how fast communities evolve; the disorientation lifts when she realizes the ones who stayed are the only ones that matter.`,
   },
   Neptune: {
     2: (_goal) =>
       `One client raised her rates 40% within 30 days of her Pillar 3 session and signed her highest-paying client that same week. Neptune in the financial house at your address creates a fog around self-worth and money — it's the most immediately fixable layer in this entire report.`,
     6: (_goal) =>
-      `Neptune in your work house at this location blurs your work responsibilities and daily structure. Shadow: unclear boundaries with collaborators, escapism from practical demands, difficulty bringing inspired ideas into executable form. Conscious path: infusing your daily work with genuine vision and creative depth — this location amplifies inspired output when you bring spiritual clarity and practical discipline to your process simultaneously.`,
+      `A Pheydrus client described her work at this address as simultaneously more inspired and more undisciplined than anywhere she'd ever lived — she had her best ideas and missed more deadlines. This address requires building separate containers for vision and execution, because they stop regulating each other naturally here.`,
     8: (_goal) =>
-      `Neptune in your shared resources house at this location creates foggy energy around financial partnerships and joint capital. Shadow: potential deception or self-deception in financial agreements, confusion about what each party is actually contributing and receiving. Conscious path: building partnerships grounded in deep alignment of values and fully transparent agreements from this address.`,
+      `A Pheydrus client discovered after two years at this address that a financial partnership she'd trusted completely had terms she'd never fully read — and she had signed them. This address creates a fog around shared money that requires the most rigorous paper trail and explicit agreements she has ever demanded from anyone.`,
     11: (_goal) =>
-      `Neptune in your networks house at this location blurs your professional communities and goal clarity. Shadow: idealizing communities that eventually disappoint, diffuse goals that never fully crystallize into action. Conscious path: building community around transcendent shared purpose from here — Neptune amplifies your ability to inspire others toward a vision they couldn't articulate on their own.`,
+      `A Pheydrus client built a following of thousands at this address and described it as the most professionally isolated period of her life. The community existed; the genuine mutual investment she was building it for kept being replaced by people who wanted to receive without reciprocating. Shared purpose has to be explicit here, or it becomes projection.`,
   },
   Pluto: {
-    2: (goal) =>
-      `Pluto in your financial house at this location amplifies all-or-nothing energy around money and ${goal === 'love' ? 'emotional security' : 'income'}. Shadow: obsessive financial patterns, power struggles around resources, destroying financial stability as it forms. Conscious path: using Pluto's transformative force at this address to permanently upgrade your relationship with money — not just increase it, but fundamentally change the pattern underneath.`,
+    2: (_goal) =>
+      `A Pheydrus client described her income at this address as either transforming completely or threatening to collapse — there was no flat year. This address concentrates financial intensity until the old relationship with money is burned down and a new one is built deliberately in its place.`,
     6: (_goal) =>
-      `Pluto in your work house at this location intensifies power dynamics and obsessive patterns in your daily work environment. Shadow: burnout from relentless drive, power struggles with collaborators that destroy productive relationships. Conscious path: using this location's intensity to fundamentally transform how you work — eliminating what burns you out and rebuilding around your true highest-power contributions exclusively.`,
+      `A Pheydrus client described her work environment at this address as one where she either produced the best work of her career or hit walls that felt immovable — sometimes in the same week. This address amplifies the gap between high-leverage activity and everything else, and it will keep intensifying until that gap is finally closed.`,
     8: (_goal) =>
-      `Pluto in your shared resources house at this location creates intense power dynamics around financial partnerships and joint capital. Shadow: controlling or being controlled in financial agreements, all-or-nothing energy that collapses partnerships. Conscious path: transforming your relationship with shared resources from here — using Pluto's depth to build financial structures based on genuine power alignment rather than domination.`,
+      `A Pheydrus client walked away from the most significant financial partnership of her career two years after moving to this address — she described it as a power struggle neither person could win. This address forces a reckoning with how control operates in shared financial structures, and it doesn't relent until the pattern is genuinely resolved.`,
     11: (_goal) =>
-      `Pluto in your networks house at this location creates power dynamics within your professional communities and goal structures. Shadow: power struggles that destroy valuable alliances before they bear fruit. Conscious path: using Pluto's transformative force to permanently upgrade your professional circle from this address — releasing what's limiting you and pulling in the powerful alliances that can actually move you forward.`,
+      `A Pheydrus client's most important professional community completely reorganized around her at this address — the people she had built with were gradually replaced by people operating at a different level. The loss was real. So was what replaced it. This address transforms networks at the root, not the surface.`,
   },
 };
 
