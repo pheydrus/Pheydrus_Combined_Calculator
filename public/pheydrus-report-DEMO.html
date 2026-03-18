@@ -1,0 +1,1273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pheydrus 3-Pillar Analysis — SAMPLE REPORT</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Inter:wght@400;500;600&display=swap');
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html {
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+
+    body {
+      background: #FAFAF8;
+      font-family: 'Inter', sans-serif;
+      color: #666666;
+    }
+
+    /* ── Page shell ── */
+    .page {
+      width: 8.5in;
+      min-height: 11in;
+      padding: 0.62in 0.75in;
+      box-sizing: border-box;
+      margin: 0 auto 40px;
+      background: #FAFAF8;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    /* ── Header ── */
+    .page-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      padding-bottom: 11px;
+      border-bottom: 1px solid #E8E4DC;
+    }
+    .brand {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 21px;
+      color: #8B6914;
+      line-height: 1;
+    }
+    .brand-sub {
+      font-size: 9px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: #999;
+      margin-top: 4px;
+    }
+    .hdr-right { text-align: right; }
+    .hdr-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 14px;
+      color: #1A1A1A;
+    }
+    .hdr-date { font-size: 10px; color: #999; margin-top: 2px; }
+
+    /* ── Hero score card ── */
+    .hero-card {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      padding: 18px 22px;
+      border-radius: 4px;
+      border: 1px solid;
+    }
+    .hero-left {
+      flex-shrink: 0;
+      border-right: 1px solid #E2DDD4;
+      padding-right: 20px;
+      text-align: center;
+    }
+    .grade-letter {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 64px;
+      line-height: 1;
+    }
+    .score-label {
+      font-size: 9px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: #999;
+      margin-top: 4px;
+    }
+    .score-val { font-size: 11px; color: #888; }
+    .hero-right { flex: 1; }
+    .hero-headline {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 22px;
+      color: #1A1A1A;
+      line-height: 1.3;
+    }
+    .hero-sub {
+      font-size: 12px;
+      color: #666;
+      line-height: 1.65;
+      margin-top: 8px;
+    }
+
+    /* ── Pillar breakdown grid ── */
+    .breakdown-grid {
+      display: flex;
+      gap: 20px;
+      align-items: flex-start;
+    }
+    .pillar-bars { flex: 1; }
+    .section-label {
+      font-size: 9px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: #999;
+      margin-bottom: 10px;
+    }
+    .pillar-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 9px;
+    }
+    .pillar-name-col { width: 115px; flex-shrink: 0; }
+    .pillar-name { font-size: 11px; font-weight: 600; color: #1A1A1A; }
+    .pillar-sub { font-size: 9px; color: #999; }
+    .bar-col { flex: 1; }
+    .progress-bar {
+      height: 4px;
+      background: #E2DDD4;
+      border-radius: 2px;
+      overflow: hidden;
+    }
+    .progress-fill {
+      height: 100%;
+      background: #8B6914;
+      border-radius: 2px;
+    }
+    .pillar-pct {
+      font-size: 13px;
+      font-weight: 600;
+      color: #8B6914;
+      width: 36px;
+      text-align: right;
+      flex-shrink: 0;
+    }
+    .grade-pill {
+      font-size: 9px;
+      font-weight: 700;
+      padding: 2px 6px;
+      border-radius: 2px;
+      flex-shrink: 0;
+    }
+    .venn-col { width: 148px; flex-shrink: 0; text-align: center; }
+    .venn-caption { font-size: 9px; color: #999; text-align: center; margin-top: 4px; }
+
+    /* ── Callout boxes ── */
+    .gold-bar {
+      background: #FBF7EE;
+      border-left: 3px solid #C9A84C;
+      padding: 10px 14px;
+      border-radius: 0 3px 3px 0;
+    }
+    .gold-bar .gb-label {
+      font-size: 9px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: #8B6914;
+      margin-bottom: 3px;
+    }
+    .gold-bar .gb-text { font-size: 12px; color: #333; line-height: 1.5; }
+
+    .reframe-box {
+      border-left: 3px solid #C9A84C;
+      background: #FBF7EE;
+      padding: 11px 14px;
+      border-radius: 0 3px 3px 0;
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 14px;
+      color: #333;
+      line-height: 1.75;
+    }
+
+    .malefic-strip {
+      background: #F5F3EE;
+      border: 1px solid #E2DDD4;
+      border-radius: 3px;
+      padding: 12px 15px;
+    }
+    .malefic-strip .ms-heading {
+      font-size: 11px;
+      font-weight: 600;
+      color: #8B6914;
+      margin-bottom: 6px;
+    }
+    .malefic-strip .ms-body { font-size: 11px; color: #666; line-height: 1.65; }
+    .malefic-quote {
+      border-left: 2px solid #C9A84C;
+      padding-left: 9px;
+      margin-top: 7px;
+      font-style: italic;
+      font-size: 10.5px;
+      color: #555;
+    }
+
+    .seed-line {
+      text-align: center;
+      font-size: 10px;
+      font-style: italic;
+      color: #999;
+      padding-top: 10px;
+      border-top: 1px solid #E8E4DC;
+    }
+
+    /* ── Page 2 ── */
+    .eyebrow {
+      font-size: 9px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: #999;
+    }
+    .page-headline {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 34px;
+      color: #1A1A1A;
+      line-height: 1.2;
+    }
+    .pull-quote {
+      border-left: 3px solid #C9A84C;
+      background: #FBF7EE;
+      padding: 14px 18px;
+      border-radius: 0 3px 3px 0;
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 16px;
+      color: #333;
+      line-height: 1.7;
+    }
+    .body-text { font-size: 13px; color: #666; line-height: 1.8; }
+    .body-emphasis { font-size: 14px; font-weight: 600; color: #8B6914; line-height: 1.8; }
+
+    .venn-legend-row {
+      display: flex;
+      gap: 22px;
+      align-items: flex-start;
+    }
+    .legend-col { flex: 1; display: flex; flex-direction: column; gap: 9px; }
+    .legend-card {
+      background: #F5F3EE;
+      border: 1px solid #E2DDD4;
+      border-radius: 4px;
+      padding: 11px 13px;
+    }
+    .lc-header { display: flex; align-items: center; gap: 8px; margin-bottom: 5px; }
+    .dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+    .lc-title { font-size: 10px; text-transform: uppercase; font-weight: 600; color: #666; letter-spacing: 0.05em; }
+    .lc-question {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 13px;
+      color: #8B6914;
+      line-height: 1.5;
+      margin-bottom: 4px;
+    }
+    .lc-desc { font-size: 11px; color: #999; line-height: 1.4; }
+
+    .timeline-box {
+      background: #F5F3EE;
+      border: 1px solid #E2DDD4;
+      border-radius: 4px;
+      padding: 14px 18px;
+    }
+    .tl-label {
+      font-size: 9px;
+      font-weight: 700;
+      color: #8B6914;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 7px;
+    }
+    .tl-body { font-size: 12px; color: #666; line-height: 1.6; }
+
+    .destiny-bridge {
+      background: #F0F5F0;
+      border: 1px solid #C8DEC8;
+      border-radius: 4px;
+      padding: 14px 18px;
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 14px;
+      color: #333;
+      line-height: 1.7;
+    }
+
+    /* ── Page 3 ── */
+    .section-eyebrow {
+      font-size: 9px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: #999;
+    }
+    .pillar-block { display: flex; flex-direction: column; gap: 8px; }
+    .pillar-header-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .pillar-badge {
+      font-size: 9px;
+      font-weight: 700;
+      padding: 3px 8px;
+      border: 1px solid #E2DDD4;
+      color: #999;
+      border-radius: 2px;
+    }
+    .pillar-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 20px;
+      color: #1A1A1A;
+    }
+    .pillar-pct-r { margin-left: auto; font-size: 13px; font-weight: 600; color: #8B6914; }
+
+    .goal-callout {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 12px;
+      color: #8B6914;
+      border-bottom: 1px solid #E2DDD4;
+      padding-bottom: 8px;
+    }
+
+    .content-row { display: flex; gap: 14px; align-items: flex-start; }
+    .chart-col { flex-shrink: 0; text-align: center; }
+    .chart-label { font-size: 9px; color: #999; text-align: center; margin-top: 4px; }
+    .chart-legend {
+      display: flex;
+      gap: 8px;
+      justify-content: center;
+      margin-top: 3px;
+      font-size: 8px;
+      color: #999;
+    }
+    .cl-item { display: flex; align-items: center; gap: 3px; }
+    .cl-dot { width: 6px; height: 6px; border-radius: 50%; }
+
+    .aspects-col { flex: 1; display: flex; flex-direction: column; gap: 7px; }
+    .aspect-card {
+      background: #F5F3EE;
+      border-radius: 4px;
+      padding: 9px 11px;
+      border-left: 3px solid;
+    }
+    .ac-header { display: flex; align-items: center; gap: 8px; margin-bottom: 4px; }
+    .ac-name { font-size: 12px; font-weight: 600; color: #1A1A1A; }
+    .ac-pill { font-size: 10px; font-weight: 700; padding: 2px 6px; border-radius: 2px; margin-left: auto; flex-shrink: 0; }
+    .mirror {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 11px;
+      color: #8B6914;
+      margin-bottom: 4px;
+    }
+    .story { font-size: 11px; color: #666; line-height: 1.6; }
+    .transmute {
+      font-size: 11px;
+      color: #8B6914;
+      font-style: italic;
+      border-top: 1px solid #E2DDD4;
+      padding-top: 5px;
+      margin-top: 5px;
+    }
+
+    .testimonial {
+      border-left: 3px solid #C9A84C;
+      background: #FBF7EE;
+      padding: 11px 15px;
+      border-radius: 0 4px 4px 0;
+    }
+    .t-quote {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 13px;
+      color: #333;
+      line-height: 1.6;
+      margin-bottom: 5px;
+    }
+    .t-attr { font-size: 11px; color: #999; }
+
+    .timeline-callout {
+      font-size: 12px;
+      color: #666;
+      padding: 8px 12px;
+      background: #F5F3EE;
+      border-radius: 3px;
+    }
+
+    /* ── Page 4 ── */
+    .cost-box {
+      background: #FDF5F5;
+      border: 1px solid #E8C4C0;
+      border-radius: 4px;
+      padding: 20px 24px;
+    }
+    .cost-heading {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 22px;
+      color: #1A1A1A;
+      margin-bottom: 14px;
+    }
+    .cost-line {
+      font-size: 13px;
+      color: #666;
+      line-height: 1.7;
+      border-left: 2px solid #E8C4C0;
+      padding-left: 12px;
+      margin-bottom: 8px;
+    }
+    .cost-note { font-size: 12px; color: #999; margin-top: 10px; }
+    .cost-years { font-size: 14px; font-weight: 700; color: #C0392B; margin-top: 8px; }
+    .cost-seed { font-size: 15px; font-weight: 700; color: #8B6914; margin-top: 5px; }
+
+    .destiny-block {
+      background: #F0F5F0;
+      border: 1px solid #C8DEC8;
+      border-radius: 4px;
+      padding: 20px 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .destiny-heading {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 20px;
+      color: #8B6914;
+    }
+    .destiny-p { font-size: 13px; color: #666; line-height: 1.8; }
+    .destiny-closing {
+      border-top: 1px solid #C8DEC8;
+      padding-top: 13px;
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 18px;
+      color: #1A1A1A;
+      line-height: 1.5;
+    }
+
+    .cta-box {
+      background: #FAFAF8;
+      border: 1px solid #C9A84C;
+      border-radius: 4px;
+      padding: 24px 28px;
+      text-align: center;
+    }
+    .cta-heading {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 22px;
+      color: #8B6914;
+      margin-bottom: 6px;
+    }
+    .cta-sub { font-size: 12px; color: #999; margin-bottom: 16px; }
+    .cta-bullets { text-align: left; margin-bottom: 16px; }
+    .cta-bullet {
+      font-size: 12px;
+      color: #333;
+      margin-bottom: 8px;
+      line-height: 1.5;
+      padding-left: 16px;
+      position: relative;
+    }
+    .cta-bullet::before {
+      content: '→';
+      color: #8B6914;
+      position: absolute;
+      left: 0;
+    }
+    .cta-tagline {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 14px;
+      color: #666;
+      margin-bottom: 16px;
+    }
+    .cta-button {
+      display: block;
+      width: 100%;
+      background: #8B6914;
+      color: #FAFAF8;
+      font-family: 'Inter', sans-serif;
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      padding: 16px;
+      border-radius: 3px;
+      border: none;
+      cursor: pointer;
+      margin-bottom: 10px;
+      transition: background 0.2s;
+    }
+    .cta-button:hover { background: #6B5210; }
+    .cta-fine { font-size: 11px; color: #999; }
+
+    .page-footer {
+      border-top: 1px solid #E8E4DC;
+      padding-top: 10px;
+      display: flex;
+      justify-content: space-between;
+      font-size: 9px;
+      color: #999;
+      margin-top: auto;
+    }
+
+    /* ── Responsive ── */
+    /* offset for demo banner in browser */
+    body { padding-top: 36px; }
+    @media print { body { padding-top: 0; } }
+
+    @media (max-width: 820px) {
+      .page { width: 100%; padding: 24px 20px; }
+      .hero-card { flex-direction: column; }
+      .hero-left { border-right: none; border-bottom: 1px solid #E2DDD4; padding-right: 0; padding-bottom: 14px; width: 100%; }
+      .breakdown-grid { flex-direction: column; }
+      .venn-col { width: 100%; }
+      .venn-legend-row { flex-direction: column; }
+      .content-row { flex-direction: column; }
+    }
+
+    /* ── Demo banner ── */
+    .demo-banner {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 9999;
+      background: #8B6914;
+      color: #FAFAF8;
+      text-align: center;
+      font-family: 'Inter', sans-serif;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 8px 16px;
+    }
+    @media print { .demo-banner { display: none; } }
+
+    /* ── Print ── */
+    @media print {
+      html { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+      body { background: #FAFAF8; margin: 0; }
+      .page {
+        page-break-before: always;
+        margin: 0;
+        width: 100%;
+        min-height: 100vh;
+        padding: 0.62in 0.75in;
+      }
+      .page:first-child { page-break-before: avoid; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Demo banner (browser only, hidden on print) -->
+<div class="demo-banner">⭐ Sample Report — For Demonstration Purposes Only ⭐</div>
+
+<!-- ════════════════════════════════════════ -->
+<!-- PAGE 1 · COVER                          -->
+<!-- ════════════════════════════════════════ -->
+<div class="page" id="page1">
+
+  <!-- Header -->
+  <div class="page-header">
+    <div>
+      <div class="brand">Pheydrus</div>
+      <div class="brand-sub">Proprietary 3-Pillar Analysis</div>
+    </div>
+    <div class="hdr-right">
+      <div class="hdr-name" id="hdr-name"></div>
+      <div class="hdr-date" id="hdr-date"></div>
+    </div>
+  </div>
+
+  <!-- Hero Score Card -->
+  <div class="hero-card" id="hero-card">
+    <div class="hero-left">
+      <div class="grade-letter" id="grade-letter"></div>
+      <div class="score-label">Overall Score</div>
+      <div class="score-val" id="score-val"></div>
+    </div>
+    <div class="hero-right">
+      <div class="hero-headline" id="hero-headline"></div>
+      <div class="hero-sub" id="hero-sub"></div>
+    </div>
+  </div>
+
+  <!-- Pillar Breakdown + Venn -->
+  <div class="breakdown-grid">
+    <div class="pillar-bars">
+      <div class="section-label">Your Score Breaks Down As:</div>
+
+      <div class="pillar-row">
+        <div class="pillar-name-col">
+          <div class="pillar-name">Soul &amp; Karma</div>
+          <div class="pillar-sub">Pillar 1</div>
+        </div>
+        <div class="bar-col">
+          <div class="progress-bar"><div class="progress-fill" id="p1-bar"></div></div>
+        </div>
+        <div class="pillar-pct" id="p1-pct"></div>
+        <div class="grade-pill" id="p1-pill"></div>
+      </div>
+
+      <div class="pillar-row">
+        <div class="pillar-name-col">
+          <div class="pillar-name">Planetary Timing</div>
+          <div class="pillar-sub">Pillar 2</div>
+        </div>
+        <div class="bar-col">
+          <div class="progress-bar"><div class="progress-fill" id="p2-bar"></div></div>
+        </div>
+        <div class="pillar-pct" id="p2-pct"></div>
+        <div class="grade-pill" id="p2-pill"></div>
+      </div>
+
+      <div class="pillar-row">
+        <div class="pillar-name-col">
+          <div class="pillar-name">Environment</div>
+          <div class="pillar-sub">Pillar 3</div>
+        </div>
+        <div class="bar-col">
+          <div class="progress-bar"><div class="progress-fill" id="p3-bar"></div></div>
+        </div>
+        <div class="pillar-pct" id="p3-pct"></div>
+        <div class="grade-pill" id="p3-pill"></div>
+      </div>
+    </div>
+
+    <!-- Venn Diagram – Page 1 -->
+    <div class="venn-col">
+      <svg width="135" height="112" viewBox="0 0 135 112" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- Soul / Karma – top -->
+        <circle cx="67" cy="42" r="35" fill="#C9A84C" fill-opacity="0.12" stroke="#C9A84C" stroke-opacity="0.6" stroke-width="1"/>
+        <!-- Timing – bottom-left -->
+        <circle cx="44" cy="79" r="35" fill="#7B5EA7" fill-opacity="0.10" stroke="#9B8EC4" stroke-opacity="0.6" stroke-width="1"/>
+        <!-- Environment – bottom-right -->
+        <circle cx="91" cy="79" r="35" fill="#2E8B7A" fill-opacity="0.10" stroke="#5BB5A5" stroke-opacity="0.6" stroke-width="1"/>
+        <!-- Center label -->
+        <text x="67.5" y="63" text-anchor="middle" font-family="Cormorant Garamond,serif" font-style="italic" font-size="7.5" fill="#333">Full</text>
+        <text x="67.5" y="72" text-anchor="middle" font-family="Cormorant Garamond,serif" font-style="italic" font-size="7.5" fill="#333">Alignment</text>
+        <!-- Pillar labels -->
+        <text x="67" y="10" text-anchor="middle" font-family="Cormorant Garamond,serif" font-size="9" fill="#8B6914">Soul / Karma</text>
+        <text x="12" y="108" text-anchor="middle" font-family="Cormorant Garamond,serif" font-size="9" fill="#6B5A9A">Timing</text>
+        <text x="116" y="108" text-anchor="middle" font-family="Cormorant Garamond,serif" font-size="7.5" fill="#2E7A6A">Environment</text>
+      </svg>
+      <div class="venn-caption">3 forces · 1 score</div>
+    </div>
+  </div>
+
+  <!-- Goal Bar -->
+  <div class="gold-bar">
+    <div class="gb-label" id="goal-label"></div>
+    <div class="gb-text" id="goal-text"></div>
+  </div>
+
+  <!-- Reframe Box -->
+  <div class="reframe-box">
+    If you've tried everything — the mindset work, the strategies, the therapy — and things are going <strong style="font-style:normal;color:#1A1A1A;">well enough</strong> but that one specific thing you want keeps slipping just out of reach… you're not factoring in the unseen forces that <strong style="font-style:normal;color:#1A1A1A;">cannot be intellectually solved.</strong> You've been 10x-capable this entire time. This report maps the forces working against you.
+  </div>
+
+  <!-- Malefic Strip -->
+  <div class="malefic-strip">
+    <div class="ms-heading">Your score is not a verdict. It's an entry point.</div>
+    <div class="ms-body">
+      The forces showing up in your report aren't there to make life hard — they're only hard when you don't know how to work with them. Every pressure point carries a higher octave: a transmuted version that becomes your greatest advantage once decoded.
+      <div class="malefic-quote">
+        "Pluto transiting your 1st house? Stop playing nice. Stop softening your edges. Step fully into your power — that is the higher octave." — Pheydrus team
+      </div>
+    </div>
+  </div>
+
+  <!-- Seed Line -->
+  <div class="seed-line">
+    This report does two things: gives you <span style="color:#8B6914;">closure on why the past felt so hard</span> — and maps <span style="color:#8B6914;">what's coming next</span>, if you're ready.
+  </div>
+
+</div><!-- /page1 -->
+
+
+<!-- ════════════════════════════════════════ -->
+<!-- PAGE 2 · WHY THIS KEEPS HAPPENING       -->
+<!-- ════════════════════════════════════════ -->
+<div class="page" id="page2">
+
+  <div class="eyebrow">The Pattern</div>
+  <h1 class="page-headline">Why This Keeps Happening</h1>
+
+  <div class="pull-quote">
+    "It's not normal to wake up every day with that quiet ache — knowing you've done everything right. The degree. The career. The inner work. And still feel like you're watching everyone else's life click into place while yours stays just out of reach."
+  </div>
+
+  <p class="body-text">
+    You are not behind. You are not broken. What you're experiencing is the friction of three invisible forces pulling against each other simultaneously. When these forces are misaligned, it doesn't matter how hard you work — life feels like pushing through water.
+  </p>
+
+  <p class="body-emphasis">
+    When all three align — everything changes. Not gradually. Suddenly.
+  </p>
+
+  <p class="body-text">
+    The right people appear. The income shifts. The version of you that you've been reaching for starts to feel like the version of you that simply is. This is what Pheydrus clients describe — not motivation, not mindset — but a fundamental unlocking of what was always already there.
+  </p>
+
+  <!-- Venn + Legend -->
+  <div class="venn-legend-row">
+    <div style="flex-shrink:0;">
+      <svg width="195" height="185" viewBox="0 0 195 185" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- Soul / Karma – top -->
+        <circle cx="97" cy="68" r="55" fill="#C9A84C" fill-opacity="0.12" stroke="#C9A84C" stroke-opacity="0.6" stroke-width="1.5"/>
+        <!-- Timing – bottom-left -->
+        <circle cx="62" cy="130" r="55" fill="#7B5EA7" fill-opacity="0.10" stroke="#9B8EC4" stroke-opacity="0.6" stroke-width="1.5"/>
+        <!-- Environment – bottom-right -->
+        <circle cx="133" cy="130" r="55" fill="#2E8B7A" fill-opacity="0.10" stroke="#5BB5A5" stroke-opacity="0.6" stroke-width="1.5"/>
+        <!-- Center label -->
+        <text x="97.5" y="107" text-anchor="middle" font-family="Cormorant Garamond,serif" font-style="italic" font-size="10" fill="#333">Full</text>
+        <text x="97.5" y="119" text-anchor="middle" font-family="Cormorant Garamond,serif" font-style="italic" font-size="10" fill="#333">Alignment</text>
+        <!-- Pillar labels -->
+        <text x="97" y="14" text-anchor="middle" font-family="Cormorant Garamond,serif" font-size="13" fill="#8B6914">Soul / Karma</text>
+        <text x="16" y="179" text-anchor="middle" font-family="Cormorant Garamond,serif" font-size="13" fill="#6B5A9A">Timing</text>
+        <text x="172" y="179" text-anchor="middle" font-family="Cormorant Garamond,serif" font-size="11" fill="#2E7A6A">Environment</text>
+      </svg>
+    </div>
+
+    <div class="legend-col">
+      <div class="legend-card">
+        <div class="lc-header">
+          <div class="dot" style="background:#C9A84C;"></div>
+          <div class="lc-title">Soul / Karma — Pillar 1</div>
+        </div>
+        <div class="lc-question">"Have people always called you 'too much' — or have you always felt emotions more intensely than those around you, like you were wired differently from birth?"</div>
+        <div class="lc-desc">Your natal blueprint and the karmic patterns you came in with.</div>
+      </div>
+
+      <div class="legend-card">
+        <div class="lc-header">
+          <div class="dot" style="background:#9B8EC4;"></div>
+          <div class="lc-title">Planetary Timing — Pillar 2</div>
+        </div>
+        <div class="lc-question">"Did life suddenly shift — a separation, an unexpected move, a sudden urge to quit your job — even when you weren't consciously asking for change?"</div>
+        <div class="lc-desc">The current planetary transits actively shaping your window of time.</div>
+      </div>
+
+      <div class="legend-card">
+        <div class="lc-header">
+          <div class="dot" style="background:#5BB5A5;"></div>
+          <div class="lc-title">Environment — Pillar 3</div>
+        </div>
+        <div class="lc-question">"Ever since you moved to your current city, does it feel harder to be yourself — like opportunities that came easily before now require twice the effort?"</div>
+        <div class="lc-desc">How your current physical location interacts with your chart.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Timeline Warning -->
+  <div class="timeline-box">
+    <div class="tl-label">⚠ Active Pattern Window</div>
+    <div class="tl-body">
+      Without intervention, your current configuration is projected to persist <strong style="color:#8B6914;">through 2033 — approximately 7 more years.</strong> The primary driver is <strong style="color:#1A1A1A;">Uranus transiting House 10</strong>, defining the exact professional window you are in right now. Knowing the window is half the advantage.
+    </div>
+  </div>
+
+  <!-- Destiny Bridge -->
+  <div class="destiny-bridge">
+    The patterns identified in this report aren't just about what's been holding you back. They are the exact conditions that <strong style="font-style:normal;color:#1A1A1A;">precede a major identity shift.</strong> You are closer to the breakthrough than you are to the beginning. The question is whether you'll have a map when it arrives.
+  </div>
+
+</div><!-- /page2 -->
+
+
+<!-- ════════════════════════════════════════ -->
+<!-- PAGE 3 · PILLAR BREAKDOWN               -->
+<!-- ════════════════════════════════════════ -->
+<div class="page" id="page3">
+
+  <div class="section-eyebrow" id="s3-eyebrow"></div>
+
+  <!-- ── PILLAR 1 ── -->
+  <div class="pillar-block">
+    <div class="pillar-header-row">
+      <div class="pillar-badge">PILLAR 1</div>
+      <div class="pillar-title">Soul &amp; Karma</div>
+      <div class="pillar-pct-r" id="p1-pct-r"></div>
+    </div>
+    <div class="goal-callout">
+      Here is how Pillar 1 is specifically blocking your goal of <span id="p1-goal"></span>:
+    </div>
+    <div class="content-row">
+      <!-- Natal Chart -->
+      <div class="chart-col">
+        <svg width="108" height="108" viewBox="0 0 108 108" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="54" cy="54" r="50" stroke="#E2DDD4" stroke-width="1" fill="none"/>
+          <circle cx="54" cy="54" r="19" stroke="#E2DDD4" stroke-width="0.5" fill="#F5F3EE"/>
+          <!-- House cusp lines (inner r=19, outer r=50) -->
+          <!-- H1 180° --> <line x1="35" y1="54" x2="4" y2="54" stroke="#E2DDD4" stroke-width="0.5"/>
+          <!-- H2 150° --> <line x1="37.5" y1="44.5" x2="10.7" y2="29" stroke="#E2DDD4" stroke-width="0.5"/>
+          <!-- H3 120° --> <line x1="44.5" y1="37.5" x2="29" y2="10.7" stroke="#E2DDD4" stroke-width="0.5"/>
+          <!-- H4  90° --> <line x1="54" y1="35" x2="54" y2="4" stroke="#E2DDD4" stroke-width="0.5"/>
+          <!-- H5  60° --> <line x1="63.5" y1="37.5" x2="79" y2="10.7" stroke="#E2DDD4" stroke-width="0.5"/>
+          <!-- H6  30° --> <line x1="70.5" y1="44.5" x2="97.3" y2="29" stroke="#E2DDD4" stroke-width="0.5"/>
+          <!-- H7   0° --> <line x1="73" y1="54" x2="104" y2="54" stroke="#E2DDD4" stroke-width="0.5"/>
+          <!-- H8 330° --> <line x1="70.5" y1="63.5" x2="97.3" y2="79" stroke="#E2DDD4" stroke-width="0.5"/>
+          <!-- H9 300° --> <line x1="63.5" y1="70.5" x2="79" y2="97.3" stroke="#E2DDD4" stroke-width="0.5"/>
+          <!-- H10 270° --> <line x1="54" y1="73" x2="54" y2="104" stroke="#E2DDD4" stroke-width="0.5"/>
+          <!-- H11 240° --> <line x1="44.5" y1="70.5" x2="29" y2="97.3" stroke="#E2DDD4" stroke-width="0.5"/>
+          <!-- H12 210° --> <line x1="37.5" y1="63.5" x2="10.7" y2="79" stroke="#E2DDD4" stroke-width="0.5"/>
+          <!-- House numbers at r=42, midpoints -->
+          <text x="13"  y="56"  text-anchor="middle" font-size="6" fill="#999" font-family="Inter,sans-serif">1</text>
+          <text x="24"  y="27"  text-anchor="middle" font-size="6" fill="#999" font-family="Inter,sans-serif">2</text>
+          <text x="43"  y="14"  text-anchor="middle" font-size="6" fill="#999" font-family="Inter,sans-serif">3</text>
+          <text x="65"  y="14"  text-anchor="middle" font-size="6" fill="#999" font-family="Inter,sans-serif">4</text>
+          <text x="84"  y="27"  text-anchor="middle" font-size="6" fill="#999" font-family="Inter,sans-serif">5</text>
+          <text x="96"  y="56"  text-anchor="middle" font-size="6" fill="#999" font-family="Inter,sans-serif">6</text>
+          <text x="96"  y="67"  text-anchor="middle" font-size="6" fill="#999" font-family="Inter,sans-serif">7</text>
+          <text x="84"  y="84"  text-anchor="middle" font-size="6" fill="#999" font-family="Inter,sans-serif">8</text>
+          <text x="65"  y="97"  text-anchor="middle" font-size="6" fill="#999" font-family="Inter,sans-serif">9</text>
+          <text x="41"  y="97"  text-anchor="middle" font-size="6" fill="#999" font-family="Inter,sans-serif">10</text>
+          <text x="24"  y="84"  text-anchor="middle" font-size="6" fill="#999" font-family="Inter,sans-serif">11</text>
+          <text x="13"  y="67"  text-anchor="middle" font-size="6" fill="#999" font-family="Inter,sans-serif">12</text>
+          <!-- House 5 malefics (red F-grade): ♄♅♆ at upper-right area -->
+          <circle cx="72" cy="28" r="5" fill="#C0392B" opacity="0.92"/>
+          <text x="72" y="31" text-anchor="middle" font-size="7" fill="white" font-family="serif">♄</text>
+          <circle cx="82" cy="24" r="5" fill="#C0392B" opacity="0.92"/>
+          <text x="82" y="27" text-anchor="middle" font-size="7" fill="white" font-family="serif">♅</text>
+          <circle cx="91" cy="28" r="5" fill="#C0392B" opacity="0.92"/>
+          <text x="91" y="31" text-anchor="middle" font-size="7" fill="white" font-family="serif">♆</text>
+          <!-- House 7 Sun (green A-grade): ☉ at right side -->
+          <circle cx="88" cy="62" r="5" fill="#1A6B3A" opacity="0.92"/>
+          <text x="88" y="65" text-anchor="middle" font-size="7" fill="white" font-family="serif">☉</text>
+        </svg>
+        <div class="chart-label">Natal Chart</div>
+        <div class="chart-legend">
+          <div class="cl-item"><div class="cl-dot" style="background:#C0392B;"></div>F</div>
+          <div class="cl-item"><div class="cl-dot" style="background:#1A6B3A;"></div>A</div>
+        </div>
+      </div>
+
+      <!-- Aspect Cards -->
+      <div class="aspects-col">
+        <div class="aspect-card" style="border-left-color:#C0392B;">
+          <div class="ac-header">
+            <div class="ac-name">Natal Saturn in House 5</div>
+            <div class="ac-pill" style="background:#FDECEA;color:#C0392B;">F</div>
+          </div>
+          <div class="mirror">"You build the offer, get excited, draft the posts — and pull back right before you publish. Every time."</div>
+          <div class="story">9 out of 10 Pheydrus clients with this configuration have a fully built offer sitting in their notes app that has never been posted. The work is done. The fear of being seen is what stops the publish button.</div>
+          <div class="transmute">Higher octave: once activated, you become the most disciplined, unshakeable builder in your market — the one who ships when others stall.</div>
+        </div>
+
+        <div class="aspect-card" style="border-left-color:#C0392B;">
+          <div class="ac-header">
+            <div class="ac-name">Natal Uranus + Neptune in House 5</div>
+            <div class="ac-pill" style="background:#FDECEA;color:#C0392B;">F</div>
+          </div>
+          <div class="mirror" id="p1-a2-mirror"></div>
+          <div class="story">One client had launched the same coaching business four separate times over six years — each time with real momentum, real interest, real potential. Each time, she disappeared before the first dollar came in.</div>
+          <div class="transmute">Higher octave: the most innovative, category-defining offer in any market. This is the foundation of what's coming next for you.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Pillar 1 Testimonial -->
+    <div class="testimonial">
+      <!-- REPLACE WITH REAL TESTIMONIAL -->
+      <div class="t-quote">"[Client testimonial about Soul &amp; Karma pillar — transformation after working with Pheydrus.]"</div>
+      <div class="t-attr">— [Client Name], [Location]</div>
+    </div>
+  </div>
+
+  <!-- ── PILLAR 2 ── -->
+  <div class="pillar-block">
+    <div class="pillar-header-row">
+      <div class="pillar-badge">PILLAR 2</div>
+      <div class="pillar-title">Planetary Timing</div>
+      <div class="pillar-pct-r" id="p2-pct-r"></div>
+    </div>
+    <div class="goal-callout">
+      Here is how your current timing window is affecting your ability to reach <span id="p2-goal"></span>:
+    </div>
+    <div class="content-row">
+      <!-- Transit Chart -->
+      <div class="chart-col">
+        <svg width="108" height="108" viewBox="0 0 108 108" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="54" cy="54" r="50" stroke="#E2DDD4" stroke-width="1" fill="none"/>
+          <circle cx="54" cy="54" r="19" stroke="#E2DDD4" stroke-width="0.5" fill="#F5F3EE"/>
+          <line x1="35" y1="54" x2="4" y2="54" stroke="#E2DDD4" stroke-width="0.5"/>
+          <line x1="37.5" y1="44.5" x2="10.7" y2="29" stroke="#E2DDD4" stroke-width="0.5"/>
+          <line x1="44.5" y1="37.5" x2="29" y2="10.7" stroke="#E2DDD4" stroke-width="0.5"/>
+          <line x1="54" y1="35" x2="54" y2="4" stroke="#E2DDD4" stroke-width="0.5"/>
+          <line x1="63.5" y1="37.5" x2="79" y2="10.7" stroke="#E2DDD4" stroke-width="0.5"/>
+          <line x1="70.5" y1="44.5" x2="97.3" y2="29" stroke="#E2DDD4" stroke-width="0.5"/>
+          <line x1="73" y1="54" x2="104" y2="54" stroke="#E2DDD4" stroke-width="0.5"/>
+          <line x1="70.5" y1="63.5" x2="97.3" y2="79" stroke="#E2DDD4" stroke-width="0.5"/>
+          <line x1="63.5" y1="70.5" x2="79" y2="97.3" stroke="#E2DDD4" stroke-width="0.5"/>
+          <line x1="54" y1="73" x2="54" y2="104" stroke="#E2DDD4" stroke-width="0.5"/>
+          <line x1="44.5" y1="70.5" x2="29" y2="97.3" stroke="#E2DDD4" stroke-width="0.5"/>
+          <line x1="37.5" y1="63.5" x2="10.7" y2="79" stroke="#E2DDD4" stroke-width="0.5"/>
+          <!-- House numbers -->
+          <text x="13"  y="56"  text-anchor="middle" font-size="6" fill="#999" font-family="Inter,sans-serif">1</text>
+          <text x="24"  y="27"  text-anchor="middle" font-size="6" fill="#999" font-family="Inter,sans-serif">2</text>
+          <text x="43"  y="14"  text-anchor="middle" font-size="6" fill="#999" font-family="Inter,sans-serif">3</text>
+          <text x="65"  y="14"  text-anchor="middle" font-size="6" fill="#999" font-family="Inter,sans-serif">4</text>
+          <text x="84"  y="27"  text-anchor="middle" font-size="6" fill="#999" font-family="Inter,sans-serif">5</text>
+          <text x="96"  y="56"  text-anchor="middle" font-size="6" fill="#999" font-family="Inter,sans-serif">6</text>
+          <text x="96"  y="67"  text-anchor="middle" font-size="6" fill="#999" font-family="Inter,sans-serif">7</text>
+          <text x="84"  y="84"  text-anchor="middle" font-size="6" fill="#999" font-family="Inter,sans-serif">8</text>
+          <text x="65"  y="97"  text-anchor="middle" font-size="6" fill="#999" font-family="Inter,sans-serif">9</text>
+          <text x="41"  y="97"  text-anchor="middle" font-size="6" fill="#999" font-family="Inter,sans-serif">10</text>
+          <text x="24"  y="84"  text-anchor="middle" font-size="6" fill="#999" font-family="Inter,sans-serif">11</text>
+          <text x="13"  y="67"  text-anchor="middle" font-size="6" fill="#999" font-family="Inter,sans-serif">12</text>
+          <!-- Uranus ♅ at H10 – top (red F-grade) -->
+          <circle cx="54" cy="27" r="5" fill="#C0392B" opacity="0.92"/>
+          <text x="54" y="30" text-anchor="middle" font-size="7" fill="white" font-family="serif">♅</text>
+          <!-- Pluto ♇ at H6 – right (gold C-grade) -->
+          <circle cx="88" cy="43" r="5" fill="#C9A84C" opacity="0.92"/>
+          <text x="88" y="46" text-anchor="middle" font-size="7" fill="white" font-family="serif">♇</text>
+          <!-- Neptune ♆ at H8 – lower-right (gold C-grade) -->
+          <circle cx="80" cy="73" r="5" fill="#C9A84C" opacity="0.92"/>
+          <text x="80" y="76" text-anchor="middle" font-size="7" fill="white" font-family="serif">♆</text>
+        </svg>
+        <div class="chart-label">Transit Chart</div>
+        <div class="chart-legend">
+          <div class="cl-item"><div class="cl-dot" style="background:#C0392B;"></div>F</div>
+          <div class="cl-item"><div class="cl-dot" style="background:#C9A84C;"></div>C</div>
+        </div>
+      </div>
+
+      <!-- Aspect Cards -->
+      <div class="aspects-col">
+        <div class="aspect-card" style="border-left-color:#C0392B;">
+          <div class="ac-header">
+            <div class="ac-name">Transit Uranus in House 10</div>
+            <div class="ac-pill" style="background:#FDECEA;color:#C0392B;">F · thru 2033</div>
+          </div>
+          <div class="mirror">"Does your career feel chaotic — or have you felt a sudden, almost irrational urge to quit your job and burn the whole thing down?"</div>
+          <div class="story">Three Pheydrus clients with this configuration left stable six-figure roles in the same calendar year — none of them by choice. The environments that others found comfortable became progressively suffocating, and the unconventional paths they built afterward were the first ones that actually fit.</div>
+          <div class="transmute">Higher octave: you're not meant to build a predictable business. You're meant to build one nobody's seen before. That's what's coming next.</div>
+        </div>
+
+        <div class="aspect-card" style="border-left-color:#C9A84C;">
+          <div class="ac-header">
+            <div class="ac-name">Transit Neptune in House 8</div>
+            <div class="ac-pill" style="background:#F0EDF8;color:#7B6BAA;">C · thru 2039</div>
+          </div>
+          <div class="mirror">"Have you felt confused about what to charge — like real money and spiritual purpose can't coexist?"</div>
+          <div class="story">A client with this configuration had been coaching for two years and still flinched every time someone asked her price. She was consistently charging 60% less than her peers — not because of skill, but because this creates a fog between your value and what you're willing to ask for.</div>
+          <div class="transmute">Higher octave: pricing rooted in genuine purpose becomes your most magnetic quality.</div>
+        </div>
+
+        <div class="aspect-card" style="border-left-color:#C9A84C;">
+          <div class="ac-header">
+            <div class="ac-name">Transit Saturn in House 8</div>
+            <div class="ac-pill" style="background:#F0EDF8;color:#7B6BAA;">C · thru 2028</div>
+          </div>
+          <div class="mirror">"Has accessing the financial partnerships or investment needed to scale felt blocked or fear-inducing?"</div>
+          <div class="story">A client with this turned down a $50k investment offer because the paperwork "felt off." This creates a fear of financial entanglement so strong that it blocks the partnerships that could actually scale your work.</div>
+          <div class="transmute">Higher octave: once fear is transmuted, you build the most durable financial architecture of anyone in your field.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── PILLAR 3 ── -->
+  <div class="pillar-block">
+    <div class="pillar-header-row">
+      <div class="pillar-badge">PILLAR 3</div>
+      <div class="pillar-title">Environment</div>
+      <div class="pillar-pct-r" id="p3-pct-r"></div>
+    </div>
+    <div class="goal-callout" id="p3-goal-callout"></div>
+    <div class="content-row">
+      <!-- Environment Chart -->
+      <div class="chart-col">
+        <svg width="108" height="108" viewBox="0 0 108 108" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="54" cy="54" r="50" stroke="#E2DDD4" stroke-width="1" fill="none"/>
+          <circle cx="54" cy="54" r="19" stroke="#E2DDD4" stroke-width="0.5" fill="#F5F3EE"/>
+          <line x1="35" y1="54" x2="4" y2="54" stroke="#E2DDD4" stroke-width="0.5"/>
+          <line x1="37.5" y1="44.5" x2="10.7" y2="29" stroke="#E2DDD4" stroke-width="0.5"/>
+          <line x1="44.5" y1="37.5" x2="29" y2="10.7" stroke="#E2DDD4" stroke-width="0.5"/>
+          <line x1="54" y1="35" x2="54" y2="4" stroke="#E2DDD4" stroke-width="0.5"/>
+          <line x1="63.5" y1="37.5" x2="79" y2="10.7" stroke="#E2DDD4" stroke-width="0.5"/>
+          <line x1="70.5" y1="44.5" x2="97.3" y2="29" stroke="#E2DDD4" stroke-width="0.5"/>
+          <line x1="73" y1="54" x2="104" y2="54" stroke="#E2DDD4" stroke-width="0.5"/>
+          <line x1="70.5" y1="63.5" x2="97.3" y2="79" stroke="#E2DDD4" stroke-width="0.5"/>
+          <line x1="63.5" y1="70.5" x2="79" y2="97.3" stroke="#E2DDD4" stroke-width="0.5"/>
+          <line x1="54" y1="73" x2="54" y2="104" stroke="#E2DDD4" stroke-width="0.5"/>
+          <line x1="44.5" y1="70.5" x2="29" y2="97.3" stroke="#E2DDD4" stroke-width="0.5"/>
+          <line x1="37.5" y1="63.5" x2="10.7" y2="79" stroke="#E2DDD4" stroke-width="0.5"/>
+          <!-- House numbers -->
+          <text x="13"  y="56"  text-anchor="middle" font-size="6" fill="#999" font-family="Inter,sans-serif">1</text>
+          <text x="24"  y="27"  text-anchor="middle" font-size="6" fill="#999" font-family="Inter,sans-serif">2</text>
+          <text x="43"  y="14"  text-anchor="middle" font-size="6" fill="#999" font-family="Inter,sans-serif">3</text>
+          <text x="65"  y="14"  text-anchor="middle" font-size="6" fill="#999" font-family="Inter,sans-serif">4</text>
+          <text x="84"  y="27"  text-anchor="middle" font-size="6" fill="#999" font-family="Inter,sans-serif">5</text>
+          <text x="96"  y="56"  text-anchor="middle" font-size="6" fill="#999" font-family="Inter,sans-serif">6</text>
+          <text x="96"  y="67"  text-anchor="middle" font-size="6" fill="#999" font-family="Inter,sans-serif">7</text>
+          <text x="84"  y="84"  text-anchor="middle" font-size="6" fill="#999" font-family="Inter,sans-serif">8</text>
+          <text x="65"  y="97"  text-anchor="middle" font-size="6" fill="#999" font-family="Inter,sans-serif">9</text>
+          <text x="41"  y="97"  text-anchor="middle" font-size="6" fill="#999" font-family="Inter,sans-serif">10</text>
+          <text x="24"  y="84"  text-anchor="middle" font-size="6" fill="#999" font-family="Inter,sans-serif">11</text>
+          <text x="13"  y="67"  text-anchor="middle" font-size="6" fill="#999" font-family="Inter,sans-serif">12</text>
+          <!-- Saturn ♄, Uranus ♅, Neptune ♆ at H2 – upper-left (gold C-grade) -->
+          <circle cx="26" cy="30" r="5" fill="#C9A84C" opacity="0.92"/>
+          <text x="26" y="33" text-anchor="middle" font-size="7" fill="white" font-family="serif">♄</text>
+          <circle cx="18" cy="39" r="5" fill="#C9A84C" opacity="0.92"/>
+          <text x="18" y="42" text-anchor="middle" font-size="7" fill="white" font-family="serif">♅</text>
+          <circle cx="14" cy="51" r="5" fill="#C9A84C" opacity="0.92"/>
+          <text x="14" y="54" text-anchor="middle" font-size="7" fill="white" font-family="serif">♆</text>
+        </svg>
+        <div class="chart-label">Environment Chart</div>
+        <div class="chart-legend">
+          <div class="cl-item"><div class="cl-dot" style="background:#C9A84C;"></div>C</div>
+        </div>
+      </div>
+
+      <!-- Aspect Cards -->
+      <div class="aspects-col">
+        <div class="aspect-card" style="border-left-color:#C9A84C;">
+          <div class="ac-header">
+            <div class="ac-name">Env Saturn in House 2</div>
+            <div class="ac-pill" style="background:#F0EDF8;color:#7B6BAA;">C</div>
+          </div>
+          <div class="mirror">"Since living at your current address, has there been an invisible ceiling on how much you allow yourself to charge or earn?"</div>
+          <div class="story">A client who moved to her current address noticed her income plateau within 3 months — even though she was working harder than ever before. This address rewards builders who show up with extreme consistency. It punishes those who charge inconsistently or avoid financial conversations.</div>
+          <div class="transmute">Higher octave: most immediately actionable layer — environmental shifts produce results faster than any other pillar.</div>
+        </div>
+
+        <div class="aspect-card" style="border-left-color:#C9A84C;">
+          <div class="ac-header">
+            <div class="ac-name">Env Uranus in House 2</div>
+            <div class="ac-pill" style="background:#F0EDF8;color:#7B6BAA;">C</div>
+          </div>
+          <div class="mirror">"Does your income feel erratic — breakthrough months followed by drought months?"</div>
+          <div class="story">Clients at addresses with this describe the same income pattern: a $8k month, then a $1k month, then $6k, then $500. Unconventional income structures — retainers, packages, asymmetric pricing — stabilize everything. Traditional pricing models collapse.</div>
+          <div class="transmute">Higher octave: unconventional revenue architecture thrives here. This location rewards those who price differently.</div>
+        </div>
+
+        <div class="aspect-card" style="border-left-color:#C9A84C;">
+          <div class="ac-header">
+            <div class="ac-name">Env Neptune in House 2</div>
+            <div class="ac-pill" style="background:#F0EDF8;color:#7B6BAA;">C</div>
+          </div>
+          <div class="mirror">"Are you chronically undercharging — or genuinely unclear about what to charge?"</div>
+          <div class="story">One client raised her rates 40% within 30 days of her Pillar 3 session and signed her highest-paying client that same week. This creates a fog around self-worth and money — it's the most immediately fixable layer in this entire report.</div>
+          <div class="transmute">Higher octave: aligning your pricing with genuine purpose becomes your single most powerful revenue move.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Timeline callout -->
+    <div class="timeline-callout">
+      💭 Did this pattern intensify around <strong>2024</strong> when you moved to your current address?
+    </div>
+
+    <!-- Pillar 3 Testimonial -->
+    <div class="testimonial">
+      <!-- REPLACE WITH REAL TESTIMONIAL -->
+      <div class="t-quote">"[Client testimonial about Environment pillar — income shift or pricing breakthrough after working with Pheydrus.]"</div>
+      <div class="t-attr">— [Client Name], [Location]</div>
+    </div>
+  </div>
+
+</div><!-- /page3 -->
+
+
+<!-- ════════════════════════════════════════ -->
+<!-- PAGE 4 · COST + DESTINY + CTA           -->
+<!-- ════════════════════════════════════════ -->
+<div class="page" id="page4">
+
+  <!-- Cost of Inaction -->
+  <div class="cost-box">
+    <div class="cost-heading">What Another Year of This Pattern Costs You</div>
+    <div class="cost-line">Another 12 months of knowing exactly what to do — and watching yourself not do it.</div>
+    <div class="cost-line">Another year of income that almost hits <span id="cost-goal"></span>, but resets every time you get close.</div>
+    <div class="cost-line">Another year of brilliant ideas living in your drafts folder instead of the marketplace.</div>
+    <div class="cost-line">Another year of telling yourself next month will be different.</div>
+    <div class="cost-note">Without targeted deconditioning of the specific layers identified above, the data points to 2033.</div>
+    <div class="cost-years">That's 7 more years.</div>
+    <div class="cost-seed">Or — you begin the decondition now.</div>
+  </div>
+
+  <!-- Final Testimonial -->
+  <div class="testimonial">
+    <!-- REPLACE WITH REAL TESTIMONIAL -->
+    <div class="t-quote">"[Final client testimonial — overall transformation, identity shift, breakthrough after Pheydrus alignment work.]"</div>
+    <div class="t-attr">— [Client Name], [Location]</div>
+  </div>
+
+  <!-- Destiny Block -->
+  <div class="destiny-block">
+    <div class="destiny-heading">This is bigger than fixing what's broken.</div>
+    <p class="destiny-p">Understanding these pillars serves two purposes.</p>
+    <p class="destiny-p">The first is <strong style="color:#1A1A1A;">closure.</strong> The painful patterns, the blocked seasons, the years of almost — they weren't your fault. They were forces you didn't have a map for. You were not failing. You were navigating blind.</p>
+    <p class="destiny-p">The second purpose — and this is the more important one — is <strong style="color:#1A1A1A;">preparation.</strong></p>
+    <p class="destiny-p">Something is shifting. Your chart doesn't lie. The same forces that created the friction are now creating the conditions for the biggest expansion of your life. A new identity is forming. New opportunities are already in motion.</p>
+    <div class="destiny-closing">
+      The question is whether you'll have a map when it arrives.&nbsp;<span style="font-style:normal;font-weight:600;color:#8B6914;">This call is how you get ready.</span>
+    </div>
+  </div>
+
+  <!-- CTA Box -->
+  <div class="cta-box">
+    <div class="cta-heading">Your Next Step: Alignment Strategy Call</div>
+    <div class="cta-sub">30-minute 1:1 with the Pheydrus team</div>
+    <div class="cta-bullets">
+      <div class="cta-bullet">Map how to decondition the unseen forces shaping your reality and unlock the parts of you and your environment that can actually 10x your life</div>
+      <div class="cta-bullet">Prepare for the identity shift that's already in motion — and make sure you're ready when it arrives</div>
+      <div class="cta-bullet">Determine whether Artist's Way is your aligned next chapter</div>
+    </div>
+    <div class="cta-tagline">This will be the beginning of your true alignment journey.</div>
+    <button class="cta-button">BOOK YOUR ALIGNMENT CALL →</button>
+    <div class="cta-fine">Complimentary · No obligation · Limited availability this cycle</div>
+  </div>
+
+  <!-- Footer -->
+  <div class="page-footer">
+    <div>Pheydrus Proprietary Analysis · Confidential</div>
+    <div id="footer-right"></div>
+  </div>
+
+</div><!-- /page4 -->
+
+
+<script>
+  /* ═══════════════════════════════════════════
+     CLIENT DATA
+  ═══════════════════════════════════════════ */
+  const client = {
+    name: "Sophia Reyes",
+    email: "sophia@example.com",
+    location: "Austin, TX",
+    goal: "Freedom",
+    goalContext: "Business & Life Design",
+    grade: "B",
+    score: 72,
+    pillar1Pct: 52,
+    pillar2Pct: 31,
+    pillar3Pct: 17,
+    pillar1Grade: "B",
+    pillar2Grade: "C",
+    pillar3Grade: "D",
+    patternEnd: "through 2031",
+    patternYears: "5",
+    reportDate: "March 18, 2026"
+  };
+
+  const gradeConfig = {
+    'F': {
+      color: '#C0392B',
+      bgColor: '#FDECEA',
+      borderColor: '#E8C4C0',
+      tagline: 'Rock bottom. But rock bottom has a map out.',
+      reality: 'actively works against you'
+    },
+    'D': {
+      color: '#C2651A',
+      bgColor: '#FDF0E6',
+      borderColor: '#E8C4A0',
+      tagline: "D means you're one step away from failing. And you're probably feeling the pressure.",
+      reality: "slowly erodes what you've built"
+    },
+    'C': {
+      color: '#7B6BAA',
+      bgColor: '#F0EDF8',
+      borderColor: '#C5BAE0',
+      tagline: "A passing grade. But who wants a passing-grade life?",
+      reality: "passes, but doesn't 10x"
+    },
+    'B': {
+      color: '#8B6914',
+      bgColor: '#FBF7EE',
+      borderColor: '#DDD0A8',
+      tagline: "You're doing well. But 'doing well' and 'living fully' are two different things.",
+      reality: 'works well but never fully opens'
+    },
+    'A': {
+      color: '#1A6B3A',
+      bgColor: '#E8F8EE',
+      borderColor: '#A8E6C0',
+      tagline: 'A means alignment is close. One unlocked layer changes everything.',
+      reality: 'almost flows — one layer still holds'
+    }
+  };
+
+  /* ═══════════════════════════════════════════
+     INJECT
+  ═══════════════════════════════════════════ */
+  function inject() {
+    const cfg = gradeConfig[client.grade];
+
+    /* ── Header ── */
+    document.getElementById('hdr-name').textContent = client.name;
+    document.getElementById('hdr-date').textContent = client.reportDate;
+
+    /* ── Hero card ── */
+    const heroCard = document.getElementById('hero-card');
+    heroCard.style.backgroundColor = cfg.bgColor;
+    heroCard.style.borderColor = cfg.borderColor;
+
+    const gradeLetter = document.getElementById('grade-letter');
+    gradeLetter.textContent = client.grade;
+    gradeLetter.style.color = cfg.color;
+
+    document.getElementById('score-val').textContent = client.score + ' / 100';
+
+    /* Hero headline – C grade gets special italic split */
+    const headline = document.getElementById('hero-headline');
+    if (client.grade === 'C') {
+      headline.innerHTML = 'A passing grade — but who wants a <em style="color:#8B6914;">passing-grade life?</em>';
+    } else {
+      headline.textContent = cfg.tagline;
+    }
+
+    /* Hero sub-copy */
+    document.getElementById('hero-sub').innerHTML =
+      `Your <span style="color:${cfg.color};font-weight:600;">${client.grade}</span> score traces back to 3 specific forces — all identified below. Left unaddressed, this configuration persists ${client.patternEnd} — <span style="color:${cfg.color};font-weight:600;">${client.patternYears}</span> more years of a reality that ${cfg.reality}.`;
+
+    /* ── Pillar bars ── */
+    function setPillarRow(barId, pctId, pillId, pct, grade) {
+      const pcfg = gradeConfig[grade];
+      document.getElementById(barId).style.width = pct + '%';
+      document.getElementById(pctId).textContent = pct + '%';
+      const pill = document.getElementById(pillId);
+      pill.textContent = grade;
+      pill.style.backgroundColor = pcfg.bgColor;
+      pill.style.color = pcfg.color;
+    }
+    setPillarRow('p1-bar', 'p1-pct', 'p1-pill', client.pillar1Pct, client.pillar1Grade);
+    setPillarRow('p2-bar', 'p2-pct', 'p2-pill', client.pillar2Pct, client.pillar2Grade);
+    setPillarRow('p3-bar', 'p3-pct', 'p3-pill', client.pillar3Pct, client.pillar3Grade);
+
+    /* ── Goal bar ── */
+    document.getElementById('goal-label').textContent = '90-DAY GOAL · ' + client.goalContext.toUpperCase();
+    document.getElementById('goal-text').textContent = client.goal;
+
+    /* ── Page 3 ── */
+    document.getElementById('s3-eyebrow').textContent =
+      'WHAT IS HOLDING BACK YOUR ' + client.goalContext.toUpperCase();
+
+    document.getElementById('p1-pct-r').textContent = client.pillar1Pct + '%';
+    document.getElementById('p1-goal').textContent = client.goal;
+    document.getElementById('p1-a2-mirror').textContent =
+      `"You've launched toward ${client.goal} more than once — with real momentum — then watched yourself disappear before it paid off."`;
+
+    document.getElementById('p2-pct-r').textContent = client.pillar2Pct + '%';
+    document.getElementById('p2-goal').textContent = client.goal;
+
+    document.getElementById('p3-pct-r').textContent = client.pillar3Pct + '%';
+    document.getElementById('p3-goal-callout').innerHTML =
+      `Here is how your current address in <em>${client.location}</em> is interacting with your goal of ${client.goal}:`;
+
+    /* ── Page 4 ── */
+    document.getElementById('cost-goal').textContent = client.goal;
+    document.getElementById('footer-right').textContent = client.name + ' · ' + client.reportDate;
+  }
+
+  document.addEventListener('DOMContentLoaded', inject);
+</script>
+</body>
+</html>
