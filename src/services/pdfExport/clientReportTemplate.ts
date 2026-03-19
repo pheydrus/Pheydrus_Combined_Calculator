@@ -12,7 +12,6 @@ import type { ConsolidatedResults } from '../../models';
 import type { ClientIntakeData } from '../../models/clientIntake';
 import type { PillarSummary, GradeItem } from '../../models/diagnostic';
 import type { PlanetaryTransit } from '../../models/calculators';
-import { PREFERRED_SOLUTION_LABELS } from '../../models/clientIntake';
 import {
   detectGoalCategory,
   getLongestMaleficTransit,
@@ -497,24 +496,36 @@ function renderPage1(results: ConsolidatedResults, intake: ClientIntakeData, goa
   const p1pct = pct(s1, total), p2pct = pct(s2, total), p3pct = pct(s3, total);
 
   const gc = gradeColor(diagnostic.finalGrade);
-  const prefLabel = intake.preferredSolution
-    ? (PREFERRED_SOLUTION_LABELS[intake.preferredSolution] ?? intake.preferredSolution)
-    : null;
-
-  const pillarCards = [
-    { num: 1, label: 'Structure', pct: p1pct, color: '#C0392B', border: '#FAEAEA' },
-    { num: 2, label: 'Timing',    pct: p2pct, color: '#C9A84C', border: '#F0E5C0' },
-    { num: 3, label: 'Environment', pct: p3pct, color: '#9a7d4e', border: '#EDE0C0' },
-  ];
 
   const gradeHeadlines: Record<string, [string, string]> = {
-    A: ['A means alignment is close.', 'One right move, and you can 10x your life.'],
-    B: ["You're doing well.", "'doing well' and 'living fully' are two different things."],
-    C: ['A passing grade.', 'But who wants a passing-grade life?'],
-    D: ["D means you're one step away from failing.", "And you're probably feeling the pressure."],
-    F: ['Rock bottom.', 'But rock bottom has a map out.'],
+    A: ['A means alignment is close —', 'One right move, and you can 10x your life.'],
+    B: ["You're doing well —", "'doing well' and 'living fully' are two different things."],
+    C: ['A passing grade —', 'but who wants a passing-grade life?'],
+    D: ["D means you're one step away from failing —", "and you're probably feeling the pressure."],
+    F: ['Rock bottom —', 'but rock bottom has a map out.'],
   };
   const [headH1, headH2] = gradeHeadlines[diagnostic.finalGrade] ?? ['Overall Deconditioning Score', ''];
+
+  const forceCount = (diagnostic.totalFs ?? 0) + (diagnostic.totalCs ?? 0);
+  const longest2 = getLongestMaleficTransit(diagnostic.allItems, results.calculators.transits?.transits ?? []);
+  const endYr = longest2?.endYear ?? null;
+  const yrsLeft = endYr ? endYr - new Date().getFullYear() : null;
+  const descLine = endYr && yrsLeft
+    ? `Your ${diagnostic.finalGrade} score traces back to ${forceCount} specific force${forceCount !== 1 ? 's' : ''} — all identified below. Left unaddressed, this configuration persists through ${endYr} — ${yrsLeft} more year${yrsLeft !== 1 ? 's' : ''} of a reality that passes, but doesn't 10x.`
+    : `Your ${diagnostic.finalGrade} score traces back to ${forceCount} specific force${forceCount !== 1 ? 's' : ''} — all identified below. This configuration does not self-resolve without targeted intervention.`;
+
+  // Pillar grades for breakdown bars
+  function pillarGradeFor(p: PillarSummary): string {
+    if (p.fCount > 0) return 'F';
+    if (p.cCount > 0) return 'C';
+    if (p.aCount > 0) return 'A';
+    return '';
+  }
+  const barRows = [
+    { label: 'Structure',    sub: 'Pillar 1', ppct: p1pct, color: '#C0392B', grade: pillarGradeFor(p1) },
+    { label: 'Timing',       sub: 'Pillar 2', ppct: p2pct, color: '#C9A84C', grade: pillarGradeFor(p2) },
+    { label: 'Environment',  sub: 'Pillar 3', ppct: p3pct, color: '#9a7d4e', grade: pillarGradeFor(p3) },
+  ];
 
   return `
 <!-- PAGE 1: COVER -->
@@ -532,17 +543,47 @@ function renderPage1(results: ConsolidatedResults, intake: ClientIntakeData, goa
     </div>
   </div>
 
-  <!-- Grade row -->
-  <div style="display:flex;gap:20px;align-items:flex-start;margin-bottom:24px;">
+  <!-- Hero card: grade circle + headline + dynamic description -->
+  <div style="background:#FFFFFF;border:1px solid #E0E0E0;border-radius:4px;padding:20px 24px;display:flex;gap:20px;align-items:flex-start;margin-bottom:20px;">
     <div style="flex-shrink:0;text-align:center;">
-      <div style="width:90px;height:90px;border-radius:50%;border:2.5px solid ${gc.border};background:${gc.bg};display:flex;flex-direction:column;align-items:center;justify-content:center;margin:0 auto;">
+      <div style="width:90px;height:90px;border-radius:50%;border:2.5px solid ${gc.border};background:${gc.bg};display:flex;align-items:center;justify-content:center;margin:0 auto;">
         <span style="font-size:48px;font-weight:700;color:${gc.text};font-family:${CORMORANT};line-height:1;">${diagnostic.finalGrade}</span>
       </div>
-      <div style="font-size:10px;color:#999;margin-top:6px;font-family:${INTER};">Score: ${diagnostic.score % 1 === 0 ? diagnostic.score : diagnostic.score.toFixed(1)}</div>
+      <div style="font-size:9px;text-transform:uppercase;letter-spacing:0.08em;color:#999;margin-top:6px;font-family:${INTER};">Overall Score</div>
+      <div style="font-size:12px;font-weight:700;color:${gc.text};font-family:${INTER};">${diagnostic.score % 1 === 0 ? diagnostic.score : diagnostic.score.toFixed(1)} / 100</div>
     </div>
-    <div style="flex:1;background:#FFFFFF;border:1px solid #E0E0E0;border-radius:4px;padding:16px 20px;">
-      <div style="font-size:16px;font-weight:700;color:#1C1A2E;font-family:${CORMORANT};margin-bottom:8px;line-height:1.35;">${esc(headH1)}${headH2 ? ` <em style="color:#8B6914;">${esc(headH2)}</em>` : ''}</div>
-      <p style="margin:0;font-size:12px;color:#666;line-height:1.7;font-family:${INTER};">The combined karmic, timing, and environmental pressure actively working against your goal. This score is not a verdict — it's a map. Read on.</p>
+    <div style="flex:1;">
+      <div style="font-size:18px;font-weight:700;color:#1C1A2E;font-family:${CORMORANT};margin-bottom:10px;line-height:1.3;">${esc(headH1)} <em style="color:#8B6914;">${esc(headH2)}</em></div>
+      <p style="margin:0;font-size:12px;color:#555;line-height:1.75;font-family:${INTER};">${descLine}</p>
+    </div>
+  </div>
+
+  <!-- Score breakdown: horizontal bars + Venn -->
+  <div style="background:#FFFFFF;border:1px solid #E8E8E8;border-radius:4px;padding:18px 22px;margin-bottom:20px;">
+    <div style="font-size:10px;text-transform:uppercase;letter-spacing:0.12em;color:#999;font-family:${INTER};margin-bottom:14px;">Your Score Breaks Down As:</div>
+    <div style="display:flex;gap:20px;align-items:center;">
+      <div style="flex:1;">
+        ${barRows.map((r) => {
+          const gc2 = gradeColor(r.grade);
+          const pill = r.grade ? `<span style="display:inline-block;padding:1px 7px;border-radius:2px;font-size:10px;font-weight:700;background:${gc2.bg};color:${gc2.text};border:1px solid ${gc2.border};font-family:${INTER};">${r.grade}</span>` : '';
+          return `
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px;">
+          <div style="width:90px;flex-shrink:0;">
+            <div style="font-size:12px;font-weight:700;color:#1C1A2E;font-family:${INTER};">${r.label}</div>
+            <div style="font-size:9px;color:#999;font-family:${INTER};">${r.sub}</div>
+          </div>
+          <div style="flex:1;height:6px;background:#E8E8E8;border-radius:3px;">
+            <div style="height:6px;width:${r.ppct}%;background:${r.color};border-radius:3px;"></div>
+          </div>
+          <div style="width:32px;text-align:right;font-size:12px;font-weight:700;color:${r.color};font-family:${INTER};">${r.ppct}%</div>
+          ${pill}
+        </div>`;
+        }).join('')}
+      </div>
+      <div style="flex-shrink:0;text-align:center;">
+        ${renderVennDiagram()}
+        <div style="font-size:9px;color:#999;margin-top:4px;font-family:${INTER};">3 forces &middot; 1 score</div>
+      </div>
     </div>
   </div>
 
@@ -554,34 +595,13 @@ function renderPage1(results: ConsolidatedResults, intake: ClientIntakeData, goa
 
   <!-- Reframe box -->
   <div style="border-left:4px solid #C9A84C;background:#FDFBF6;border-radius:0 4px 4px 0;padding:20px 24px;margin-bottom:20px;">
-    <p style="margin:0 0 10px;font-size:14px;font-style:italic;color:#7A5A1A;line-height:1.65;font-family:${CORMORANT};">If you've tried everything — the mindset work, the strategies, the coaches — and things are going <strong style="color:#1C1A2E;">well enough</strong> but that one specific thing you want keeps slipping just out of reach… this is your answer.</p>
-    <p style="margin:0 0 8px;font-size:12px;color:#555;line-height:1.65;font-family:${INTER};">That unseen force is real. It's measurable. And it's encoded directly in your chart.</p>
-    <p style="margin:0 0 8px;font-size:12px;color:#555;line-height:1.65;font-family:${INTER};">You're not broken. You're not undisciplined. You've been <strong style="color:#1C1A2E;">10x-capable</strong> this entire time — just running against an invisible current.</p>
-    <p style="margin:0;font-size:12px;color:#C9A84C;font-weight:600;font-family:${INTER};">This report shows you exactly what that current is.</p>
+    <p style="margin:0;font-size:14px;font-style:italic;color:#7A5A1A;line-height:1.75;font-family:${CORMORANT};">If you've tried everything — the mindset work, the strategies, the coaches — and things are going <strong style="font-style:normal;color:#1C1A2E;">well enough</strong> but that one specific thing you want keeps slipping just out of reach… you're not factoring in the unseen forces that <strong style="font-style:normal;color:#1C1A2E;">cannot be intellectually solved.</strong> You've been 10x-capable this entire time. This report maps the forces working against you.</p>
   </div>
 
-  <!-- Seed line -->
-  <p style="text-align:center;font-size:12px;font-style:italic;color:#999;line-height:1.7;margin-bottom:24px;font-family:${CORMORANT};">This report does two things: gives you <span style="color:#C9A84C;">closure on why the past felt so hard</span> — and maps <span style="color:#C9A84C;">what's coming next</span>, if you're ready.</p>
-
-  <!-- 3 pillar cards -->
-  <div style="display:flex;gap:12px;margin-bottom:24px;">
-    ${pillarCards.map((d) => `
-    <div style="flex:1;background:#FFFFFF;border:1px solid ${d.border};border-radius:4px;padding:14px 16px;">
-      <div style="font-size:10px;text-transform:uppercase;letter-spacing:0.1em;color:#999;font-family:${INTER};margin-bottom:6px;">Pillar ${d.num}</div>
-      <div style="font-size:15px;font-weight:600;color:#7A5A1A;font-family:${CORMORANT};margin-bottom:8px;">${d.label}</div>
-      <div style="font-size:26px;font-weight:900;color:${d.color};font-family:${INTER};margin-bottom:8px;">${d.pct}%</div>
-      <div style="height:3px;background:#E8E8E8;border-radius:2px;">
-        <div style="height:3px;width:${d.pct}%;background:${d.color};border-radius:2px;"></div>
-      </div>
-      ${prefLabel ? `<p style="margin:8px 0 0;font-size:9px;color:#999;font-style:italic;font-family:${INTER};">Recommended: ${d.num === 3 ? 'Done-For-You, 1:1 calls &amp; self-study' : '1:1 calls &amp; self-study'}</p>` : ''}
-    </div>`).join('')}
-  </div>
-
-  <!-- Malefic reframe box -->
-  <div style="background:#FDFAF5;border:1px solid #C9A84C;border-radius:4px;padding:20px 24px;">
-    <h3 style="margin:0 0 12px;font-size:18px;font-weight:700;color:#C9A84C;font-family:${CORMORANT};">The F is not what you think it is.</h3>
-    <p style="margin:0 0 10px;font-size:12px;color:#555;line-height:1.75;font-family:${INTER};">Malefic planets — Saturn, Pluto, Uranus, Mars — are not in your chart to make life hard. They are only hard when you don't know how to work with them. Every malefic carries a higher octave: a transmuted version of its energy that becomes your greatest power once decoded.</p>
-    <p style="margin:0 0 14px;font-size:12px;color:#555;line-height:1.75;font-family:${INTER};">An F score means you are sitting on top of enormous untapped potential that has been running against you instead of for you. The clients who come to Pheydrus with F scores don't just reach their goals — they exceed them in ways they didn't see coming.</p>
+  <!-- Malefic box -->
+  <div style="background:#FDFAF5;border:1px solid #E8E0C8;border-radius:4px;padding:20px 24px;">
+    <div style="font-size:13px;font-weight:700;color:#C9A84C;font-family:${INTER};margin-bottom:10px;">Your score is not a verdict. It's an entry point.</div>
+    <p style="margin:0 0 12px;font-size:12px;color:#555;line-height:1.75;font-family:${INTER};">The forces showing up in your report aren't there to make life hard — they're only hard when you don't know how to work with them. Every pressure point carries a higher octave: a transmuted version that becomes your greatest advantage once decoded.</p>
     <div style="border-left:3px solid #C9A84C;padding:8px 14px;">
       <p style="margin:0;font-size:12px;font-style:italic;color:#7A5A1A;line-height:1.7;font-family:${CORMORANT};">"Pluto transiting your 1st house? Stop playing nice. Stop softening your edges. Step fully into your power — that is the higher octave." &mdash; Pheydrus team</p>
     </div>

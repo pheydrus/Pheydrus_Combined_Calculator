@@ -518,47 +518,79 @@ export function ClientResultsPage() {
           </div>
         </div>
 
-        {/* Grade row */}
-        <div style={{ display: 'flex', gap: '20px', alignItems: 'flex-start' }}>
-          <div style={{ flexShrink: 0, textAlign: 'center' }}>
-            <div style={{ width: '90px', height: '90px', borderRadius: '50%', border: `2.5px solid ${gc.border}`, background: gc.bg, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', margin: '0 auto' }}>
-              <span style={{ fontFamily: CORMORANT, fontSize: '3rem', fontWeight: 700, color: gc.text, lineHeight: 1 }}>{finalGrade}</span>
-            </div>
-            <div style={{ fontSize: '10px', color: '#999', marginTop: '6px' }}>Score: {score % 1 === 0 ? score : score.toFixed(1)}</div>
-          </div>
-          <div style={{ flex: 1, background: '#FFFFFF', border: '1px solid #E0E0E0', borderRadius: '4px', padding: '16px 20px' }}>
-            {(() => {
-              const hl: Record<string, [string, string]> = {
-                A: ['A means alignment is close.', 'One right move, and you can 10x your life.'],
-                B: ["You're doing well.", "'doing well' and 'living fully' are two different things."],
-                C: ['A passing grade.', 'But who wants a passing-grade life?'],
-                D: ["D means you're one step away from failing.", "And you're probably feeling the pressure."],
-                F: ['Rock bottom.', 'But rock bottom has a map out.'],
-              };
-              const [h1, h2] = hl[finalGrade] ?? ['Overall Deconditioning Score', ''];
-              return (
-                <div style={{ fontFamily: CORMORANT, fontSize: '1.15rem', fontWeight: 700, color: '#1C1A2E', marginBottom: '8px', lineHeight: 1.35 }}>
-                  {h1}{h2 && <em style={{ color: '#8B6914', fontStyle: 'italic' }}> {h2}</em>}
+        {/* Hero card — grade + headline + dynamic description */}
+        {(() => {
+          const hl: Record<string, [string, string]> = {
+            A: ['A means alignment is close.', 'One right move, and you can 10x your life.'],
+            B: ["You're doing well —", "'doing well' and 'living fully' are two different things."],
+            C: ['A passing grade —', 'but who wants a passing-grade life?'],
+            D: ["D means you're one step away from failing —", "and you're probably feeling the pressure."],
+            F: ['Rock bottom —', 'but rock bottom has a map out.'],
+          };
+          const [h1, h2] = hl[finalGrade] ?? ['Overall Deconditioning Score', ''];
+          const forceCount = (results.diagnostic!.totalFs ?? 0) + (results.diagnostic!.totalCs ?? 0);
+          const descLine = endYear && yearsRemaining
+            ? `Your ${finalGrade} score traces back to ${forceCount} specific force${forceCount !== 1 ? 's' : ''} — all identified below. Left unaddressed, this configuration persists through ${endYear} — ${yearsRemaining} more year${yearsRemaining !== 1 ? 's' : ''} of a reality that passes, but doesn't 10x.`
+            : `Your ${finalGrade} score traces back to ${forceCount} specific force${forceCount !== 1 ? 's' : ''} — all identified below. This configuration does not self-resolve without targeted intervention.`;
+          return (
+            <div style={{ background: '#FFFFFF', border: '1px solid #E0E0E0', borderRadius: '4px', padding: '20px 24px', display: 'flex', gap: '20px', alignItems: 'flex-start' }}>
+              <div style={{ flexShrink: 0, textAlign: 'center' }}>
+                <div style={{ width: '90px', height: '90px', borderRadius: '50%', border: `2.5px solid ${gc.border}`, background: gc.bg, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                  <span style={{ fontFamily: CORMORANT, fontSize: '3rem', fontWeight: 700, color: gc.text, lineHeight: 1 }}>{finalGrade}</span>
                 </div>
-              );
-            })()}
-            <p style={{ margin: 0, fontSize: '0.8rem', color: '#666', lineHeight: 1.7 }}>The combined karmic, timing, and environmental pressure actively working against your goal. This score is not a verdict — it's a map. Read on.</p>
-          </div>
-        </div>
+                <div style={{ fontSize: '9px', textTransform: 'uppercase', letterSpacing: '0.08em', color: '#999', marginTop: '6px' }}>Overall Score</div>
+                <div style={{ fontSize: '12px', fontWeight: 700, color: gc.text, fontFamily: INTER }}>{score % 1 === 0 ? score : score.toFixed(1)} / 100</div>
+              </div>
+              <div style={{ flex: 1 }}>
+                <div style={{ fontFamily: CORMORANT, fontSize: '1.35rem', fontWeight: 700, color: '#1C1A2E', marginBottom: '10px', lineHeight: 1.3 }}>
+                  {h1} <em style={{ color: '#8B6914' }}>{h2}</em>
+                </div>
+                <p style={{ margin: 0, fontSize: '0.82rem', color: '#555', lineHeight: 1.75 }}>{descLine}</p>
+              </div>
+            </div>
+          );
+        })()}
 
-        {/* Intake summary */}
-        <div style={{ background: '#FFFFFF', border: '1px solid #E8E8E8', borderRadius: '4px', padding: '20px 24px' }}>
-          <div style={{ fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.12em', color: '#C9A84C', marginBottom: '12px' }}>Your Assessment Summary</div>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-            {intake.desiredOutcome && <IntakRow label="90-Day Goal" value={intake.desiredOutcome} />}
-            {intake.obstacle && <IntakRow label="Main obstacle" value={intake.obstacle} />}
-            {intake.patternYear && <IntakRow label="Pattern since" value={intake.patternYear} />}
-            {intake.priorHelp.length > 0 && <IntakRow label="Prior support" value={intake.priorHelp.map((o) => PRIOR_HELP_LABELS[o]).join(', ')} />}
-            {intake.preferredSolution && <IntakRow label="Preferred solution" value={PREFERRED_SOLUTION_LABELS[intake.preferredSolution]} />}
-            {intake.currentSituation && <IntakRow label="Current situation" value={CURRENT_SITUATION_LABELS[intake.currentSituation]} />}
-            {intake.addressMoveDate && <IntakRow label="Moved to address" value={intake.addressMoveDate} />}
-          </div>
-        </div>
+        {/* Score breakdown — horizontal bars + Venn */}
+        {total > 0 && (() => {
+          const pillarGrade = (p: PillarSummary) => p.fCount > 0 ? 'F' : p.cCount > 0 ? 'C' : p.aCount > 0 ? 'A' : '';
+          const rows = [
+            { label: 'Structure', sub: 'Pillar 1', pct: p1pct, color: '#C0392B', grade: pillarGrade(p1) },
+            { label: 'Timing',    sub: 'Pillar 2', pct: p2pct, color: '#C9A84C', grade: pillarGrade(p2) },
+            { label: 'Environment', sub: 'Pillar 3', pct: p3pct, color: '#9a7d4e', grade: pillarGrade(p3) },
+          ];
+          return (
+            <div style={{ background: '#FFFFFF', border: '1px solid #E8E8E8', borderRadius: '4px', padding: '18px 22px' }}>
+              <div style={{ fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.12em', color: '#999', marginBottom: '14px' }}>Your Score Breaks Down As:</div>
+              <div style={{ display: 'flex', gap: '20px', alignItems: 'center' }}>
+                <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                  {rows.map((r) => {
+                    const gc2 = gradeColor(r.grade);
+                    return (
+                      <div key={r.label} style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                        <div style={{ width: '90px', flexShrink: 0 }}>
+                          <div style={{ fontSize: '0.82rem', fontWeight: 700, color: '#1C1A2E', fontFamily: INTER }}>{r.label}</div>
+                          <div style={{ fontSize: '9px', color: '#999' }}>{r.sub}</div>
+                        </div>
+                        <div style={{ flex: 1, height: '6px', background: '#E8E8E8', borderRadius: '3px' }}>
+                          <div style={{ height: '6px', width: `${r.pct}%`, background: r.color, borderRadius: '3px' }} />
+                        </div>
+                        <div style={{ width: '32px', textAlign: 'right', fontSize: '0.8rem', fontWeight: 700, color: r.color, fontFamily: INTER }}>{r.pct}%</div>
+                        {r.grade && (
+                          <span style={{ display: 'inline-block', padding: '1px 7px', borderRadius: '2px', fontSize: '10px', fontWeight: 700, background: gc2.bg, color: gc2.text, border: `1px solid ${gc2.border}`, fontFamily: INTER }}>{r.grade}</span>
+                        )}
+                      </div>
+                    );
+                  })}
+                </div>
+                <div style={{ flexShrink: 0, textAlign: 'center' }}>
+                  <VennDiagram />
+                  <div style={{ fontSize: '9px', color: '#999', marginTop: '4px' }}>3 forces · 1 score</div>
+                </div>
+              </div>
+            </div>
+          );
+        })()}
 
         {/* Goal bar */}
         <div style={{ borderLeft: '4px solid #C9A84C', background: '#FDFBF6', padding: '10px 16px', borderRadius: '0 4px 4px 0' }}>
@@ -568,42 +600,17 @@ export function ClientResultsPage() {
 
         {/* Reframe block */}
         <div style={{ borderLeft: '4px solid #C9A84C', background: '#FDFBF6', borderRadius: '0 4px 4px 0', padding: '20px 24px' }}>
-          <p style={{ fontFamily: CORMORANT, fontStyle: 'italic', color: '#7A5A1A', fontSize: '1.1rem', margin: '0 0 10px', lineHeight: 1.65 }}>
-            If you've tried everything — the mindset work, the strategies, the coaches — and things are going <strong style={{ color: '#1C1A2E' }}>well enough</strong> but that one specific thing you want keeps slipping just out of reach… this is your answer.
+          <p style={{ fontFamily: CORMORANT, fontStyle: 'italic', color: '#7A5A1A', fontSize: '1.1rem', margin: 0, lineHeight: 1.75 }}>
+            If you've tried everything — the mindset work, the strategies, the coaches — and things are going <strong style={{ fontStyle: 'normal', color: '#1C1A2E' }}>well enough</strong> but that one specific thing you want keeps slipping just out of reach… you're not factoring in the unseen forces that <strong style={{ fontStyle: 'normal', color: '#1C1A2E' }}>cannot be intellectually solved.</strong> You've been 10x-capable this entire time. This report maps the forces working against you.
           </p>
-          <p style={{ margin: '0 0 8px', fontSize: '0.85rem', color: '#555555', lineHeight: 1.65 }}>That unseen force is real. It's measurable. And it's encoded directly in your chart.</p>
-          <p style={{ margin: '0 0 8px', fontSize: '0.85rem', color: '#555555', lineHeight: 1.65 }}>You're not broken. You're not undisciplined. You've been <strong style={{ color: '#1C1A2E' }}>10x-capable</strong> this entire time — just running against an invisible current.</p>
-          <p style={{ margin: 0, fontSize: '0.85rem', color: '#C9A84C', fontWeight: 600 }}>This report shows you exactly what that current is.</p>
         </div>
 
-        {/* 3 pillar cards */}
-        {total > 0 && (
-          <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' as const }}>
-            {[
-              { num: 1, label: 'Structure', pct: p1pct, color: '#C0392B', border: '#FAEAEA', path: '1:1 calls & self-study' },
-              { num: 2, label: 'Timing',    pct: p2pct, color: '#C9A84C', border: '#F0E5C0', path: '1:1 calls & self-study' },
-              { num: 3, label: 'Environment', pct: p3pct, color: '#9a7d4e', border: '#EDE0C0', path: 'Done-For-You, 1:1 calls & self-study' },
-            ].map((d) => (
-              <div key={d.num} style={{ flex: '1 1 180px', background: '#FFFFFF', border: `1px solid ${d.border}`, borderRadius: '4px', padding: '14px 16px' }}>
-                <div style={{ fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.1em', color: '#999', marginBottom: '4px' }}>Pillar {d.num}</div>
-                <div style={{ fontFamily: CORMORANT, fontSize: '1rem', color: '#7A5A1A', fontWeight: 600, marginBottom: '6px' }}>{d.label}</div>
-                <div style={{ fontSize: '1.6rem', fontWeight: 900, color: d.color, marginBottom: '8px', fontFamily: INTER }}>{d.pct}%</div>
-                <div style={{ height: '3px', background: '#E8E8E8', borderRadius: '2px', marginBottom: '8px' }}>
-                  <div style={{ height: '3px', width: `${d.pct}%`, background: d.color, borderRadius: '2px' }} />
-                </div>
-                {prefLabel && <p style={{ margin: 0, fontSize: '9px', color: '#999', fontStyle: 'italic' }}>Recommended: {d.path}</p>}
-              </div>
-            ))}
-          </div>
-        )}
-
-        {/* Malefic reframe box */}
-        <div style={{ background: '#FDFAF5', border: '1px solid #C9A84C', borderRadius: '4px', padding: '20px 24px' }}>
-          <h3 style={{ fontFamily: CORMORANT, color: '#C9A84C', fontSize: '1.2rem', fontWeight: 700, margin: '0 0 12px' }}>The F is not what you think it is.</h3>
-          <p style={{ margin: '0 0 10px', fontSize: '0.82rem', color: '#555555', lineHeight: 1.75 }}>Malefic planets — Saturn, Pluto, Uranus, Mars — are not in your chart to make life hard. They are only hard when you don't know how to work with them. Every malefic carries a higher octave: a transmuted version of its energy that becomes your greatest power once decoded.</p>
-          <p style={{ margin: '0 0 14px', fontSize: '0.82rem', color: '#555555', lineHeight: 1.75 }}>An F score means you are sitting on top of enormous untapped potential that has been running against you instead of for you. The clients who come to Pheydrus with F scores don't just reach their goals — they exceed them in ways they didn't see coming.</p>
+        {/* Malefic box */}
+        <div style={{ background: '#FDFAF5', border: '1px solid #E8E0C8', borderRadius: '4px', padding: '20px 24px' }}>
+          <div style={{ fontSize: '0.9rem', fontWeight: 700, color: '#C9A84C', marginBottom: '10px', fontFamily: INTER }}>Your score is not a verdict. It's an entry point.</div>
+          <p style={{ margin: '0 0 12px', fontSize: '0.82rem', color: '#555', lineHeight: 1.75 }}>The forces showing up in your report aren't there to make life hard — they're only hard when you don't know how to work with them. Every pressure point carries a higher octave: a transmuted version that becomes your greatest advantage once decoded.</p>
           <div style={{ borderLeft: '3px solid #C9A84C', paddingLeft: '14px' }}>
-            <p style={{ margin: 0, fontFamily: CORMORANT, fontStyle: 'italic', color: '#7A5A1A', fontSize: '0.95rem', lineHeight: 1.7 }}>"Pluto transiting your 1st house? Stop playing nice. Stop softening your edges. Step fully into your power — that is the higher octave." — Pheydrus team</p>
+            <p style={{ margin: 0, fontFamily: CORMORANT, fontStyle: 'italic', color: '#7A5A1A', fontSize: '0.9rem', lineHeight: 1.7 }}>"Pluto transiting your 1st house? Stop playing nice. Stop softening your edges. Step fully into your power — that is the higher octave." — Pheydrus team</p>
           </div>
         </div>
 
