@@ -62,10 +62,10 @@ const GOAL_SHORT: Record<GoalCategory, string> = {
 };
 
 const GRADE_COLOR: Record<string, { border: string; bg: string; text: string }> = {
-  A: { border: '#2ecc71', bg: '#0a1a0a', text: '#4ade80' },
-  B: { border: '#60a5fa', bg: '#0a0f1a', text: '#93c5fd' },
-  C: { border: '#C9A84C', bg: '#1a1200', text: '#C9A84C' },
-  F: { border: '#C0392B', bg: '#130000', text: '#f87171' },
+  A: { border: '#2ecc71', bg: '#F0FFF4', text: '#16a34a' },
+  B: { border: '#3b82f6', bg: '#EFF6FF', text: '#1d4ed8' },
+  C: { border: '#C9A84C', bg: '#FFFBEB', text: '#92680A' },
+  F: { border: '#C0392B', bg: '#FFF5F5', text: '#C0392B' },
 };
 
 function gradeColor(g: string) {
@@ -77,7 +77,7 @@ function gradeColor(g: string) {
 function gradeBadge(grade: string, endYear?: number | null): string {
   const gc = gradeColor(grade);
   const endText = endYear ? ` &middot; thru ${endYear}` : '';
-  return `<span style="display:inline-block;padding:2px 9px;border-radius:2px;font-size:10px;font-weight:700;background:${gc.bg};color:${gc.text};border:1px solid ${gc.border};font-family:${INTER};">${grade}${endText}</span>`;
+  return `<span style="display:inline-block;padding:2px 9px;border-radius:2px;font-size:10px;font-weight:700;background:${gc.bg};color:${gc.text};border:1px solid ${gc.border};font-family:${INTER};white-space:nowrap;">${grade}${endText}</span>`;
 }
 
 // ── Mirror lines ──────────────────────────────────────────────────────────────
@@ -100,7 +100,7 @@ function getMirrorLineHtml(item: { planet?: string; house?: number; section?: st
   };
   const text = lines[key];
   if (!text) return '';
-  return `<p style="margin:0 0 6px;font-size:12px;font-style:italic;color:#C9A84C;line-height:1.55;font-family:${CORMORANT};">&ldquo;${text}&rdquo;</p>`;
+  return `<p style="margin:0 0 6px;font-size:12px;font-style:italic;color:#1C1A2E;line-height:1.55;font-family:${CORMORANT};">&ldquo;${text}&rdquo;</p>`;
 }
 
 // ── Transmute lines ───────────────────────────────────────────────────────────
@@ -129,10 +129,10 @@ function getTransmuteLine(item: { planet?: string; house?: number; section?: str
 function renderTestimonialCard(quote: string, attribution: string): string {
   return `
 <!-- REPLACE WITH REAL TESTIMONIAL -->
-<div style="background:#111111;border-left:3px solid #C9A84C;border-radius:4px;padding:18px 22px;margin:14px 0;position:relative;overflow:hidden;">
+<div style="background:#FDFBF6;border-left:3px solid #C9A84C;border-radius:4px;padding:18px 22px;margin:14px 0;position:relative;overflow:hidden;">
   <span style="position:absolute;top:-12px;left:8px;font-size:72px;color:#C9A84C;opacity:0.12;font-family:${CORMORANT};line-height:1;pointer-events:none;">&ldquo;</span>
-  <p style="margin:0 0 8px;font-size:13px;font-style:italic;color:#E8D5A3;line-height:1.65;font-family:${CORMORANT};position:relative;">${esc(quote)}</p>
-  <p style="margin:0;font-size:10px;color:#888888;font-family:${INTER};">— ${esc(attribution)}</p>
+  <p style="margin:0 0 8px;font-size:13px;font-style:italic;color:#7A5A1A;line-height:1.65;font-family:${CORMORANT};position:relative;">${esc(quote)}</p>
+  <p style="margin:0;font-size:10px;color:#999;font-family:${INTER};">— ${esc(attribution)}</p>
 </div>`;
 }
 
@@ -366,7 +366,7 @@ function renderPillarTimeline(
   transits: PlanetaryTransit[],
   addressMoveDate: string,
 ): string {
-  const style = `margin-top:12px;padding:8px 12px;background:#0f0f0f;border-left:3px solid #C9A84C;border-radius:0 4px 4px 0;font-size:11px;color:#888;line-height:1.6;font-family:${INTER};`;
+  const style = `margin-top:12px;padding:8px 12px;background:#FDFBF6;border-left:3px solid #C9A84C;border-radius:0 4px 4px 0;font-size:11px;color:#666;line-height:1.6;font-family:${INTER};`;
 
   if (pillarNum === 1) {
     return `<div style="${style}"><strong style="color:#C9A84C;">⏱ Timeline:</strong> Life-long — this is your permanent structural layer. It does not expire, but it can be consciously mastered.</div>`;
@@ -378,17 +378,17 @@ function renderPillarTimeline(
 
   if (pillarNum === 2) {
     if (endYear) {
-      return `<div style="${style}"><strong style="color:#C9A84C;">⏱ Timeline:</strong> Active <strong style="color:#E8D5A3;">${formatDuration(endYear)}</strong>. This window will lift — knowing when is half the advantage.</div>`;
+      return `<div style="${style}"><strong style="color:#C9A84C;">⏱ Timeline:</strong> Active <strong style="color:#7A5A1A;">${formatDuration(endYear)}</strong>. This window will lift — knowing when is half the advantage.</div>`;
     }
     return `<div style="${style}"><strong style="color:#C9A84C;">⏱ Timeline:</strong> The active timing pressures are relatively short-cycle.</div>`;
   }
 
   // Pillar 3
   const durText = endYear
-    ? `approximately <strong style="color:#E8D5A3;">${formatDuration(endYear)}</strong>, mirroring your active transit window`
+    ? `approximately <strong style="color:#7A5A1A;">${formatDuration(endYear)}</strong>, mirroring your active transit window`
     : 'the duration of your active transit window';
   const addressNote = addressMoveDate
-    ? ` <em>Did this pattern intensify around <strong style="color:#E8D5A3;">${esc(addressMoveDate)}</strong> when you moved?</em>`
+    ? ` <em>Did this pattern intensify around <strong style="color:#7A5A1A;">${esc(addressMoveDate)}</strong> when you moved?</em>`
     : '';
   return `<div style="${style}"><strong style="color:#C9A84C;">⏱ Timeline:</strong> Amplifies your active transits for ${durText}.${addressNote}</div>`;
 }
@@ -414,14 +414,14 @@ function renderAspectCard(
     : null;
 
   return `
-<div style="background:#111111;border-left:3px solid ${gc.border};border-radius:4px;padding:12px 16px;margin-bottom:10px;">
+<div style="background:#FFFFFF;border-left:3px solid ${gc.border};border-radius:4px;padding:12px 16px;margin-bottom:10px;border:1px solid #E8E8E8;">
   ${mirror}
   <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap;">
-    <span style="font-size:12px;font-weight:700;color:#F5F5F0;font-family:${INTER};">${label}</span>
+    <span style="font-size:12px;font-weight:700;color:#1C1A2E;font-family:${INTER};">${label}</span>
     ${gradeBadge(item.grade, endYear)}
   </div>
-  <p style="margin:0 0 8px;font-size:11px;color:#999;line-height:1.7;font-family:${INTER};">${esc(interp)}</p>
-  ${transmute ? `<div style="border-top:1px solid #2a2a2a;padding-top:7px;margin-top:4px;"><p style="margin:0;font-size:11px;font-style:italic;color:#C9A84C;line-height:1.6;font-family:${INTER};"><strong>Higher octave:</strong> ${esc(transmute)}</p></div>` : ''}
+  <p style="margin:0 0 8px;font-size:11px;color:#555;line-height:1.7;font-family:${INTER};">${esc(interp)}</p>
+  ${transmute ? `<div style="border-top:1px solid #E0E0E0;padding-top:7px;margin-top:4px;"><p style="margin:0;font-size:11px;font-style:italic;color:#C9A84C;line-height:1.6;font-family:${INTER};"><strong>Higher octave:</strong> ${esc(transmute)}</p></div>` : ''}
 </div>`;
 }
 
@@ -444,10 +444,10 @@ function renderPillarBlock(
   const scoringItems = pillar.items.filter((i) => i.grade === 'F' || i.grade === 'C' || i.grade === 'A');
 
   const badgeStyle = num === 1
-    ? 'background:#2a0808;color:#f87171;border:1px solid #C0392B;'
+    ? 'background:#FFF0F0;color:#C0392B;border:1px solid #C0392B;'
     : num === 2
-      ? 'background:#1a1200;color:#C9A84C;border:1px solid #C9A84C;'
-      : 'background:#1a1400;color:#E8D5A3;border:1px solid #9a7d4e;';
+      ? 'background:#FFF9E6;color:#8B6914;border:1px solid #C9A84C;'
+      : 'background:#FDF5E6;color:#7A5A1A;border:1px solid #9a7d4e;';
 
   const chartLabel = num === 3 ? 'Env Chart' : num === 2 ? 'Transit Chart' : 'House Chart';
 
@@ -455,18 +455,18 @@ function renderPillarBlock(
 <div style="margin-bottom:28px;">
   <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;flex-wrap:wrap;">
     <span style="font-size:10px;font-weight:700;padding:2px 8px;border-radius:2px;${badgeStyle}font-family:${INTER};">PILLAR ${num}</span>
-    <span style="font-size:16px;font-weight:700;color:#F5F5F0;font-family:${CORMORANT};">${title} &mdash; ${subtitle}</span>
+    <span style="font-size:16px;font-weight:700;color:#1C1A2E;font-family:${CORMORANT};">${title} &mdash; ${subtitle}</span>
     <span style="margin-left:auto;font-size:18px;font-weight:900;color:${accentColor};font-family:${INTER};">
       ${pct(pillarScore(pillar), pillarScore(pillar))}%
     </span>
   </div>
 
-  <p style="margin:0 0 12px;font-size:12px;font-style:italic;color:#E8D5A3;line-height:1.5;padding:7px 12px;background:rgba(201,168,76,0.06);border-bottom:1px solid rgba(201,168,76,0.18);border-radius:4px 4px 0 0;font-family:${CORMORANT};">${callout}</p>
+  <p style="margin:0 0 12px;font-size:12px;font-style:italic;color:#7A5A1A;line-height:1.5;padding:7px 12px;background:rgba(201,168,76,0.06);border-bottom:1px solid rgba(201,168,76,0.18);border-radius:4px 4px 0 0;font-family:${CORMORANT};">${callout}</p>
 
   <div style="display:flex;gap:14px;align-items:flex-start;">
     <div style="flex-shrink:0;text-align:center;width:108px;">
-      ${renderDarkHouseWheel(pillar.items, 108)}
-      <div style="font-size:9px;color:#555;margin-top:4px;font-family:${INTER};">${chartLabel}</div>
+      ${renderHouseWheel(pillar.items, 108)}
+      <div style="font-size:9px;color:#999;margin-top:4px;font-family:${INTER};">${chartLabel}</div>
       <div style="font-size:8px;margin-top:3px;font-family:${INTER};">
         <span style="display:inline-block;width:7px;height:7px;background:#C0392B;border-radius:1px;vertical-align:middle;"></span><span style="color:#666;"> F</span>&nbsp;
         <span style="display:inline-block;width:7px;height:7px;background:#C9A84C;border-radius:1px;vertical-align:middle;"></span><span style="color:#666;"> C</span>&nbsp;
@@ -502,24 +502,33 @@ function renderPage1(results: ConsolidatedResults, intake: ClientIntakeData, goa
     : null;
 
   const pillarCards = [
-    { num: 1, label: 'Structure', pct: p1pct, color: '#C0392B', border: '#3a0808' },
-    { num: 2, label: 'Timing',    pct: p2pct, color: '#C9A84C', border: '#2a2000' },
-    { num: 3, label: 'Environment', pct: p3pct, color: '#9a7d4e', border: '#2a1e08' },
+    { num: 1, label: 'Structure', pct: p1pct, color: '#C0392B', border: '#FAEAEA' },
+    { num: 2, label: 'Timing',    pct: p2pct, color: '#C9A84C', border: '#F0E5C0' },
+    { num: 3, label: 'Environment', pct: p3pct, color: '#9a7d4e', border: '#EDE0C0' },
   ];
+
+  const gradeHeadlines: Record<string, [string, string]> = {
+    A: ['A means alignment is close.', 'One right move, and you can 10x your life.'],
+    B: ["You're doing well.", "'doing well' and 'living fully' are two different things."],
+    C: ['A passing grade.', 'But who wants a passing-grade life?'],
+    D: ["D means you're one step away from failing.", "And you're probably feeling the pressure."],
+    F: ['Rock bottom.', 'But rock bottom has a map out.'],
+  };
+  const [headH1, headH2] = gradeHeadlines[diagnostic.finalGrade] ?? ['Overall Deconditioning Score', ''];
 
   return `
 <!-- PAGE 1: COVER -->
-<div style="background:#0D0D0D;padding:40px 48px;min-height:980px;color:#F5F5F0;">
+<div style="background:#F5F1EB;padding:40px 48px;min-height:980px;color:#1C1A2E;">
 
   <!-- Header -->
-  <div style="display:flex;justify-content:space-between;align-items:flex-start;padding-bottom:16px;border-bottom:1px solid #1e1e1e;margin-bottom:24px;">
+  <div style="display:flex;justify-content:space-between;align-items:flex-start;padding-bottom:16px;border-bottom:1px solid #E8E8E8;margin-bottom:24px;">
     <div>
       <div style="font-size:22px;font-weight:700;color:#C9A84C;font-family:${CORMORANT};letter-spacing:-0.3px;">Pheydrus</div>
-      <div style="font-size:10px;text-transform:uppercase;letter-spacing:0.12em;color:#555;font-family:${INTER};margin-top:2px;">Proprietary 3-Pillar Analysis</div>
+      <div style="font-size:10px;text-transform:uppercase;letter-spacing:0.12em;color:#999;font-family:${INTER};margin-top:2px;">Proprietary 3-Pillar Analysis</div>
     </div>
     <div style="text-align:right;font-family:${INTER};">
-      <div style="font-size:12px;color:#E8D5A3;font-weight:600;">${esc(results.userInfo.name)}</div>
-      <div style="font-size:10px;color:#555;margin-top:2px;">${new Date(results.timestamp).toLocaleDateString('en-US', { year:'numeric', month:'long', day:'numeric' })}</div>
+      <div style="font-size:12px;color:#7A5A1A;font-weight:600;">${esc(results.userInfo.name)}</div>
+      <div style="font-size:10px;color:#999;margin-top:2px;">${new Date(results.timestamp).toLocaleDateString('en-US', { year:'numeric', month:'long', day:'numeric' })}</div>
     </div>
   </div>
 
@@ -529,52 +538,52 @@ function renderPage1(results: ConsolidatedResults, intake: ClientIntakeData, goa
       <div style="width:90px;height:90px;border-radius:50%;border:2.5px solid ${gc.border};background:${gc.bg};display:flex;flex-direction:column;align-items:center;justify-content:center;margin:0 auto;">
         <span style="font-size:48px;font-weight:700;color:${gc.text};font-family:${CORMORANT};line-height:1;">${diagnostic.finalGrade}</span>
       </div>
-      <div style="font-size:10px;color:#555;margin-top:6px;font-family:${INTER};">Score: ${diagnostic.score % 1 === 0 ? diagnostic.score : diagnostic.score.toFixed(1)}</div>
+      <div style="font-size:10px;color:#999;margin-top:6px;font-family:${INTER};">Score: ${diagnostic.score % 1 === 0 ? diagnostic.score : diagnostic.score.toFixed(1)}</div>
     </div>
-    <div style="flex:1;background:#111111;border:1px solid #2A2A2A;border-radius:4px;padding:16px 20px;">
-      <div style="font-size:14px;font-weight:700;color:#F5F5F0;font-family:${CORMORANT};margin-bottom:8px;">Overall Deconditioning Score</div>
-      <p style="margin:0;font-size:12px;color:#888;line-height:1.7;font-family:${INTER};">The combined karmic, timing, and environmental pressure actively working against your goal. This score is not a verdict — it's a map. Read on.</p>
+    <div style="flex:1;background:#FFFFFF;border:1px solid #E0E0E0;border-radius:4px;padding:16px 20px;">
+      <div style="font-size:16px;font-weight:700;color:#1C1A2E;font-family:${CORMORANT};margin-bottom:8px;line-height:1.35;">${esc(headH1)}${headH2 ? ` <em style="color:#8B6914;">${esc(headH2)}</em>` : ''}</div>
+      <p style="margin:0;font-size:12px;color:#666;line-height:1.7;font-family:${INTER};">The combined karmic, timing, and environmental pressure actively working against your goal. This score is not a verdict — it's a map. Read on.</p>
     </div>
   </div>
 
   <!-- Goal bar -->
-  <div style="border-left:4px solid #C9A84C;background:#0f0d08;padding:10px 16px;margin-bottom:20px;border-radius:0 4px 4px 0;">
+  <div style="border-left:4px solid #C9A84C;background:#FDFBF6;padding:10px 16px;margin-bottom:20px;border-radius:0 4px 4px 0;">
     <div style="font-size:10px;text-transform:uppercase;letter-spacing:0.1em;color:#C9A84C;font-family:${INTER};margin-bottom:4px;">90-Day Goal &middot; ${esc(GOAL_LABEL[goal])}</div>
-    <p style="margin:0;font-size:13px;color:#E8D5A3;line-height:1.6;font-family:${CORMORANT};font-style:italic;">${esc(intake.desiredOutcome)}</p>
+    <p style="margin:0;font-size:13px;color:#7A5A1A;line-height:1.6;font-family:${CORMORANT};font-style:italic;">${esc(intake.desiredOutcome)}</p>
   </div>
 
   <!-- Reframe box -->
-  <div style="border-left:4px solid #C9A84C;background:#0f0d08;border-radius:0 4px 4px 0;padding:20px 24px;margin-bottom:20px;">
-    <p style="margin:0 0 10px;font-size:14px;font-style:italic;color:#E8D5A3;line-height:1.65;font-family:${CORMORANT};">If you've tried everything — the mindset work, the strategies, the coaches — and things are going <strong style="color:#F5F5F0;">well enough</strong> but that one specific thing you want keeps slipping just out of reach… this is your answer.</p>
-    <p style="margin:0 0 8px;font-size:12px;color:#888;line-height:1.65;font-family:${INTER};">That unseen force is real. It's measurable. And it's encoded directly in your chart.</p>
-    <p style="margin:0 0 8px;font-size:12px;color:#888;line-height:1.65;font-family:${INTER};">You're not broken. You're not undisciplined. You've been <strong style="color:#F5F5F0;">10x-capable</strong> this entire time — just running against an invisible current.</p>
+  <div style="border-left:4px solid #C9A84C;background:#FDFBF6;border-radius:0 4px 4px 0;padding:20px 24px;margin-bottom:20px;">
+    <p style="margin:0 0 10px;font-size:14px;font-style:italic;color:#7A5A1A;line-height:1.65;font-family:${CORMORANT};">If you've tried everything — the mindset work, the strategies, the coaches — and things are going <strong style="color:#1C1A2E;">well enough</strong> but that one specific thing you want keeps slipping just out of reach… this is your answer.</p>
+    <p style="margin:0 0 8px;font-size:12px;color:#555;line-height:1.65;font-family:${INTER};">That unseen force is real. It's measurable. And it's encoded directly in your chart.</p>
+    <p style="margin:0 0 8px;font-size:12px;color:#555;line-height:1.65;font-family:${INTER};">You're not broken. You're not undisciplined. You've been <strong style="color:#1C1A2E;">10x-capable</strong> this entire time — just running against an invisible current.</p>
     <p style="margin:0;font-size:12px;color:#C9A84C;font-weight:600;font-family:${INTER};">This report shows you exactly what that current is.</p>
   </div>
 
   <!-- Seed line -->
-  <p style="text-align:center;font-size:12px;font-style:italic;color:#555;line-height:1.7;margin-bottom:24px;font-family:${CORMORANT};">This report does two things: gives you <span style="color:#C9A84C;">closure on why the past felt so hard</span> — and maps <span style="color:#C9A84C;">what's coming next</span>, if you're ready.</p>
+  <p style="text-align:center;font-size:12px;font-style:italic;color:#999;line-height:1.7;margin-bottom:24px;font-family:${CORMORANT};">This report does two things: gives you <span style="color:#C9A84C;">closure on why the past felt so hard</span> — and maps <span style="color:#C9A84C;">what's coming next</span>, if you're ready.</p>
 
   <!-- 3 pillar cards -->
   <div style="display:flex;gap:12px;margin-bottom:24px;">
     ${pillarCards.map((d) => `
-    <div style="flex:1;background:#111111;border:1px solid ${d.border};border-radius:4px;padding:14px 16px;">
-      <div style="font-size:10px;text-transform:uppercase;letter-spacing:0.1em;color:#555;font-family:${INTER};margin-bottom:6px;">Pillar ${d.num}</div>
-      <div style="font-size:15px;font-weight:600;color:#E8D5A3;font-family:${CORMORANT};margin-bottom:8px;">${d.label}</div>
+    <div style="flex:1;background:#FFFFFF;border:1px solid ${d.border};border-radius:4px;padding:14px 16px;">
+      <div style="font-size:10px;text-transform:uppercase;letter-spacing:0.1em;color:#999;font-family:${INTER};margin-bottom:6px;">Pillar ${d.num}</div>
+      <div style="font-size:15px;font-weight:600;color:#7A5A1A;font-family:${CORMORANT};margin-bottom:8px;">${d.label}</div>
       <div style="font-size:26px;font-weight:900;color:${d.color};font-family:${INTER};margin-bottom:8px;">${d.pct}%</div>
-      <div style="height:3px;background:#1e1e1e;border-radius:2px;">
+      <div style="height:3px;background:#E8E8E8;border-radius:2px;">
         <div style="height:3px;width:${d.pct}%;background:${d.color};border-radius:2px;"></div>
       </div>
-      ${prefLabel ? `<p style="margin:8px 0 0;font-size:9px;color:#555;font-style:italic;font-family:${INTER};">Recommended: ${d.num === 3 ? 'Done-For-You, 1:1 calls &amp; self-study' : '1:1 calls &amp; self-study'}</p>` : ''}
+      ${prefLabel ? `<p style="margin:8px 0 0;font-size:9px;color:#999;font-style:italic;font-family:${INTER};">Recommended: ${d.num === 3 ? 'Done-For-You, 1:1 calls &amp; self-study' : '1:1 calls &amp; self-study'}</p>` : ''}
     </div>`).join('')}
   </div>
 
   <!-- Malefic reframe box -->
-  <div style="background:#0d0a04;border:1px solid #C9A84C;border-radius:4px;padding:20px 24px;">
+  <div style="background:#FDFAF5;border:1px solid #C9A84C;border-radius:4px;padding:20px 24px;">
     <h3 style="margin:0 0 12px;font-size:18px;font-weight:700;color:#C9A84C;font-family:${CORMORANT};">The F is not what you think it is.</h3>
-    <p style="margin:0 0 10px;font-size:12px;color:#888;line-height:1.75;font-family:${INTER};">Malefic planets — Saturn, Pluto, Uranus, Mars — are not in your chart to make life hard. They are only hard when you don't know how to work with them. Every malefic carries a higher octave: a transmuted version of its energy that becomes your greatest power once decoded.</p>
-    <p style="margin:0 0 14px;font-size:12px;color:#888;line-height:1.75;font-family:${INTER};">An F score means you are sitting on top of enormous untapped potential that has been running against you instead of for you. The clients who come to Pheydrus with F scores don't just reach their goals — they exceed them in ways they didn't see coming.</p>
+    <p style="margin:0 0 10px;font-size:12px;color:#555;line-height:1.75;font-family:${INTER};">Malefic planets — Saturn, Pluto, Uranus, Mars — are not in your chart to make life hard. They are only hard when you don't know how to work with them. Every malefic carries a higher octave: a transmuted version of its energy that becomes your greatest power once decoded.</p>
+    <p style="margin:0 0 14px;font-size:12px;color:#555;line-height:1.75;font-family:${INTER};">An F score means you are sitting on top of enormous untapped potential that has been running against you instead of for you. The clients who come to Pheydrus with F scores don't just reach their goals — they exceed them in ways they didn't see coming.</p>
     <div style="border-left:3px solid #C9A84C;padding:8px 14px;">
-      <p style="margin:0;font-size:12px;font-style:italic;color:#E8D5A3;line-height:1.7;font-family:${CORMORANT};">"Pluto transiting your 1st house? Stop playing nice. Stop softening your edges. Step fully into your power — that is the higher octave." &mdash; Pheydrus team</p>
+      <p style="margin:0;font-size:12px;font-style:italic;color:#7A5A1A;line-height:1.7;font-family:${CORMORANT};">"Pluto transiting your 1st house? Stop playing nice. Stop softening your edges. Step fully into your power — that is the higher octave." &mdash; Pheydrus team</p>
     </div>
   </div>
 
@@ -614,20 +623,20 @@ function renderPage2(results: ConsolidatedResults, _intake: ClientIntakeData, __
 
   return `
 <!-- PAGE 2: WHY THIS KEEPS HAPPENING -->
-<div style="background:#0D0D0D;padding:40px 48px;min-height:980px;color:#F5F5F0;">
+<div style="background:#F5F1EB;padding:40px 48px;min-height:980px;color:#1C1A2E;">
 
-  <div style="font-size:10px;text-transform:uppercase;letter-spacing:0.14em;color:#555;font-family:${INTER};margin-bottom:8px;">The Pattern</div>
-  <h2 style="margin:0 0 24px;font-size:34px;font-weight:700;color:#F5F5F0;font-family:${CORMORANT};line-height:1.2;letter-spacing:-0.5px;">Why This Keeps Happening</h2>
+  <div style="font-size:10px;text-transform:uppercase;letter-spacing:0.14em;color:#999;font-family:${INTER};margin-bottom:8px;">The Pattern</div>
+  <h2 style="margin:0 0 24px;font-size:34px;font-weight:700;color:#1C1A2E;font-family:${CORMORANT};line-height:1.2;letter-spacing:-0.5px;">Why This Keeps Happening</h2>
 
   <!-- Pull quote -->
-  <div style="border-left:4px solid #C9A84C;padding:12px 20px;margin-bottom:24px;background:#0f0d08;">
-    <p style="margin:0;font-size:14px;font-style:italic;color:#E8D5A3;line-height:1.7;font-family:${CORMORANT};">"It's not normal to wake up every day with that quiet ache — knowing you've done everything right. The degree. The career. The inner work. And still feel like you're watching everyone else's life click into place while yours stays just out of reach."</p>
+  <div style="border-left:4px solid #C9A84C;padding:12px 20px;margin-bottom:24px;background:#FDFBF6;">
+    <p style="margin:0;font-size:14px;font-style:italic;color:#7A5A1A;line-height:1.7;font-family:${CORMORANT};">"It's not normal to wake up every day with that quiet ache — knowing you've done everything right. The degree. The career. The inner work. And still feel like you're watching everyone else's life click into place while yours stays just out of reach."</p>
   </div>
 
   <!-- Body -->
-  <p style="margin:0 0 14px;font-size:13px;color:#bbb;line-height:1.8;font-family:${INTER};">You are not behind. You are not broken. What you're experiencing is the friction of three invisible forces pulling against each other simultaneously. When these forces are misaligned, it doesn't matter how hard you work — life feels like pushing through water.</p>
+  <p style="margin:0 0 14px;font-size:13px;color:#444;line-height:1.8;font-family:${INTER};">You are not behind. You are not broken. What you're experiencing is the friction of three invisible forces pulling against each other simultaneously. When these forces are misaligned, it doesn't matter how hard you work — life feels like pushing through water.</p>
   <p style="margin:0 0 14px;font-size:14px;font-weight:700;color:#C9A84C;line-height:1.6;font-family:${INTER};">When all three align — everything changes. Not gradually. Suddenly.</p>
-  <p style="margin:0 0 28px;font-size:13px;color:#bbb;line-height:1.8;font-family:${INTER};">The right people appear. The income shifts. The version of you that you've been reaching for starts to feel like the version of you that simply is. This is what Pheydrus clients describe — not motivation, not mindset — but a fundamental unlocking of what was always already there.</p>
+  <p style="margin:0 0 28px;font-size:13px;color:#444;line-height:1.8;font-family:${INTER};">The right people appear. The income shifts. The version of you that you've been reaching for starts to feel like the version of you that simply is. This is what Pheydrus clients describe — not motivation, not mindset — but a fundamental unlocking of what was always already there.</p>
 
   <!-- Venn + Legend -->
   <div style="display:flex;gap:20px;align-items:flex-start;margin-bottom:28px;">
@@ -636,26 +645,26 @@ function renderPage2(results: ConsolidatedResults, _intake: ClientIntakeData, __
     </div>
     <div style="flex:1;display:flex;flex-direction:column;gap:10px;">
       ${legendCards.map((c) => `
-      <div style="background:#111111;border:1px solid #2A2A2A;border-radius:4px;padding:12px 14px;">
+      <div style="background:#FFFFFF;border:1px solid #E8E8E8;border-radius:4px;padding:12px 14px;">
         <div style="display:flex;align-items:center;gap:6px;margin-bottom:6px;">
           <span style="width:8px;height:8px;border-radius:50%;background:${c.dot};flex-shrink:0;display:inline-block;"></span>
-          <span style="font-size:10px;text-transform:uppercase;letter-spacing:0.1em;color:#555;font-family:${INTER};">${c.label}</span>
+          <span style="font-size:10px;text-transform:uppercase;letter-spacing:0.1em;color:#999;font-family:${INTER};">${c.label}</span>
         </div>
         <p style="margin:0 0 5px;font-size:13px;font-style:italic;color:#C9A84C;line-height:1.55;font-family:${CORMORANT};">${esc(c.question)}</p>
-        <p style="margin:0;font-size:11px;color:#777;line-height:1.6;font-family:${INTER};">${c.desc}</p>
+        <p style="margin:0;font-size:11px;color:#666;line-height:1.6;font-family:${INTER};">${c.desc}</p>
       </div>`).join('')}
     </div>
   </div>
 
   <!-- Timeline warning -->
-  <div style="background:#111111;border:1px solid #2A2A2A;border-radius:4px;padding:14px 18px;margin-bottom:16px;">
+  <div style="background:#FFFFFF;border:1px solid #E8E8E8;border-radius:4px;padding:14px 18px;margin-bottom:16px;">
     <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;color:#C9A84C;font-family:${INTER};margin-bottom:8px;">&#9888; Active Pattern Window</div>
-    <p style="margin:0;font-size:12px;color:#999;line-height:1.7;font-family:${INTER};">Without intervention, your current configuration is projected to persist ${endYear ? `<strong style="color:#C9A84C;">through ${endYear} — approximately ${yearsRemaining} more years</strong>` : '<strong style="color:#C9A84C;">for several more years</strong>'}. The primary driver is <strong style="color:#F5F5F0;">${longest ? esc(longest.planet) + ' transiting House ' + longest.house : 'the dominant outer planet transit'}</strong>, defining the exact window you are in right now. Knowing the window is half the advantage.</p>
+    <p style="margin:0;font-size:12px;color:#555;line-height:1.7;font-family:${INTER};">Without intervention, your current configuration is projected to persist ${endYear ? `<strong style="color:#C9A84C;">through ${endYear} — approximately ${yearsRemaining} more years</strong>` : '<strong style="color:#C9A84C;">for several more years</strong>'}. The primary driver is <strong style="color:#1C1A2E;">${longest ? esc(longest.planet) + ' transiting House ' + longest.house : 'the dominant outer planet transit'}</strong>, defining the exact window you are in right now. Knowing the window is half the advantage.</p>
   </div>
 
   <!-- Destiny bridge -->
-  <div style="background:#0a0d0a;border:1px solid #2a3a2a;border-radius:4px;padding:16px 20px;">
-    <p style="margin:0;font-size:13px;font-style:italic;color:#E8D5A3;line-height:1.75;font-family:${CORMORANT};">The patterns identified in this report aren't just about what's been holding you back. They are the exact conditions that <strong style="font-style:normal;color:#C9A84C;">precede a major identity shift</strong>. You are closer to the breakthrough than you are to the beginning. The question is whether you'll have a map when it arrives.</p>
+  <div style="background:#F5FBF5;border:1px solid #C8E6C8;border-radius:4px;padding:16px 20px;">
+    <p style="margin:0;font-size:13px;font-style:italic;color:#7A5A1A;line-height:1.75;font-family:${CORMORANT};">The patterns identified in this report aren't just about what's been holding you back. They are the exact conditions that <strong style="font-style:normal;color:#C9A84C;">precede a major identity shift</strong>. You are closer to the breakthrough than you are to the beginning. The question is whether you'll have a map when it arrives.</p>
   </div>
 
 </div>`;
@@ -698,33 +707,33 @@ function renderPage3(results: ConsolidatedResults, intake: ClientIntakeData, goa
   ): string {
     const scoringItems = pillar.items.filter((i) => i.grade === 'F' || i.grade === 'C' || i.grade === 'A');
     const badgeSty = num === 1
-      ? 'background:#2a0808;color:#f87171;border:1px solid #C0392B;'
+      ? 'background:#FFF0F0;color:#C0392B;border:1px solid #C0392B;'
       : num === 2
-        ? 'background:#1a1200;color:#C9A84C;border:1px solid #C9A84C;'
-        : 'background:#1a1400;color:#E8D5A3;border:1px solid #9a7d4e;';
+        ? 'background:#FFF9E6;color:#8B6914;border:1px solid #C9A84C;'
+        : 'background:#FDF5E6;color:#7A5A1A;border:1px solid #9a7d4e;';
     const chartLabel = num === 3 ? 'Env Chart' : num === 2 ? 'Transit Chart' : 'House Chart';
 
     return `
 <div style="margin-bottom:28px;">
   <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;flex-wrap:wrap;">
     <span style="font-size:10px;font-weight:700;padding:2px 8px;border-radius:2px;${badgeSty}font-family:${INTER};">PILLAR ${num}</span>
-    <span style="font-size:16px;font-weight:700;color:#F5F5F0;font-family:${CORMORANT};">${title} &mdash; ${subtitle}</span>
+    <span style="font-size:16px;font-weight:700;color:#1C1A2E;font-family:${CORMORANT};">${title} &mdash; ${subtitle}</span>
     <span style="margin-left:auto;font-size:18px;font-weight:900;color:${accent};font-family:${INTER};">${pillarPct}%</span>
   </div>
-  <p style="margin:0 0 12px;font-size:12px;font-style:italic;color:#E8D5A3;line-height:1.5;padding:7px 12px;background:rgba(201,168,76,0.06);border-bottom:1px solid rgba(201,168,76,0.18);border-radius:4px 4px 0 0;font-family:${CORMORANT};">${callout}</p>
+  <p style="margin:0 0 12px;font-size:12px;font-style:italic;color:#7A5A1A;line-height:1.5;padding:7px 12px;background:rgba(201,168,76,0.06);border-bottom:1px solid rgba(201,168,76,0.18);border-radius:4px 4px 0 0;font-family:${CORMORANT};">${callout}</p>
   <div style="display:flex;gap:14px;align-items:flex-start;">
     <div style="flex-shrink:0;text-align:center;width:108px;">
-      ${renderDarkHouseWheel(pillar.items, 108)}
-      <div style="font-size:9px;color:#555;margin-top:4px;font-family:${INTER};">${chartLabel}</div>
+      ${renderHouseWheel(pillar.items, 108)}
+      <div style="font-size:9px;color:#999;margin-top:4px;font-family:${INTER};">${chartLabel}</div>
       <div style="font-size:8px;margin-top:3px;font-family:${INTER};">
-        <span style="display:inline-block;width:7px;height:7px;background:#C0392B;border-radius:1px;vertical-align:middle;"></span><span style="color:#666;"> F</span>&nbsp;
-        <span style="display:inline-block;width:7px;height:7px;background:#C9A84C;border-radius:1px;vertical-align:middle;"></span><span style="color:#666;"> C</span>&nbsp;
-        <span style="display:inline-block;width:7px;height:7px;background:#2ecc71;border-radius:1px;vertical-align:middle;"></span><span style="color:#666;"> A</span>
+        <span style="display:inline-block;width:7px;height:7px;background:#fca5a5;border-radius:1px;vertical-align:middle;"></span><span style="color:#666;"> F</span>&nbsp;
+        <span style="display:inline-block;width:7px;height:7px;background:#fcd34d;border-radius:1px;vertical-align:middle;"></span><span style="color:#666;"> C</span>&nbsp;
+        <span style="display:inline-block;width:7px;height:7px;background:#6ee7b7;border-radius:1px;vertical-align:middle;"></span><span style="color:#666;"> A</span>
       </div>
     </div>
     <div style="flex:1;">
       ${scoringItems.length === 0
-        ? `<p style="font-size:12px;color:#2ecc71;font-style:italic;font-family:${INTER};">No significant pressure in this pillar — this dimension is working in your favor.</p>`
+        ? `<p style="font-size:12px;color:#16a34a;font-style:italic;font-family:${INTER};">No significant pressure in this pillar — this dimension is working in your favor.</p>`
         : scoringItems.map((item) => renderAspectCard(item, goal, goalShort, transits)).join('')
       }
     </div>
@@ -739,9 +748,9 @@ function renderPage3(results: ConsolidatedResults, intake: ClientIntakeData, goa
 
   return `
 <!-- PAGE 3: PILLAR BREAKDOWN -->
-<div style="background:#0D0D0D;padding:40px 48px;color:#F5F5F0;">
+<div style="background:#F5F1EB;padding:40px 48px;color:#1C1A2E;">
 
-  <div style="font-size:10px;text-transform:uppercase;letter-spacing:0.14em;color:#555;font-family:${INTER};margin-bottom:8px;">What is Holding Back Your ${esc(GOAL_LABEL[goal])}</div>
+  <div style="font-size:10px;text-transform:uppercase;letter-spacing:0.14em;color:#999;font-family:${INTER};margin-bottom:8px;">What is Holding Back Your ${esc(GOAL_LABEL[goal])}</div>
 
   ${block(p1, 1, 'Structure', 'Your Energetic Blueprint',
     `Here is how Pillar 1 is specifically blocking your goal of ${esc(goalShort)}:`,
@@ -812,18 +821,18 @@ function renderPage4(results: ConsolidatedResults, intake: ClientIntakeData): st
 
   return `
 <!-- PAGE 4: COST OF INACTION + DESTINY + CTA -->
-<div style="background:#0D0D0D;padding:40px 48px;color:#F5F5F0;">
+<div style="background:#F5F1EB;padding:40px 48px;color:#1C1A2E;">
 
   <!-- Cost of Inaction -->
-  <div style="background:#110808;border:1px solid #3a1010;border-radius:4px;padding:24px 28px;margin-bottom:20px;">
-    <h3 style="margin:0 0 18px;font-size:22px;font-weight:700;color:#F5F5F0;font-family:${CORMORANT};line-height:1.3;">What Another Year of This Pattern Costs You</h3>
+  <div style="background:#FFF5F5;border:1px solid #FAEAEA;border-radius:4px;padding:24px 28px;margin-bottom:20px;">
+    <h3 style="margin:0 0 18px;font-size:22px;font-weight:700;color:#1C1A2E;font-family:${CORMORANT};line-height:1.3;">What Another Year of This Pattern Costs You</h3>
     ${[
       `Another 12 months of knowing exactly what to do — and watching yourself not do it.`,
       `Another year of income that almost hits ${esc(goalShort)}, but resets every time you get close.`,
       `Another year of brilliant ideas living in your drafts folder instead of the marketplace.`,
       `Another year of telling yourself next month will be different.`,
-    ].map((line) => `<p style="margin:0 0 10px;font-size:13px;color:#bbb;line-height:1.7;font-family:${INTER};border-left:2px solid #C0392B;padding-left:12px;">${line}</p>`).join('')}
-    <p style="margin:8px 0 6px;font-size:12px;color:#777;line-height:1.7;font-family:${INTER};">${yearLine}</p>
+    ].map((line) => `<p style="margin:0 0 10px;font-size:13px;color:#555;line-height:1.7;font-family:${INTER};border-left:2px solid #C0392B;padding-left:12px;">${line}</p>`).join('')}
+    <p style="margin:8px 0 6px;font-size:12px;color:#888;line-height:1.7;font-family:${INTER};">${yearLine}</p>
     ${yearsRemaining !== null && yearsRemaining > 0
       ? `<p style="margin:0 0 8px;font-size:14px;font-weight:700;color:#C0392B;font-family:${INTER};">That's ${yearsRemaining} more year${yearsRemaining !== 1 ? 's' : ''}.</p>`
       : ''}
@@ -837,19 +846,19 @@ function renderPage4(results: ConsolidatedResults, intake: ClientIntakeData): st
   )}
 
   <!-- Destiny block -->
-  <div style="background:#080d08;border:1px solid #1e3a1e;border-radius:4px;padding:20px 24px;margin-bottom:20px;">
+  <div style="background:#F5FBF5;border:1px solid #C8E6C8;border-radius:4px;padding:20px 24px;margin-bottom:20px;">
     <h3 style="margin:0 0 14px;font-size:20px;font-weight:700;color:#C9A84C;font-family:${CORMORANT};">This is bigger than fixing what's broken.</h3>
-    <p style="margin:0 0 10px;font-size:13px;color:#ccc;line-height:1.8;font-family:${INTER};">Understanding these pillars serves two purposes.</p>
-    <p style="margin:0 0 10px;font-size:13px;color:#ccc;line-height:1.8;font-family:${INTER};">The first is <strong style="color:#E8D5A3;">closure</strong>. The painful patterns, the blocked seasons, the years of almost — they weren't your fault. They were forces you didn't have a map for. You were not failing. You were navigating blind.</p>
-    <p style="margin:0 0 10px;font-size:13px;color:#ccc;line-height:1.8;font-family:${INTER};">The second purpose — and this is the more important one — is <strong style="color:#E8D5A3;">preparation</strong>.</p>
-    <p style="margin:0 0 14px;font-size:13px;color:#ccc;line-height:1.8;font-family:${INTER};">Something is shifting. Your chart doesn't lie. The same forces that created the friction are now creating the conditions for the biggest expansion of your life. A new identity is forming. New opportunities are already in motion.</p>
-    <div style="border-top:1px solid #1e3a1e;padding-top:14px;margin-top:4px;">
-      <p style="margin:0;font-size:18px;font-style:italic;color:#F5F5F0;line-height:1.5;font-family:${CORMORANT};">The question is whether you'll have a map when it arrives. <span style="font-style:normal;font-weight:700;color:#C9A84C;">This call is how you get ready.</span></p>
+    <p style="margin:0 0 10px;font-size:13px;color:#444;line-height:1.8;font-family:${INTER};">Understanding these pillars serves two purposes.</p>
+    <p style="margin:0 0 10px;font-size:13px;color:#444;line-height:1.8;font-family:${INTER};">The first is <strong style="color:#1C1A2E;">closure</strong>. The painful patterns, the blocked seasons, the years of almost — they weren't your fault. They were forces you didn't have a map for. You were not failing. You were navigating blind.</p>
+    <p style="margin:0 0 10px;font-size:13px;color:#444;line-height:1.8;font-family:${INTER};">The second purpose — and this is the more important one — is <strong style="color:#1C1A2E;">preparation</strong>.</p>
+    <p style="margin:0 0 14px;font-size:13px;color:#444;line-height:1.8;font-family:${INTER};">Something is shifting. Your chart doesn't lie. The same forces that created the friction are now creating the conditions for the biggest expansion of your life. A new identity is forming. New opportunities are already in motion.</p>
+    <div style="border-top:1px solid #C8E6C8;padding-top:14px;margin-top:4px;">
+      <p style="margin:0;font-size:18px;font-style:italic;color:#1C1A2E;line-height:1.5;font-family:${CORMORANT};">The question is whether you'll have a map when it arrives. <span style="font-style:normal;font-weight:700;color:#C9A84C;">This call is how you get ready.</span></p>
     </div>
   </div>
 
   <!-- CTA box -->
-  <div style="background:#0f0d08;border:1px solid #C9A84C;border-radius:4px;padding:28px 32px;text-align:center;">
+  <div style="background:#FDFBF6;border:1px solid #C9A84C;border-radius:4px;padding:28px 32px;text-align:center;">
     <h3 style="margin:0 0 6px;font-size:21px;font-weight:700;color:#C9A84C;font-family:${CORMORANT};">Your Next Step: Alignment Strategy Call</h3>
     <p style="margin:0 0 18px;font-size:12px;color:#888;font-family:${INTER};">30-minute 1:1 with the Pheydrus team</p>
 
@@ -858,22 +867,22 @@ function renderPage4(results: ConsolidatedResults, intake: ClientIntakeData): st
         `Map how to decondition the unseen forces shaping your reality and unlock the parts of you and your environment that can actually 10x your life`,
         `Prepare for the identity shift that's already in motion — and make sure you're ready when it arrives`,
         `Determine whether Artist's Way is your aligned next chapter`,
-      ].map((b) => `<p style="margin:0 0 8px;font-size:12px;color:#E8D5A3;line-height:1.6;font-family:${INTER};">&rarr; ${b}</p>`).join('')}
+      ].map((b) => `<p style="margin:0 0 8px;font-size:12px;color:#7A5A1A;line-height:1.6;font-family:${INTER};">&rarr; ${b}</p>`).join('')}
     </div>
 
-    <p style="margin:0 0 18px;font-size:14px;font-style:italic;color:#E8D5A3;font-family:${CORMORANT};line-height:1.6;">This will be the beginning of your true alignment journey.</p>
+    <p style="margin:0 0 18px;font-size:14px;font-style:italic;color:#7A5A1A;font-family:${CORMORANT};line-height:1.6;">This will be the beginning of your true alignment journey.</p>
 
     <a href="https://calendly.com/pheydrus_strategy/1-1-alignment-strategy-call-clone-1"
-       style="display:block;width:100%;max-width:420px;margin:0 auto 12px;padding:15px 24px;background:#C9A84C;color:#0D0D0D;font-weight:700;font-size:11px;letter-spacing:0.1em;text-transform:uppercase;text-decoration:none;border-radius:2px;text-align:center;box-sizing:border-box;font-family:${INTER};">
+       style="display:block;width:100%;max-width:420px;margin:0 auto 12px;padding:15px 24px;background:#C9A84C;color:#1C1A2E;font-weight:700;font-size:11px;letter-spacing:0.1em;text-transform:uppercase;text-decoration:none;border-radius:2px;text-align:center;box-sizing:border-box;font-family:${INTER};">
       BOOK YOUR ALIGNMENT CALL &rarr;
     </a>
-    <p style="margin:0;font-size:11px;color:#555;font-family:${INTER};">Complimentary &nbsp;&middot;&nbsp; No obligation &nbsp;&middot;&nbsp; Limited availability this cycle</p>
+    <p style="margin:0;font-size:11px;color:#999;font-family:${INTER};">Complimentary &nbsp;&middot;&nbsp; No obligation &nbsp;&middot;&nbsp; Limited availability this cycle</p>
   </div>
 
   <!-- Footer -->
-  <div style="margin-top:28px;padding-top:16px;border-top:1px solid #1e1e1e;display:flex;justify-content:space-between;align-items:center;font-family:${INTER};">
-    <p style="margin:0;font-size:10px;color:#444;">Pheydrus Proprietary Analysis &nbsp;&middot;&nbsp; Confidential</p>
-    <p style="margin:0;font-size:10px;color:#444;">${esc(results.userInfo.name)} &nbsp;&middot;&nbsp; ${new Date(results.timestamp).toLocaleDateString()}</p>
+  <div style="margin-top:28px;padding-top:16px;border-top:1px solid #E8E8E8;display:flex;justify-content:space-between;align-items:center;font-family:${INTER};">
+    <p style="margin:0;font-size:10px;color:#999;">Pheydrus Proprietary Analysis &nbsp;&middot;&nbsp; Confidential</p>
+    <p style="margin:0;font-size:10px;color:#999;">${esc(results.userInfo.name)} &nbsp;&middot;&nbsp; ${new Date(results.timestamp).toLocaleDateString()}</p>
   </div>
 
 </div>`;
@@ -899,15 +908,15 @@ export function generateClientReportTemplate(
     body {
       font-family: Arial, sans-serif;
       margin: 0; padding: 0;
-      background: #0D0D0D;
-      color: #F5F5F0;
+      background: #F5F1EB;
+      color: #1C1A2E;
     }
     .page-break { page-break-after: always; break-after: page; }
     @media print {
       * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
       body { font-size: 90%; }
       .page-break { page-break-after: always; }
-      a { color: #0D0D0D !important; }
+      a { color: #1C1A2E !important; }
     }
   </style>
 </head>

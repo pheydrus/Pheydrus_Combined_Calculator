@@ -8,7 +8,7 @@ import type { CSSProperties } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { exportClientReportToPDF } from '../../services/pdfExport';
 import {
-  renderDarkHouseWheel,
+  renderHouseWheel,
 } from '../../services/pdfExport/clientReportTemplate';
 import {
   detectGoalCategory,
@@ -219,7 +219,7 @@ function AspectCard({ item, goal, goalShort, transits }: {
   return (
     <div style={{ background: '#FFFFFF', borderLeft: `3px solid ${gc.border}`, borderRadius: '4px', padding: '14px 16px', marginBottom: '10px', border: `1px solid #E8E8E8` }}>
       {mirror && (
-        <p style={{ fontFamily: CORMORANT, fontStyle: 'italic', color: '#C9A84C', fontSize: '0.9rem', margin: '0 0 8px', lineHeight: 1.55 }}>
+        <p style={{ fontFamily: CORMORANT, fontStyle: 'italic', color: '#1C1A2E', fontSize: '0.9rem', margin: '0 0 8px', lineHeight: 1.55 }}>
           "{mirror}"
         </p>
       )}
@@ -286,7 +286,7 @@ function PillarDeepDiveCard({ pillar, index, title, subtitle, goal, goalShort, l
       {/* Content: house wheel + aspect cards */}
       <div style={{ display: 'flex', gap: '16px', alignItems: 'flex-start' }}>
         <div style={{ flexShrink: 0, textAlign: 'center', width: '108px' }}>
-          <SvgChart svg={renderDarkHouseWheel(pillar.items, 108)} />
+          <SvgChart svg={renderHouseWheel(pillar.items, 108)} />
           <p style={{ fontSize: '9px', color: '#999', margin: '4px 0 3px', fontFamily: INTER }}>{index === 3 ? 'Env Chart' : index === 2 ? 'Transit Chart' : 'House Chart'}</p>
           <div style={{ fontSize: '8px', fontFamily: INTER }}>
             <span style={{ display: 'inline-block', width: '7px', height: '7px', background: '#C0392B', borderRadius: '1px', verticalAlign: 'middle' }} /> <span style={{ color: '#777' }}>F</span>&nbsp;
@@ -527,7 +527,21 @@ export function ClientResultsPage() {
             <div style={{ fontSize: '10px', color: '#999', marginTop: '6px' }}>Score: {score % 1 === 0 ? score : score.toFixed(1)}</div>
           </div>
           <div style={{ flex: 1, background: '#FFFFFF', border: '1px solid #E0E0E0', borderRadius: '4px', padding: '16px 20px' }}>
-            <div style={{ fontFamily: CORMORANT, fontSize: '1rem', fontWeight: 700, color: '#1C1A2E', marginBottom: '8px' }}>Overall Deconditioning Score</div>
+            {(() => {
+              const hl: Record<string, [string, string]> = {
+                A: ['A means alignment is close.', 'One right move, and you can 10x your life.'],
+                B: ["You're doing well.", "'doing well' and 'living fully' are two different things."],
+                C: ['A passing grade.', 'But who wants a passing-grade life?'],
+                D: ["D means you're one step away from failing.", "And you're probably feeling the pressure."],
+                F: ['Rock bottom.', 'But rock bottom has a map out.'],
+              };
+              const [h1, h2] = hl[finalGrade] ?? ['Overall Deconditioning Score', ''];
+              return (
+                <div style={{ fontFamily: CORMORANT, fontSize: '1.15rem', fontWeight: 700, color: '#1C1A2E', marginBottom: '8px', lineHeight: 1.35 }}>
+                  {h1}{h2 && <em style={{ color: '#8B6914', fontStyle: 'italic' }}> {h2}</em>}
+                </div>
+              );
+            })()}
             <p style={{ margin: 0, fontSize: '0.8rem', color: '#666', lineHeight: 1.7 }}>The combined karmic, timing, and environmental pressure actively working against your goal. This score is not a verdict — it's a map. Read on.</p>
           </div>
         </div>
