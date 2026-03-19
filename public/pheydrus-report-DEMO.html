@@ -559,16 +559,37 @@
 
     /* ── Print ── */
     @media print {
-      html { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
-      body { background: #FAFAF8; margin: 0; }
+      html, body {
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+        color-adjust: exact;
+        background: #FAFAF8 !important;
+        margin: 0;
+        padding: 0;
+      }
       .page {
         page-break-before: always;
+        page-break-inside: avoid;
+        break-before: page;
         margin: 0;
         width: 100%;
         min-height: 100vh;
         padding: 0.62in 0.75in;
+        box-sizing: border-box;
+        background: #FAFAF8 !important;
       }
-      .page:first-child { page-break-before: avoid; }
+      .page:first-child { page-break-before: avoid; break-before: avoid; }
+      /* Preserve all background colours */
+      .hero-card, .aspect-card, .testimonial,
+      .pillar-badge, .ac-pill, .grade-circle,
+      .progress-fill, .venn-circle { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+      /* Keep shadows readable */
+      .hero-card { box-shadow: none; border: 1px solid #D8D4CC; }
+      /* Avoid mid-card page breaks */
+      .aspect-card, .testimonial { page-break-inside: avoid; break-inside: avoid; }
+      .content-row { page-break-inside: avoid; break-inside: avoid; }
+      /* Hide demo banner */
+      .demo-banner { display: none !important; }
     }
   </style>
 </head>
@@ -815,42 +836,42 @@
         <svg width="108" height="108" viewBox="0 0 108 108" fill="none" xmlns="http://www.w3.org/2000/svg">
           <circle cx="54" cy="54" r="50" stroke="#E2DDD4" stroke-width="1" fill="none"/>
           <circle cx="54" cy="54" r="19" stroke="#E2DDD4" stroke-width="0.5" fill="#F5F3EE"/>
-          <!-- House cusp lines (inner r=19, outer r=50) -->
-          <!-- H1 180° --> <line x1="35" y1="54" x2="4" y2="54" stroke="#E2DDD4" stroke-width="0.5"/>
-          <!-- H2 150° --> <line x1="37.5" y1="44.5" x2="10.7" y2="29" stroke="#E2DDD4" stroke-width="0.5"/>
-          <!-- H3 120° --> <line x1="44.5" y1="37.5" x2="29" y2="10.7" stroke="#E2DDD4" stroke-width="0.5"/>
-          <!-- H4  90° --> <line x1="54" y1="35" x2="54" y2="4" stroke="#E2DDD4" stroke-width="0.5"/>
-          <!-- H5  60° --> <line x1="63.5" y1="37.5" x2="79" y2="10.7" stroke="#E2DDD4" stroke-width="0.5"/>
-          <!-- H6  30° --> <line x1="70.5" y1="44.5" x2="97.3" y2="29" stroke="#E2DDD4" stroke-width="0.5"/>
-          <!-- H7   0° --> <line x1="73" y1="54" x2="104" y2="54" stroke="#E2DDD4" stroke-width="0.5"/>
-          <!-- H8 330° --> <line x1="70.5" y1="63.5" x2="97.3" y2="79" stroke="#E2DDD4" stroke-width="0.5"/>
-          <!-- H9 300° --> <line x1="63.5" y1="70.5" x2="79" y2="97.3" stroke="#E2DDD4" stroke-width="0.5"/>
-          <!-- H10 270° --> <line x1="54" y1="73" x2="54" y2="104" stroke="#E2DDD4" stroke-width="0.5"/>
-          <!-- H11 240° --> <line x1="44.5" y1="70.5" x2="29" y2="97.3" stroke="#E2DDD4" stroke-width="0.5"/>
-          <!-- H12 210° --> <line x1="37.5" y1="63.5" x2="10.7" y2="79" stroke="#E2DDD4" stroke-width="0.5"/>
-          <!-- House numbers at r=42, midpoints -->
-          <text x="13"  y="56"  text-anchor="middle" font-size="6" fill="#999" font-family="Inter,sans-serif">1</text>
-          <text x="24"  y="27"  text-anchor="middle" font-size="6" fill="#999" font-family="Inter,sans-serif">2</text>
-          <text x="43"  y="14"  text-anchor="middle" font-size="6" fill="#999" font-family="Inter,sans-serif">3</text>
-          <text x="65"  y="14"  text-anchor="middle" font-size="6" fill="#999" font-family="Inter,sans-serif">4</text>
-          <text x="84"  y="27"  text-anchor="middle" font-size="6" fill="#999" font-family="Inter,sans-serif">5</text>
-          <text x="96"  y="56"  text-anchor="middle" font-size="6" fill="#999" font-family="Inter,sans-serif">6</text>
-          <text x="96"  y="67"  text-anchor="middle" font-size="6" fill="#999" font-family="Inter,sans-serif">7</text>
-          <text x="84"  y="84"  text-anchor="middle" font-size="6" fill="#999" font-family="Inter,sans-serif">8</text>
-          <text x="65"  y="97"  text-anchor="middle" font-size="6" fill="#999" font-family="Inter,sans-serif">9</text>
-          <text x="41"  y="97"  text-anchor="middle" font-size="6" fill="#999" font-family="Inter,sans-serif">10</text>
-          <text x="24"  y="84"  text-anchor="middle" font-size="6" fill="#999" font-family="Inter,sans-serif">11</text>
-          <text x="13"  y="67"  text-anchor="middle" font-size="6" fill="#999" font-family="Inter,sans-serif">12</text>
-          <!-- House 5 malefics (red F-grade): ♄♅♆ at upper-right area -->
-          <circle cx="72" cy="28" r="5" fill="#C0392B" opacity="0.92"/>
-          <text x="72" y="31" text-anchor="middle" font-size="7" fill="white" font-family="serif">♄</text>
-          <circle cx="82" cy="24" r="5" fill="#C0392B" opacity="0.92"/>
-          <text x="82" y="27" text-anchor="middle" font-size="7" fill="white" font-family="serif">♅</text>
-          <circle cx="91" cy="28" r="5" fill="#C0392B" opacity="0.92"/>
-          <text x="91" y="31" text-anchor="middle" font-size="7" fill="white" font-family="serif">♆</text>
-          <!-- House 7 Sun (green A-grade): ☉ at right side -->
-          <circle cx="88" cy="62" r="5" fill="#1A6B3A" opacity="0.92"/>
-          <text x="88" y="65" text-anchor="middle" font-size="7" fill="white" font-family="serif">☉</text>
+          <!-- House cusp lines CCW (inner r=19, outer r=50) -->
+          <!-- H1  180° --> <line x1="35"  y1="54"  x2="4"    y2="54"   stroke="#E2DDD4" stroke-width="0.5"/>
+          <!-- H2  210° --> <line x1="37.5" y1="63.5" x2="10.7" y2="79"  stroke="#E2DDD4" stroke-width="0.5"/>
+          <!-- H3  240° --> <line x1="44.5" y1="70.5" x2="29"  y2="97.3" stroke="#E2DDD4" stroke-width="0.5"/>
+          <!-- H4  270° --> <line x1="54"  y1="73"  x2="54"  y2="104"  stroke="#E2DDD4" stroke-width="0.5"/>
+          <!-- H5  300° --> <line x1="63.5" y1="70.5" x2="79"  y2="97.3" stroke="#E2DDD4" stroke-width="0.5"/>
+          <!-- H6  330° --> <line x1="70.5" y1="63.5" x2="97.3" y2="79"  stroke="#E2DDD4" stroke-width="0.5"/>
+          <!-- H7    0° --> <line x1="73"  y1="54"  x2="104" y2="54"   stroke="#E2DDD4" stroke-width="0.5"/>
+          <!-- H8   30° --> <line x1="70.5" y1="44.5" x2="97.3" y2="29"  stroke="#E2DDD4" stroke-width="0.5"/>
+          <!-- H9   60° --> <line x1="63.5" y1="37.5" x2="79"  y2="10.7" stroke="#E2DDD4" stroke-width="0.5"/>
+          <!-- H10  90° --> <line x1="54"  y1="35"  x2="54"  y2="4"    stroke="#E2DDD4" stroke-width="0.5"/>
+          <!-- H11 120° --> <line x1="44.5" y1="37.5" x2="29"  y2="10.7" stroke="#E2DDD4" stroke-width="0.5"/>
+          <!-- H12 150° --> <line x1="37.5" y1="44.5" x2="10.7" y2="29"  stroke="#E2DDD4" stroke-width="0.5"/>
+          <!-- House numbers CCW at r=42 midpoints -->
+          <text x="13"  y="65"  text-anchor="middle" font-size="6" fill="#999" font-family="Inter,sans-serif">1</text>
+          <text x="24"  y="84"  text-anchor="middle" font-size="6" fill="#999" font-family="Inter,sans-serif">2</text>
+          <text x="43"  y="95"  text-anchor="middle" font-size="6" fill="#999" font-family="Inter,sans-serif">3</text>
+          <text x="65"  y="95"  text-anchor="middle" font-size="6" fill="#999" font-family="Inter,sans-serif">4</text>
+          <text x="84"  y="84"  text-anchor="middle" font-size="6" fill="#999" font-family="Inter,sans-serif">5</text>
+          <text x="95"  y="65"  text-anchor="middle" font-size="6" fill="#999" font-family="Inter,sans-serif">6</text>
+          <text x="95"  y="43"  text-anchor="middle" font-size="6" fill="#999" font-family="Inter,sans-serif">7</text>
+          <text x="84"  y="24"  text-anchor="middle" font-size="6" fill="#999" font-family="Inter,sans-serif">8</text>
+          <text x="65"  y="13"  text-anchor="middle" font-size="6" fill="#999" font-family="Inter,sans-serif">9</text>
+          <text x="43"  y="13"  text-anchor="middle" font-size="6" fill="#999" font-family="Inter,sans-serif">10</text>
+          <text x="24"  y="24"  text-anchor="middle" font-size="6" fill="#999" font-family="Inter,sans-serif">11</text>
+          <text x="13"  y="43"  text-anchor="middle" font-size="6" fill="#999" font-family="Inter,sans-serif">12</text>
+          <!-- House 5 malefics (red F-grade): ♄♅♆ at lower-right (CCW H5) -->
+          <circle cx="72" cy="80" r="5" fill="#C0392B" opacity="0.92"/>
+          <text x="72" y="83" text-anchor="middle" font-size="7" fill="white" font-family="serif">♄</text>
+          <circle cx="82" cy="86" r="5" fill="#C0392B" opacity="0.92"/>
+          <text x="82" y="89" text-anchor="middle" font-size="7" fill="white" font-family="serif">♅</text>
+          <circle cx="88" cy="77" r="5" fill="#C0392B" opacity="0.92"/>
+          <text x="88" y="80" text-anchor="middle" font-size="7" fill="white" font-family="serif">♆</text>
+          <!-- House 7 Sun (green A-grade): ☉ at upper-right (CCW H7) -->
+          <circle cx="90" cy="42" r="5" fill="#1A6B3A" opacity="0.92"/>
+          <text x="90" y="45" text-anchor="middle" font-size="7" fill="white" font-family="serif">☉</text>
         </svg>
         <div class="chart-label">Natal Chart</div>
         <div class="chart-legend">
@@ -866,9 +887,9 @@
             <div class="ac-name">Natal Saturn in House 5</div>
             <div class="ac-pill" style="background:#FDECEA;color:#C0392B;">F</div>
           </div>
-          <div class="mirror">"You build the offer, get excited, draft the posts — and pull back right before you publish. Every time."</div>
-          <div class="story">9 out of 10 Pheydrus clients with this configuration have a fully built offer sitting in their notes app that has never been posted. The work is done. The fear of being seen is what stops the publish button.</div>
-          <div class="transmute">Higher octave: once activated, you become the most disciplined, unshakeable builder in your market — the one who ships when others stall.</div>
+          <div class="mirror">"You build the offer, get excited, draft the posts — and pull back right before you publish. Every time. And in relationships — you open up just enough, then go quiet."</div>
+          <div class="story">9 out of 10 Pheydrus clients with this configuration have a fully built offer sitting in their notes app that has never been posted. The same pattern appears in romance: deep attraction, then a wall goes up — not from lack of feeling, but from fear of exposure. H5 governs both creative visibility and romantic expression. Saturn here blocks both at the same threshold.</div>
+          <div class="transmute">Higher octave: once activated, you become the most disciplined, unshakeable builder in your market — and the partner who loves with rare, earned depth.</div>
         </div>
 
         <div class="aspect-card" style="border-left-color:#C0392B;">
@@ -877,8 +898,18 @@
             <div class="ac-pill" style="background:#FDECEA;color:#C0392B;">F</div>
           </div>
           <div class="mirror" id="p1-a2-mirror"></div>
-          <div class="story">One client had launched the same coaching business four separate times over six years — each time with real momentum, real interest, real potential. Each time, she disappeared before the first dollar came in.</div>
-          <div class="transmute">Higher octave: the most innovative, category-defining offer in any market. This is the foundation of what's coming next for you.</div>
+          <div class="story">One client had launched the same coaching business four separate times over six years — each time with real momentum, then gone. The same cycle played out in her love life: intense connection, then disappearance. Uranus brings sudden starts and exits; Neptune dissolves before things solidify. H5 rules romance and creative expression — both experience this same boom-fade-restart pattern.</div>
+          <div class="transmute">Higher octave: the most innovative, category-defining offer in any market — and the most electric, spiritually resonant romantic connection, once stability is built.</div>
+        </div>
+
+        <div class="aspect-card" style="border-left-color:#1A6B3A;">
+          <div class="ac-header">
+            <div class="ac-name">Natal Sun in House 7</div>
+            <div class="ac-pill" style="background:#E8F8EE;color:#1A6B3A;">A</div>
+          </div>
+          <div class="mirror">"Have you noticed that your most powerful relationships — romantic or professional — tend to find you? That the right partnerships seem to arrive at exactly the right moment?"</div>
+          <div class="story">Clients with Sun in H7 describe the same experience: while business-building felt like a fight, relationships — romantic and professional alike — came with unusual ease. H7 is the house of one-on-one partnerships. Your Sun here makes partnership your primary arena for self-expression and identity. The right partner — in love or in business — is your single greatest unlock.</div>
+          <div class="transmute">Higher octave: your most aligned path to your goal runs through a key relationship. This is your green light — the one place in this chart that is fully open.</div>
         </div>
       </div>
     </div>
@@ -907,40 +938,41 @@
         <svg width="108" height="108" viewBox="0 0 108 108" fill="none" xmlns="http://www.w3.org/2000/svg">
           <circle cx="54" cy="54" r="50" stroke="#E2DDD4" stroke-width="1" fill="none"/>
           <circle cx="54" cy="54" r="19" stroke="#E2DDD4" stroke-width="0.5" fill="#F5F3EE"/>
-          <line x1="35" y1="54" x2="4" y2="54" stroke="#E2DDD4" stroke-width="0.5"/>
-          <line x1="37.5" y1="44.5" x2="10.7" y2="29" stroke="#E2DDD4" stroke-width="0.5"/>
-          <line x1="44.5" y1="37.5" x2="29" y2="10.7" stroke="#E2DDD4" stroke-width="0.5"/>
-          <line x1="54" y1="35" x2="54" y2="4" stroke="#E2DDD4" stroke-width="0.5"/>
-          <line x1="63.5" y1="37.5" x2="79" y2="10.7" stroke="#E2DDD4" stroke-width="0.5"/>
-          <line x1="70.5" y1="44.5" x2="97.3" y2="29" stroke="#E2DDD4" stroke-width="0.5"/>
-          <line x1="73" y1="54" x2="104" y2="54" stroke="#E2DDD4" stroke-width="0.5"/>
-          <line x1="70.5" y1="63.5" x2="97.3" y2="79" stroke="#E2DDD4" stroke-width="0.5"/>
-          <line x1="63.5" y1="70.5" x2="79" y2="97.3" stroke="#E2DDD4" stroke-width="0.5"/>
-          <line x1="54" y1="73" x2="54" y2="104" stroke="#E2DDD4" stroke-width="0.5"/>
-          <line x1="44.5" y1="70.5" x2="29" y2="97.3" stroke="#E2DDD4" stroke-width="0.5"/>
-          <line x1="37.5" y1="63.5" x2="10.7" y2="79" stroke="#E2DDD4" stroke-width="0.5"/>
-          <!-- House numbers -->
-          <text x="13"  y="56"  text-anchor="middle" font-size="6" fill="#999" font-family="Inter,sans-serif">1</text>
-          <text x="24"  y="27"  text-anchor="middle" font-size="6" fill="#999" font-family="Inter,sans-serif">2</text>
-          <text x="43"  y="14"  text-anchor="middle" font-size="6" fill="#999" font-family="Inter,sans-serif">3</text>
-          <text x="65"  y="14"  text-anchor="middle" font-size="6" fill="#999" font-family="Inter,sans-serif">4</text>
-          <text x="84"  y="27"  text-anchor="middle" font-size="6" fill="#999" font-family="Inter,sans-serif">5</text>
-          <text x="96"  y="56"  text-anchor="middle" font-size="6" fill="#999" font-family="Inter,sans-serif">6</text>
-          <text x="96"  y="67"  text-anchor="middle" font-size="6" fill="#999" font-family="Inter,sans-serif">7</text>
-          <text x="84"  y="84"  text-anchor="middle" font-size="6" fill="#999" font-family="Inter,sans-serif">8</text>
-          <text x="65"  y="97"  text-anchor="middle" font-size="6" fill="#999" font-family="Inter,sans-serif">9</text>
-          <text x="41"  y="97"  text-anchor="middle" font-size="6" fill="#999" font-family="Inter,sans-serif">10</text>
-          <text x="24"  y="84"  text-anchor="middle" font-size="6" fill="#999" font-family="Inter,sans-serif">11</text>
-          <text x="13"  y="67"  text-anchor="middle" font-size="6" fill="#999" font-family="Inter,sans-serif">12</text>
-          <!-- Uranus ♅ at H10 – top (red F-grade) -->
-          <circle cx="54" cy="27" r="5" fill="#C0392B" opacity="0.92"/>
-          <text x="54" y="30" text-anchor="middle" font-size="7" fill="white" font-family="serif">♅</text>
-          <!-- Pluto ♇ at H6 – right (gold C-grade) -->
-          <circle cx="88" cy="43" r="5" fill="#C9A84C" opacity="0.92"/>
-          <text x="88" y="46" text-anchor="middle" font-size="7" fill="white" font-family="serif">♇</text>
-          <!-- Neptune ♆ at H8 – lower-right (gold C-grade) -->
-          <circle cx="80" cy="73" r="5" fill="#C9A84C" opacity="0.92"/>
-          <text x="80" y="76" text-anchor="middle" font-size="7" fill="white" font-family="serif">♆</text>
+          <!-- House cusp lines CCW -->
+          <line x1="35"  y1="54"  x2="4"    y2="54"   stroke="#E2DDD4" stroke-width="0.5"/>
+          <line x1="37.5" y1="63.5" x2="10.7" y2="79"  stroke="#E2DDD4" stroke-width="0.5"/>
+          <line x1="44.5" y1="70.5" x2="29"  y2="97.3" stroke="#E2DDD4" stroke-width="0.5"/>
+          <line x1="54"  y1="73"  x2="54"  y2="104"  stroke="#E2DDD4" stroke-width="0.5"/>
+          <line x1="63.5" y1="70.5" x2="79"  y2="97.3" stroke="#E2DDD4" stroke-width="0.5"/>
+          <line x1="70.5" y1="63.5" x2="97.3" y2="79"  stroke="#E2DDD4" stroke-width="0.5"/>
+          <line x1="73"  y1="54"  x2="104" y2="54"   stroke="#E2DDD4" stroke-width="0.5"/>
+          <line x1="70.5" y1="44.5" x2="97.3" y2="29"  stroke="#E2DDD4" stroke-width="0.5"/>
+          <line x1="63.5" y1="37.5" x2="79"  y2="10.7" stroke="#E2DDD4" stroke-width="0.5"/>
+          <line x1="54"  y1="35"  x2="54"  y2="4"    stroke="#E2DDD4" stroke-width="0.5"/>
+          <line x1="44.5" y1="37.5" x2="29"  y2="10.7" stroke="#E2DDD4" stroke-width="0.5"/>
+          <line x1="37.5" y1="44.5" x2="10.7" y2="29"  stroke="#E2DDD4" stroke-width="0.5"/>
+          <!-- House numbers CCW at r=42 midpoints -->
+          <text x="13"  y="65"  text-anchor="middle" font-size="6" fill="#999" font-family="Inter,sans-serif">1</text>
+          <text x="24"  y="84"  text-anchor="middle" font-size="6" fill="#999" font-family="Inter,sans-serif">2</text>
+          <text x="43"  y="95"  text-anchor="middle" font-size="6" fill="#999" font-family="Inter,sans-serif">3</text>
+          <text x="65"  y="95"  text-anchor="middle" font-size="6" fill="#999" font-family="Inter,sans-serif">4</text>
+          <text x="84"  y="84"  text-anchor="middle" font-size="6" fill="#999" font-family="Inter,sans-serif">5</text>
+          <text x="95"  y="65"  text-anchor="middle" font-size="6" fill="#999" font-family="Inter,sans-serif">6</text>
+          <text x="95"  y="43"  text-anchor="middle" font-size="6" fill="#999" font-family="Inter,sans-serif">7</text>
+          <text x="84"  y="24"  text-anchor="middle" font-size="6" fill="#999" font-family="Inter,sans-serif">8</text>
+          <text x="65"  y="13"  text-anchor="middle" font-size="6" fill="#999" font-family="Inter,sans-serif">9</text>
+          <text x="43"  y="13"  text-anchor="middle" font-size="6" fill="#999" font-family="Inter,sans-serif">10</text>
+          <text x="24"  y="24"  text-anchor="middle" font-size="6" fill="#999" font-family="Inter,sans-serif">11</text>
+          <text x="13"  y="43"  text-anchor="middle" font-size="6" fill="#999" font-family="Inter,sans-serif">12</text>
+          <!-- Uranus ♅ at H10 – upper-left area (CCW H10 midpoint) (red F-grade) -->
+          <circle cx="44" cy="18" r="5" fill="#C0392B" opacity="0.92"/>
+          <text x="44" y="21" text-anchor="middle" font-size="7" fill="white" font-family="serif">♅</text>
+          <!-- Pluto ♇ at H6 – right-lower (CCW H6 midpoint) (gold C-grade) -->
+          <circle cx="91" cy="66" r="5" fill="#C9A84C" opacity="0.92"/>
+          <text x="91" y="69" text-anchor="middle" font-size="7" fill="white" font-family="serif">♇</text>
+          <!-- Neptune ♆ at H8 – upper-right (CCW H8 midpoint) (gold C-grade) -->
+          <circle cx="84" cy="25" r="5" fill="#C9A84C" opacity="0.92"/>
+          <text x="84" y="28" text-anchor="middle" font-size="7" fill="white" font-family="serif">♆</text>
         </svg>
         <div class="chart-label">Transit Chart</div>
         <div class="chart-legend">
@@ -998,38 +1030,39 @@
         <svg width="108" height="108" viewBox="0 0 108 108" fill="none" xmlns="http://www.w3.org/2000/svg">
           <circle cx="54" cy="54" r="50" stroke="#E2DDD4" stroke-width="1" fill="none"/>
           <circle cx="54" cy="54" r="19" stroke="#E2DDD4" stroke-width="0.5" fill="#F5F3EE"/>
-          <line x1="35" y1="54" x2="4" y2="54" stroke="#E2DDD4" stroke-width="0.5"/>
-          <line x1="37.5" y1="44.5" x2="10.7" y2="29" stroke="#E2DDD4" stroke-width="0.5"/>
-          <line x1="44.5" y1="37.5" x2="29" y2="10.7" stroke="#E2DDD4" stroke-width="0.5"/>
-          <line x1="54" y1="35" x2="54" y2="4" stroke="#E2DDD4" stroke-width="0.5"/>
-          <line x1="63.5" y1="37.5" x2="79" y2="10.7" stroke="#E2DDD4" stroke-width="0.5"/>
-          <line x1="70.5" y1="44.5" x2="97.3" y2="29" stroke="#E2DDD4" stroke-width="0.5"/>
-          <line x1="73" y1="54" x2="104" y2="54" stroke="#E2DDD4" stroke-width="0.5"/>
-          <line x1="70.5" y1="63.5" x2="97.3" y2="79" stroke="#E2DDD4" stroke-width="0.5"/>
-          <line x1="63.5" y1="70.5" x2="79" y2="97.3" stroke="#E2DDD4" stroke-width="0.5"/>
-          <line x1="54" y1="73" x2="54" y2="104" stroke="#E2DDD4" stroke-width="0.5"/>
-          <line x1="44.5" y1="70.5" x2="29" y2="97.3" stroke="#E2DDD4" stroke-width="0.5"/>
-          <line x1="37.5" y1="63.5" x2="10.7" y2="79" stroke="#E2DDD4" stroke-width="0.5"/>
-          <!-- House numbers -->
-          <text x="13"  y="56"  text-anchor="middle" font-size="6" fill="#999" font-family="Inter,sans-serif">1</text>
-          <text x="24"  y="27"  text-anchor="middle" font-size="6" fill="#999" font-family="Inter,sans-serif">2</text>
-          <text x="43"  y="14"  text-anchor="middle" font-size="6" fill="#999" font-family="Inter,sans-serif">3</text>
-          <text x="65"  y="14"  text-anchor="middle" font-size="6" fill="#999" font-family="Inter,sans-serif">4</text>
-          <text x="84"  y="27"  text-anchor="middle" font-size="6" fill="#999" font-family="Inter,sans-serif">5</text>
-          <text x="96"  y="56"  text-anchor="middle" font-size="6" fill="#999" font-family="Inter,sans-serif">6</text>
-          <text x="96"  y="67"  text-anchor="middle" font-size="6" fill="#999" font-family="Inter,sans-serif">7</text>
-          <text x="84"  y="84"  text-anchor="middle" font-size="6" fill="#999" font-family="Inter,sans-serif">8</text>
-          <text x="65"  y="97"  text-anchor="middle" font-size="6" fill="#999" font-family="Inter,sans-serif">9</text>
-          <text x="41"  y="97"  text-anchor="middle" font-size="6" fill="#999" font-family="Inter,sans-serif">10</text>
-          <text x="24"  y="84"  text-anchor="middle" font-size="6" fill="#999" font-family="Inter,sans-serif">11</text>
-          <text x="13"  y="67"  text-anchor="middle" font-size="6" fill="#999" font-family="Inter,sans-serif">12</text>
-          <!-- Saturn ♄, Uranus ♅, Neptune ♆ at H2 – upper-left (gold C-grade) -->
-          <circle cx="26" cy="30" r="5" fill="#C9A84C" opacity="0.92"/>
-          <text x="26" y="33" text-anchor="middle" font-size="7" fill="white" font-family="serif">♄</text>
-          <circle cx="18" cy="39" r="5" fill="#C9A84C" opacity="0.92"/>
-          <text x="18" y="42" text-anchor="middle" font-size="7" fill="white" font-family="serif">♅</text>
-          <circle cx="14" cy="51" r="5" fill="#C9A84C" opacity="0.92"/>
-          <text x="14" y="54" text-anchor="middle" font-size="7" fill="white" font-family="serif">♆</text>
+          <!-- House cusp lines CCW -->
+          <line x1="35"  y1="54"  x2="4"    y2="54"   stroke="#E2DDD4" stroke-width="0.5"/>
+          <line x1="37.5" y1="63.5" x2="10.7" y2="79"  stroke="#E2DDD4" stroke-width="0.5"/>
+          <line x1="44.5" y1="70.5" x2="29"  y2="97.3" stroke="#E2DDD4" stroke-width="0.5"/>
+          <line x1="54"  y1="73"  x2="54"  y2="104"  stroke="#E2DDD4" stroke-width="0.5"/>
+          <line x1="63.5" y1="70.5" x2="79"  y2="97.3" stroke="#E2DDD4" stroke-width="0.5"/>
+          <line x1="70.5" y1="63.5" x2="97.3" y2="79"  stroke="#E2DDD4" stroke-width="0.5"/>
+          <line x1="73"  y1="54"  x2="104" y2="54"   stroke="#E2DDD4" stroke-width="0.5"/>
+          <line x1="70.5" y1="44.5" x2="97.3" y2="29"  stroke="#E2DDD4" stroke-width="0.5"/>
+          <line x1="63.5" y1="37.5" x2="79"  y2="10.7" stroke="#E2DDD4" stroke-width="0.5"/>
+          <line x1="54"  y1="35"  x2="54"  y2="4"    stroke="#E2DDD4" stroke-width="0.5"/>
+          <line x1="44.5" y1="37.5" x2="29"  y2="10.7" stroke="#E2DDD4" stroke-width="0.5"/>
+          <line x1="37.5" y1="44.5" x2="10.7" y2="29"  stroke="#E2DDD4" stroke-width="0.5"/>
+          <!-- House numbers CCW at r=42 midpoints -->
+          <text x="13"  y="65"  text-anchor="middle" font-size="6" fill="#999" font-family="Inter,sans-serif">1</text>
+          <text x="24"  y="84"  text-anchor="middle" font-size="6" fill="#999" font-family="Inter,sans-serif">2</text>
+          <text x="43"  y="95"  text-anchor="middle" font-size="6" fill="#999" font-family="Inter,sans-serif">3</text>
+          <text x="65"  y="95"  text-anchor="middle" font-size="6" fill="#999" font-family="Inter,sans-serif">4</text>
+          <text x="84"  y="84"  text-anchor="middle" font-size="6" fill="#999" font-family="Inter,sans-serif">5</text>
+          <text x="95"  y="65"  text-anchor="middle" font-size="6" fill="#999" font-family="Inter,sans-serif">6</text>
+          <text x="95"  y="43"  text-anchor="middle" font-size="6" fill="#999" font-family="Inter,sans-serif">7</text>
+          <text x="84"  y="24"  text-anchor="middle" font-size="6" fill="#999" font-family="Inter,sans-serif">8</text>
+          <text x="65"  y="13"  text-anchor="middle" font-size="6" fill="#999" font-family="Inter,sans-serif">9</text>
+          <text x="43"  y="13"  text-anchor="middle" font-size="6" fill="#999" font-family="Inter,sans-serif">10</text>
+          <text x="24"  y="24"  text-anchor="middle" font-size="6" fill="#999" font-family="Inter,sans-serif">11</text>
+          <text x="13"  y="43"  text-anchor="middle" font-size="6" fill="#999" font-family="Inter,sans-serif">12</text>
+          <!-- Saturn ♄, Uranus ♅, Neptune ♆ at H2 – lower-left (CCW H2 midpoint, gold C-grade) -->
+          <circle cx="28" cy="74" r="5" fill="#C9A84C" opacity="0.92"/>
+          <text x="28" y="77" text-anchor="middle" font-size="7" fill="white" font-family="serif">♄</text>
+          <circle cx="19" cy="82" r="5" fill="#C9A84C" opacity="0.92"/>
+          <text x="19" y="85" text-anchor="middle" font-size="7" fill="white" font-family="serif">♅</text>
+          <circle cx="15" cy="65" r="5" fill="#C9A84C" opacity="0.92"/>
+          <text x="15" y="68" text-anchor="middle" font-size="7" fill="white" font-family="serif">♆</text>
         </svg>
         <div class="chart-label">Environment Chart</div>
         <div class="chart-legend">
@@ -1202,7 +1235,7 @@
       color: '#1A6B3A',
       bgColor: '#E8F8EE',
       borderColor: '#A8E6C0',
-      tagline: 'A means alignment is close. One unlocked layer changes everything.',
+      tagline: 'A means alignment is close. One right move, and you can 10x your life.',
       reality: 'almost flows — one layer still holds'
     }
   };
@@ -1235,7 +1268,7 @@
     /* Hero headline — grade-specific copy, second phrase in italic gold */
     const headline = document.getElementById('hero-headline');
     const headlines = {
-      'A': ['A means alignment is close.', 'One unlocked layer changes everything.'],
+      'A': ['A means alignment is close.', 'One right move, and you can 10x your life.'],
       'B': ["You're doing well.", "'doing well' and 'living fully' are two different things."],
       'C': ['A passing grade.', 'But who wants a passing-grade life?'],
       'D': ["D means you're one step away from failing.", "And you're probably feeling the pressure."],
