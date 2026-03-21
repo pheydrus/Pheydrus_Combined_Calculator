@@ -1,38 +1,68 @@
 /**
  * POST /api/store-results
- * Stores a client's Pheydrus results indexed by email in Vercel KV (Upstash Redis).
  * Called immediately after runAllCalculators() succeeds on the frontend.
+ * Posts the client's Pheydrus report to Slack right away — no Redis needed.
  *
  * Required env vars:
- *   KV_REST_API_URL   — from Vercel KV dashboard
- *   KV_REST_API_TOKEN — from Vercel KV dashboard
+ *   SLACK_WEBHOOK_URL — Slack Incoming Webhook URL
  */
 
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 
-const TTL_SECONDS = 60 * 60 * 24 * 30; // 30 days
+interface Results {
+  diagnostic?: {
+    finalGrade?: string;
+    score?: number;
+  };
+}
 
-async function kvSet(email: string, payload: unknown): Promise<void> {
-  // Support both Upstash-via-Vercel-marketplace and legacy Vercel KV env var names
-  const url = process.env.UPSTASH_REDIS_REST_URL ?? process.env.KV_REST_API_URL;
-  const token = process.env.UPSTASH_REDIS_REST_TOKEN ?? process.env.KV_REST_API_TOKEN;
-  if (!url || !token) throw new Error('KV env vars not configured');
+interface Intake {
+  desiredOutcome?: string;
+  obstacle?: string;
+  currentSituation?: string;
+}
 
-  const key = `pheydrus:results:${email.toLowerCase().trim()}`;
-  const value = JSON.stringify(payload);
+async function postToSlack(email: string, results: Results, intake: Intake): Promise<void> {
+  const webhookUrl = process.env.SLACK_WEBHOOK_URL;
+  if (!webhookUrl) return;
 
-  const res = await fetch(url, {
-    method: 'POST',
-    headers: {
-      Authorization: `Bearer ${token}`,
-      'Content-Type': 'application/json',
+  const grade = results?.diagnostic?.finalGrade ?? '?';
+  const score = results?.diagnostic?.score ?? '?';
+  const goal = intake?.desiredOutcome ?? 'Not provided';
+  const obstacle = intake?.obstacle ?? 'Not provided';
+  const situation = intake?.currentSituation ?? '';
+
+  const blocks = [
+    {
+      type: 'header',
+      text: { type: 'plain_text', text: '📊 New Pheydrus Report Submitted', emoji: true },
     },
-    body: JSON.stringify(['SET', key, value, 'EX', TTL_SECONDS]),
+    {
+      type: 'section',
+      fields: [
+        { type: 'mrkdwn', text: `*Email:*\n${email}` },
+        { type: 'mrkdwn', text: `*Overall Grade:*\n${grade}  (${score}/100)` },
+        { type: 'mrkdwn', text: `*Situation:*\n${situation}` },
+      ],
+    },
+    {
+      type: 'section',
+      fields: [
+        { type: 'mrkdwn', text: `*90-Day Goal:*\n${goal}` },
+        { type: 'mrkdwn', text: `*Main Obstacle:*\n${obstacle}` },
+      ],
+    },
+  ];
+
+  const res = await fetch(webhookUrl, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ blocks }),
   });
 
   if (!res.ok) {
     const text = await res.text();
-    throw new Error(`KV SET failed (${res.status}): ${text}`);
+    throw new Error(`Slack post failed (${res.status}): ${text}`);
   }
 }
 
@@ -43,8 +73,8 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
   const { email, results, intake } = (req.body ?? {}) as {
     email?: string;
-    results?: unknown;
-    intake?: unknown;
+    results?: Results;
+    intake?: Intake;
   };
 
   if (!email || typeof email !== 'string' || !email.includes('@')) {
@@ -55,10 +85,10 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   }
 
   try {
-    await kvSet(email, { results, intake, storedAt: new Date().toISOString() });
+    await postToSlack(email, results, intake);
     return res.status(200).json({ ok: true });
   } catch (err) {
     console.error('[store-results]', err);
-    return res.status(500).json({ error: 'Failed to store results' });
+    return res.status(500).json({ error: 'Failed to post results' });
   }
 }

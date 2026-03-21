@@ -4,13 +4,10 @@
  *
  * Flow:
  *   1. Verify Calendly HMAC signature
- *   2. Look up stored Pheydrus results by invitee email
- *   3. Post summary to Slack
- *   4. Add subscriber to Flodesk (optional)
+ *   2. Post booking notification to Slack
+ *   3. Add subscriber to Flodesk (optional)
  *
  * Required env vars:
- *   KV_REST_API_URL              — Vercel KV
- *   KV_REST_API_TOKEN            — Vercel KV
  *   SLACK_WEBHOOK_URL            — Slack Incoming Webhook URL
  *   CALENDLY_WEBHOOK_SIGNING_KEY — from Calendly webhook dashboard
  *
@@ -21,28 +18,6 @@
 
 import { createHmac } from 'crypto';
 import type { VercelRequest, VercelResponse } from '@vercel/node';
-
-// ── KV helpers ────────────────────────────────────────────────────────────────
-
-async function kvGet(email: string): Promise<StoredPayload | null> {
-  const url = process.env.UPSTASH_REDIS_REST_URL ?? process.env.KV_REST_API_URL;
-  const token = process.env.UPSTASH_REDIS_REST_TOKEN ?? process.env.KV_REST_API_TOKEN;
-  if (!url || !token) return null;
-
-  const key = `pheydrus:results:${email.toLowerCase().trim()}`;
-  const res = await fetch(url, {
-    method: 'POST',
-    headers: {
-      Authorization: `Bearer ${token}`,
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(['GET', key]),
-  });
-
-  if (!res.ok) return null;
-  const json = (await res.json()) as { result: string | null };
-  return json.result ? (JSON.parse(json.result) as StoredPayload) : null;
-}
 
 // ── Calendly signature verification ──────────────────────────────────────────
 
@@ -70,64 +45,23 @@ function verifySignature(rawBody: string, header: string): boolean {
 
 // ── Slack notification ────────────────────────────────────────────────────────
 
-async function postToSlack(name: string, email: string, data: StoredPayload | null): Promise<void> {
+async function postToSlack(name: string, email: string): Promise<void> {
   const webhookUrl = process.env.SLACK_WEBHOOK_URL;
   if (!webhookUrl) return;
 
-  let blocks: unknown[];
-
-  if (data) {
-    const grade = data.results?.diagnostic?.finalGrade ?? '?';
-    const score = data.results?.diagnostic?.score ?? '?';
-    const goal = data.intake?.desiredOutcome ?? 'Not provided';
-    const obstacle = data.intake?.obstacle ?? 'Not provided';
-    const situation = data.intake?.currentSituation ?? '';
-
-    blocks = [
-      {
-        type: 'header',
-        text: { type: 'plain_text', text: '📅 New Pheydrus Call Booked', emoji: true },
+  const blocks = [
+    {
+      type: 'header',
+      text: { type: 'plain_text', text: '📅 New Pheydrus Call Booked', emoji: true },
+    },
+    {
+      type: 'section',
+      text: {
+        type: 'mrkdwn',
+        text: `*${name}* (${email}) just booked a call.`,
       },
-      {
-        type: 'section',
-        fields: [
-          { type: 'mrkdwn', text: `*Name:*\n${name}` },
-          { type: 'mrkdwn', text: `*Email:*\n${email}` },
-          { type: 'mrkdwn', text: `*Overall Grade:*\n${grade}  (${score}/100)` },
-          { type: 'mrkdwn', text: `*Situation:*\n${situation}` },
-        ],
-      },
-      {
-        type: 'section',
-        fields: [
-          { type: 'mrkdwn', text: `*90-Day Goal:*\n${goal}` },
-          { type: 'mrkdwn', text: `*Main Obstacle:*\n${obstacle}` },
-        ],
-      },
-      { type: 'divider' },
-      {
-        type: 'section',
-        text: {
-          type: 'mrkdwn',
-          text: `_Pheydrus report found ✓ — results stored ${data.storedAt ? new Date(data.storedAt).toLocaleDateString() : 'recently'}_`,
-        },
-      },
-    ];
-  } else {
-    blocks = [
-      {
-        type: 'header',
-        text: { type: 'plain_text', text: '📅 New Pheydrus Call Booked', emoji: true },
-      },
-      {
-        type: 'section',
-        text: {
-          type: 'mrkdwn',
-          text: `*${name}* (${email}) just booked — _no Pheydrus report found for this email_ (may have used a different address on the form).`,
-        },
-      },
-    ];
-  }
+    },
+  ];
 
   await fetch(webhookUrl, {
     method: 'POST',
@@ -166,21 +100,6 @@ async function addToFlodesk(name: string, email: string): Promise<void> {
 
 // ── Types ─────────────────────────────────────────────────────────────────────
 
-interface StoredPayload {
-  results: {
-    diagnostic?: {
-      finalGrade?: string;
-      score?: number;
-    };
-  };
-  intake: {
-    desiredOutcome?: string;
-    obstacle?: string;
-    currentSituation?: string;
-  };
-  storedAt?: string;
-}
-
 interface CalendlyWebhookBody {
   event: string;
   payload: {
@@ -215,8 +134,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   const { name, email } = body.payload.invitee;
 
   try {
-    const stored = await kvGet(email);
-    await Promise.all([postToSlack(name, email, stored), addToFlodesk(name, email)]);
+    await Promise.all([postToSlack(name, email), addToFlodesk(name, email)]);
   } catch (err) {
     // Don't fail Calendly's webhook retry loop — log and return 200
     console.error('[calendly] Error processing webhook:', err);
