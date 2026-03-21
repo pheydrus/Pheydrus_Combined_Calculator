@@ -1,12 +1,16 @@
 /**
  * POST /api/store-results
  * Called immediately after runAllCalculators() succeeds on the frontend.
- * Posts the client's Pheydrus report to Slack right away — no Redis needed.
+ * Saves the full report to Vercel Blob, then posts a Slack notification
+ * with a shareable link to the results page.
  *
  * Required env vars:
- *   SLACK_WEBHOOK_URL — Slack Incoming Webhook URL
+ *   BLOB_READ_WRITE_TOKEN — from Vercel Blob dashboard
+ *   SLACK_WEBHOOK_URL     — Slack Incoming Webhook URL
+ *   APP_URL               — your production URL, e.g. https://yourapp.vercel.app
  */
 
+import { randomUUID } from 'crypto';
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 
 interface Results {
@@ -22,7 +26,40 @@ interface Intake {
   currentSituation?: string;
 }
 
-async function postToSlack(email: string, results: Results, intake: Intake): Promise<void> {
+// ── Vercel Blob helpers ───────────────────────────────────────────────────────
+
+async function blobPut(pathname: string, body: string): Promise<string> {
+  const token = process.env.BLOB_READ_WRITE_TOKEN;
+  if (!token) throw new Error('BLOB_READ_WRITE_TOKEN not set');
+
+  const res = await fetch(`https://blob.vercel-storage.com/${pathname}`, {
+    method: 'PUT',
+    headers: {
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json',
+      'x-content-type': 'application/json',
+      'x-add-random-suffix': '0',
+    },
+    body,
+  });
+
+  if (!res.ok) {
+    const text = await res.text();
+    throw new Error(`Blob PUT failed (${res.status}): ${text}`);
+  }
+
+  const json = (await res.json()) as { url: string };
+  return json.url;
+}
+
+// ── Slack notification ────────────────────────────────────────────────────────
+
+async function postToSlack(
+  email: string,
+  results: Results,
+  intake: Intake,
+  resultsUrl: string
+): Promise<void> {
   const webhookUrl = process.env.SLACK_WEBHOOK_URL;
   if (!webhookUrl) return;
 
@@ -52,6 +89,11 @@ async function postToSlack(email: string, results: Results, intake: Intake): Pro
         { type: 'mrkdwn', text: `*Main Obstacle:*\n${obstacle}` },
       ],
     },
+    { type: 'divider' },
+    {
+      type: 'section',
+      text: { type: 'mrkdwn', text: `*<${resultsUrl}|View Full Report →>*` },
+    },
   ];
 
   const res = await fetch(webhookUrl, {
@@ -65,6 +107,8 @@ async function postToSlack(email: string, results: Results, intake: Intake): Pro
     throw new Error(`Slack post failed (${res.status}): ${text}`);
   }
 }
+
+// ── Handler ───────────────────────────────────────────────────────────────────
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   if (req.method !== 'POST') {
@@ -84,11 +128,19 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     return res.status(400).json({ error: 'results and intake required' });
   }
 
+  const id = randomUUID();
+
   try {
-    await postToSlack(email, results, intake);
-    return res.status(200).json({ ok: true });
+    await blobPut(`results/${id}.json`, JSON.stringify({ results, intake, email, storedAt: new Date().toISOString() }));
+
+    const appUrl = process.env.APP_URL ?? `https://${process.env.VERCEL_URL}`;
+    const resultsUrl = `${appUrl}/client/results?id=${id}`;
+
+    await postToSlack(email, results, intake, resultsUrl);
+
+    return res.status(200).json({ ok: true, id });
   } catch (err) {
     console.error('[store-results]', err);
-    return res.status(500).json({ error: 'Failed to post results' });
+    return res.status(500).json({ error: 'Failed to store results' });
   }
 }

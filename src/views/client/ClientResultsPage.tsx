@@ -3,7 +3,7 @@
  * White background with dark text, golden accents.
  */
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import type { CSSProperties } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { exportClientReportToPDF } from '../../services/pdfExport';
@@ -432,15 +432,40 @@ export function ClientResultsPage() {
     },
   };
 
+  const searchParams = new URLSearchParams(location.search);
+  const reportId = searchParams.get('id');
   const rawState = location.state as { results: ConsolidatedResults; intake: ClientIntakeData } | null;
-  const state = isDemo ? DEMO_STATE : rawState;
+
+  const [fetchedState, setFetchedState] = useState<{ results: ConsolidatedResults; intake: ClientIntakeData } | null>(null);
+  const [isFetching, setIsFetching] = useState(false);
+  const [fetchError, setFetchError] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (!reportId || rawState) return;
+    setIsFetching(true);
+    fetch(`/api/get-results?id=${encodeURIComponent(reportId)}`)
+      .then((r) => (r.ok ? r.json() : Promise.reject(r.status)))
+      .then((data: { results: ConsolidatedResults; intake: ClientIntakeData }) => setFetchedState(data))
+      .catch(() => setFetchError('Report not found or expired.'))
+      .finally(() => setIsFetching(false));
+  }, [reportId, rawState]);
+
+  const state = isDemo ? DEMO_STATE : (rawState ?? fetchedState);
+
+  if (isFetching) {
+    return (
+      <div style={{ minHeight: '100vh', background: '#F5F1EB', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        <p style={{ fontFamily: INTER, color: '#6b6188' }}>Loading your report…</p>
+      </div>
+    );
+  }
 
   if (!state?.results) {
     return (
       <div style={{ minHeight: '100vh', background: '#F5F1EB', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '48px 16px' }}>
         <div style={{ maxWidth: '480px', background: '#FFFFFF', border: '1px solid #E0E0E0', borderRadius: '4px', padding: '40px', textAlign: 'center' }}>
           <h2 style={{ fontFamily: CORMORANT, color: '#1C1A2E', fontSize: '1.5rem', fontWeight: 700, marginBottom: '12px' }}>No results found</h2>
-          <p style={{ color: '#666', fontSize: '0.9rem', marginBottom: '24px', fontFamily: INTER }}>Please complete the assessment first.</p>
+          <p style={{ color: '#666', fontSize: '0.9rem', marginBottom: '24px', fontFamily: INTER }}>{fetchError ?? 'Please complete the assessment first.'}</p>
           <button onClick={() => navigate('/client')} style={{ padding: '12px 28px', background: '#C9A84C', color: '#1C1A2E', fontWeight: 700, borderRadius: '2px', border: 'none', cursor: 'pointer', fontFamily: INTER }}>
             Start Assessment
           </button>
