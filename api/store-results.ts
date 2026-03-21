@@ -13,8 +13,9 @@ import type { VercelRequest, VercelResponse } from '@vercel/node';
 const TTL_SECONDS = 60 * 60 * 24 * 30; // 30 days
 
 async function kvSet(email: string, payload: unknown): Promise<void> {
-  const url = process.env.KV_REST_API_URL;
-  const token = process.env.KV_REST_API_TOKEN;
+  // Support both Upstash-via-Vercel-marketplace and legacy Vercel KV env var names
+  const url = process.env.UPSTASH_REDIS_REST_URL ?? process.env.KV_REST_API_URL;
+  const token = process.env.UPSTASH_REDIS_REST_TOKEN ?? process.env.KV_REST_API_TOKEN;
   if (!url || !token) throw new Error('KV env vars not configured');
 
   const key = `pheydrus:results:${email.toLowerCase().trim()}`;

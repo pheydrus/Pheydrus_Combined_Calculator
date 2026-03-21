@@ -25,8 +25,8 @@ import type { VercelRequest, VercelResponse } from '@vercel/node';
 // ── KV helpers ────────────────────────────────────────────────────────────────
 
 async function kvGet(email: string): Promise<StoredPayload | null> {
-  const url = process.env.KV_REST_API_URL;
-  const token = process.env.KV_REST_API_TOKEN;
+  const url = process.env.UPSTASH_REDIS_REST_URL ?? process.env.KV_REST_API_URL;
+  const token = process.env.UPSTASH_REDIS_REST_TOKEN ?? process.env.KV_REST_API_TOKEN;
   if (!url || !token) return null;
 
   const key = `pheydrus:results:${email.toLowerCase().trim()}`;
