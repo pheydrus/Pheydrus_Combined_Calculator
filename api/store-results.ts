@@ -36,7 +36,7 @@ interface Intake {
 async function blobPut(pathname: string, body: string): Promise<string> {
   const token = process.env.BLOB2_READ_WRITE_TOKEN ?? process.env.BLOB_READ_WRITE_TOKEN;
   const { url } = await put(pathname, body, {
-    access: 'private',
+    access: 'public',
     contentType: 'application/json',
     addRandomSuffix: false,
     token,
