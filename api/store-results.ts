@@ -1,13 +1,17 @@
 /**
  * POST /api/store-results
  * Called immediately after runAllCalculators() succeeds on the frontend.
- * Saves the full report to Vercel Blob, then posts a Slack notification
- * with a shareable link to the results page.
+ * Saves the full report to Vercel Blob, posts a Slack notification,
+ * and adds the subscriber to Flodesk.
  *
  * Required env vars:
- *   BLOB_READ_WRITE_TOKEN — from Vercel Blob dashboard
- *   SLACK_WEBHOOK_URL     — Slack Incoming Webhook URL
- *   APP_URL               — your production URL, e.g. https://yourapp.vercel.app
+ *   BLOB_READ_WRITE_TOKEN              — from Vercel Blob dashboard
+ *   SLACK_WEBHOOK_URL                  — Slack Incoming Webhook URL
+ *   APP_URL                            — e.g. https://yourapp.vercel.app
+ *
+ * Optional env vars:
+ *   FLODESK_API_KEY                    — Flodesk API key
+ *   FLODESK_CALCULATOR_SEGMENT_ID      — Flodesk "VIP Calculator" segment ID
  */
 
 import { randomUUID } from 'crypto';
@@ -27,7 +31,7 @@ interface Intake {
   currentSituation?: string;
 }
 
-// ── Vercel Blob helpers ───────────────────────────────────────────────────────
+// ── Vercel Blob ───────────────────────────────────────────────────────────────
 
 async function blobPut(pathname: string, body: string): Promise<string> {
   const token = process.env.BLOB2_READ_WRITE_TOKEN ?? process.env.BLOB_READ_WRITE_TOKEN;
@@ -43,6 +47,7 @@ async function blobPut(pathname: string, body: string): Promise<string> {
 // ── Slack notification ────────────────────────────────────────────────────────
 
 async function postToSlack(
+  name: string,
   email: string,
   results: Results,
   intake: Intake,
@@ -65,6 +70,7 @@ async function postToSlack(
     {
       type: 'section',
       fields: [
+        { type: 'mrkdwn', text: `*Name:*\n${name || '—'}` },
         { type: 'mrkdwn', text: `*Email:*\n${email}` },
         { type: 'mrkdwn', text: `*Overall Grade:*\n${grade}  (${score}/100)` },
         { type: 'mrkdwn', text: `*Situation:*\n${situation}` },
@@ -96,6 +102,34 @@ async function postToSlack(
   }
 }
 
+// ── Flodesk ───────────────────────────────────────────────────────────────────
+
+async function addToFlodesk(name: string, email: string): Promise<void> {
+  const apiKey = process.env.FLODESK_API_KEY;
+  if (!apiKey) return;
+
+  const [firstName, ...rest] = name.split(' ');
+  const lastName = rest.join(' ');
+
+  const segmentId = process.env.FLODESK_CALCULATOR_SEGMENT_ID;
+  const body: Record<string, unknown> = { email, first_name: firstName, last_name: lastName };
+  if (segmentId) body['segments'] = [{ id: segmentId }];
+
+  const res = await fetch('https://api.flodesk.com/v1/subscribers', {
+    method: 'POST',
+    headers: {
+      Authorization: `Basic ${Buffer.from(`${apiKey}:`).toString('base64')}`,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(body),
+  });
+
+  if (!res.ok) {
+    const text = await res.text();
+    console.warn('[store-results] Flodesk add failed:', res.status, text);
+  }
+}
+
 // ── Handler ───────────────────────────────────────────────────────────────────
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
@@ -103,7 +137,8 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
-  const { email, results, intake } = (req.body ?? {}) as {
+  const { name, email, results, intake } = (req.body ?? {}) as {
+    name?: string;
     email?: string;
     results?: Results;
     intake?: Intake;
@@ -116,25 +151,27 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     return res.status(400).json({ error: 'results and intake required' });
   }
 
+  const displayName = name ?? '';
   const id = randomUUID();
 
   // Try to save to Blob — if it fails, still send Slack without the link
   let resultsUrl: string | null = null;
-  let blobError: string | null = null;
   try {
-    await blobPut(`results/${id}.json`, JSON.stringify({ results, intake, email, storedAt: new Date().toISOString() }));
+    await blobPut(`results/${id}.json`, JSON.stringify({ results, intake, name: displayName, email, storedAt: new Date().toISOString() }));
     const appUrl = process.env.APP_URL ?? `https://${process.env.VERCEL_URL}`;
     resultsUrl = `${appUrl}/client/results?id=${id}`;
   } catch (blobErr) {
-    blobError = blobErr instanceof Error ? blobErr.message : String(blobErr);
     console.error('[store-results] Blob save failed (continuing):', blobErr);
   }
 
   try {
-    await postToSlack(email, results, intake, resultsUrl);
-    return res.status(200).json({ ok: true, id, blobError });
+    await Promise.all([
+      postToSlack(displayName, email, results, intake, resultsUrl),
+      addToFlodesk(displayName, email),
+    ]);
+    return res.status(200).json({ ok: true, id });
   } catch (err) {
-    console.error('[store-results] Slack post failed:', err);
+    console.error('[store-results] Failed:', err);
     return res.status(500).json({ error: 'Failed to post results' });
   }
 }

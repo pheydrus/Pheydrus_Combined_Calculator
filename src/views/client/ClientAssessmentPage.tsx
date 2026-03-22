@@ -255,7 +255,7 @@ export function ClientAssessmentPage() {
           fetch('/api/store-results', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ email: intake.email, results, intake }),
+            body: JSON.stringify({ name: form.name, email: intake.email, results, intake }),
           }).catch(() => {
             // Non-critical — don't block navigation if storage fails
           });
