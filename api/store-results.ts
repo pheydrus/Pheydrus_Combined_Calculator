@@ -156,11 +156,13 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
   // Try to save to Blob — if it fails, still send Slack without the link
   let resultsUrl: string | null = null;
+  let blobDebug: string | null = null;
   try {
     await blobPut(`results/${id}.json`, JSON.stringify({ results, intake, name: displayName, email, storedAt: new Date().toISOString() }));
     const appUrl = process.env.APP_URL ?? `https://${process.env.VERCEL_URL}`;
     resultsUrl = `${appUrl}/client/results?id=${id}`;
   } catch (blobErr) {
+    blobDebug = blobErr instanceof Error ? blobErr.message : String(blobErr);
     console.error('[store-results] Blob save failed (continuing):', blobErr);
   }
 
@@ -169,7 +171,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       postToSlack(displayName, email, results, intake, resultsUrl),
       addToFlodesk(displayName, email),
     ]);
-    return res.status(200).json({ ok: true, id });
+    return res.status(200).json({ ok: true, id, blobDebug });
   } catch (err) {
     console.error('[store-results] Failed:', err);
     return res.status(500).json({ error: 'Failed to post results' });
