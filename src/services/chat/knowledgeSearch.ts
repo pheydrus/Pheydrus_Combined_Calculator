@@ -6,7 +6,6 @@ interface SearchIndex {
 }
 
 function createIndex(): SearchIndex {
-  // Simple inverted index fallback — FlexSearch loaded dynamically
   const index = new Map<string, Set<number>>();
 
   return {
@@ -29,12 +28,10 @@ function createIndex(): SearchIndex {
 
       const scores = new Map<number, number>();
       for (const word of queryWords) {
-        for (const [indexWord, ids] of index) {
-          if (indexWord.includes(word) || word.includes(indexWord)) {
-            for (const id of ids) {
-              scores.set(id, (scores.get(id) || 0) + (indexWord === word ? 2 : 1));
-            }
-          }
+        const ids = index.get(word);
+        if (!ids) continue;
+        for (const id of ids) {
+          scores.set(id, (scores.get(id) || 0) + (word.length > 5 ? 2 : 1));
         }
       }
 
@@ -46,7 +43,7 @@ function createIndex(): SearchIndex {
   };
 }
 
-// ── Per-mode caches ─────────────────────────────────────────────────────────
+// ── Cache ──────────────────────────────────────────────────────────────────
 
 interface KBCache {
   chunks: KnowledgeChunk[];
@@ -80,9 +77,12 @@ async function loadKnowledgeBase(mode: ChatMode): Promise<void> {
   return cache.loadPromise;
 }
 
-// ── Search ──────────────────────────────────────────────────────────────────
+// ── Search config per mode ─────────────────────────────────────────────────
 
-const MAX_CONTEXT_CHARS = 200_000; // ~50K tokens
+const SEARCH_CONFIG: Record<ChatMode, { maxChunks: number; maxChars: number }> = {
+  public: { maxChunks: 5, maxChars: 16_000 }, // ~4K tokens — lean and focused
+  private: { maxChunks: 15, maxChars: 60_000 }, // ~15K tokens — broader context
+};
 
 export async function searchKnowledge(
   query: string,
@@ -91,26 +91,38 @@ export async function searchKnowledge(
   await loadKnowledgeBase(mode);
 
   const cache = caches[mode];
+  const config = SEARCH_CONFIG[mode];
 
-  // Always include core documents
-  const coreChunks = cache.chunks.filter((c) => c.isCore).map(toContextChunk);
+  // Core documents — public only gets routing + sales logic (not the full catalog)
+  const coreChunks = cache.chunks
+    .filter((c) => {
+      if (!c.isCore) return false;
+      if (mode === 'private') return true;
+      // Public: only routing + sales logic, skip catalog/life path/rising sign
+      const normalized = c.title.toLowerCase().replace(/[_ -]+/g, ' ');
+      return (
+        normalized.includes('product routing decision tree') ||
+        normalized.includes('publiccmoinitialsaleslogic')
+      );
+    })
+    .map(toContextChunk);
 
-  // Search for relevant chunks
-  const matchedIndices = cache.index!.search(query, 100);
+  // Search for relevant chunks (search results include catalog when relevant)
+  const matchedIndices = cache.index!.search(query, config.maxChunks);
   const searchChunks = matchedIndices
     .map((idx) => cache.chunks[idx])
-    .filter((c) => !c.isCore) // Don't duplicate core docs
+    .filter((c) => !c.isCore)
     .map(toContextChunk);
 
   // Combine: core first, then search results
   const combined = [...coreChunks, ...searchChunks];
 
-  // Cap at token limit
+  // Cap at char limit
   let totalChars = 0;
   const capped: ContextChunk[] = [];
   for (const chunk of combined) {
     totalChars += chunk.content.length;
-    if (totalChars > MAX_CONTEXT_CHARS) break;
+    if (totalChars > config.maxChars) break;
     capped.push(chunk);
   }
 
@@ -124,8 +136,4 @@ function toContextChunk(chunk: KnowledgeChunk): ContextChunk {
     content: chunk.content,
     category: chunk.category,
   };
-}
-
-export async function preloadKnowledgeBase(mode: ChatMode = 'public'): Promise<void> {
-  return loadKnowledgeBase(mode);
 }

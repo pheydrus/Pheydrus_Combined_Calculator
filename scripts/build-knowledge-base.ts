@@ -5,6 +5,8 @@
  * Outputs:
  *   public/knowledge-base/public/manifest.json + chunks.json   – excludes Sales_Pitches & FloDesk Emails
  *   public/knowledge-base/private/manifest.json + chunks.json  – all categories
+ *   public/knowledge-base/private/media-manifest.json          – media asset registry for training mode
+ *   public/knowledge-base/originals/                           – copied source files for preview
  *
  * Usage: npx tsx scripts/build-knowledge-base.ts
  */
@@ -38,6 +40,12 @@ const CORE_DOCUMENT_NAMES = [
 
 /** Categories excluded from the public knowledge base */
 const PUBLIC_EXCLUDED_CATEGORIES = new Set(['Sales_Pitches', 'FloDesk Emails']);
+
+/** File extensions eligible for media preview (copied to originals/) */
+const MEDIA_EXTENSIONS = new Set(['.pdf', '.txt', '.png', '.jpg', '.jpeg', '.gif']);
+const MAX_MEDIA_FILE_SIZE_MB = 50;
+
+const ORIGINALS_DIR = path.resolve(OUTPUT_DIR, 'originals');
 
 const TEXT_EXTENSIONS = new Set(['.txt', '.csv', '.json', '.docx']);
 const SKIP_EXTENSIONS = new Set(['.jpg', '.jpeg', '.png', '.gif', '.webp']);
@@ -75,6 +83,23 @@ interface Manifest {
   chunkCount: number;
   categories: string[];
   documents: DocumentMeta[];
+}
+
+interface MediaAsset {
+  id: string;
+  fileName: string;
+  relativePath: string;
+  publicUrl: string;
+  fileType: 'pdf' | 'image' | 'text';
+  fileSizeKB: number;
+  category: string;
+  subcategory: string;
+}
+
+interface MediaManifest {
+  generatedAt: string;
+  assetCount: number;
+  assets: MediaAsset[];
 }
 
 // ── Helpers ────────────────────────────────────────────────────────────────────
@@ -196,6 +221,59 @@ function walkDirectory(dir: string): string[] {
     }
   }
   return files;
+}
+
+// ── Media originals copy ────────────────────────────────────────────────────────
+
+function copyOriginalFiles(allFiles: string[]): MediaAsset[] {
+  const assets: MediaAsset[] = [];
+
+  // Clean previous originals
+  if (fs.existsSync(ORIGINALS_DIR)) {
+    fs.rmSync(ORIGINALS_DIR, { recursive: true });
+  }
+
+  for (const filePath of allFiles) {
+    const ext = path.extname(filePath).toLowerCase();
+    if (!MEDIA_EXTENSIONS.has(ext)) continue;
+
+    const relativePath = path.relative(DATA_DIR, filePath);
+    const { category, subcategory } = getCategoryFromPath(relativePath);
+
+    // Include all categories — previews can come from any cited source
+    // (Previously limited to TRAINING_CATEGORIES only)
+
+    const stats = fs.statSync(filePath);
+    const fileSizeKB = Math.round(stats.size / 1024);
+    const fileSizeMB = stats.size / (1024 * 1024);
+
+    if (fileSizeMB > MAX_MEDIA_FILE_SIZE_MB) {
+      console.warn(`  ⚠ Skipping large file: ${relativePath} (${fileSizeMB.toFixed(1)}MB)`);
+      continue;
+    }
+
+    const destPath = path.join(ORIGINALS_DIR, relativePath);
+    fs.mkdirSync(path.dirname(destPath), { recursive: true });
+    fs.copyFileSync(filePath, destPath);
+
+    const normalizedRelPath = relativePath.replace(/\\/g, '/');
+
+    const fileType: 'pdf' | 'image' | 'text' =
+      ext === '.pdf' ? 'pdf' : ['.png', '.jpg', '.jpeg', '.gif'].includes(ext) ? 'image' : 'text';
+
+    assets.push({
+      id: slugify(normalizedRelPath),
+      fileName: path.basename(filePath),
+      relativePath: normalizedRelPath,
+      publicUrl: `/knowledge-base/originals/${normalizedRelPath}`,
+      fileType,
+      fileSizeKB,
+      category,
+      subcategory,
+    });
+  }
+
+  return assets;
 }
 
 // ── Main ───────────────────────────────────────────────────────────────────────
@@ -327,6 +405,24 @@ async function main() {
     }
   }
 
+  // ── Copy original files for media preview ────────────────────────────────
+  // Skip on Vercel to stay under deployment size limits (558MB originals)
+  const skipOriginals = process.env.SKIP_ORIGINALS === 'true' || process.env.VERCEL === '1';
+
+  const mediaAssets = skipOriginals ? [] : copyOriginalFiles(allFiles);
+  if (skipOriginals) {
+    console.log('\n  ⚠ Skipping originals copy (SKIP_ORIGINALS or VERCEL env set)');
+  }
+  const mediaManifest: MediaManifest = {
+    generatedAt,
+    assetCount: mediaAssets.length,
+    assets: mediaAssets,
+  };
+  fs.writeFileSync(
+    path.join(OUTPUT_DIR, 'private', 'media-manifest.json'),
+    JSON.stringify(mediaManifest, null, 2)
+  );
+
   // ── Summary ───────────────────────────────────────────────────────────────
 
   const coreCount = documents.filter((d) => d.isCore).length;
@@ -366,9 +462,17 @@ async function main() {
   console.log(
     `    Size:      ${(privChars / 1024).toFixed(1)} KB (~${Math.round(privChars / 4).toLocaleString()} tokens)`
   );
+  const mediaSizeKB = mediaAssets.reduce((sum, a) => sum + a.fileSizeKB, 0);
+  console.log('');
+  console.log(`  MEDIA ORIGINALS (for training preview):`);
+  console.log(`    Files copied: ${mediaAssets.length}`);
+  console.log(`    Total size:   ${(mediaSizeKB / 1024).toFixed(1)} MB`);
+  const mediaCats = [...new Set(mediaAssets.map((a) => a.category))].sort();
+  console.log(`    Categories:   ${mediaCats.join(', ')}`);
   console.log('');
   console.log(`  Output: ${path.relative(process.cwd(), OUTPUT_DIR)}/public/`);
   console.log(`          ${path.relative(process.cwd(), OUTPUT_DIR)}/private/`);
+  console.log(`          ${path.relative(process.cwd(), ORIGINALS_DIR)}/`);
 }
 
 main().catch((err) => {

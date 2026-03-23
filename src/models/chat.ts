@@ -63,6 +63,25 @@ export interface ChatStreamEvent {
   error?: string;
 }
 
+// ── Media assets (for training previews) ────────────────────────────────────
+
+export interface MediaAsset {
+  id: string;
+  fileName: string;
+  relativePath: string;
+  publicUrl: string;
+  fileType: 'pdf' | 'image' | 'text';
+  fileSizeKB: number;
+  category: string;
+  subcategory: string;
+}
+
+export interface MediaManifest {
+  generatedAt: string;
+  assetCount: number;
+  assets: MediaAsset[];
+}
+
 // ── Public / Private chat mode ──────────────────────────────────────────────
 
 export type ChatMode = 'public' | 'private';
@@ -102,6 +121,17 @@ export const PRIVATE_PROMPT_OPTIONS: PromptOption[] = [
       'Draft a re-engagement email for inactive subscribers',
       "Create a testimonial spotlight email for Hero's Journey",
       'Write a welcome sequence email for new calculator users',
+    ],
+  },
+  {
+    id: 'internal-training',
+    label: 'Internal Training',
+    description: 'Learn about Pheydrus products — modules, materials, and exercises',
+    starterQuestions: [
+      "Walk me through the Hero's Journey program modules",
+      "What are the 11 modules of Artist's Way and their themes?",
+      'Explain the Business Growth program structure',
+      'What modalities are used across the Pheydrus programs?',
     ],
   },
 ];

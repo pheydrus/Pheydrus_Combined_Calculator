@@ -8,4 +8,13 @@ export default defineConfig({
   optimizeDeps: {
     exclude: ['sweph-wasm'],
   },
+  server: {
+    proxy: {
+      // Proxy API calls to local Vercel serverless functions runner
+      '/api': {
+        target: 'http://localhost:3002',
+        changeOrigin: true,
+      },
+    },
+  },
 });

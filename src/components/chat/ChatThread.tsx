@@ -6,6 +6,11 @@ interface ChatThreadProps {
   messages: ChatMessageType[];
   isStreaming: boolean;
   onCitationClick?: (citation: Citation) => void;
+  onViewDocument?: (
+    publicUrl: string,
+    fileName: string,
+    fileType: 'pdf' | 'image' | 'text'
+  ) => void;
   starterQuestions?: string[];
 }
 
@@ -20,6 +25,7 @@ export function ChatThread({
   messages,
   isStreaming,
   onCitationClick,
+  onViewDocument,
   starterQuestions,
 }: ChatThreadProps) {
   const starters = starterQuestions || DEFAULT_STARTER_QUESTIONS;
@@ -61,7 +67,12 @@ export function ChatThread({
   return (
     <div className="chat-thread">
       {messages.map((msg) => (
-        <ChatMessage key={msg.id} message={msg} onCitationClick={onCitationClick} />
+        <ChatMessage
+          key={msg.id}
+          message={msg}
+          onCitationClick={onCitationClick}
+          onViewDocument={onViewDocument}
+        />
       ))}
       {isStreaming && messages[messages.length - 1]?.content === '' && (
         <div className="chat-typing">

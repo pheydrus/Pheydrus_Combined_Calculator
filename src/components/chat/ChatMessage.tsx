@@ -1,12 +1,19 @@
 import Markdown from 'react-markdown';
 import type { ChatMessage as ChatMessageType, Citation } from '../../models/chat';
+import { lookupAssetByFileName } from '../../services/chat/mediaAssets';
+import { MediaPreview } from './MediaPreview';
 
 interface ChatMessageProps {
   message: ChatMessageType;
   onCitationClick?: (citation: Citation) => void;
+  onViewDocument?: (
+    publicUrl: string,
+    fileName: string,
+    fileType: 'pdf' | 'image' | 'text'
+  ) => void;
 }
 
-export function ChatMessage({ message, onCitationClick }: ChatMessageProps) {
+export function ChatMessage({ message, onCitationClick, onViewDocument }: ChatMessageProps) {
   if (message.role === 'user') {
     return (
       <div className="chat-message chat-message--user">
@@ -15,12 +22,20 @@ export function ChatMessage({ message, onCitationClick }: ChatMessageProps) {
     );
   }
 
+  // Auto-resolve previews from citations — show preview cards for any cited file
+  // that has a previewable original in the media manifest (max 3)
+  const previewAssets = onViewDocument
+    ? message.citations
+        .map((c) => lookupAssetByFileName(c.fileName))
+        .filter((a) => a !== undefined)
+        .slice(0, 3)
+    : [];
+
   return (
     <div className="chat-message chat-message--assistant">
       <div className="chat-bubble chat-bubble--assistant">
         <Markdown
           components={{
-            // Style links to open in new tab
             a: ({ children, href, ...props }) => (
               <a href={href} target="_blank" rel="noopener noreferrer" {...props}>
                 {children}
@@ -30,6 +45,20 @@ export function ChatMessage({ message, onCitationClick }: ChatMessageProps) {
         >
           {formatContentWithCitations(message.content)}
         </Markdown>
+        {previewAssets.length > 0 && onViewDocument && (
+          <div className="media-previews">
+            {previewAssets.map((asset) => (
+              <MediaPreview
+                key={asset.id}
+                relativePath={asset.relativePath}
+                fileType={asset.fileType}
+                fileName={asset.fileName}
+                publicUrl={asset.publicUrl}
+                onViewFull={onViewDocument}
+              />
+            ))}
+          </div>
+        )}
         {message.citations.length > 0 && (
           <div className="chat-citations">
             <span className="chat-citations-label">Sources:</span>
@@ -50,7 +79,7 @@ export function ChatMessage({ message, onCitationClick }: ChatMessageProps) {
   );
 }
 
-/** Clean [Source: ...] markers from displayed text since we show them as badges */
+/** Clean [Source: ...] and [Preview: ...] markers from displayed text */
 function formatContentWithCitations(content: string): string {
-  return content.replace(/\[Source:\s*[^\]]+\]/g, '');
+  return content.replace(/\[Source:\s*[^\]]+\]/g, '').replace(/\[Preview:\s*[^\]]+\]/g, '');
 }

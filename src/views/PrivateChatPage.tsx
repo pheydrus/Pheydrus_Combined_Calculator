@@ -1,10 +1,13 @@
-import { useState } from 'react';
+import { useState, useEffect, Suspense, lazy } from 'react';
 import { useChat } from '../hooks/useChat';
 import { ChatThread } from '../components/chat/ChatThread';
 import { ChatInput } from '../components/chat/ChatInput';
 import { SourcePanel } from '../components/chat/SourcePanel';
 import type { Citation } from '../models/chat';
 import { PRIVATE_PROMPT_OPTIONS } from '../models/chat';
+import { loadMediaManifest } from '../services/chat/mediaAssets';
+
+const DocumentViewer = lazy(() => import('../components/chat/DocumentViewer'));
 
 const PRIVATE_ACCESS_KEY = 'PheydrusChat123';
 const SESSION_KEY = 'pheydrus_private_chat_auth';
@@ -63,6 +66,24 @@ export function PrivateChatPage() {
     selectedPromptId
   );
   const [selectedCitation, setSelectedCitation] = useState<Citation | null>(null);
+  const [viewerFile, setViewerFile] = useState<{
+    publicUrl: string;
+    fileName: string;
+    fileType: 'pdf' | 'image' | 'text';
+  } | null>(null);
+
+  // Pre-load media manifest so lookupAsset works in ChatMessage
+  useEffect(() => {
+    loadMediaManifest().catch(() => {});
+  }, []);
+
+  const handleViewDocument = (
+    publicUrl: string,
+    fileName: string,
+    fileType: 'pdf' | 'image' | 'text'
+  ) => {
+    setViewerFile({ publicUrl, fileName, fileType });
+  };
 
   const handlePromptChange = (newPromptId: string) => {
     setSelectedPromptId(newPromptId);
@@ -116,6 +137,7 @@ export function PrivateChatPage() {
           messages={messages}
           isStreaming={isStreaming}
           onCitationClick={setSelectedCitation}
+          onViewDocument={handleViewDocument}
           starterQuestions={selectedOption.starterQuestions}
         />
 
@@ -123,6 +145,23 @@ export function PrivateChatPage() {
       </div>
 
       <SourcePanel citation={selectedCitation} onClose={() => setSelectedCitation(null)} />
+
+      {viewerFile && (
+        <Suspense
+          fallback={
+            <div className="doc-viewer-backdrop">
+              <div className="doc-viewer-loading">Loading viewer...</div>
+            </div>
+          }
+        >
+          <DocumentViewer
+            filePath={viewerFile.publicUrl}
+            fileName={viewerFile.fileName}
+            fileType={viewerFile.fileType}
+            onClose={() => setViewerFile(null)}
+          />
+        </Suspense>
+      )}
     </div>
   );
 }

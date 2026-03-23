@@ -76,6 +76,16 @@ Configurable system prompts per chat mode. Public has one fixed prompt. Private 
 
 ---
 
+### Feature 6.9: Internal Training Mode
+
+Interactive training mode for the private chat — teaches team members about Hero's Journey, Artist's Way, and Business Growth programs with inline media previews and comprehension quizzes.
+
+- [Functional Requirements](./internal-training-mode/functional-requirements.md)
+- [Technical Requirements](./internal-training-mode/technical-requirements.md)
+- [Implementation Plan](./internal-training-mode/IMPLEMENTATION_PLAN.md)
+
+---
+
 ## Implementation Order
 
 ```
@@ -89,21 +99,27 @@ Configurable system prompts per chat mode. Public has one fixed prompt. Private 
              |
              +--► 6.5 Chat Page & Navigation
                    |
-                   +--► 6.7 Public & Private Chat Split  ← NEW
+                   +--► 6.7 Public & Private Chat Split
                    |     (dual knowledge bases, dual routes,
                    |      dual API endpoints)
                    |
-                   +--► 6.8 Multi-Prompt System          ← NEW
+                   +--► 6.8 Multi-Prompt System
                    |     (prompt dropdown for private,
                    |      starter questions per mode)
                    |
-                   +--► 6.6 Document Viewer (low priority)
+                   +--► 6.6 Document Viewer
+                   |     (modal PDF/text/image viewer)
+                   |
+                   +--► 6.9 Internal Training Mode     ← NEW
+                         (training prompt, media previews,
+                          comprehension quizzes)
+                         Depends on: 6.6, 6.7, 6.8
 ```
 
-Note: 6.7 and 6.8 are tightly coupled and should be implemented together. 6.7 creates the split infrastructure, 6.8 adds the prompt logic on top.
+Note: 6.7 and 6.8 are tightly coupled and should be implemented together. 6.9 builds on top of 6.6 (document viewer), 6.7 (private chat), and 6.8 (prompt system).
 
 ---
 
 **Created**: March 8, 2026
-**Updated**: March 20, 2026
+**Updated**: March 22, 2026
 **Status**: SPECIFICATIONS COMPLETE — READY FOR DEVELOPMENT
