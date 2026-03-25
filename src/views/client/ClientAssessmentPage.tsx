@@ -250,17 +250,22 @@ export function ClientAssessmentPage() {
     try {
       const results = await runAllCalculators(form);
       if (results.success) {
-        // Fire-and-forget: store results by email so Calendly webhook can look them up
+        // Store results and get a permanent shareable link
+        let resultsPath = '/client/results';
         if (intake.email) {
-          fetch('/api/store-results', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ name: form.name, email: intake.email, results, intake }),
-          }).catch(() => {
-            // Non-critical — don't block navigation if storage fails
-          });
+          try {
+            const storeRes = await fetch('/api/store-results', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ name: form.name, email: intake.email, results, intake }),
+            });
+            const { id } = await storeRes.json();
+            if (id) resultsPath = `/client/results?id=${id}`;
+          } catch {
+            // Non-critical — navigate without ID if storage fails
+          }
         }
-        navigate('/client/results', { state: { results, intake } });
+        navigate(resultsPath, { state: { results, intake } });
       } else {
         setError(getErrorSummary(results) || 'Calculation failed');
         setIsLoading(false);
