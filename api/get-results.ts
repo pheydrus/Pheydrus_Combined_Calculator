@@ -11,15 +11,13 @@ import { list } from '@vercel/blob';
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 
 async function blobGet(id: string): Promise<unknown | null> {
-  const token = process.env.BLOB2_READ_WRITE_TOKEN;
+  const token = process.env.BLOB_READ_WRITE_TOKEN;
   const { blobs } = await list({ prefix: `results/${id}.json`, limit: 1, token });
   const blob = blobs[0];
   if (!blob) return null;
 
-  // Fetch private blob content using the token as auth
-  const dataRes = await fetch(blob.url, {
-    headers: { Authorization: `Bearer ${token}` },
-  });
+  // Public blob — no auth needed to read
+  const dataRes = await fetch(blob.url);
   if (!dataRes.ok) return null;
 
   return dataRes.json();
