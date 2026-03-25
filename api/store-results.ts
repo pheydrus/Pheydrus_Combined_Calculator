@@ -37,11 +37,10 @@ async function blobPut(pathname: string, body: string): Promise<string> {
   const token = process.env.BLOB2_READ_WRITE_TOKEN;
   if (!token) throw new Error('BLOB2_READ_WRITE_TOKEN not set');
   const { url } = await put(pathname, body, {
-    access: 'private',
     contentType: 'application/json',
     addRandomSuffix: false,
     token,
-  });
+  } as Parameters<typeof put>[2]);
   return url;
 }
 
