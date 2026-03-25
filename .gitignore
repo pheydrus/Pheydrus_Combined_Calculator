@@ -31,3 +31,4 @@ public/knowledge-base
 # Environment
 .env
 .env.local
+.env*.local

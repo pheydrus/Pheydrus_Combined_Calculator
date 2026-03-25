@@ -1,0 +1,21 @@
+{
+  "cookies": [
+    {
+      "name": "visitorId",
+      "value": "1cbbf249-cbf6-4782-9f29-644723079e8d",
+      "domain": ".manychat.com",
+      "path": "/",
+      "expires": 1805930396.424689,
+      "httpOnly": false,
+      "secure": true,
+      "sameSite": "None"
+    }
+  ],
+  "localStorage": {
+    "awswaf_session_storage": "null",
+    "ucData": "{\"gcm\":{\"adsDataRedaction\":true,\"adStorage\":\"denied\",\"adPersonalization\":\"denied\",\"adUserData\":\"denied\",\"analyticsStorage\":\"denied\"},\"consent\":{\"services\":{\"SxdpEPwQn\":{\"name\":\"Facebook Messenger\",\"consent\":true},\"ocv9HNX_g\":{\"name\":\"Facebook SDK\",\"consent\":true},\"XYQZBUojc\":{\"name\":\"Facebook Social Plugins\",\"consent\":true},\"XJGT8f-58\":{\"name\":\"Google Sign-In\",\"consent\":true},\"bwBTZOE9XnevwO\":{\"name\":\"Manychat\",\"consent\":true},\"PImB7xVSg-EiCi\":{\"name\":\"Manychat Analytics\",\"consent\":true},\"Hko_qNsui-Q\":{\"name\":\"reCAPTCHA\",\"consent\":true},\"ry3w9Vo_oZ7\":{\"name\":\"Stripe\",\"consent\":true},\"H1Vl5NidjWX\":{\"name\":\"Usercentrics Consent Management Platform\",\"consent\":true},\"MMgpupdb_\":{\"name\":\"Braze\",\"consent\":false},\"9V8bg4D63\":{\"name\":\"DoubleClick Ad\",\"consent\":false},\"ko1w5PpFl\":{\"name\":\"Facebook Pixel\",\"consent\":false},\"SkEscVsusbX\":{\"name\":\"FBCDN Facebook\",\"consent\":false},\"acYUto9R\":{\"name\":\"Freshchat\",\"consent\":false},\"B1Hk_zoTX\":{\"name\":\"Google Ads Remarketing\",\"consent\":false},\"HkocEodjb7\":{\"name\":\"Google Analytics\",\"consent\":false},\"HkPBYFofN\":{\"name\":\"Google Fonts\",\"consent\":false},\"S1pcEj_jZX\":{\"name\":\"Google Maps\",\"consent\":false},\"3O_O0HLMIAVkT7\":{\"name\":\"Grafana Alloy\",\"consent\":false},\"UP0Y7S9_2-Zb55\":{\"name\":\"Highlight\",\"consent\":false},\"S1kgcNo_j-m\":{\"name\":\"Hotjar\",\"consent\":false},\"ryDQcVoOoZQ\":{\"name\":\"Intercom\",\"consent\":false},\"db9419tJb236Cg\":{\"name\":\"LaunchDarkly\",\"consent\":false},\"jzMEq56vW\":{\"name\":\"Microsoft Clarity\",\"consent\":false},\"rH1vNPCFR\":{\"name\":\"Sentry\",\"consent\":false},\"Z0TcXjY0P\":{\"name\":\"TikTok\",\"consent\":false},\"SJ1aqNjOs-m\":{\"name\":\"Wistia\",\"consent\":false},\"kZCXhcSYK8s8j1\":{\"name\":\"Wootric\",\"consent\":false},\"BJz7qNsdj-7\":{\"name\":\"YouTube Video\",\"consent\":false},\"54s8nFgf\":{\"name\":\"Zendesk\",\"consent\":false},\"ZvGdwtkk1x3HFI\":{\"name\":\"Zendesk Widget\",\"consent\":false}}},\"ui\":{\"language\":\"en\"}}",
+    "uc:analytics:firedEvents:iuigWix1e-JNK7": "[\"CMP_ELIGIBLE\",\"CMP_SHOWN\"]",
+    "ucString": "N4IgbgpgTgzglgewHYgFwEYA0ICucBq08yaIAzAHToAMAHBdSNgMbIAuUCANl9AJIATUhAECIzAIYAmCegCs4gGYB2ecoBGy5gBYBOgJzUyzAcu21lZc2QHUJtWhPUR9+shP3onZ9IvUTlLXU5JhAuCSQAcxwJSIhhFGwYCDY2OCi0UDghVBA4PEiAdTgAD3QIAFoAKQA5AGllUMhYRBRc9CkANgpOyiltfVC2AE8AB3jcgHEAEQAFACUQAF9sHFGBCTYRAEE2NHRA7TJ9I/1O6jksXHXNkQAhYdJkPiQ4NIkuWdiIABkECSELCgEFuAl2+0Ox1O50u2GBAEc8MCchwcBAkmxNjgYKRtj8fgB9aYAURqfGJ0yGYwmID4AFlZj8+ABhPgAFVCAAsJDBOaROhpOi5OhJmIopCDqIoyNRtBI5BYyGQ5OoyIppNpOuhfOgyJ11LQXPoJGRdXZFHptC4jgJ9IbAp1QskoGA4MwIIIcagANoAXWwkVGzAAynBIkgPmh1Vxkth0lsoKK0iRctjoMsgA"
+  },
+  "timestamp": "2026-03-24T23:19:56.495Z"
+}

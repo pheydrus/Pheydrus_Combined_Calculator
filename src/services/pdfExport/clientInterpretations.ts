@@ -91,165 +91,159 @@ const F_INTERP: Record<string, Partial<Record<number, { career: string; love: st
   Pluto: {
     1: {
       career:
-        'A Pheydrus client described walking into rooms where people either immediately respected her or immediately wanted to challenge her — she never got a neutral reaction. The intensity that should have made her a natural leader kept triggering friction before any trust was built.',
+        'Pluto in house 1 creates magnetic intensity that triggers immediate respect or immediate challenge — rarely neutral. People sense the power before trust is built. This intensity, untempered, becomes a barrier to leadership. The breakthrough happens when the force becomes deliberate instead of just present.',
       love:
-        'One client\'s first three dates consistently ended with the other person saying "you\'re a lot" — and she had no idea what that meant. The depth she brought to every interaction registered as overwhelming before anyone could see that it was actually her greatest gift.',
+        'Clients with this placement bring overwhelming depth to early connections. The intensity that should attract keeps people at distance until they understand the difference between being triggered and being transformed. Love requires the other person to survive the impact.',
     },
     5: {
       career:
-        'A Pheydrus client spent four months building a course, scrapped it entirely one week before launch, and spent four more months rebuilding from scratch. The creative output was real — the pattern of destroying work just as it was ready to be seen kept repeating.',
+        'Pluto in house 5 destroys creative work at the moment it\'s ready to be seen. The pattern repeats: build, burn, rebuild. The mechanism: transformation fear masked as perfectionism. The breakthrough: finishing and sharing imperfection, not waiting for the next cycle.',
       love:
-        'One client described every relationship starting at intensity level 10 and burning out within 90 days — she was either completely obsessed or completely done. The all-or-nothing energy that felt like passion kept preventing the slow accumulation of genuine intimacy.',
+        'All-or-nothing intensity in relationships. Obsession that burns out in 90 days. The core issue: inability to gradually build intimacy — every connection must transform completely or end. Real partnership requires the capacity to sustain moderate connection over time.',
     },
     7: {
       career:
-        'A Pheydrus client\'s most promising business partnership ended in a legal dispute that cost more than the venture ever made. The collaboration that should have doubled her capacity became a battle over control before the first deliverable was complete.',
+        'Pluto in house 7 turns partnerships into power struggles. Business collaborations become control battles before they produce results. The core mechanism: inability to trust equal partnership — transformation (of the relationship) feels mandatory. Real collaboration requires shared leadership without dominance.',
       love:
-        'One client described every serious relationship eventually becoming a negotiation about who was in charge — and neither person was ever willing to fully surrender. The connection that felt fated kept cycling into power dynamics that exhausted both people before real love could take root.',
+        'Relationships become negotiations about control. The depth clients need requires surrender; they need power. The result: fated connections that transform into exhaustion. Real intimacy requires releasing the need to control the transformation itself.',
     },
     10: {
       career:
-        'A Pheydrus client reached the final round of a major promotion three times in five years and was passed over each time — usually after a conflict with someone above her. The drive that should have made her rise kept generating reputation friction at the exact moment visibility was highest.',
+        'Pluto in house 10: Powerful professional presence that triggers conflict with authority instead of recognition. Advancement repeats a pattern—reach final round, lose to reputation friction with someone above. The mechanism: unconscious power struggle with authority. Mastery requires directing intensity toward contribution, not dominance.',
       love:
-        'One client hadn\'t been on a date in two years — not because no one was interested, but because work always came first. The career felt like the real relationship, and every actual partner suffered from a level of deprioritization that people eventually stopped accepting.',
+        'Career becomes the primary relationship. Partners are secondary. The person is unable to deprioritize work enough for genuine partnership. Real love requires that career not be the most important transformation in their life.',
     },
   },
-  Saturn: {
     1: {
       career:
-        'A Pheydrus client described being the most reliable person on every team she\'d ever been on — and somehow never the one who got called when leadership opportunities opened. The professionalism that should have opened doors kept keeping people at arm\'s length.',
+        'Saturn in house 1 creates extreme reliability that keeps you at arm\'s length from leadership. Professionalism becomes the barrier. People trust you; they don\'t follow you. The mechanism: emotional distance disguised as competence. Leadership requires people to feel you, not just respect you.',
       love:
-        'One client hadn\'t told a partner something vulnerable in three consecutive relationships — she called it being private, but every partner eventually said they never really knew her. The self-protection that felt like strength kept creating the exact loneliness it was designed to prevent.',
+        'Vulnerability is withheld across relationships. Self-protection that succeeds in keeping safe also succeeds in keeping lonely. Partners never truly know you. The cost: intimacy requires consistent vulnerability, not strategic sharing.',
     },
     5: {
       career:
-        '9 out of 10 clients with this configuration have a fully built offer sitting in their notes app that has never been posted. The work is done. The fear of being seen is what stops the publish button.',
+        'Saturn in house 5: Creative work is complete but never shown. The work anxiety is solved; the visibility anxiety remains. The mechanism: fear of judgment masquerading as perfectionism. Breakthrough: publishing imperfect work and surviving the judgment.',
       love:
-        '9 out of 10 clients with this configuration have a fully built offer sitting in their notes app that has never been posted. The work is done. The fear of being seen is what stops the publish button.',
+        'Saturn in house 5: Relationships remain hidden or unavailable. The person creates intimacy barriers before partnership can form. Fear of judgment prevents letting anyone see the genuine person. Real connection requires risking visibility.',
     },
     7: {
       career:
-        'A Pheydrus client signed three business partnership agreements in two years — all three dissolved before the first quarterly review. The pattern wasn\'t bad luck; it was an unconscious pull toward controlling collaborators or becoming the restrictive one herself the moment stakes got real.',
+        'Saturn in house 7: Partnerships dissolve before they produce results. The pattern: control of the other person or rigid restrictiveness as stakes rise. The mechanism: fear of vulnerability masked as standards. Real partnership requires releasing control to allow collaborative success.',
       love:
-        'One client described meeting someone promising, spending three months finding reasons they weren\'t quite right, and watching them end up in a serious relationship with someone else six months later. The standard she held for partnership kept protecting her from the very thing she said she wanted.',
+        'High standards for partnership create chronic singleness. The person spends years finding reasons they aren\'t quite right. Protecting from disappointment prevents meeting anyone. Real love requires lowering the barriers enough to actually let someone in.',
     },
     10: {
       career:
-        'A Pheydrus client had been "two years from a senior position" for six consecutive years — the goalposts kept moving, the recognition kept being just out of reach. She was the most prepared person in every room and still the last one considered for authority.',
+        'Saturn in house 10: Always prepared but never promoted. Recognition recedes as you approach it. The mechanism: unconscious fear of actual authority creating delay patterns. Mastery requires claiming the position before feeling ready — readiness never arrives at Saturn-10.',
       love:
-        'One client\'s partners consistently described the same experience: they felt like a reward for good behavior rather than a genuine companion. The achievement energy that defined her career had fully colonized her love life — and real connection requires surrender, not performance.',
+        'Partners are rewards for achievement, not genuine companions. Achievement energy colonizes the love life. Real intimacy requires surrender and presence, not performance. The relationship becomes another goal to accomplish, which prevents it from becoming real.',
     },
   },
-  Uranus: {
     1: {
       career:
-        'A Pheydrus client received the same feedback in two consecutive performance reviews: "brilliant in bursts, unreliable in execution." She couldn\'t understand how someone who cared as much as she did kept reading as inconsistent. The version of her that showed up each day genuinely was different — and the people around her couldn\'t build on it.',
+        'Uranus in house 1: Unpredictable presence that reads as unreliable. Brilliant in bursts, inconsistent in execution. The mechanism: the self genuinely changes day to day; people build on consistency. Teams cannot form around someone who isn\'t stable. Reliability requires showing up as the same person.',
       love:
-        'One client described three partners in three years saying the exact same thing: "I never know where I stand with you." The freedom she was protecting kept registering as emotional unavailability — and the people who wanted to love her eventually stopped reaching.',
+        'Partners cannot locate you. Emotional unavailability masked as freedom. The person changes positions about the relationship constantly. Real partnership requires enough consistency that the other person can actually trust what you feel.',
     },
     5: {
       career:
-        'One client had launched the same coaching business four separate times over six years — each time with real momentum, real interest, real potential. Each time, she disappeared before the first dollar came in.',
+        'Uranus in house 5: Creative projects launch repeatedly but never sustain past initial momentum. Real interest, real work, real potential — then disappearance. The mechanism: urge to create stronger than urge to finish. Mastery: completing one project before starting the next.',
       love:
-        'One client had launched the same coaching business four separate times over six years — each time with real momentum, real interest, real potential. Each time, she disappeared before the first dollar came in.',
+        'Uranus in house 5: Relationships ignite and extinguish in cycles. The intensity is real; the staying power isn\'t. Pattern repeats with different people. Real partnership requires resisting the urge to leave at the moment things become steady.',
     },
     7: {
       career:
-        'A Pheydrus client\'s most important business collaboration fell apart the week they were about to close their biggest client together. She described it as coming out of nowhere — but the pattern of pulling back just when stakes got real had happened before.',
+        'Uranus in house 7: Partnerships collapse at moment of highest stakes. The pattern: pull back when success nears. The mechanism: fear of being locked in disguised as freedom. Mastery: honoring freedom without destroying the shared structure.',
       love:
-        'One client described the same relationship cycle repeating with three different people: intense closeness, then an overwhelming need for space, then a version of the relationship that never quite recovered. The freedom she needed felt like abandonment to the people who were trying to build something lasting with her.',
+        'Intense closeness triggers overwhelming need for space. The cycle repeats: connection → suffocation → distance → repeat. Real partnership requires staying through the moments where freedom feels like a requirement to escape.',
     },
     10: {
       career:
-        'Three Pheydrus clients with this configuration left stable six-figure roles in the same calendar year — none of them by choice. The environments that others found comfortable became progressively suffocating, and the unconventional paths they built afterward were the first ones that actually fit.',
+        'Uranus in house 10: Stable roles become suffocating urgently. Conventional career paths collapse; unconventional ones thrive. The mechanism: the system is the cage. Traditional advancement feels impossible to sustain. Mastery: building an unconventional structure and staying in it.',
       love:
-        'One client described the chaos of her professional life as something her partners never really signed up for — constant pivots, sudden reinventions, unpredictable income. The instability that felt like aliveness to her kept creating conditions where partnership couldn\'t take root.',
+        'Professional chaos (constant pivots, reinvention, unpredictable income) destabilizes partnerships. Partners want stability; Uranus-10 produces whipsaw. Real love requires either the partner having equal Uranus energy, or the professional chaos needing to stabilize.',
     },
   },
-  Mars: {
     1: {
       career:
-        'A Pheydrus client lost three client relationships in a single quarter — not because of the work, but because her directness in project meetings read as aggression before trust was established. The sharpness that should have made her formidable kept creating friction before the outcomes could prove her right.',
+        'Mars in house 1: Directness reads as aggression before trust is built. Sharp presence that creates friction before proof arrives. Three clients, three lost relationships, same cause. The mechanism: force without relationship. Mastery: pacing intensity to match the other person\'s capacity to receive it.',
       love:
-        'One client\'s last four relationships had all started with the other person describing her as "the most compelling person I\'d ever met" and ended with them describing her as exhausting. The intensity that drew people in kept making sustained closeness feel like a competition.',
+        'Initial intensity that compels becomes exhaustion that repels. Relationships start at competition intensity and never shift down. Real partnership requires taking the foot off the accelerator. The person cannot sustain lower-intensity connection.',
     },
     5: {
       career:
-        'A Pheydrus client launched three different offers in eight months — each with genuine momentum, each discontinued before the sales page was finished. The urgency that generated energy at the start kept making the slower, more patient work of actually building something impossible to sustain.',
+        'Mars in house 5: Launch projects in rapid sequence but cannot sustain the slower work it takes to actually close them. Three offers, three incomplete. The mechanism: initial urgency is addictive; execution feels like torture. Mastery: completing one offer before the false urgency of the next appears.',
       love:
-        'One client described every relationship starting as the most exciting thing that had ever happened to her — and becoming genuinely unbearable within six months. The combustion that felt like chemistry kept burning through the oxygen that real intimacy needs to survive.',
+        'Relationships combust intensely then become unbearable. Initial excitement at maximum; cannot sustain normal connection. The combustion consumes the oxygen intimacy needs. Real partnership requires the ability to love at lower intensity for longer.',
     },
     7: {
       career:
-        'A Pheydrus client realized she had never concluded a negotiation feeling good — she either pushed too hard and won badly or capitulated entirely. The competitive energy that made her excellent at her work kept turning business partnerships into contests that someone had to lose.',
+        'Mars in house 7: Every negotiation ends badly; either too aggressive or completely capitulated. Business partnerships become zero-sum contests. The mechanism: inability to collaborate as equals; competition is the only frame. Mastery: negotiating win-win, not win-lose.',
       love:
-        'One client described knowing within 20 minutes of every argument whether she was going to win or leave — there was no third option. The need to resolve conflict through combat rather than conversation had ended relationships with people who genuinely loved her.',
+        'Arguments become combat. Win or leave; no middle ground. Conflict resolution requires fighting, not conversation. This energy ends relationships with people who genuinely love. Real partnership requires the capacity to disagree without battle.',
     },
     10: {
       career:
-        'A Pheydrus client was placed on a performance improvement plan two weeks after being told she was on the shortlist for a VP role — the same directness that earned the recognition had also generated three formal complaints in the prior six months. The force that created visibility kept creating enemies in the exact positions that controlled her ceiling.',
+        'Mars in house 10: Visibility that creates recognition also creates enemies. Same directness that earns notice also generates formal complaints. The mechanism: force without diplomacy in high-stakes professional moments. Three complaints before VP consideration collapses it. Mastery: visible leadership without generating opposition.',
       love:
-        'One client\'s last partner told her he felt like a goal she was trying to achieve rather than a person she was choosing every day. The achievement orientation that powered her career had made its way into her most intimate relationship — and people want to be loved, not accomplished.',
+        'The person approaches the partner as an achievement goal, not as a person. Career energy colonizes intimacy. Love requires choosing the person daily, not accomplishing them. This placement makes partners feel like objectives rather than companions.',
     },
   },
-  Neptune: {
     1: {
       career:
-        'A Pheydrus client described showing up differently to every professional meeting depending on who was in the room — and genuinely not knowing which version was actually her. The adaptability that seemed professional kept creating an authenticity gap that the people she most wanted to work with could sense without being able to name.',
+        'Neptune in house 1: Different identity in every room. The person genuinely doesn\'t know which version is real. The mechanism: perfect adaptation to others\'s expectations creates an authenticity void that people sense. Clients cannot trust a version that exists only for them. Real presence requires showing the same self consistently.',
       love:
-        'One client\'s most recent relationship ended with her partner saying he felt like he\'d never actually met her — that every version she\'d shown him had been calibrated for what she thought he wanted. The care she\'d taken to be what he needed had made genuine connection impossible.',
+        'Partner never meets the actual person—only calibrated versions. The person demonstrates perfect care by being what they think is wanted. This makes genuine connection impossible because the relationship is with an illusion, not a person. Real love requires showing your actual self.',
     },
     5: {
       career:
-        'Clients with this configuration consistently describe a business that exists in perfect detail in their imagination — and becomes unrecognizable the moment they try to write the sales page. The vision is real. The execution feels like translating a dream.',
+        'Neptune in house 5: Perfect vision in imagination becomes unrecognizable in execution. The mechanics: vision exists at Neptune altitude; execution requires earth language. Mastery: getting the vision on paper first, imperfectly, before assuming it\'s unspeakable.',
       love:
-        'Clients with this configuration consistently describe a business that exists in perfect detail in their imagination — and becomes unrecognizable the moment they try to write the sales page. The vision is real. The execution feels like translating a dream.',
+        'Neptune in house 5: Relationships exist beautifully in fantasy; reality is disappointing. The person projects who they want their partner to be instead of seeing who they are. Real intimacy requires lowering the vision to match the actual person.',
     },
     7: {
       career:
-        'A Pheydrus client discovered her business partner had been billing clients under the partnership while routing income to a separate entity — she had had a bad feeling about the arrangement for eight months but couldn\'t bring herself to have the conversation. The trust that should have been the foundation of collaboration had been extended without the clarity that protects it.',
+        'Neptune in house 7: Trust without clarity creates partnership disaster. Business partner fraud that the person sensed but couldn\'t name. The mechanism: intuition says no, but inability to demand clarity overrides the signal. Mastery: treating bad feelings as enough reason to have the conversation.',
       love:
-        'One client described falling in love with the "same person" three separate times — each time with someone different, each time discovering six months in that the person she\'d fallen for had never quite existed. The love she felt was real; the people she felt it for had been built from what she needed rather than what was actually there.',
+        'Falling in love with the person they project, not the person who exists. Discovering at six months that the partner they loved was imagined. Same cycle repeats with different people. Real love requires seeing who the person actually is, not building them from what you need.',
     },
     10: {
       career:
-        'A Pheydrus client had described her professional direction differently in every conversation for three years — and each time she believed it completely. The vision for what she was building was genuinely inspired; the clarity about what it actually was kept shifting before it could become anything concrete.',
+        'Neptune in house 10: Career direction changes in every conversation. Vision is genuinely inspired; clarity never arrives. The mechanism: the person is inspired by possibility, not committed to specificity. The direction shifts before becoming concrete. Mastery: committing to one direction despite the pull toward others.',
       love:
-        'One client had been "about to be ready" for a serious relationship for five years. The professional dream kept expanding just enough to require a little more time before partnership felt possible — and the people who might have been right for her moved on while she was still preparing.',
+        'Professional dream keeps expanding to delay partnership. Always "about to be ready" but never quite here. The people who might be right move on while the person is perpetually preparing. Real love requires being ready now, not someday when conditions align perfectly.',
     },
   },
-  Sun: {
     7: {
       career:
-        'A Pheydrus client with this exact placement had a waitlist of people who wanted to work with her — and still couldn\'t close a single paid client. The magnetism was real. The money conversation felt impossible.',
+        'Sun in house 7: Magnetic presence that attracts clients but cannot close paid agreements. The mechanism: difficulty translating magnetism into money conversations. People want to be near you; they don\'t want to pay you. Mastery: making the money ask as natural as the magnetism.',
       love:
-        'A Pheydrus client with this exact placement had a waitlist of people who wanted to work with her — and still couldn\'t close a single paid client. The magnetism was real. The money conversation felt impossible.',
+        'Sun in house 7: Magnetic in relationship but the intimacy remains abstract. People are attracted; genuine vulnerability doesn\'t follow. The connection is idealized, not real. Real partnership requires depth that matches the magnetism.',
     },
     8: {
       career:
-        'A Pheydrus client had been running her business at 60% of what her clients told her she was worth for four years. Every time she drafted a price increase, something stopped her from sending it — not circumstance, but a deep, specific discomfort with claiming what she\'d already earned.',
+        'Sun in house 8: Running business at 60% of actual value for years. Every price increase stays in drafts. The mechanism: discomfort with claiming what you\'ve earned. The belief in your worth doesn\'t match your ask. Mastery: charging what clients already know you\'re worth.',
       love:
-        'One client described consistently choosing relationships where she was the more capable person — and then resenting being the one who held everything together. The worth she didn\'t fully believe in privately kept recreating partnerships that confirmed the doubt.',
+        'Choosing relationships where you\'re the capable one, then resenting the burden. The worth you don\'t believe in recreates partnerships that confirm the doubt. Real love requires choosing someone who makes you feel capable, not someone you need to fix.',
     },
     12: {
       career:
-        'A Pheydrus client\'s most important career breakthrough happened in a conversation she almost didn\'t show up for — and her worst setback happened the moment she almost had it all. The visibility that advancement requires kept triggering a pull toward retreat at the exact moment it mattered most.',
+        'Clients who have this placement often have a hard time being seen or heard. Therefore leaving relationship or business oportunities on the table. Sun in the 12 house is all about your "light" aka talents being kept in the dark.',
       love:
         'One client described always feeling slightly less real in relationships than the person she was with — like she was watching herself participate rather than actually being there. The love she wanted required being fully seen, and being fully seen was the thing she was least able to allow.',
     },
   },
-  Venus: {
     8: {
       career:
-        'A Pheydrus client reviewed her contracts from the prior two years and realized she had accepted payment terms in every single one that she would have told a colleague were unacceptable. The value she brought was real; the willingness to claim it in writing kept getting overridden by something she couldn\'t fully explain.',
+        'Venus in house 8: Accepts unacceptable payment terms. Every contract contains concessions you wouldn\'t advise a friend to make. The mechanism: fear of the relationship rupture overrides worth claims. Value exists; the willingness to claim it doesn\'t. Mastery: valuing the relationship less than your value.',
       love:
-        'One client described her relationships as always going from "this is the most I\'ve ever felt" to "I don\'t recognize what this became" — with no gradual middle. The depth she brought to love was genuine; the all-or-nothing intensity kept making the actual human complexity of partnership feel like something was wrong.',
+        'Relationships go from "maximum I\'ve ever felt" to "I don\'t recognize this" with no middle. All-or-nothing intensity on love\'s timeline. The complexity of real partnership feels like something\'s wrong because it doesn\'t match the intensity peak. Real love requires surviving the dip.',
     },
-    12: {
+    8: {
       career:
-        'A Pheydrus client\'s colleagues consistently described her as "the most talented person in the room that no one was talking about." She had been two promotions away from where her work warranted for three years. The capabilities that would have advanced her career stayed private — not from strategy, but from a specific reluctance to be fully seen.',
+        'Venus in house 12: Most talented person no one talks about. Capabilities stay private. The mechanism: reluctance to be fully seen, despite the need for recognition. Career stays two promotions behind capability. Mastery: making your work visible enough to match its value.',
       love:
-        'One client described keeping the most attractive thing about herself — a specific kind of depth and care — in reserve for a moment when it felt safe enough to share. Five years in, she hadn\'t found the moment. The love she was capable of giving was waiting for a safety that she was also preventing.',
+        'Most attractive qualities kept in reserve. Waiting for safety that never comes. Five years in, the moment to share still hasn\'t arrived. The love she could give requires risking visibility. Real intimacy requires showing the most attractive parts, not protecting them.',
     },
   },
 };
