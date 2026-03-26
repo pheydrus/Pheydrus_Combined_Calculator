@@ -432,66 +432,6 @@ function renderAspectCard(
 </div>`;
 }
 
-// ── Pillar block ──────────────────────────────────────────────────────────────
-
-function renderPillarBlock(
-  pillar: PillarSummary,
-  num: 1 | 2 | 3,
-  title: string,
-  subtitle: string,
-  callout: string,
-  goal: GoalCategory,
-  goalShort: string,
-  pillar2Items: GradeItem[],
-  pillar3Items: GradeItem[],
-  transits: PlanetaryTransit[],
-  addressMoveDate: string,
-  accentColor: string,
-): string {
-  const scoringItems = pillar.items.filter((i) => i.grade === 'F' || i.grade === 'C' || i.grade === 'A');
-
-  const badgeStyle = num === 1
-    ? 'background:#FFF0F0;color:#C0392B;border:1px solid #C0392B;'
-    : num === 2
-      ? 'background:#FFF9E6;color:#8B6914;border:1px solid #C9A84C;'
-      : 'background:#FDF5E6;color:#7A5A1A;border:1px solid #9a7d4e;';
-
-  const chartLabel = num === 3 ? 'Env Chart' : num === 2 ? 'Transit Chart' : 'House Chart';
-
-  return `
-<div style="margin-bottom:28px;">
-  <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;flex-wrap:wrap;">
-    <span style="font-size:10px;font-weight:700;padding:2px 8px;border-radius:2px;${badgeStyle}font-family:${INTER};">PILLAR ${num}</span>
-    <span style="font-size:16px;font-weight:700;color:#1C1A2E;font-family:${CORMORANT};">${title} &mdash; ${subtitle}</span>
-    <span style="margin-left:auto;font-size:18px;font-weight:900;color:${accentColor};font-family:${INTER};">
-      ${pct(pillarScore(pillar), pillarScore(pillar))}%
-    </span>
-  </div>
-
-  <p style="margin:0 0 12px;font-size:12px;font-style:italic;color:#7A5A1A;line-height:1.5;padding:7px 12px;background:rgba(201,168,76,0.06);border-bottom:1px solid rgba(201,168,76,0.18);border-radius:4px 4px 0 0;font-family:${CORMORANT};">${callout}</p>
-
-  <div style="display:flex;gap:14px;align-items:flex-start;">
-    <div style="flex-shrink:0;text-align:center;width:108px;">
-      ${renderHouseWheel(pillar.items, 108)}
-      <div style="font-size:9px;color:#999;margin-top:4px;font-family:${INTER};">${chartLabel}</div>
-      <div style="font-size:8px;margin-top:3px;font-family:${INTER};">
-        <span style="display:inline-block;width:7px;height:7px;background:#C0392B;border-radius:1px;vertical-align:middle;"></span><span style="color:#666;"> F</span>&nbsp;
-        <span style="display:inline-block;width:7px;height:7px;background:#C9A84C;border-radius:1px;vertical-align:middle;"></span><span style="color:#666;"> C</span>&nbsp;
-        <span style="display:inline-block;width:7px;height:7px;background:#2ecc71;border-radius:1px;vertical-align:middle;"></span><span style="color:#666;"> A</span>
-      </div>
-    </div>
-    <div style="flex:1;">
-      ${scoringItems.length === 0
-        ? `<p style="font-size:12px;color:#2ecc71;font-style:italic;font-family:${INTER};">No significant pressure in this pillar — this dimension is working in your favor.</p>`
-        : scoringItems.map((item) => renderAspectCard(item, goal, goalShort, transits)).join('')
-      }
-    </div>
-  </div>
-
-  ${renderPillarTimeline(num, pillar2Items, pillar3Items, transits, addressMoveDate)}
-</div>`;
-}
-
 // ── PAGE 1: COVER ─────────────────────────────────────────────────────────────
 
 function renderPage1(results: ConsolidatedResults, intake: ClientIntakeData, goal: GoalCategory): string {
