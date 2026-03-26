@@ -1504,27 +1504,57 @@ function setupPdfDownload(btnId) {
     button.textContent = '⏳ Generating...';
 
     try {
+      // Wait for page to fully render (including dynamic content)
+      await new Promise(resolve => setTimeout(resolve, 500));
+
       // Load html2pdf from CDN
       const script = document.createElement('script');
       script.src = 'https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js';
       document.head.appendChild(script);
 
       script.onload = function() {
+        // Hide elements that shouldn't be in PDF
+        const nav = document.querySelector('.toc-nav');
+        const downloadSection = document.querySelector('.footer-download');
+        const footer = document.querySelector('.footer');
+        
+        if (nav) nav.style.display = 'none';
+        if (downloadSection) downloadSection.style.display = 'none';
+        if (footer) footer.style.display = 'none';
+
+        // Use body but exclude hidden elements
         const element = document.body;
         const opt = {
-          margin: 10,
+          margin: [10, 10, 10, 10],
           filename: 'pheydrus-workbook-v3_4.pdf',
           image: { type: 'jpeg', quality: 0.98 },
-          html2canvas: { scale: 2, logging: false, useCORS: true },
-          jsPDF: { orientation: 'portrait', unit: 'mm', format: 'a4' }
+          html2canvas: { 
+            scale: 2, 
+            logging: false, 
+            useCORS: true,
+            allowTaint: true,
+            backgroundColor: '#ffffff'
+          },
+          jsPDF: { orientation: 'portrait', unit: 'mm', format: 'a4', compress: true }
         };
         
         html2pdf().set(opt).from(element).save().then(() => {
+          // Restore hidden elements
+          if (nav) nav.style.display = '';
+          if (downloadSection) downloadSection.style.display = '';
+          if (footer) footer.style.display = '';
+          
           button.classList.remove('loading');
           button.disabled = false;
           button.textContent = originalText;
         }).catch(err => {
           console.error('PDF generation error:', err);
+          
+          // Restore hidden elements
+          if (nav) nav.style.display = '';
+          if (downloadSection) downloadSection.style.display = '';
+          if (footer) footer.style.display = '';
+          
           button.classList.remove('loading');
           button.disabled = false;
           button.textContent = originalText;
