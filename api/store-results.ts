@@ -5,7 +5,7 @@
  * and adds the subscriber to Flodesk.
  *
  * Required env vars:
- *   BLOB_READ_WRITE_TOKEN              — from Vercel Blob dashboard
+ *   BLOB_PUBLIC_READ_WRITE_TOKEN_READ_WRITE_TOKEN              — from Vercel Blob dashboard
  *   SLACK_WEBHOOK_URL                  — Slack Incoming Webhook URL
  *   APP_URL                            — e.g. https://yourapp.vercel.app
  *
@@ -34,8 +34,8 @@ interface Intake {
 // ── Vercel Blob ───────────────────────────────────────────────────────────────
 
 async function blobPut(pathname: string, body: string): Promise<string> {
-  const token = process.env.BLOB2_READ_WRITE_TOKEN;
-  if (!token) throw new Error('BLOB2_READ_WRITE_TOKEN not set');
+  const token = process.env.BLOB_PUBLIC_READ_WRITE_TOKEN_READ_WRITE_TOKEN;
+  if (!token) throw new Error('BLOB_PUBLIC_READ_WRITE_TOKEN_READ_WRITE_TOKEN not set');
   const { url } = await put(pathname, body, {
     access: 'public',
     contentType: 'application/json',
@@ -51,7 +51,6 @@ async function postToSlack(
   name: string,
   email: string,
   results: Results,
-  intake: Intake,
   resultsUrl: string | null
 ): Promise<void> {
   const webhookUrl = process.env.SLACK_WEBHOOK_URL;
@@ -59,9 +58,6 @@ async function postToSlack(
 
   const grade = results?.diagnostic?.finalGrade ?? '?';
   const score = results?.diagnostic?.score ?? '?';
-  const goal = intake?.desiredOutcome ?? 'Not provided';
-  const obstacle = intake?.obstacle ?? 'Not provided';
-  const situation = intake?.currentSituation ?? '';
 
   const blocks = [
     {
@@ -74,21 +70,17 @@ async function postToSlack(
         { type: 'mrkdwn', text: `*Name:*\n${name || '—'}` },
         { type: 'mrkdwn', text: `*Email:*\n${email}` },
         { type: 'mrkdwn', text: `*Overall Grade:*\n${grade}  (${score}/100)` },
-        { type: 'mrkdwn', text: `*Situation:*\n${situation}` },
-      ],
-    },
-    {
-      type: 'section',
-      fields: [
-        { type: 'mrkdwn', text: `*90-Day Goal:*\n${goal}` },
-        { type: 'mrkdwn', text: `*Main Obstacle:*\n${obstacle}` },
       ],
     },
     { type: 'divider' },
-    ...(resultsUrl ? [{
-      type: 'section',
-      text: { type: 'mrkdwn', text: `*<${resultsUrl}|View Full Report →>*` },
-    }] : []),
+    ...(resultsUrl
+      ? [
+          {
+            type: 'section',
+            text: { type: 'mrkdwn', text: `*<${resultsUrl}|View Full Report →>*` },
+          },
+        ]
+      : []),
   ];
 
   const res = await fetch(webhookUrl, {
@@ -159,9 +151,25 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   let resultsUrl: string | null = null;
   let blobDebug: string | null = null;
   try {
-    await blobPut(`results/${id}.json`, JSON.stringify({ results, intake, name: displayName, email, storedAt: new Date().toISOString() }));
-    const appUrl = process.env.APP_URL ?? `https://${process.env.VERCEL_URL}`;
-    resultsUrl = `${appUrl}/client/results?id=${id}`;
+    await blobPut(
+      `results/${id}.json`,
+      JSON.stringify({
+        results,
+        intake,
+        name: displayName,
+        email,
+        storedAt: new Date().toISOString(),
+      })
+    );
+    const appUrl =
+      process.env.APP_URL || (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : null);
+    if (appUrl) {
+      resultsUrl = `${appUrl}/client/results?id=${id}`;
+    } else {
+      console.warn(
+        '[store-results] Neither APP_URL nor VERCEL_URL is set — cannot build results link'
+      );
+    }
   } catch (blobErr) {
     blobDebug = blobErr instanceof Error ? blobErr.message : String(blobErr);
     console.error('[store-results] Blob save failed (continuing):', blobErr);
@@ -169,7 +177,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
   try {
     await Promise.all([
-      postToSlack(displayName, email, results, intake, resultsUrl),
+      postToSlack(displayName, email, results, resultsUrl),
       addToFlodesk(displayName, email),
     ]);
     return res.status(200).json({ ok: true, id, blobDebug });
