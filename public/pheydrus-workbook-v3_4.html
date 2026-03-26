@@ -307,7 +307,17 @@
   .price-tag { display:inline-block; font-family:'Cormorant Garamond',serif; font-size:32px; font-weight:300; color:var(--gold); margin-bottom:4px; }
   .price-sub { font-size:11px; color:rgba(255,255,255,0.3); margin-bottom:20px; }
 
-  .footer { background:var(--dark-mid,#111); color:rgba(255,255,255,0.3); text-align:center; padding:32px; font-size:11px; letter-spacing:0.15em; text-transform:uppercase; }
+  .footer-download { background:var(--dark); color:white; padding:80px 40px; text-align:center; position:relative; overflow:hidden; }
+  .footer-download::before { content:''; position:absolute; inset:0; background:radial-gradient(ellipse at 60% 40%, rgba(201,169,118,0.15) 0%, transparent 65%); }
+  .footer-download-inner { position:relative; max-width:700px; margin:0 auto; }
+  .footer-download-eyebrow { font-size:10px; letter-spacing:0.4em; text-transform:uppercase; color:var(--gold); margin-bottom:20px; }
+  .footer-download-title { font-family:'Cormorant Garamond',serif; font-size:42px; font-weight:300; line-height:1.1; margin-bottom:20px; color:white; }
+  .footer-download-title em { font-style:italic; color:var(--gold); }
+  .footer-download-text { font-size:14px; color:rgba(255,255,255,0.6); max-width:500px; margin:0 auto 48px; line-height:1.7; }
+  .footer-download-btn { display:inline-flex; align-items:center; justify-content:center; gap:12px; padding:18px 48px; background:var(--crimson); color:white; border:none; font-family:'DM Sans',sans-serif; font-size:13px; letter-spacing:0.15em; text-transform:uppercase; border-radius:4px; cursor:pointer; transition:all 0.3s; font-weight:600; }
+  .footer-download-btn:hover { background:#A52020; transform:translateY(-2px); box-shadow:0 8px 24px rgba(139,26,26,0.3); }
+  .footer-download-btn:active { transform:translateY(0); }
+  .footer-download-btn.loading { opacity:0.6; pointer-events:none; }
 
   /* DOWNLOAD BUTTON */
   .download-pdf-btn {
@@ -339,11 +349,15 @@
     .card-number { font-size:48px; }
     .gate-input-row { flex-direction:column; }
     #gateInput { width:100%; }
-    .download-pdf-btn { padding: 8px 12px; font-size: 9px; }
+    .download-pdf-btn { display:none; }
     .hero { min-height:50vh; padding:40px 24px; }
     .hero-planet-1, .hero-planet-2, .hero-planet-3 { opacity:0.15; }
     .hero h1 { font-size:clamp(32px,6vw,48px); }
     .hero-sub { font-size:12px; }
+    .footer-download { padding:60px 24px; }
+    .footer-download-title { font-size:32px; }
+    .footer-download-text { font-size:12px; }
+    .footer-download-btn { padding:14px 36px; font-size:12px; }
   }
 </style>
 </head>
@@ -1302,7 +1316,15 @@
         <a href="https://ck6y3mugndb.typeform.com/to/xEjK1Q4y" target="_blank" class="cta-btn cta-btn-secondary">Apply to Chat →</a>
       </div>
     </div>
-    <div style="margin-top:60px;opacity:0.2;font-size:11px;letter-spacing:0.2em;text-transform:uppercase;">@pheydrusofficial · www.pheydrus.com</div>
+</div>
+
+<!-- DOWNLOAD SECTION -->
+<div class="footer-download" id="download">
+  <div class="footer-download-inner">
+    <div class="footer-download-eyebrow">Save Your Workbook</div>
+    <h2 class="footer-download-title">Keep This Guide<br><em>For Later</em></h2>
+    <p class="footer-download-text">Download the complete workbook as a PDF to reference anytime, anywhere — no internet required.</p>
+    <button id="bottomDownloadBtn" class="footer-download-btn">📥 Download PDF</button>
   </div>
 </div>
 
@@ -1470,57 +1492,66 @@ function selectSign(type, sign, btn) {
 // =====================
 // PDF DOWNLOAD
 // =====================
-document.getElementById('downloadPdfBtn').addEventListener('click', async function() {
-  const btn = this;
-  btn.classList.add('loading');
-  btn.disabled = true;
-  const originalText = btn.textContent;
-  btn.textContent = '⏳ Generating...';
+function setupPdfDownload(btnId) {
+  const btn = document.getElementById(btnId);
+  if (!btn) return;
+  
+  btn.addEventListener('click', async function() {
+    const button = this;
+    button.classList.add('loading');
+    button.disabled = true;
+    const originalText = button.textContent;
+    button.textContent = '⏳ Generating...';
 
-  try {
-    // Load html2pdf from CDN
-    const script = document.createElement('script');
-    script.src = 'https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js';
-    document.head.appendChild(script);
+    try {
+      // Load html2pdf from CDN
+      const script = document.createElement('script');
+      script.src = 'https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js';
+      document.head.appendChild(script);
 
-    script.onload = function() {
-      const element = document.body;
-      const opt = {
-        margin: 10,
-        filename: 'pheydrus-workbook-v3_4.pdf',
-        image: { type: 'jpeg', quality: 0.98 },
-        html2canvas: { scale: 2, logging: false, useCORS: true },
-        jsPDF: { orientation: 'portrait', unit: 'mm', format: 'a4' }
+      script.onload = function() {
+        const element = document.body;
+        const opt = {
+          margin: 10,
+          filename: 'pheydrus-workbook-v3_4.pdf',
+          image: { type: 'jpeg', quality: 0.98 },
+          html2canvas: { scale: 2, logging: false, useCORS: true },
+          jsPDF: { orientation: 'portrait', unit: 'mm', format: 'a4' }
+        };
+        
+        html2pdf().set(opt).from(element).save().then(() => {
+          button.classList.remove('loading');
+          button.disabled = false;
+          button.textContent = originalText;
+        }).catch(err => {
+          console.error('PDF generation error:', err);
+          button.classList.remove('loading');
+          button.disabled = false;
+          button.textContent = originalText;
+          alert('Failed to generate PDF. Please try again.');
+        });
       };
-      
-      html2pdf().set(opt).from(element).save().then(() => {
-        btn.classList.remove('loading');
-        btn.disabled = false;
-        btn.textContent = originalText;
-      }).catch(err => {
-        console.error('PDF generation error:', err);
-        btn.classList.remove('loading');
-        btn.disabled = false;
-        btn.textContent = originalText;
-        alert('Failed to generate PDF. Please try again.');
-      });
-    };
 
-    script.onerror = function() {
-      console.error('Failed to load html2pdf library');
-      btn.classList.remove('loading');
-      btn.disabled = false;
-      btn.textContent = originalText;
-      alert('Failed to load PDF library. Please try again.');
-    };
-  } catch (error) {
-    console.error('Error:', error);
-    btn.classList.remove('loading');
-    btn.disabled = false;
-    btn.textContent = originalText;
-    alert('An error occurred. Please try again.');
-  }
-});
+      script.onerror = function() {
+        console.error('Failed to load html2pdf library');
+        button.classList.remove('loading');
+        button.disabled = false;
+        button.textContent = originalText;
+        alert('Failed to load PDF library. Please try again.');
+      };
+    } catch (error) {
+      console.error('Error:', error);
+      button.classList.remove('loading');
+      button.disabled = false;
+      button.textContent = originalText;
+      alert('An error occurred. Please try again.');
+    }
+  });
+}
+
+// Setup both download buttons
+setupPdfDownload('downloadPdfBtn');
+setupPdfDownload('bottomDownloadBtn');
 
 // =====================
 // DRAG TO SCROLL for appendix tables
