@@ -32,3 +32,6 @@ public/knowledge-base
 .env
 .env.local
 .env*.local
+
+# Large video files (exceed GitHub 100MB limit)
+data/Train_CMO/**/*.mp4
