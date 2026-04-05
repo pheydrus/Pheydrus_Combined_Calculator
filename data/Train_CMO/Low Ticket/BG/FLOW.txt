@@ -1,0 +1,5 @@
+Lane: BG
+Current stage: Low Ticket
+Next upsell stage: Medium Ticket/BG
+Then upsell stage: High Ticket/BG
+Use case: Entry offer, low-friction conversion, first proof of value.

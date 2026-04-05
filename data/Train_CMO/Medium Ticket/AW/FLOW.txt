@@ -1,0 +1,5 @@
+Lane: AW
+Current stage: Medium Ticket
+Previous stage: Low Ticket/AW
+Next upsell stage: High Ticket/AW
+Use case: Deeper implementation, commitment validation, upgrade bridge.

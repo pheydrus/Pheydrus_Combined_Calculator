@@ -1,0 +1,52 @@
+================================================================================
+TRAIN_CMO TICKET FLOW SYSTEM
+================================================================================
+Purpose:
+- Apply lane-based upsell logic from product_routing_decision_tree.txt
+- Keep content, launch planning, and email planning aligned by lane
+
+Canonical lanes:
+- HJ = Hero_s Journey lane
+- BG = Business Growth lane
+- AW = Artist_s Way lane
+
+Ticket ladder:
+- Low Ticket -> Medium Ticket -> High Ticket
+
+Folder map (canonical):
+- Low Ticket/HJ
+- Medium Ticket/HJ
+- High Ticket/HJ
+- Low Ticket/BG
+- Medium Ticket/BG
+- High Ticket/BG
+- Low Ticket/AW
+- Medium Ticket/AW
+- High Ticket/AW
+
+How team should use this:
+1. Start user in the correct lane first (HJ, BG, or AW).
+2. Keep upsells inside the same lane before cross-lane bundle offers.
+3. Use this sequence for launches and email planning:
+   - Low Ticket lane entry -> Medium Ticket lane offer -> High Ticket lane program
+4. Only cross-sell another lane after the user has completed Medium or High in current lane.
+
+Lane-specific pathways:
+- HJ pathway:
+   Low Ticket/HJ -> Medium Ticket/HJ -> High Ticket/HJ
+- BG pathway:
+   Low Ticket/BG -> Medium Ticket/BG -> High Ticket/BG
+- AW pathway:
+   Low Ticket/AW -> Medium Ticket/AW -> High Ticket/AW
+
+Planning guidance for marketer:
+- For each lane, create 3 campaign blocks:
+   1) Entry offer (Low)
+   2) Upgrade offer (Medium)
+   3) Core transformation offer (High)
+- Build email automations per lane, not per random product.
+- Keep proof/testimonials matched to lane context (HJ proof for HJ emails, etc).
+
+Ownership:
+- This file is the single source of truth for lane routing under data/Train_CMO.
+================================================================================

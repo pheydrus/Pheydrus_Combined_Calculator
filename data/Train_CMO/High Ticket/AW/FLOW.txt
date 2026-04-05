@@ -1,0 +1,5 @@
+Lane: AW
+Current stage: High Ticket
+Previous stage: Medium Ticket/AW
+Use case: Core transformation offer, highest-touch fulfillment.
+Post-completion option: Cross-lane bundle or strategic adjacent lane.

@@ -1,0 +1,5 @@
+Lane: HJ
+Current stage: Medium Ticket
+Previous stage: Low Ticket/HJ
+Next upsell stage: High Ticket/HJ
+Use case: Deeper implementation, commitment validation, upgrade bridge.
