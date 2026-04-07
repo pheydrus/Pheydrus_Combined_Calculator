@@ -1,0 +1,1529 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pheydrus | Rewrite Your Past Workbook</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Space+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #050505;
+      --paper: #0f0f10;
+      --ink: #f4efe8;
+      --muted: #c9bfb3;
+      --accent: #d74d4d;
+      --accent-2: #ffffff;
+      --line: #2a2a2d;
+      --card: #141417;
+      --warning: #ff8b7a;
+      --soft-red: #6f2b35;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      margin: 0;
+      padding: 0;
+      background:
+        radial-gradient(circle at 85% 10%, rgba(215, 77, 77, 0.18) 0%, transparent 24%),
+        radial-gradient(circle at 12% 22%, rgba(120, 26, 42, 0.22) 0%, transparent 28%),
+        #020203;
+      color: var(--ink);
+      font-family: "Space Grotesk", sans-serif;
+    }
+
+    .page {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 32px 18px 70px;
+    }
+
+    .cover-page {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      gap: 22px;
+      align-items: center;
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 48px 20px 26px;
+    }
+
+    .cover-card {
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: linear-gradient(180deg, rgba(14, 14, 16, 0.98) 0%, rgba(7, 7, 9, 0.98) 100%);
+      padding: 34px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 36px 96px rgba(0, 0, 0, 0.52);
+    }
+
+    .cover-card::after {
+      content: "";
+      position: absolute;
+      right: -70px;
+      bottom: -90px;
+      width: 250px;
+      height: 250px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255, 255, 255, 0.09) 0%, transparent 64%);
+      pointer-events: none;
+    }
+
+    .cover-kicker {
+      text-transform: uppercase;
+      letter-spacing: 0.28em;
+      font-size: 10px;
+      color: #b8aea1;
+      margin-bottom: 16px;
+      font-family: "Space Mono", monospace;
+    }
+
+    .cover-title {
+      font-family: "Space Mono", monospace;
+      font-size: clamp(30px, 5.2vw, 58px);
+      line-height: 1.04;
+      margin: 0 0 14px;
+      color: #fff;
+    }
+
+    .cover-title-accent {
+      color: #d74d4d;
+    }
+
+    .cover-sub {
+      margin: 0;
+      color: #d6ccbf;
+      font-size: 15px;
+      line-height: 1.65;
+      max-width: 560px;
+    }
+
+    .cover-meta {
+      margin-top: 20px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .cover-pill {
+      border: 1px solid #3d3d44;
+      border-radius: 999px;
+      padding: 6px 10px;
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: #d5c9bd;
+      font-family: "Space Mono", monospace;
+      background: rgba(18, 18, 23, 0.8);
+    }
+
+    .brain-wrap {
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: linear-gradient(180deg, rgba(12, 12, 14, 0.98) 0%, rgba(6, 6, 7, 0.98) 100%);
+      min-height: 430px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+      box-shadow: inset 0 0 80px rgba(255, 255, 255, 0.03);
+    }
+
+    .brain-wrap::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(circle at 50% 56%, rgba(255, 255, 255, 0.08) 0%, transparent 44%);
+      pointer-events: none;
+    }
+
+    .brain-scene {
+      width: 360px;
+      height: 300px;
+      perspective: 980px;
+      display: grid;
+      place-items: center;
+      position: relative;
+    }
+
+    .brain-figure {
+      width: 320px;
+      max-width: 92%;
+      transform-style: preserve-3d;
+      animation: swayBrain 8.5s ease-in-out infinite;
+      filter: drop-shadow(0 0 14px rgba(255, 255, 255, 0.22));
+      opacity: 0.94;
+    }
+
+    .brain-wire {
+      fill: none;
+      stroke: rgba(255, 255, 255, 0.9);
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .brain-outline {
+      stroke-width: 2.2;
+      opacity: 0.9;
+    }
+
+    .brain-fold {
+      stroke-width: 1.5;
+      opacity: 0.78;
+    }
+
+    .brain-fine {
+      stroke-width: 0.9;
+      opacity: 0.52;
+    }
+
+    .brain-stem {
+      stroke-width: 1.8;
+      opacity: 0.85;
+    }
+
+    @keyframes swayBrain {
+      0% { transform: rotateY(-13deg) rotateX(4deg) rotateZ(-0.8deg); }
+      50% { transform: rotateY(13deg) rotateX(4deg) rotateZ(0.8deg); }
+      100% { transform: rotateY(-13deg) rotateX(4deg) rotateZ(-0.8deg); }
+    }
+
+    .brain-label {
+      position: absolute;
+      bottom: 20px;
+      font-family: "Space Mono", monospace;
+      font-size: 10px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #bcb3a7;
+      text-align: center;
+    }
+
+    .hero {
+      border: 1px solid var(--line);
+      background: linear-gradient(180deg, rgba(18, 18, 20, 0.98) 0%, rgba(10, 10, 12, 0.98) 100%);
+      padding: 32px;
+      border-radius: 16px;
+      margin-bottom: 24px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.45);
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      right: -80px;
+      top: -40px;
+      width: 280px;
+      height: 220px;
+      background: radial-gradient(circle, rgba(215, 77, 77, 0.28) 0%, rgba(215, 77, 77, 0.08) 38%, transparent 68%);
+      opacity: 0.9;
+    }
+
+    .eyebrow {
+      text-transform: uppercase;
+      letter-spacing: 0.22em;
+      font-size: 11px;
+      color: var(--accent);
+      margin-bottom: 10px;
+      font-weight: 600;
+      font-family: "Space Mono", monospace;
+    }
+
+    h1,
+    h2,
+    h3 {
+      margin: 0;
+      font-family: "Space Mono", monospace;
+      line-height: 1.08;
+      font-weight: 700;
+    }
+
+    h1 {
+      font-size: clamp(32px, 5.5vw, 56px);
+      margin-bottom: 14px;
+    }
+
+    .hero p {
+      margin: 0;
+      max-width: 860px;
+      color: var(--muted);
+      line-height: 1.65;
+      font-size: 15px;
+    }
+
+    .progress-wrap {
+      margin-top: 20px;
+      padding-top: 20px;
+      border-top: 1px dashed #3a3a40;
+    }
+
+    .progress-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+      font-size: 12px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .progress-track {
+      width: 100%;
+      height: 9px;
+      border-radius: 999px;
+      background: #1b1c1f;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      width: 0;
+      background: linear-gradient(90deg, #8d2638, #d74d4d 55%, #ffb1b1 100%);
+      transition: width 300ms ease;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: 1.3fr 0.7fr;
+      gap: 20px;
+      align-items: start;
+    }
+
+    .panel {
+      border: 1px solid var(--line);
+      background: var(--paper);
+      border-radius: 14px;
+      padding: 20px;
+      margin-bottom: 16px;
+      animation: reveal 500ms ease both;
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.28);
+    }
+
+    .panel h2 {
+      font-size: 34px;
+      margin-bottom: 8px;
+    }
+
+    .panel .sub {
+      font-size: 14px;
+      color: var(--muted);
+      margin-bottom: 16px;
+      line-height: 1.55;
+    }
+
+    .field {
+      margin-bottom: 14px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 6px;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.09em;
+      color: #f0e7da;
+      font-weight: 600;
+      font-family: "Space Mono", monospace;
+    }
+
+    textarea,
+    input[type="text"],
+    select {
+      width: 100%;
+      border-radius: 10px;
+      border: 1px solid #3a3a40;
+      background: #17171b;
+      color: var(--ink);
+      font-family: inherit;
+      font-size: 15px;
+      line-height: 1.5;
+      padding: 12px;
+      outline: none;
+    }
+
+    textarea {
+      min-height: 92px;
+      resize: vertical;
+    }
+
+    input:focus,
+    select:focus,
+    textarea:focus {
+      border-color: #d74d4d;
+      box-shadow: 0 0 0 3px rgba(215, 77, 77, 0.16);
+    }
+
+    .range-row {
+      border: 1px solid #33343a;
+      border-radius: 10px;
+      padding: 10px;
+      margin-bottom: 10px;
+      background: var(--card);
+    }
+
+    .range-top {
+      display: flex;
+      justify-content: space-between;
+      gap: 8px;
+      margin-bottom: 8px;
+      font-size: 13px;
+      color: #d6cabd;
+    }
+
+    input[type="range"] {
+      width: 100%;
+      accent-color: var(--accent);
+      cursor: pointer;
+    }
+
+    .tip {
+      border-left: 4px solid var(--accent);
+      background: #181217;
+      padding: 12px;
+      border-radius: 8px;
+      color: #dfd1c4;
+      font-size: 13px;
+      line-height: 1.55;
+      margin-top: 8px;
+    }
+
+    .mini-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .insight-card {
+      border: 1px solid #3a2930;
+      border-radius: 10px;
+      background: linear-gradient(180deg, rgba(111, 43, 53, 0.28) 0%, rgba(24, 18, 23, 0.9) 100%);
+      padding: 12px;
+      margin-top: 12px;
+    }
+
+    .insight-title {
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      font-size: 10px;
+      color: #ffb7b7;
+      margin-bottom: 6px;
+      font-weight: 600;
+    }
+
+    .insight-copy {
+      color: #efe2d6;
+      font-size: 13px;
+      line-height: 1.55;
+    }
+
+    .sample-note {
+      margin-top: 8px;
+      font-size: 12px;
+      color: #b9a99d;
+      line-height: 1.5;
+    }
+
+    .movie-example {
+      margin-top: 8px;
+      padding: 10px 12px;
+      border: 1px solid #62434b;
+      border-radius: 8px;
+      background: rgba(111, 43, 53, 0.3);
+      color: #f0e3d8;
+      font-size: 12px;
+      line-height: 1.6;
+      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.05);
+    }
+
+    .movie-example strong {
+      color: #ffb0b0;
+      font-family: "Space Mono", monospace;
+    }
+
+    .movie-example--nightmare {
+      border-color: #c55a67;
+      background: linear-gradient(180deg, rgba(140, 36, 53, 0.35) 0%, rgba(64, 26, 35, 0.35) 100%);
+    }
+
+    .appendix-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 14px;
+    }
+
+    .appendix-card {
+      border: 1px solid #33343a;
+      border-radius: 10px;
+      background: #121216;
+      padding: 14px;
+    }
+
+    .appendix-house {
+      font-family: "Space Mono", monospace;
+      font-size: 24px;
+      margin-bottom: 6px;
+    }
+
+    .appendix-tags {
+      font-size: 13px;
+      color: #d7cabf;
+      line-height: 1.6;
+    }
+
+    .sidebar {
+      position: sticky;
+      top: 14px;
+      display: grid;
+      gap: 14px;
+    }
+
+    .stat {
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: #111114;
+      padding: 16px;
+    }
+
+    .stat .kicker {
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      font-size: 10px;
+      color: #ffb7b7;
+      margin-bottom: 8px;
+      font-family: "Space Mono", monospace;
+    }
+
+    .score {
+      font-family: "Space Mono", monospace;
+      font-size: 54px;
+      color: var(--accent-2);
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+
+    .score-note {
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    .actions {
+      display: grid;
+      gap: 10px;
+    }
+
+    button {
+      border: none;
+      border-radius: 10px;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.13em;
+      padding: 14px 16px;
+      font-family: inherit;
+      cursor: pointer;
+      transition: transform 180ms ease, box-shadow 180ms ease, opacity 180ms ease;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #fff;
+      box-shadow: 0 8px 24px rgba(215, 77, 77, 0.28);
+    }
+
+    .btn-secondary {
+      background: #1b1b20;
+      color: #f1e8dc;
+    }
+
+    .btn-tertiary {
+      background: #25171b;
+      color: #ffd9d9;
+    }
+
+    button:hover {
+      transform: translateY(-1px);
+    }
+
+    .output {
+      margin-top: 14px;
+      border: 1px dashed #4b343b;
+      background: #0f0f12;
+      border-radius: 12px;
+      padding: 16px;
+      min-height: 130px;
+      white-space: pre-wrap;
+      line-height: 1.7;
+      font-size: 14px;
+    }
+
+    .warn {
+      color: var(--warning);
+      font-size: 12px;
+      margin-top: 10px;
+    }
+
+    @keyframes reveal {
+      from {
+        opacity: 0;
+        transform: translateY(8px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media (max-width: 980px) {
+      .layout {
+        grid-template-columns: 1fr;
+      }
+
+      .mini-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .appendix-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .sidebar {
+        position: relative;
+        top: 0;
+      }
+
+      .hero {
+        padding: 24px;
+      }
+
+      .toc-nav { display: none; }
+      .card-number { font-size: 48px; }
+      .cover-page { grid-template-columns: 1fr; padding-top: 22px; }
+      .brain-wrap { min-height: 300px; }
+      .brain-scene { width: 260px; height: 210px; }
+      .brain-figure { width: 220px; }
+      .toc-page { padding: 24px 16px; }
+      .page-gap { height: 36px; }
+    }
+
+    /* ── Floating hero spheres ───────────────────────────── */
+    .hero-sphere {
+      position: absolute;
+      border-radius: 50%;
+      pointer-events: none;
+      animation: floatSphere 8s ease-in-out infinite;
+    }
+    .hero-sphere--1 {
+      width: 220px;
+      height: 220px;
+      background: radial-gradient(circle at 35% 35%, rgba(215, 77, 77, 0.55), rgba(100, 22, 36, 0.05));
+      filter: blur(3px);
+      bottom: -70px;
+      left: -60px;
+      opacity: 0.26;
+      animation-duration: 7s;
+    }
+    .hero-sphere--2 {
+      width: 110px;
+      height: 110px;
+      background: radial-gradient(circle at 30% 30%, rgba(255, 180, 180, 0.5), rgba(180, 55, 72, 0.08));
+      filter: blur(2px);
+      top: 16px;
+      right: 80px;
+      opacity: 0.16;
+      animation-duration: 10s;
+      animation-delay: 1.4s;
+    }
+    @keyframes floatSphere {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-14px); }
+    }
+
+    /* ── Scroll hint ─────────────────────────────────────── */
+    .scroll-hint {
+      text-align: center;
+      margin-top: 18px;
+      font-family: "Space Mono", monospace;
+      font-size: 9px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: #3a3a40;
+      animation: pulseHint 2.6s ease-in-out infinite;
+    }
+    @keyframes pulseHint {
+      0%, 100% { opacity: 0.35; }
+      50% { opacity: 0.9; }
+    }
+
+    /* ── Sticky TOC nav bar (BG-workbook style) ──────────── */
+    .toc-nav {
+      background: rgba(5, 5, 5, 0.95);
+      border-bottom: 1px solid var(--line);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(14px);
+      margin-bottom: 20px;
+    }
+    .toc-nav-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      overflow-x: auto;
+      padding: 0 18px;
+    }
+    .toc-nav a {
+      text-decoration: none;
+      color: var(--muted);
+      font-family: "Space Mono", monospace;
+      font-size: 9px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      padding: 15px 14px;
+      white-space: nowrap;
+      border-bottom: 2px solid transparent;
+      transition: color 0.2s ease, border-color 0.2s ease;
+      display: inline-block;
+    }
+    .toc-nav a:hover {
+      color: var(--accent);
+      border-bottom-color: var(--accent);
+    }
+
+    .toc-page {
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: linear-gradient(180deg, rgba(11, 11, 13, 0.98) 0%, rgba(7, 7, 8, 0.98) 100%);
+      padding: 34px 28px;
+      margin: 0 0 24px;
+      box-shadow: 0 20px 58px rgba(0, 0, 0, 0.4);
+    }
+
+    .toc-title {
+      font-size: clamp(28px, 4vw, 46px);
+      margin: 4px 0 24px;
+      font-family: "Space Mono", monospace;
+      letter-spacing: -0.03em;
+    }
+
+    .toc-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      border-top: 1px solid #2e2e34;
+    }
+
+    .toc-list li {
+      border-bottom: 1px solid #2e2e34;
+    }
+
+    .toc-list a {
+      text-decoration: none;
+      display: flex;
+      justify-content: space-between;
+      gap: 14px;
+      color: #efe5d9;
+      padding: 14px 0;
+      font-size: 14px;
+      line-height: 1.45;
+      transition: color 180ms ease;
+    }
+
+    .toc-list a:hover {
+      color: var(--accent);
+    }
+
+    .toc-index {
+      font-family: "Space Mono", monospace;
+      color: #8c8d95;
+      min-width: 40px;
+      flex-shrink: 0;
+      display: inline-block;
+    }
+
+    .toc-copy {
+      color: #cfc5b8;
+      font-size: 12px;
+    }
+
+    .page-gap {
+      height: 46px;
+      margin: 10px 0 18px;
+      border-top: 1px dashed #37373e;
+      border-bottom: 1px dashed #37373e;
+      background:
+        linear-gradient(90deg, rgba(215, 77, 77, 0.06), transparent 35%, transparent 65%, rgba(215, 77, 77, 0.06)),
+        #0b0b0d;
+      border-radius: 10px;
+      position: relative;
+    }
+
+    .page-gap::before {
+      content: "Page Break";
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      font-family: "Space Mono", monospace;
+      font-size: 10px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #7f7f87;
+    }
+
+    /* ── Decorative step number (BG-workbook style) ──────── */
+    .section-header {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      margin-bottom: 10px;
+    }
+    .card-number {
+      font-family: "Space Mono", monospace;
+      font-size: 70px;
+      font-weight: 700;
+      color: var(--accent);
+      opacity: 0.22;
+      line-height: 1;
+      flex-shrink: 0;
+      margin-top: -4px;
+      letter-spacing: -0.04em;
+    }
+    .section-header-text { flex: 1; }
+    .section-header-text .eyebrow { margin-bottom: 2px; }
+    h2.step-title {
+      font-size: clamp(28px, 4.2vw, 48px);
+      margin-bottom: 0;
+    }
+
+    /* ── Compact h2 (Core Framework line) ───────────────── */
+    .h2-compact {
+      font-size: clamp(14px, 2.1vw, 21px) !important;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      margin-bottom: 0 !important;
+    }
+
+    /* ── Description text — italic for clarity ───────────── */
+    .panel .sub { font-style: italic; }
+
+    /* ── TIP badge injected via pseudo-element ───────────── */
+    .tip::before {
+      content: "TIP · ";
+      color: var(--accent);
+      font-family: "Space Mono", monospace;
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+    }
+
+    /* ── Dashed border = "fill me in" affordance ─────────── */
+    textarea,
+    input[type="text"] {
+      border: 1.5px dashed #484850;
+    }
+    textarea:focus,
+    input[type="text"]:focus {
+      border: 1.5px solid #d74d4d;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <section class="cover-page" id="cover">
+      <div class="cover-card">
+        <div class="cover-kicker">Pheydrus Workbook</div>
+        <h1 class="cover-title">Rewrite Your Past<br /><span class="cover-title-accent">Hero Identity Journey</span></h1>
+        <p class="cover-sub">
+          A guided process to convert old emotional loops into a coherent self-led narrative. Move from dream, through nightmare and obstacle,
+          into a new authored identity.
+        </p>
+        <div class="cover-meta">
+          <div class="cover-pill">4-Step Framework</div>
+          <div class="cover-pill">Nervous System Lens</div>
+          <div class="cover-pill">Neptune Blindspots</div>
+        </div>
+      </div>
+      <div class="brain-wrap" aria-hidden="true">
+        <div class="brain-scene">
+          <svg class="brain-figure" viewBox="0 0 320 230" role="img" aria-label="Rotating wireframe brain">
+            <path class="brain-wire brain-outline" d="M38 124 C28 102, 30 78, 45 60 C62 40, 84 36, 104 44 C122 24, 153 21, 178 34 C194 30, 217 34, 232 50 C252 51, 270 64, 278 84 C292 100, 294 124, 280 144 C279 164, 265 182, 243 189 C224 203, 198 205, 174 198 C152 206, 128 202, 107 190 C86 190, 66 179, 53 163 C38 154, 31 141, 38 124 Z" />
+            <path class="brain-wire brain-stem" d="M149 180 C155 193, 157 206, 151 219 C146 226, 136 223, 136 214 C137 200, 143 190, 149 180 Z" />
+
+            <path class="brain-wire brain-fold" d="M60 117 C78 102, 103 102, 123 112 C143 121, 163 119, 182 109 C204 96, 228 96, 250 108" />
+            <path class="brain-wire brain-fold" d="M67 88 C84 74, 106 74, 123 84 C142 93, 163 92, 184 83 C207 73, 232 77, 249 91" />
+            <path class="brain-wire brain-fold" d="M78 64 C94 53, 113 54, 128 63 C145 72, 164 72, 181 64 C199 55, 219 57, 234 69" />
+            <path class="brain-wire brain-fold" d="M72 145 C90 134, 114 134, 132 143 C152 152, 174 151, 194 143 C215 134, 237 136, 254 147" />
+            <path class="brain-wire brain-fold" d="M92 169 C110 160, 131 161, 148 168 C165 175, 184 175, 202 169 C219 163, 235 164, 248 171" />
+
+            <path class="brain-wire brain-fine" d="M98 49 C110 58, 119 69, 120 83" />
+            <path class="brain-wire brain-fine" d="M132 40 C145 52, 154 65, 154 80" />
+            <path class="brain-wire brain-fine" d="M166 37 C178 49, 186 62, 186 78" />
+            <path class="brain-wire brain-fine" d="M201 44 C212 56, 219 68, 219 83" />
+            <path class="brain-wire brain-fine" d="M230 59 C240 71, 244 82, 242 96" />
+
+            <path class="brain-wire brain-fine" d="M78 110 C89 119, 97 130, 100 143" />
+            <path class="brain-wire brain-fine" d="M112 110 C123 121, 130 131, 132 145" />
+            <path class="brain-wire brain-fine" d="M146 112 C157 124, 163 133, 164 147" />
+            <path class="brain-wire brain-fine" d="M178 109 C189 120, 196 131, 197 145" />
+            <path class="brain-wire brain-fine" d="M211 110 C222 120, 229 132, 229 146" />
+
+            <path class="brain-wire brain-fine" d="M88 165 C102 175, 119 181, 136 184" />
+            <path class="brain-wire brain-fine" d="M132 168 C145 177, 160 183, 176 186" />
+            <path class="brain-wire brain-fine" d="M176 168 C189 177, 204 181, 219 182" />
+          </svg>
+        </div>
+        <div class="brain-label">Rotating Wireframe Brain</div>
+      </div>
+    </section>
+
+    <div class="page">
+    <section class="toc-page" id="toc">
+      <div class="eyebrow">Table of Contents</div>
+      <h2 class="toc-title">What's Inside</h2>
+      <ul class="toc-list">
+        <li><a href="#framework"><span><span class="toc-index">00</span> Core Framework<div class="toc-copy">Limbic -> Nervous -> Heart Signal baseline</div></span><span>→</span></a></li>
+        <li><a href="#step1"><span><span class="toc-index">01</span> Dream<div class="toc-copy">Define your call and identity-level why</div></span><span>→</span></a></li>
+        <li><a href="#step2"><span><span class="toc-index">02</span> Nightmare<div class="toc-copy">Name your wound/fear pattern (Batman example included)</div></span><span>→</span></a></li>
+        <li><a href="#step3"><span><span class="toc-index">03</span> Obstacle<div class="toc-copy">Identify trigger loops and response shifts</div></span><span>→</span></a></li>
+        <li><a href="#step4"><span><span class="toc-index">04</span> New Dream<div class="toc-copy">Extract meaning and set your next move</div></span><span>→</span></a></li>
+        <li><a href="#neptune"><span><span class="toc-index">05</span> Neptune Reflection<div class="toc-copy">Locate fantasy, projection, and blindspots</div></span><span>→</span></a></li>
+        <li><a href="#appendix"><span><span class="toc-index">06</span> Neptune Appendix<div class="toc-copy">12-house keyword quick reference</div></span><span>→</span></a></li>
+        <li><a href="#summarySection"><span><span class="toc-index">07</span> Identity Shift Summary<div class="toc-copy">Generate, save, and download your final report</div></span><span>→</span></a></li>
+      </ul>
+    </section>
+
+    <section class="hero">
+      <div class="hero-sphere hero-sphere--1"></div>
+      <div class="hero-sphere hero-sphere--2"></div>
+      <h1>4 Steps to Re-Writing Your Past</h1>
+      <p>
+        This workbook is about becoming the hero of your own life in a world that no longer rewards passivity. In this new fire era,
+        the people who move forward are the ones who stop waiting to be rescued, stop outsourcing meaning, and start authoring their own story.
+        That shift does not start with willpower. It starts in the limbic brain, where meaning gets assigned, safety or threat gets coded,
+        and your nervous system decides whether you contract or move. These prompts are here to help you turn old pain into authorship,
+        so your inner story, your emotional state, and your next actions finally point in the same direction.
+      </p>
+      <div class="progress-wrap">
+        <div class="progress-row">
+          <span>Completion</span>
+          <span id="progressLabel">0%</span>
+        </div>
+        <div class="progress-track">
+          <div class="progress-fill" id="progressFill"></div>
+        </div>
+      </div>
+      <div class="scroll-hint">↓ scroll to begin</div>
+    </section>
+
+    <nav class="toc-nav">
+      <div class="toc-nav-inner">
+        <a href="#cover">Cover</a>
+        <a href="#toc">Contents</a>
+        <a href="#framework">Framework</a>
+        <a href="#step1">01 · Dream</a>
+        <a href="#step2">02 · Nightmare</a>
+        <a href="#step3">03 · Obstacle</a>
+        <a href="#step4">04 · New Dream</a>
+        <a href="#neptune">Neptune</a>
+        <a href="#appendix">Appendix</a>
+        <a href="#summarySection">Summary</a>
+      </div>
+    </nav>
+
+    <div class="layout">
+      <section>
+        <article class="panel" id="framework">
+          <div class="eyebrow">Core Framework</div>
+          <h2 class="h2-compact">Limbic → Nervous → Heart Signal</h2>
+          <p class="sub">Think of this as the emotional chain reaction underneath your life. The story you tell yourself gives your limbic brain a meaning. That meaning tells your body whether life feels safe or threatening. Your nervous system then reacts from that code, and that reaction shapes the signal you bring into relationships, work, visibility, and decision-making. Change the meaning, and you begin changing the pattern.</p>
+          <div class="field">
+            <label for="knownZone">What "known" zone are you currently clinging to?</label>
+            <textarea id="knownZone" placeholder="Describe your current comfort pattern that feels safe but keeps you stuck."></textarea>
+          </div>
+          <div class="mini-grid">
+            <div class="field">
+              <label for="safetyResponse">Default nervous system response</label>
+              <select id="safetyResponse">
+                <option value="Freeze">Freeze</option>
+                <option value="Fight">Fight</option>
+                <option value="Flight">Flight</option>
+                <option value="Fawn">Fawn</option>
+                <option value="Regulate">Regulate</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="selfLedShift">Self-led shift from passive to author</label>
+              <input id="selfLedShift" type="text" placeholder="One new behavior proving sovereignty this week." />
+              <div id="selfLedShiftSample" class="sample-note">Choose your nervous-system pattern to generate a sample author move.</div>
+            </div>
+          </div>
+          <div class="insight-card">
+            <div class="insight-title">Slide Anchor</div>
+            <div class="insight-copy">Real change happens when you move from the known into the unknown, from safety-seeking into sovereignty, and from passively reacting to consciously authoring your next scene.</div>
+          </div>
+        </article>
+
+        <div class="page-gap" aria-hidden="true"></div>
+
+        <article class="panel" id="step1">
+          <div class="section-header">
+            <div class="card-number">01</div>
+            <div class="section-header-text">
+              <div class="eyebrow">Step</div>
+              <h2 class="step-title">Dream</h2>
+            </div>
+          </div>
+          <p class="sub">Define what you are called to build without attachment to outcome.</p>
+          <div class="field">
+            <label for="dream">What is your dream?</label>
+            <textarea id="dream" placeholder="Describe the dream in one vivid paragraph."></textarea>
+          </div>
+          <div class="field">
+            <label for="dreamWhy">Why does this dream matter at an identity level?</label>
+            <textarea id="dreamWhy" placeholder="Who do you become if you live this dream for 3 years?"></textarea>
+          </div>
+          <div class="field">
+            <label for="dreamSignal">How will you know you're answering the call this week?</label>
+            <input id="dreamSignal" type="text" placeholder="One measurable signal (example: publish 2 posts, make 3 offers)." />
+          </div>
+          <div class="field">
+            <label for="movieOpening">Movie question: what is your opening scene?</label>
+            <textarea id="movieOpening" placeholder="If your life was a film, what image or scene captures your current chapter?"></textarea>
+            <div class="movie-example"><strong>💡 Example:</strong> Batman's dream scene is not just "stop crime." It is the moment Bruce decides Gotham does not get to define him through tragedy. The dream is becoming a symbol strong enough to transform fear into purpose.</div>
+          </div>
+          <div class="range-row">
+            <div class="range-top"><span>Dream clarity</span><span id="dreamClarityVal">5</span></div>
+            <input id="dreamClarity" type="range" min="1" max="10" value="5" />
+          </div>
+          <div class="range-row">
+            <div class="range-top"><span>Commitment level</span><span id="dreamCommitVal">5</span></div>
+            <input id="dreamCommit" type="range" min="1" max="10" value="5" />
+          </div>
+          <div class="tip">Growth mindset: I will pursue this whole-heartedly without attaching to outcome.</div>
+        </article>
+
+        <article class="panel" id="step2">
+          <div class="section-header">
+            <div class="card-number">02</div>
+            <div class="section-header-text">
+              <div class="eyebrow">Step</div>
+              <h2 class="step-title">Nightmare</h2>
+            </div>
+          </div>
+          <p class="sub">Name the fear pattern or wound that blocks your start.</p>
+          <div class="field">
+            <label for="nightmare">What nightmare is preventing you from starting?</label>
+            <textarea id="nightmare" placeholder="What are you afraid will happen if you fully commit?"></textarea>
+            <div class="movie-example movie-example--nightmare"><strong>💡 Batman Nightmare Example:</strong> Batman's nightmare is that grief and rage will consume him and turn him into the very chaos he fights. The wound beneath the mask is abandonment and loss: the fear that loving something means losing it. Every time he isolates, the nightmare runs the show.</div>
+          </div>
+          <div class="mini-grid">
+            <div class="field">
+              <label for="nightmareStory">Old story sentence</label>
+              <input id="nightmareStory" type="text" placeholder="The old narrative in one sentence." />
+            </div>
+            <div class="field">
+              <label for="nightmareBody">Where do you feel it in your body?</label>
+              <input id="nightmareBody" type="text" placeholder="Chest, throat, stomach, jaw, etc." />
+            </div>
+          </div>
+          <div class="range-row">
+            <div class="range-top"><span>Fear intensity</span><span id="fearIntensityVal">5</span></div>
+            <input id="fearIntensity" type="range" min="1" max="10" value="5" />
+          </div>
+          <div class="field">
+            <label for="nightmarePattern">Dominant pattern</label>
+            <select id="nightmarePattern">
+              <option value="Avoidance">Avoidance</option>
+              <option value="Perfectionism">Perfectionism</option>
+              <option value="People-pleasing">People-pleasing</option>
+              <option value="Doubt spiral">Doubt spiral</option>
+              <option value="Control">Control</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="soulWound">Which wound theme feels most active right now?</label>
+            <select id="soulWound">
+              <option value="Rejection">Rejection</option>
+              <option value="Abandonment">Abandonment</option>
+              <option value="Betrayal">Betrayal</option>
+              <option value="Humiliation">Humiliation</option>
+              <option value="Injustice">Injustice</option>
+              <option value="Mental illness or depression">Mental illness or depression</option>
+              <option value="Poverty">Poverty</option>
+              <option value="Violence">Violence</option>
+              <option value="Addiction">Addiction</option>
+              <option value="Physical handicap">Physical handicap</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="woundStory">How does this wound theme show up in your decisions?</label>
+            <textarea id="woundStory" placeholder="Describe the recurring wound pattern and the cost it creates."></textarea>
+          </div>
+          <div class="tip">Growth mindset: I am going to acquire all the skills necessary to achieve this.</div>
+        </article>
+
+        <div class="page-gap" aria-hidden="true"></div>
+
+        <article class="panel" id="step3">
+          <div class="section-header">
+            <div class="card-number">03</div>
+            <div class="section-header-text">
+              <div class="eyebrow">Step</div>
+              <h2 class="step-title">Obstacle</h2>
+            </div>
+          </div>
+          <p class="sub">Identify what makes you give up, shut down, or blame others.</p>
+          <div class="field">
+            <label for="obstacle">What obstacle keeps interrupting your momentum?</label>
+            <textarea id="obstacle" placeholder="Name the recurring obstacle and how it shows up."></textarea>
+          </div>
+          <div class="field">
+            <label for="obstacleTrigger">What is the trigger that usually starts this loop?</label>
+            <input id="obstacleTrigger" type="text" placeholder="Example: rejection, silence, uncertainty, money pressure." />
+          </div>
+          <div class="field">
+            <label for="obstacleResponse">What will your new response be in 1 sentence?</label>
+            <input id="obstacleResponse" type="text" placeholder="When X happens, I will do Y within 24 hours." />
+          </div>
+          <div class="field">
+            <label for="movieMidpoint">Movie question: what is your midpoint crisis scene?</label>
+            <textarea id="movieMidpoint" placeholder="What scene captures your challenge point where old coping no longer works?"></textarea>
+            <div class="movie-example"><strong>💡 Example:</strong> Batman's nightmare and obstacle show up when grief, rage, and isolation threaten to turn him into the very thing he is fighting. The midpoint is the scene where pain could harden him into vengeance instead of refining him into leadership.</div>
+          </div>
+          <div class="range-row">
+            <div class="range-top"><span>Obstacle pressure</span><span id="obstaclePressureVal">5</span></div>
+            <input id="obstaclePressure" type="range" min="1" max="10" value="5" />
+          </div>
+          <div class="range-row">
+            <div class="range-top"><span>Self-responsibility</span><span id="ownershipVal">5</span></div>
+            <input id="ownership" type="range" min="1" max="10" value="5" />
+          </div>
+          <div class="tip">Transmute emotion: I did not come this far to stop now.</div>
+        </article>
+
+        <div class="page-gap" aria-hidden="true"></div>
+
+        <article class="panel" id="step4">
+          <div class="section-header">
+            <div class="card-number">04</div>
+            <div class="section-header-text">
+              <div class="eyebrow">Step</div>
+              <h2 class="step-title">New Dream</h2>
+            </div>
+          </div>
+          <p class="sub">Extract meaning from the path and set the next identity-level goal.</p>
+          <div class="field">
+            <label for="newDream">What new dream, paradigm, or path is emerging?</label>
+            <textarea id="newDream" placeholder="What new dream are you now willing to claim?"></textarea>
+          </div>
+          <div class="field">
+            <label for="newDreamAction">What is your first brave move in the next 72 hours?</label>
+            <input id="newDreamAction" type="text" placeholder="Example: publish the offer, ask for support, launch the beta." />
+          </div>
+          <div class="field">
+            <label for="movieFinale">Movie question: what does your ending scene look like 12 months from now?</label>
+            <textarea id="movieFinale" placeholder="Describe the scene that proves your new identity is embodied."></textarea>
+            <div class="movie-example"><strong>💡 Example:</strong> Batman's new-dream ending is the version of Bruce who no longer lives only as a wounded survivor. He becomes an author of order, protection, and meaning. The final scene proves he can hold power without being ruled by pain.</div>
+          </div>
+          <div class="field">
+            <label for="meaning">Choose your meaning statement</label>
+            <input id="meaning" type="text" placeholder="This had to happen so that I can unlock..." />
+          </div>
+          <div class="range-row">
+            <div class="range-top"><span>Belief in new dream</span><span id="beliefVal">5</span></div>
+            <input id="belief" type="range" min="1" max="10" value="5" />
+          </div>
+        </article>
+
+        <div class="page-gap" aria-hidden="true"></div>
+
+        <article class="panel" id="neptune">
+          <div class="eyebrow">Neptune + Blindspots</div>
+          <h2>Natal Neptune Reflection</h2>
+          <p class="sub">Use your natal Neptune house as a blindspot lens. Example: Neptune in 5th or 7th can create fantasy/fog in romance and projections in partnership.</p>
+          <div class="mini-grid">
+            <div class="field">
+              <label for="neptuneHouse">Your natal Neptune house</label>
+              <select id="neptuneHouse">
+                <option value="1st">1st House</option>
+                <option value="2nd">2nd House</option>
+                <option value="3rd">3rd House</option>
+                <option value="4th">4th House</option>
+                <option value="5th">5th House</option>
+                <option value="6th">6th House</option>
+                <option value="7th">7th House</option>
+                <option value="8th">8th House</option>
+                <option value="9th">9th House</option>
+                <option value="10th">10th House</option>
+                <option value="11th">11th House</option>
+                <option value="12th">12th House</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="neptuneTheme">Where do blindspots show most?</label>
+              <input id="neptuneTheme" type="text" placeholder="Romance, money, purpose, boundaries, career, identity..." />
+            </div>
+          </div>
+          <div class="field">
+            <label for="neptuneQuestion">Where are you idealizing or avoiding reality in this area?</label>
+            <textarea id="neptuneQuestion" placeholder="Name the fantasy, projection, or fog that keeps repeating."></textarea>
+          </div>
+          <div class="insight-card">
+            <div class="insight-title">Presentation Anchor</div>
+            <div class="insight-copy">Dream can hide blindspots. Nightmare can expose wounds. Meaning-making plus self-awareness creates a coherent heart signal.</div>
+          </div>
+        </article>
+
+        <div class="page-gap" aria-hidden="true"></div>
+
+        <article class="panel" id="appendix">
+          <div class="eyebrow">Neptune Appendix</div>
+          <h2>Neptune Keywords for All 12 Houses</h2>
+          <p class="sub">Use this as a quick-reference guide when you are trying to locate where fantasy, projection, idealization, porous boundaries, or spiritual longing may show up most strongly.</p>
+          <div class="appendix-grid">
+            <div class="appendix-card"><div class="appendix-house">1st House</div><div class="appendix-tags">Identity, self-image, projection, sensitivity, persona, shapeshifting, confusion around self, spiritual presence.</div></div>
+            <div class="appendix-card"><div class="appendix-house">2nd House</div><div class="appendix-tags">Money, worth, values, scarcity, over-giving, blurred pricing, self-esteem, material idealism.</div></div>
+            <div class="appendix-card"><div class="appendix-house">3rd House</div><div class="appendix-tags">Voice, siblings, communication, storytelling, mental fog, intuition, learning style, misunderstood messages.</div></div>
+            <div class="appendix-card"><div class="appendix-house">4th House</div><div class="appendix-tags">Home, mother line, roots, belonging, family myths, emotional absorption, private grief, sanctuary.</div></div>
+            <div class="appendix-card"><div class="appendix-house">5th House</div><div class="appendix-tags">Romance, creativity, visibility, dating fantasy, longing, performance, pleasure, idealized love.</div></div>
+            <div class="appendix-card"><div class="appendix-house">6th House</div><div class="appendix-tags">Work, routine, health, burnout, service, sacrifice, rescuing, porous boundaries in daily life.</div></div>
+            <div class="appendix-card"><div class="appendix-house">7th House</div><div class="appendix-tags">Partnership, projection, savior dynamics, mirroring, devotion, disappointment, romance blindspots, contracts.</div></div>
+            <div class="appendix-card"><div class="appendix-house">8th House</div><div class="appendix-tags">Intimacy, merging, taboo, trust, shared resources, psychic bonds, secrecy, entanglement.</div></div>
+            <div class="appendix-card"><div class="appendix-house">9th House</div><div class="appendix-tags">Belief, spirituality, gurus, truth, higher meaning, escapism through philosophy, pilgrimage, faith.</div></div>
+            <div class="appendix-card"><div class="appendix-house">10th House</div><div class="appendix-tags">Career, reputation, public image, vocation, calling, idealized success, visibility, sacrifice in ambition.</div></div>
+            <div class="appendix-card"><div class="appendix-house">11th House</div><div class="appendix-tags">Community, friendship, audience, collective dreams, belonging, online projection, idealized future, social hope.</div></div>
+            <div class="appendix-card"><div class="appendix-house">12th House</div><div class="appendix-tags">Subconscious, grief, endings, mysticism, isolation, hidden pain, surrender, collective emotion, spiritual dissolution.</div></div>
+          </div>
+        </article>
+
+        <article class="panel" id="summarySection">
+          <div class="eyebrow">Calculator Output</div>
+          <h2>Identity Shift Summary</h2>
+          <p class="sub">Click generate to produce your Hero coherence score and reframed arc.</p>
+          <div class="actions">
+            <button id="generateBtn" class="btn-primary" type="button">Generate Summary</button>
+            <button id="saveBtn" class="btn-secondary" type="button">Save Progress</button>
+            <button id="downloadBtn" class="btn-tertiary" type="button">Download Summary</button>
+          </div>
+          <div id="warn" class="warn"></div>
+          <div id="output" class="output">Your generated summary will appear here.</div>
+        </article>
+      </section>
+
+      <aside class="sidebar">
+        <div class="stat">
+          <div class="kicker">Hero Coherence Score</div>
+          <div id="heroScore" class="score">0</div>
+          <div id="heroBand" class="score-note">Start filling the workbook to calculate your score.</div>
+        </div>
+        <div class="stat">
+          <div class="kicker">Transmutation Formula</div>
+          <div class="score-note">
+            Dream -> Nightmare -> Obstacle -> New Dream
+            <br /><br />
+            Meaning over outcome.
+            <br />
+            Ownership over blame.
+            <br />
+            Direction over drift.
+          </div>
+        </div>
+        <div class="stat">
+          <div class="kicker">Limbic Sequence</div>
+          <div class="score-note">
+            Limbic meaning
+            <br /><br />
+            -> safety or threat coding
+            <br /><br />
+            -> nervous system regulate or react
+            <br /><br />
+            -> coherent or incoherent heart signal
+            <br /><br />
+            -> manifestation pattern.
+          </div>
+        </div>
+      </aside>
+    </div>
+    </div>
+  </main>
+
+  <script>
+    const ids = [
+      "dream",
+      "knownZone",
+      "safetyResponse",
+      "selfLedShift",
+      "dreamWhy",
+      "dreamSignal",
+      "movieOpening",
+      "dreamClarity",
+      "dreamCommit",
+      "nightmare",
+      "nightmareStory",
+      "nightmareBody",
+      "fearIntensity",
+      "nightmarePattern",
+      "soulWound",
+      "woundStory",
+      "obstacle",
+      "obstacleTrigger",
+      "obstacleResponse",
+      "movieMidpoint",
+      "obstaclePressure",
+      "ownership",
+      "newDream",
+      "newDreamAction",
+      "movieFinale",
+      "meaning",
+      "belief",
+      "neptuneHouse",
+      "neptuneTheme",
+      "neptuneQuestion"
+    ];
+
+    const rangeIds = ["dreamClarity", "dreamCommit", "fearIntensity", "obstaclePressure", "ownership", "belief"];
+
+    const dom = Object.fromEntries(ids.map((id) => [id, document.getElementById(id)]));
+    const outputEl = document.getElementById("output");
+    const warnEl = document.getElementById("warn");
+    const heroScoreEl = document.getElementById("heroScore");
+    const heroBandEl = document.getElementById("heroBand");
+    const progressFillEl = document.getElementById("progressFill");
+    const progressLabelEl = document.getElementById("progressLabel");
+    const selfLedShiftSampleEl = document.getElementById("selfLedShiftSample");
+
+    const responseSamples = {
+      Freeze: "When I notice myself freezing, I will choose one small visible action within 10 minutes so my body learns that movement is safer than shutdown.",
+      Fight: "When I feel activated and combative, I will pause, regulate, and redirect that fire into one courageous action instead of burning the bridge.",
+      Flight: "When I want to run, distract, or disappear, I will stay with the task for 15 more minutes and complete the next concrete step.",
+      Fawn: "When I want to shape-shift for approval, I will tell the truth clearly and make one choice that honors my own needs first.",
+      Regulate: "When I feel grounded, I will use that stability to lead, make the decision, and follow through before doubt rewrites the moment."
+    };
+
+    function updateRangeBadges() {
+      rangeIds.forEach((id) => {
+        const badge = document.getElementById(id + "Val");
+        if (badge) badge.textContent = dom[id].value;
+      });
+    }
+
+    function getFormData() {
+      return Object.fromEntries(ids.map((id) => [id, dom[id].value]));
+    }
+
+    function updateSelfLedShiftSample() {
+      const sample = responseSamples[dom.safetyResponse.value] || "";
+      selfLedShiftSampleEl.textContent = "Sample answer: " + sample;
+      const current = dom.selfLedShift.value.trim();
+      const sampleValues = Object.values(responseSamples);
+      if (!current || sampleValues.includes(current)) {
+        dom.selfLedShift.value = sample;
+      }
+    }
+
+    function calculateScore(data) {
+      const clarity = (Number(data.dreamClarity) + Number(data.dreamCommit)) / 2;
+      const resilience = (10 - Number(data.fearIntensity) + Number(data.ownership) + (data.obstacleResponse.trim() ? 2 : 0)) / 2;
+      const momentum = (10 - Number(data.obstaclePressure) + Number(data.belief) + (data.newDreamAction.trim() ? 2 : 0)) / 2;
+      const narrativeDepth =
+        (data.dreamWhy.trim() ? 1 : 0) +
+        (data.nightmareStory.trim() ? 1 : 0) +
+        (data.meaning.trim() ? 1 : 0) +
+        (data.woundStory.trim() ? 1 : 0) +
+        (data.neptuneQuestion.trim() ? 1 : 0);
+      const total = Math.round((clarity * 0.3 + resilience * 0.3 + momentum * 0.3 + narrativeDepth * 0.1) * 10);
+      return Math.max(0, Math.min(100, total));
+    }
+
+    function scoreBand(score) {
+      if (score < 40) return "Reorientation phase: your story is still threat-coded. Focus on naming your dream and choosing one meaning statement.";
+      if (score < 70) return "Activation phase: your narrative is shifting from fear to ownership. Keep building consistency.";
+      return "Author phase: strong coherence and self-leadership. You are operating from identity-level commitment.";
+    }
+
+    function completionPercent(data) {
+      const textFields = [
+        "knownZone",
+        "selfLedShift",
+        "dream",
+        "dreamWhy",
+        "dreamSignal",
+        "movieOpening",
+        "nightmare",
+        "nightmareStory",
+        "woundStory",
+        "obstacle",
+        "obstacleResponse",
+        "movieMidpoint",
+        "newDream",
+        "newDreamAction",
+        "movieFinale",
+        "meaning",
+        "neptuneTheme",
+        "neptuneQuestion"
+      ];
+      const completed = textFields.filter((id) => String(data[id] || "").trim().length > 0).length;
+      return Math.round((completed / textFields.length) * 100);
+    }
+
+    function buildSummary(data, score) {
+      const commitLine = "I will pursue this whole-heartedly without attaching to outcome.";
+      const skillLine = "I am going to acquire all the skills necessary to achieve this.";
+      const emotionLine = "I did not come this far to stop now.";
+      const meaning = data.meaning.trim() || "This had to happen so that I can unlock a new paradigm.";
+
+      return [
+        "Rewrite Your Past | Identity Shift Summary",
+        "",
+        "0) Nervous System Baseline",
+        "Known zone: " + (data.knownZone.trim() || "[Add known zone]"),
+        "Safety response: " + data.safetyResponse,
+        "Self-led shift: " + (data.selfLedShift.trim() || "[Add self-led shift]"),
+        "",
+        "1) Dream",
+        data.dream.trim() || "[Add your dream]",
+        "Identity why: " + (data.dreamWhy.trim() || "[Add identity why]"),
+        "Weekly signal: " + (data.dreamSignal.trim() || "[Add weekly signal]"),
+        "Movie opening: " + (data.movieOpening.trim() || "[Add opening scene]"),
+        "Commitment statement: " + commitLine,
+        "",
+        "2) Nightmare",
+        data.nightmare.trim() || "[Add your nightmare]",
+        "Old story: " + (data.nightmareStory.trim() || "[Add old story sentence]"),
+        "Body location: " + (data.nightmareBody.trim() || "[Add body location]"),
+        "Pattern: " + data.nightmarePattern,
+        "Soul wound theme: " + data.soulWound,
+        "Wound pattern: " + (data.woundStory.trim() || "[Add wound pattern]"),
+        "Growth statement: " + skillLine,
+        "",
+        "3) Obstacle",
+        data.obstacle.trim() || "[Add your obstacle]",
+        "Trigger: " + (data.obstacleTrigger.trim() || "[Add trigger]"),
+        "New response: " + (data.obstacleResponse.trim() || "[Add response sentence]"),
+        "Movie midpoint: " + (data.movieMidpoint.trim() || "[Add midpoint scene]"),
+        "Transmute statement: " + emotionLine,
+        "",
+        "4) New Dream",
+        data.newDream.trim() || "[Add your new dream]",
+        "72-hour move: " + (data.newDreamAction.trim() || "[Add 72-hour move]"),
+        "Movie finale: " + (data.movieFinale.trim() || "[Add ending scene]"),
+        "Meaning statement: " + meaning,
+        "",
+        "Neptune Blindspot Lens",
+        "Natal Neptune house: " + data.neptuneHouse,
+        "Blindspot theme: " + (data.neptuneTheme.trim() || "[Add blindspot theme]"),
+        "Reality check: " + (data.neptuneQuestion.trim() || "[Add reality check]"),
+        "",
+        "Hero Coherence Score: " + score + "/100",
+        "Status: " + scoreBand(score),
+        "",
+        "Next micro-action (24 hours):",
+        "Write one paragraph that links your nightmare and obstacle to the new dream using causal language: because, this led to, now I choose."
+      ].join("\n");
+    }
+
+    function refreshProgress() {
+      const data = getFormData();
+      const pct = completionPercent(data);
+      progressFillEl.style.width = pct + "%";
+      progressLabelEl.textContent = pct + "%";
+      updateRangeBadges();
+    }
+
+    function saveProgress() {
+      localStorage.setItem("hjRewritePastWorkbook", JSON.stringify(getFormData()));
+      warnEl.textContent = "Progress saved locally in this browser.";
+      setTimeout(() => {
+        warnEl.textContent = "";
+      }, 2200);
+    }
+
+    function loadProgress() {
+      const raw = localStorage.getItem("hjRewritePastWorkbook");
+      if (!raw) return;
+
+      try {
+        const data = JSON.parse(raw);
+        ids.forEach((id) => {
+          if (data[id] !== undefined) dom[id].value = data[id];
+        });
+      } catch (_err) {
+        // Ignore invalid local storage payload.
+      }
+    }
+
+    function generateSummary() {
+      const data = getFormData();
+      const required = [
+        "knownZone",
+        "selfLedShift",
+        "dream",
+        "dreamWhy",
+        "nightmare",
+        "woundStory",
+        "obstacle",
+        "newDream",
+        "newDreamAction",
+        "neptuneQuestion"
+      ];
+      const missing = required.filter((k) => !String(data[k] || "").trim());
+
+      if (missing.length > 0) {
+        warnEl.textContent = "Please fill the core prompts (nervous-system baseline, dream, nightmare+soul wound, obstacle, new dream, and Neptune reality-check) before generating.";
+        return;
+      }
+
+      warnEl.textContent = "";
+      const score = calculateScore(data);
+      heroScoreEl.textContent = String(score);
+      heroBandEl.textContent = scoreBand(score);
+      outputEl.textContent = buildSummary(data, score);
+    }
+
+    function downloadSummary() {
+      const text = outputEl.textContent || "Generate summary first.";
+      const blob = new Blob([text], { type: "text/plain;charset=utf-8" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "hj-rewrite-your-past-summary.txt";
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      URL.revokeObjectURL(url);
+    }
+
+    ids.forEach((id) => {
+      dom[id].addEventListener("input", refreshProgress);
+      dom[id].addEventListener("change", refreshProgress);
+    });
+
+    dom.safetyResponse.addEventListener("change", () => {
+      updateSelfLedShiftSample();
+      refreshProgress();
+    });
+
+    document.getElementById("saveBtn").addEventListener("click", saveProgress);
+    document.getElementById("generateBtn").addEventListener("click", generateSummary);
+    document.getElementById("downloadBtn").addEventListener("click", downloadSummary);
+
+    loadProgress();
+    updateSelfLedShiftSample();
+    refreshProgress();
+  </script>
+</body>
+</html>
