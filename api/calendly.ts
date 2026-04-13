@@ -81,7 +81,7 @@ async function addToFlodesk(name: string, email: string): Promise<void> {
 
   const body: Record<string, unknown> = { email, first_name: firstName, last_name: lastName };
   const segmentId = process.env.FLODESK_SEGMENT_ID;
-  if (segmentId) body['segments'] = [{ id: segmentId }];
+  if (segmentId) body['segment_ids'] = [segmentId];
 
   const res = await fetch('https://api.flodesk.com/v1/subscribers', {
     method: 'POST',

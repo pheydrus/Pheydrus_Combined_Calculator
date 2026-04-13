@@ -159,7 +159,7 @@ async function addToFlodesk(
 
   const { id: segmentId, source: segmentSource } = getCalculatorUsedSegmentConfig();
   const body: Record<string, unknown> = { email, first_name: firstName, last_name: lastName };
-  if (segmentId) body['segments'] = [{ id: segmentId }];
+  if (segmentId) body['segment_ids'] = [segmentId];
 
   if (segmentId && segmentSource) {
     console.info(
