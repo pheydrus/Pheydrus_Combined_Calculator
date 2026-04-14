@@ -1,4 +1,4 @@
-import { defineConfig } from 'vite';
+import { defineConfig, loadEnv } from 'vite';
 import react from '@vitejs/plugin-react';
 import tailwindcss from '@tailwindcss/vite';
 import path from 'path';
@@ -8,11 +8,97 @@ import type { IncomingMessage, ServerResponse } from 'http';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
-// Vite plugin: serves /api/workbook-pdf using Puppeteer during dev
-function workbookPdfPlugin(): Plugin {
+function readBody(req: IncomingMessage): Promise<string> {
+  return new Promise((resolve) => {
+    let body = '';
+    req.on('data', (chunk: Buffer) => { body += chunk.toString(); });
+    req.on('end', () => resolve(body));
+  });
+}
+
+// Vite plugin: serves /api/workbook-pdf (Puppeteer) and
+//              /api/submit-profile (Notion) during dev
+function workbookPdfPlugin(env: Record<string, string>): Plugin {
   return {
     name: 'workbook-pdf',
     configureServer(server: ViteDevServer) {
+
+      // ── Notion profile submission ──────────────────────────────────────
+      server.middlewares.use(
+        '/api/submit-profile',
+        async (req: IncomingMessage, res: ServerResponse) => {
+          res.setHeader('Content-Type', 'application/json');
+          if (req.method !== 'POST') {
+            res.statusCode = 405;
+            res.end(JSON.stringify({ error: 'Method not allowed' }));
+            return;
+          }
+
+          try {
+            const body = await readBody(req);
+            const { firstName, lastName, email } = JSON.parse(body) as {
+              firstName?: string; lastName?: string; email?: string;
+            };
+
+            if (!firstName || !lastName || !email) {
+              res.statusCode = 400;
+              res.end(JSON.stringify({ error: 'firstName, lastName and email are required' }));
+              return;
+            }
+
+            const apiKey = env.NOTION_API_KEY;
+            const dbId   = env.NOTION_CLIENTS_DB_ID;
+            if (!apiKey || !dbId) {
+              res.statusCode = 500;
+              res.end(JSON.stringify({ error: 'Notion env vars not set' }));
+              return;
+            }
+
+            const notionRes = await fetch('https://api.notion.com/v1/pages', {
+              method: 'POST',
+              headers: {
+                'Authorization': `Bearer ${apiKey}`,
+                'Notion-Version': '2022-06-28',
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({
+                parent: { database_id: dbId },
+                properties: {
+                  'Client Last Name': {
+                    title: [{ text: { content: lastName } }],
+                  },
+                  'Client First Name': {
+                    rich_text: [{ text: { content: firstName } }],
+                  },
+                  'Client Email': {
+                    email,
+                  },
+                  'AW, BG, or HJ Student': {
+                    rich_text: [{ text: { content: 'BG' } }],
+                  },
+                },
+              }),
+            });
+
+            if (!notionRes.ok) {
+              const err = await notionRes.text();
+              console.error('[submit-profile] Notion error:', err);
+              res.statusCode = 502;
+              res.end(JSON.stringify({ error: 'Notion API error', detail: err }));
+              return;
+            }
+
+            res.statusCode = 200;
+            res.end(JSON.stringify({ ok: true }));
+          } catch (err) {
+            console.error('[submit-profile]', err);
+            res.statusCode = 500;
+            res.end(JSON.stringify({ error: String(err) }));
+          }
+        }
+      );
+
+      // ── Puppeteer PDF generation ───────────────────────────────────────
       server.middlewares.use(
         '/api/workbook-pdf',
         (req: IncomingMessage, res: ServerResponse) => {
@@ -22,13 +108,12 @@ function workbookPdfPlugin(): Plugin {
             return;
           }
 
-          let body = '';
-          req.on('data', (chunk: Buffer) => { body += chunk.toString(); });
-          req.on('end', async () => {
+          (async () => {
+            const rawBody = await readBody(req);
             let textareas: string[] = [];
             let inputs: string[] = [];
             try {
-              const parsed = JSON.parse(body) as { textareas?: string[]; inputs?: string[] };
+              const parsed = JSON.parse(rawBody) as { textareas?: string[]; inputs?: string[] };
               textareas = parsed.textareas ?? [];
               inputs    = parsed.inputs    ?? [];
             } catch { /* malformed body — use empty arrays */ }
@@ -76,7 +161,7 @@ function workbookPdfPlugin(): Plugin {
             } finally {
               if (browser) await browser.close().catch(() => {});
             }
-          });
+          })();
         }
       );
     },
@@ -84,9 +169,12 @@ function workbookPdfPlugin(): Plugin {
 }
 
 // https://vite.dev/config/
-export default defineConfig({
-  plugins: [tailwindcss(), react(), workbookPdfPlugin()],
-  optimizeDeps: {
-    exclude: ['sweph-wasm'],
-  },
+export default defineConfig(({ mode }) => {
+  const env = loadEnv(mode, process.cwd(), '');
+  return {
+    plugins: [tailwindcss(), react(), workbookPdfPlugin(env)],
+    optimizeDeps: {
+      exclude: ['sweph-wasm'],
+    },
+  };
 });
