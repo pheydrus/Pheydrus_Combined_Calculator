@@ -1,15 +1,14 @@
 /**
  * Advanced Numerology page at /numerology/aw
- * Extended address numerology with all form fields, plus life path section.
- * Reuses calculateAddressNumerology and calculateLifePath services.
- * The services already include extended meanings (themes, challenges, gifts, reflection).
+ * Extended address numerology with all form fields.
+ * The service includes extended meanings (themes, challenges, gifts, reflection).
  */
 
 import { useState } from 'react';
 import { StandalonePageWrapper } from './StandalonePageWrapper';
-import { calculateAddressNumerology, calculateLifePath } from '../../services/calculators';
-import { AddressNumerologyResults, LifePathResults } from '../../components/results';
-import type { AddressNumerologyResult, LifePathResult } from '../../models/calculators';
+import { calculateAddressNumerology } from '../../services/calculators';
+import { AddressNumerologyResults } from '../../components/results';
+import type { AddressNumerologyResult } from '../../models/calculators';
 
 const inputClass =
   'w-full px-4 py-3 border border-gray-200 rounded-xl bg-white text-[#2d2a3e] placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#9a7d4e]/40 focus:border-[#9a7d4e] transition-colors';
@@ -22,7 +21,6 @@ interface AdvancedFormData {
   postalCode: string;
   homeYear: string;
   birthYear: string;
-  birthday: string;
 }
 
 export function AdvancedNumerologyPage() {
@@ -33,10 +31,8 @@ export function AdvancedNumerologyPage() {
     postalCode: '',
     homeYear: '',
     birthYear: '',
-    birthday: '',
   });
   const [addressResult, setAddressResult] = useState<AddressNumerologyResult | null>(null);
-  const [lifePathResult, setLifePathResult] = useState<LifePathResult | null>(null);
   const [error, setError] = useState('');
 
   const handleChange = (field: keyof AdvancedFormData, value: string) => {
@@ -58,18 +54,6 @@ export function AdvancedNumerologyPage() {
     } catch (e) {
       setError(e instanceof Error ? e.message : 'Calculation failed');
       setAddressResult(null);
-    }
-  };
-
-  const handleCalculateLifePath = () => {
-    if (!formData.birthday) return;
-    setError('');
-    try {
-      const res = calculateLifePath({ birthDate: formData.birthday });
-      setLifePathResult(res);
-    } catch (e) {
-      setError(e instanceof Error ? e.message : 'Calculation failed');
-      setLifePathResult(null);
     }
   };
 
@@ -164,37 +148,6 @@ export function AdvancedNumerologyPage() {
           {addressResult && (
             <div className="mt-6">
               <AddressNumerologyResults result={addressResult} />
-            </div>
-          )}
-        </section>
-
-        <hr className="border-gray-200" />
-
-        {/* Life Path Section */}
-        <section>
-          <h2 className="text-lg font-bold text-[#2d2a3e] mb-4">Life Path</h2>
-
-          <div>
-            <label className={labelClass}>Birthday</label>
-            <input
-              type="date"
-              value={formData.birthday}
-              onChange={(e) => handleChange('birthday', e.target.value)}
-              className={inputClass}
-            />
-          </div>
-
-          <button
-            onClick={handleCalculateLifePath}
-            disabled={!formData.birthday}
-            className="w-full mt-4 py-3 bg-[#9a7d4e] hover:bg-[#b8944a] text-white font-bold rounded-xl transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-          >
-            Calculate Life Path
-          </button>
-
-          {lifePathResult && (
-            <div className="mt-6">
-              <LifePathResults result={lifePathResult} />
             </div>
           )}
         </section>
