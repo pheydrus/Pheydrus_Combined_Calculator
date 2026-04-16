@@ -307,6 +307,27 @@
   .price-tag { display:inline-block; font-family:'Cormorant Garamond',serif; font-size:32px; font-weight:300; color:var(--gold); margin-bottom:4px; }
   .price-sub { font-size:11px; color:rgba(255,255,255,0.3); margin-bottom:20px; }
 
+  /* PROFILE GATE */
+  .profile-gate { background:var(--cream); padding:80px 40px; border-top:1px solid var(--border); }
+  .profile-gate-inner { max-width:520px; margin:0 auto; text-align:center; }
+  .profile-gate-eyebrow { font-size:10px; letter-spacing:0.4em; text-transform:uppercase; color:var(--crimson); margin-bottom:16px; }
+  .profile-gate-title { font-family:'Cormorant Garamond',serif; font-size:36px; font-weight:300; line-height:1.1; margin-bottom:12px; color:var(--dark); }
+  .profile-gate-text { font-size:13px; color:var(--muted); margin-bottom:36px; line-height:1.7; }
+  .profile-gate-form { display:flex; flex-direction:column; gap:12px; text-align:left; }
+  .profile-gate-row { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+  .profile-gate-input { width:100%; padding:14px 16px; border:1px solid var(--border); background:white; font-family:'DM Sans',sans-serif; font-size:13px; color:var(--text); border-radius:3px; outline:none; transition:border-color 0.2s; }
+  .profile-gate-input:focus { border-color:var(--crimson); }
+  .profile-gate-input::placeholder { color:#bbb; }
+  .profile-gate-submit { margin-top:8px; padding:16px; background:var(--crimson); color:white; border:none; font-family:'DM Sans',sans-serif; font-size:12px; letter-spacing:0.2em; text-transform:uppercase; font-weight:600; border-radius:3px; cursor:pointer; transition:all 0.3s; }
+  .profile-gate-submit:hover { background:var(--crimson-light); transform:translateY(-1px); }
+  .profile-gate-submit.loading { opacity:0.6; pointer-events:none; }
+  .profile-gate-success { display:none; text-align:center; padding:24px; background:white; border:1px solid rgba(139,26,26,0.15); border-radius:4px; }
+  .profile-gate-success.visible { display:block; }
+  .profile-gate-success-icon { font-size:28px; margin-bottom:10px; }
+  .profile-gate-success-text { font-family:'Cormorant Garamond',serif; font-size:22px; font-weight:400; color:var(--dark); }
+  .profile-gate-success-sub { font-size:12px; color:var(--muted); margin-top:6px; }
+  @media (max-width:680px) { .profile-gate-row { grid-template-columns:1fr; } }
+
   .footer-download { background:var(--dark); color:white; padding:80px 40px; text-align:center; position:relative; overflow:hidden; }
   .footer-download::before { content:''; position:absolute; inset:0; background:radial-gradient(ellipse at 60% 40%, rgba(201,169,118,0.15) 0%, transparent 65%); }
   .footer-download-inner { position:relative; max-width:700px; margin:0 auto; }
@@ -1316,17 +1337,42 @@
         <a href="https://ck6y3mugndb.typeform.com/to/xEjK1Q4y" target="_blank" class="cta-btn cta-btn-secondary">Apply to Chat →</a>
       </div>
     </div>
+  </div>
+</div>
+
+<!-- PROFILE GATE -->
+<div class="profile-gate" id="profileGate">
+  <div class="profile-gate-inner">
+    <div class="profile-gate-eyebrow">Almost There</div>
+    <h2 class="profile-gate-title">Save Your Profile</h2>
+    <p class="profile-gate-text">Enter your details below — your workbook profile will be saved and your PDF will download automatically.</p>
+
+    <form class="profile-gate-form" id="profileForm">
+      <div class="profile-gate-row">
+        <input class="profile-gate-input" type="text" id="pgFirstName" placeholder="First Name" required autocomplete="given-name" />
+        <input class="profile-gate-input" type="text" id="pgLastName"  placeholder="Last Name"  required autocomplete="family-name" />
+      </div>
+      <input class="profile-gate-input" type="email" id="pgEmail" placeholder="Email Address" required autocomplete="email" />
+      <button class="profile-gate-submit" type="submit" id="pgSubmitBtn">Save Profile &amp; Download PDF</button>
+    </form>
+
+    <div class="profile-gate-success" id="pgSuccess">
+      <div class="profile-gate-success-icon">✦</div>
+      <div class="profile-gate-success-text">Profile saved — your PDF is downloading.</div>
+      <div class="profile-gate-success-sub">Check your downloads folder.</div>
+    </div>
+  </div>
 </div>
 
 <!-- DOWNLOAD SECTION -->
-<div class="footer-download" id="download">
+<!-- <div class="footer-download" id="download">
   <div class="footer-download-inner">
     <div class="footer-download-eyebrow">Save Your Workbook</div>
     <h2 class="footer-download-title">Keep This Guide<br><em>For Later</em></h2>
     <p class="footer-download-text">Download the complete workbook as a PDF to reference anytime, anywhere — no internet required.</p>
     <button id="bottomDownloadBtn" class="footer-download-btn">📥 Download PDF</button>
   </div>
-</div>
+</div> -->
 
 <div class="footer">© Pheydrus · Business Growth in the Age of Aquarius · Workbook v2</div>
 
@@ -1492,96 +1538,133 @@ function selectSign(type, sign, btn) {
 // =====================
 // PDF DOWNLOAD
 // =====================
+
 function setupPdfDownload(btnId) {
-  const btn = document.getElementById(btnId);
+  var btn = document.getElementById(btnId);
   if (!btn) return;
-  
+
   btn.addEventListener('click', async function() {
-    const button = this;
+    var button       = this;
+    var originalText = button.textContent;
     button.classList.add('loading');
-    button.disabled = true;
-    const originalText = button.textContent;
-    button.textContent = '⏳ Generating...';
+    button.disabled  = true;
+    button.textContent = '⏳ Generating…';
 
     try {
-      // Wait for page to fully render (including dynamic content)
-      await new Promise(resolve => setTimeout(resolve, 500));
+      // Collect current form values so the server can inject them before rendering
+      var textareas = Array.from(document.querySelectorAll('textarea')).map(function(ta) {
+        return ta.value;
+      });
+      var inputs = Array.from(document.querySelectorAll('input')).map(function(inp) {
+        return inp.value;
+      });
 
-      // Load html2pdf from CDN
-      const script = document.createElement('script');
-      script.src = 'https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js';
-      document.head.appendChild(script);
+      var response = await fetch('/api/workbook-pdf', {
+        method:  'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body:    JSON.stringify({ textareas: textareas, inputs: inputs })
+      });
 
-      script.onload = function() {
-        // Hide elements that shouldn't be in PDF
-        const nav = document.querySelector('.toc-nav');
-        const downloadSection = document.querySelector('.footer-download');
-        const footer = document.querySelector('.footer');
-        
-        if (nav) nav.style.display = 'none';
-        if (downloadSection) downloadSection.style.display = 'none';
-        if (footer) footer.style.display = 'none';
+      if (!response.ok) {
+        var detail = '';
+        try { detail = (await response.json()).detail || ''; } catch {}
+        throw new Error('Server error ' + response.status + (detail ? ': ' + detail : ''));
+      }
 
-        // Use body but exclude hidden elements
-        const element = document.body;
-        const opt = {
-          margin: [10, 10, 10, 10],
-          filename: 'pheydrus-workbook-v3_4.pdf',
-          image: { type: 'jpeg', quality: 0.98 },
-          html2canvas: { 
-            scale: 2, 
-            logging: false, 
-            useCORS: true,
-            allowTaint: true,
-            backgroundColor: '#ffffff'
-          },
-          jsPDF: { orientation: 'portrait', unit: 'mm', format: 'a4', compress: true }
-        };
-        
-        html2pdf().set(opt).from(element).save().then(() => {
-          // Restore hidden elements
-          if (nav) nav.style.display = '';
-          if (downloadSection) downloadSection.style.display = '';
-          if (footer) footer.style.display = '';
-          
-          button.classList.remove('loading');
-          button.disabled = false;
-          button.textContent = originalText;
-        }).catch(err => {
-          console.error('PDF generation error:', err);
-          
-          // Restore hidden elements
-          if (nav) nav.style.display = '';
-          if (downloadSection) downloadSection.style.display = '';
-          if (footer) footer.style.display = '';
-          
-          button.classList.remove('loading');
-          button.disabled = false;
-          button.textContent = originalText;
-          alert('Failed to generate PDF. Please try again.');
-        });
-      };
+      // Trigger browser download of the returned PDF blob
+      var blob = await response.blob();
+      var url  = URL.createObjectURL(blob);
+      var a    = document.createElement('a');
+      a.href     = url;
+      a.download = 'pheydrus-workbook-v3_4.pdf';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
 
-      script.onerror = function() {
-        console.error('Failed to load html2pdf library');
-        button.classList.remove('loading');
-        button.disabled = false;
-        button.textContent = originalText;
-        alert('Failed to load PDF library. Please try again.');
-      };
-    } catch (error) {
-      console.error('Error:', error);
+    } catch (err) {
+      console.error('PDF error:', err);
+      alert(err.message || 'Failed to generate PDF. Please try again.');
+    } finally {
       button.classList.remove('loading');
-      button.disabled = false;
+      button.disabled    = false;
       button.textContent = originalText;
-      alert('An error occurred. Please try again.');
     }
   });
 }
 
-// Setup both download buttons
 setupPdfDownload('downloadPdfBtn');
 setupPdfDownload('bottomDownloadBtn');
+
+// =====================
+// PROFILE GATE
+// =====================
+(function() {
+  var form    = document.getElementById('profileForm');
+  var submitBtn = document.getElementById('pgSubmitBtn');
+  var success = document.getElementById('pgSuccess');
+  if (!form) return;
+
+  form.addEventListener('submit', async function(e) {
+    e.preventDefault();
+
+    var firstName = document.getElementById('pgFirstName').value.trim();
+    var lastName  = document.getElementById('pgLastName').value.trim();
+    var email     = document.getElementById('pgEmail').value.trim();
+
+    if (!firstName || !lastName || !email) return;
+
+    var originalText = submitBtn.textContent;
+    submitBtn.classList.add('loading');
+    submitBtn.textContent = '⏳ Saving…';
+
+    try {
+      // 1. Save profile to Notion
+      var profileRes = await fetch('/api/submit-profile', {
+        method:  'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body:    JSON.stringify({ firstName: firstName, lastName: lastName, email: email })
+      });
+
+      if (!profileRes.ok) {
+        var err = await profileRes.json().catch(function() { return {}; });
+        throw new Error(err.error || 'Failed to save profile');
+      }
+
+      // 2. Trigger PDF download with the user's workbook answers
+      var textareas = Array.from(document.querySelectorAll('textarea')).map(function(ta) { return ta.value; });
+      var inputs    = Array.from(document.querySelectorAll('input')).map(function(inp) { return inp.value; });
+
+      var pdfRes = await fetch('/api/workbook-pdf', {
+        method:  'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body:    JSON.stringify({ textareas: textareas, inputs: inputs })
+      });
+
+      if (!pdfRes.ok) throw new Error('Failed to generate PDF');
+
+      var blob = await pdfRes.blob();
+      var url  = URL.createObjectURL(blob);
+      var a    = document.createElement('a');
+      a.href     = url;
+      a.download = 'pheydrus-workbook-v3_4.pdf';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+
+      // 3. Show success state
+      form.style.display = 'none';
+      success.classList.add('visible');
+
+    } catch (err) {
+      console.error('Profile gate error:', err);
+      alert(err.message || 'Something went wrong. Please try again.');
+      submitBtn.classList.remove('loading');
+      submitBtn.textContent = originalText;
+    }
+  });
+})();
 
 // =====================
 // DRAG TO SCROLL for appendix tables
