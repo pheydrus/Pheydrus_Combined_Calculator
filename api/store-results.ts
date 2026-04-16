@@ -11,6 +11,7 @@
  *
  * Optional env vars:
  *   FLODESK_API_KEY                    — Flodesk API key
+ *   FLODESK_ENABLE_STORE_RESULTS_SYNC  — Set to "true" to enable Flodesk sync from /api/store-results (default: disabled)
  *   FLODESK_CALCULATOR_USED_SEGMENT_ID — Flodesk "Calculator-Used" segment ID (preferred)
  *   FLODESK_CALCULATOR_USED_SEGMENT_NAME — Flodesk segment name lookup (default: Calculator-Used)
  *   FLODESK_CALCULATOR_SEGMENT_ID      — Legacy fallback for old calculator segment config
@@ -204,8 +205,16 @@ async function addToFlodesk(
   email: string,
   marketingConsent: boolean | undefined
 ): Promise<void> {
-  const apiKey = process.env.FLODESK_API_KEY;
+  const flodeskSyncEnabled = process.env.FLODESK_ENABLE_STORE_RESULTS_SYNC === 'true';
   const maskedEmail = maskEmail(email);
+  if (!flodeskSyncEnabled) {
+    console.info(
+      `[store-results] Flodesk sync skipped for ${maskedEmail}: FLODESK_ENABLE_STORE_RESULTS_SYNC is not "true"`
+    );
+    return;
+  }
+
+  const apiKey = process.env.FLODESK_API_KEY;
   if (!apiKey) {
     console.info(`[store-results] Flodesk sync skipped for ${maskedEmail}: FLODESK_API_KEY not set`);
     return;
