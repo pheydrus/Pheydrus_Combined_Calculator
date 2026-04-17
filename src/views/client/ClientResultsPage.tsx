@@ -329,6 +329,14 @@ const PILLAR_CALLOUT: Record<1 | 2 | 3, (goal: string, loc: string) => string> =
   3: (goal, loc) => `Here is how your current address${loc ? ` in ${loc}` : ''} is interacting with your goal of ${goal}:`,
 };
 
+const REPORT_SECTIONS: Array<{ id: string; label: string }> = [
+  { id: 'cover', label: 'Overview' },
+  { id: 'pattern', label: 'Why This Happens' },
+  { id: 'pillars', label: '3-Pillar Breakdown' },
+  { id: 'next-steps', label: 'Next Steps' },
+  { id: 'actions', label: 'Export & Reset' },
+];
+
 function PillarDeepDiveCard({ pillar, index, title, subtitle, goal, goalShort, goalText, location, transits, pillar2Items, pillar3Items, addressMoveDate }: {
   pillar: PillarSummary;
   index: 1 | 2 | 3;
@@ -420,6 +428,8 @@ export function ClientResultsPage() {
   const location = useLocation();
   const navigate = useNavigate();
   const [isExporting, setIsExporting] = useState(false);
+  const [scrollProgress, setScrollProgress] = useState(0);
+  const [activeSection, setActiveSection] = useState<string>(REPORT_SECTIONS[0].id);
 
   const isDemo = new URLSearchParams(location.search).get('demo') === 'true';
 
@@ -605,11 +615,75 @@ export function ClientResultsPage() {
   const endYear = longest?.endYear ?? null;
   const yearsRemaining = endYear ? endYear - new Date().getFullYear() : null;
 
+  useEffect(() => {
+    const onScroll = () => {
+      const scrollTop = window.scrollY || document.documentElement.scrollTop;
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const progress = docHeight > 0 ? Math.min(100, Math.max(0, (scrollTop / docHeight) * 100)) : 0;
+      setScrollProgress(progress);
+
+      // When scrolled within 40px of the bottom, force-activate the last section
+      const atBottom = docHeight > 0 && scrollTop >= docHeight - 40;
+      const sections = document.querySelectorAll<HTMLElement>('[data-report-section]');
+      let current = REPORT_SECTIONS[0].id;
+      sections.forEach((section) => {
+        if (scrollTop >= section.offsetTop - 140) current = section.id;
+      });
+      if (atBottom) current = REPORT_SECTIONS[REPORT_SECTIONS.length - 1].id;
+      setActiveSection(current);
+    };
+
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
   return (
     <div style={{ minHeight: '100vh', background: '#F5F1EB', color: '#1C1A2E', padding: '40px 16px', fontFamily: INTER }}>
       <div style={{ maxWidth: '760px', margin: '0 auto', display: 'flex', flexDirection: 'column', gap: '24px' }}>
 
+        {/* Sticky table of contents + page progress */}
+        <div style={{ position: 'sticky', top: '12px', zIndex: 50, background: '#FFFFFF', border: '1px solid #E8E8E8', borderRadius: '4px', padding: '12px 14px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '12px', marginBottom: '8px' }}>
+            <div style={{ fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.12em', color: '#999', fontWeight: 700 }}>On this page</div>
+            <div style={{ fontSize: '11px', color: '#7A5A1A', fontWeight: 700 }}>{Math.round(scrollProgress)}%</div>
+          </div>
+          <div style={{ height: '6px', borderRadius: '999px', background: '#EFE8D6', overflow: 'hidden', marginBottom: '10px' }}>
+            <div style={{ height: '100%', width: `${scrollProgress}%`, background: 'linear-gradient(90deg, #C9A84C, #9a7d4e)', transition: 'width 120ms linear' }} />
+          </div>
+          <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' as const }}>
+            {REPORT_SECTIONS.map((section) => {
+              const isActive = activeSection === section.id;
+              return (
+                <button
+                  key={section.id}
+                  onClick={() => {
+                    document.getElementById(section.id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                  }}
+                  aria-current={isActive ? 'location' : undefined}
+                  style={{
+                    fontSize: '10px',
+                    textTransform: 'uppercase',
+                    letterSpacing: '0.08em',
+                    cursor: 'pointer',
+                    padding: '6px 9px',
+                    borderRadius: '2px',
+                    border: isActive ? '1px solid #C9A84C' : '1px solid #E0E0E0',
+                    color: isActive ? '#7A5A1A' : '#666',
+                    background: isActive ? '#FDFBF6' : '#FFFFFF',
+                    fontWeight: isActive ? 700 : 600,
+                    fontFamily: INTER,
+                  }}
+                >
+                  {section.label}
+                </button>
+              );
+            })}
+          </div>
+        </div>
+
         {/* ── SECTION 1: COVER ── */}
+        <section id="cover" data-report-section style={{ scrollMarginTop: '120px', display: 'flex', flexDirection: 'column', gap: '24px' }}>
 
         {/* Header */}
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', borderBottom: '1px solid #E8E8E8', paddingBottom: '16px' }}>
@@ -719,8 +793,11 @@ export function ClientResultsPage() {
           </div>
         </div>
 
+        </section>
+
         {/* ── SECTION 2: WHY THIS KEEPS HAPPENING ── */}
 
+        <section id="pattern" data-report-section style={{ scrollMarginTop: '120px' }}>
         <div style={{ background: '#FFFFFF', border: '1px solid #E8E8E8', borderRadius: '4px', padding: '28px 32px' }}>
           <div style={{ fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.14em', color: '#999', marginBottom: '8px' }}>The Pattern</div>
           <h2 style={{ fontFamily: CORMORANT, fontSize: '2rem', fontWeight: 700, color: '#1C1A2E', margin: '0 0 20px', lineHeight: 1.2 }}>Why This Keeps Happening</h2>
@@ -766,9 +843,11 @@ export function ClientResultsPage() {
 
 
         </div>
+  </section>
 
         {/* ── SECTION 3: PILLAR BREAKDOWN ── */}
 
+        <section id="pillars" data-report-section style={{ scrollMarginTop: '120px' }}>
         <div>
           <div style={{ fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.14em', color: '#999', marginBottom: '8px' }}>What is Holding Back Your {GOAL_LABEL[goal]}</div>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
@@ -785,8 +864,10 @@ export function ClientResultsPage() {
             />
           </div>
         </div>
+        </section>
 
         {/* ── SECTION 4: COST OF INACTION + CTA ── */}
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
 
         <CostOfInaction goalShort={goalShort} endYear={longest?.endYear ?? null} />
 
@@ -804,6 +885,11 @@ export function ClientResultsPage() {
             <p style={{ margin: 0, fontFamily: CORMORANT, fontStyle: 'italic', color: '#1C1A2E', fontSize: '1.1rem', lineHeight: 1.5 }}>The question is whether you'll have a map when it arrives. <span style={{ fontStyle: 'normal', fontWeight: 700, color: '#C9A84C' }}>This call is how you get ready.</span></p>
           </div>
         </div>
+
+        </div>
+
+        {/* ── NEXT STEPS ANCHOR — "What's next is simple" ── */}
+        <section id="next-steps" data-report-section style={{ scrollMarginTop: '120px', display: 'flex', flexDirection: 'column', gap: '24px' }}>
 
         {/* Transition bridge */}
         <div
@@ -1046,8 +1132,10 @@ export function ClientResultsPage() {
             </>
           );
         })()}
+        </section>
 
         {/* Action buttons */}
+        <section id="actions" data-report-section style={{ scrollMarginTop: '120px' }}>
         <div style={{ display: 'flex', gap: '12px', justifyContent: 'center', flexWrap: 'wrap' as const }}>
           <button onClick={handleExportPDF} disabled={isExporting} style={{ padding: '12px 28px', background: '#C9A84C', color: '#1C1A2E', fontWeight: 700, borderRadius: '2px', border: 'none', cursor: 'pointer', fontFamily: INTER, opacity: isExporting ? 0.6 : 1 }}>
             {isExporting ? 'Generating PDF…' : 'Download Your Report (PDF)'}
@@ -1060,6 +1148,7 @@ export function ClientResultsPage() {
         <p style={{ textAlign: 'center', fontSize: '10px', color: '#BBBBBB', paddingBottom: '24px', fontFamily: INTER }}>
           Report generated {new Date(results.timestamp).toLocaleString()}
         </p>
+        </section>
 
       </div>
     </div>
