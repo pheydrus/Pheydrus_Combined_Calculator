@@ -34,84 +34,79 @@ function pillarScore(p: PillarSummary): number {
   return p.fCount + p.cCount * 0.5;
 }
 
-function pillarScoreToGrade(score: number): string {
-  if (score > 6) return 'F';
-  if (score >= 4) return 'C';
-  if (score >= 2) return 'B';
+function getPillarLetterGrade(pillar: PillarSummary): string {
+  const grades = pillar.items.map((item) => item.grade);
+  if (grades.includes('F') || pillar.fCount > 0) return 'F';
+  if (grades.includes('C') || pillar.cCount > 0) return 'C';
   return 'A';
 }
 
-/** Detect which program to recommend based on pillar scores and business house activation */
-function recommendProgram(p1: PillarSummary, p2: PillarSummary, p3: PillarSummary, allItems: GradeItem[]): {
-  route: 'hero' | 'artists-way' | 'business' | null;
+function isCOrBelow(grade: string): boolean {
+  return grade === 'C' || grade === 'F';
+}
+
+type ProgramRoute = 'hero' | 'artists-way' | 'business';
+
+type ProgramRecommendation = {
+  route: ProgramRoute;
   title: string;
   description: string;
   link: string;
-} {
+};
+
+const PROGRAM_DETAILS: Record<ProgramRoute, ProgramRecommendation> = {
+  hero: {
+    route: 'hero',
+    title: `Hero's Journey`,
+    description: "Do you always find yourself contorting to fit in, because people keep telling you you're too much, too intense, too difficult? Your blueprint explains exactly why, and how to turn it into your greatest strengths.",
+    link: 'https://pheydrusmetaverse.com/heros-journey/',
+  },
+  'artists-way': {
+    route: 'artists-way',
+    title: `Artist's Way`,
+    description: "Have you done all the inner work and still can't figure out why your outside life won't catch up? Your environment and timing might be working against everything you've built inside.",
+    link: 'https://pheydrusmetaverse.com/artists-way/#',
+  },
+  business: {
+    route: 'business',
+    title: 'Business Growth',
+    description: "Suddenly feeling the urge to launch something, rebrand, or make money in a completely new way? All 3 pillars are literally telling you it's time. The question is whether you know how to move with it...or against it.",
+    link: 'https://pheydrusmetaverse.com/business-growth/',
+  },
+};
+
+function getTwoProgramRecommendations(p1: PillarSummary, p2: PillarSummary, p3: PillarSummary, allItems: GradeItem[]): ProgramRecommendation[] {
   const s1 = pillarScore(p1);
   const s2 = pillarScore(p2);
   const s3 = pillarScore(p3);
+  const p2Grade = getPillarLetterGrade(p2);
+  const p3Grade = getPillarLetterGrade(p3);
 
-  // Detect business house activation (2, 6, 8, 10)
   const businessHouses = [2, 6, 8, 10];
-  const hasBusinessHouseActivation = allItems.some(item => 
-    businessHouses.includes(item.house ?? 0)
-  );
-
-  // If business house activation is primary signal, recommend Business Growth
-  if (hasBusinessHouseActivation) {
-    // Check if it's in Pillar 1, 2, or 3
-    const inPillar123 = allItems.some(item => 
-      businessHouses.includes(item.house ?? 0) && [1, 2, 3].includes(item.pillar ?? 0)
-    );
-    if (inPillar123) {
-      return {
-        route: 'business',
-        title: 'Business Growth',
-        description: "Suddenly feeling the urge to launch something, rebrand, or make money in a completely new way? All 3 pillars are literally telling you it's time. The question is whether you know how to move with it...or against it.",
-        link: 'https://pheydrusmetaverse.com/business-growth/',
-      };
-    }
-  }
-
-  // Route 1: Hero's Journey
-  // Pillar 1 is worst (C or below) OR (Pillar 2 worst AND Pillar 1 second worst)
-  const p1Grade = pillarScoreToGrade(s1);
-  const p2Grade = pillarScoreToGrade(s2);
-
-  const p1IsCOrWorse = p1Grade === 'C' || p1Grade === 'F';
+  const hasBusinessHouseActivation = allItems.some((item) => businessHouses.includes(item.house ?? 0));
   const isP1Worst = s1 >= s2 && s1 >= s3;
-  const isP2Worst = s2 >= s1 && s2 >= s3;
-  const isP1SecondWorst = (s1 >= s2 && s1 < s3) || (s1 < s2 && s1 >= s3);
-
-  if ((isP1Worst && p1IsCOrWorse) || (isP2Worst && isP1SecondWorst)) {
-    return {
-      route: 'hero',
-      title: `Hero's Journey`,
-      description: "Do you always find yourself contorting to fit in, because people keep telling you you're too much, too intense, too difficult? Your blueprint explains exactly why, and how to turn it into your greatest strengths.",
-      link: 'https://pheydrusmetaverse.com/heros-journey/',
-    };
-  }
-
-  // Route 2: Artist's Way
-  // Pillar 3 is worst (C or below) OR (Pillar 2 worst AND Pillar 3 second worst) OR (Pillar 2 AND Pillar 3 both low regardless of Pillar 1)
-  const p3Grade = pillarScoreToGrade(s3);
-  const p3IsCOrWorse = p3Grade === 'C' || p3Grade === 'F';
   const isP3Worst = s3 >= s1 && s3 >= s2;
-  const isP3SecondWorst = (s3 >= s1 && s3 < s2) || (s3 < s1 && s3 >= s2);
-  const bothP2P3Low = (p2Grade === 'C' || p2Grade === 'D' || p2Grade === 'F') &&
-                      (p3Grade === 'C' || p3Grade === 'D' || p3Grade === 'F');
+  const primaryRoute: ProgramRoute = isP1Worst
+    ? 'hero'
+    : isP3Worst
+      ? 'artists-way'
+      : hasBusinessHouseActivation
+        ? 'business'
+        : s1 >= s3
+          ? 'hero'
+          : 'artists-way';
 
-  if ((isP3Worst && p3IsCOrWorse) || (isP2Worst && isP3SecondWorst) || bothP2P3Low) {
-    return {
-      route: 'artists-way',
-      title: `Artist's Way`,
-      description: "Have you done all the inner work and still can't figure out why your outside life won't catch up? Your environment and timing might be working against everything you've built inside.",
-      link: 'https://pheydrusmetaverse.com/artists-way/#',
-    };
+  let secondaryRoute: ProgramRoute;
+
+  if (primaryRoute === 'business') {
+    secondaryRoute = isCOrBelow(p2Grade) || isCOrBelow(p3Grade) ? 'artists-way' : 'hero';
+  } else if (primaryRoute === 'artists-way') {
+    secondaryRoute = hasBusinessHouseActivation ? 'business' : 'hero';
+  } else {
+    secondaryRoute = hasBusinessHouseActivation ? 'business' : 'artists-way';
   }
 
-  return { route: null, title: '', description: '', link: '' };
+  return [PROGRAM_DETAILS[primaryRoute], PROGRAM_DETAILS[secondaryRoute]];
 }
 
 const GOAL_LABEL: Record<GoalCategory, string> = {
@@ -354,7 +349,7 @@ function PillarDeepDiveCard({ pillar, index, title, subtitle, goal, goalShort, g
   const scoringItems = pillar.items.filter((i) => i.grade === 'F' || i.grade === 'C' || i.grade === 'A');
   const callout = PILLAR_CALLOUT[index](goalShort, location);
   const accentColor = index === 1 ? '#C0392B' : index === 2 ? '#C9A84C' : '#9a7d4e';
-  const s = pillarScore(pillar);
+  const pillarGrade = getPillarLetterGrade(pillar);
 
   return (
     <div style={{ background: '#FFFFFF', border: '1px solid #E8E8E8', borderRadius: '4px', padding: '20px 24px' }}>
@@ -362,7 +357,7 @@ function PillarDeepDiveCard({ pillar, index, title, subtitle, goal, goalShort, g
       <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '10px', flexWrap: 'wrap' as const }}>
         <span style={{ ...PILLAR_BADGE_STYLE[index], fontSize: '10px', fontWeight: 700, padding: '2px 8px', borderRadius: '2px', fontFamily: INTER }}>PILLAR {index}</span>
         <span style={{ fontFamily: CORMORANT, fontSize: '1.1rem', fontWeight: 700, color: '#1C1A2E' }}>{title} — {subtitle}</span>
-        <span style={{ marginLeft: 'auto', fontSize: '1.2rem', fontWeight: 900, color: accentColor, fontFamily: INTER }}>{pillarScoreToGrade(s)}</span>
+        <span style={{ marginLeft: 'auto', fontSize: '1.2rem', fontWeight: 900, color: accentColor, fontFamily: INTER }}>{pillarGrade}</span>
       </div>
 
       {/* Goal callout */}
@@ -583,8 +578,11 @@ export function ClientResultsPage() {
   const p1pct = total === 0 ? 0 : Math.round((s1 / total) * 100);
   const p2pct = total === 0 ? 0 : Math.round((s2 / total) * 100);
   const p3pct = total === 0 ? 0 : Math.round((s3 / total) * 100);
+  const diagnosticItems = results.diagnostic!.allItems.length > 0
+    ? results.diagnostic!.allItems
+    : [...p1.items, ...p2.items, ...p3.items];
 
-  const longest = getLongestMaleficTransit(results.diagnostic!.allItems, transits);
+  const longest = getLongestMaleficTransit(diagnosticItems, transits);
   const { finalGrade, score } = results.diagnostic!;
   const gc = gradeColor(finalGrade);
   // CTA eligibility
@@ -732,19 +730,18 @@ export function ClientResultsPage() {
 
         {/* Score breakdown — horizontal bars + Venn */}
         {total > 0 && (() => {
-          const pillarGrade = (p: PillarSummary) => p.fCount > 0 ? 'F' : p.cCount > 0 ? 'C' : p.aCount > 0 ? 'A' : '';
           const rows = [
-            { label: 'Structure', sub: 'Pillar 1', pct: p1pct, color: '#C0392B', grade: pillarGrade(p1) },
-            { label: 'Timing',    sub: 'Pillar 2', pct: p2pct, color: '#C9A84C', grade: pillarGrade(p2) },
-            { label: 'Environment', sub: 'Pillar 3', pct: p3pct, color: '#9a7d4e', grade: pillarGrade(p3) },
+            { label: 'Structure', sub: 'Pillar 1', pct: p1pct, color: '#C0392B', grade: getPillarLetterGrade(p1) },
+            { label: 'Timing', sub: 'Pillar 2', pct: p2pct, color: '#C9A84C', grade: getPillarLetterGrade(p2) },
+            { label: 'Environment', sub: 'Pillar 3', pct: p3pct, color: '#9a7d4e', grade: getPillarLetterGrade(p3) },
           ];
           return (
             <div style={{ background: '#FFFFFF', border: '1px solid #E8E8E8', borderRadius: '4px', padding: '18px 22px' }}>
               <div style={{ fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.12em', color: '#999', marginBottom: '14px' }}>Your Score Breaks Down As:</div>
               <div style={{ display: 'flex', gap: '20px', alignItems: 'center' }}>
                 <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '12px' }}>
-                  {rows.map((r) => {
-                    const gc2 = gradeColor(r.grade);
+                      {rows.map((r) => {
+                        const gc2 = gradeColor(r.grade);
                     return (
                       <div key={r.label} style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
                         <div style={{ width: '90px', flexShrink: 0 }}>
@@ -941,16 +938,7 @@ export function ClientResultsPage() {
 
         {/* PROGRAM RECOMMENDATION + BOOK A CALL OPTIONS */}
         {(() => {
-          const rec = recommendProgram(p1, p2, p3, results.diagnostic!.allItems);
-          const recommendation = rec.route
-            ? rec
-            : {
-                route: 'artists-way' as const,
-                title: "Artist's Way",
-                description:
-                  "Have you done all the inner work and still can't figure out why your outside life won't catch up? Your environment and timing might be working against everything you've built inside.",
-                link: 'https://pheydrusmetaverse.com/artists-way/#',
-              };
+          const recommendations = getTwoProgramRecommendations(p1, p2, p3, diagnosticItems);
 
           const optionCardStyle: CSSProperties = {
             background: '#FDFBF6',
@@ -984,58 +972,68 @@ export function ClientResultsPage() {
                     margin: '0 0 16px',
                   }}
                 >
-                  Watch this Video: {recommendation.title}
+                  Watch These Videos 🎥
                 </h2>
 
-                <div style={{ display: 'flex', gap: '18px', alignItems: 'stretch', flexWrap: 'wrap' as const }}>
-                  <div style={{ flex: 1, minWidth: '260px' }}>
-                    <p
-                      style={{
-                        margin: '0 0 18px',
-                        fontSize: '0.95rem',
-                        color: '#444444',
-                        lineHeight: 1.8,
-                        fontFamily: INTER,
-                      }}
-                    >
-                      {recommendation.description}
-                    </p>
-                    <a
-                      href={recommendation.link}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      style={{
-                        display: 'inline-block',
-                        padding: '12px 20px',
-                        background: '#C9A84C',
-                        color: '#1C1A2E',
-                        fontWeight: 700,
-                        fontSize: '0.75rem',
-                        letterSpacing: '0.1em',
-                        textTransform: 'uppercase',
-                        textDecoration: 'none',
-                        borderRadius: '2px',
-                        fontFamily: INTER,
-                      }}
-                    >
-                      Watch the Video →
-                    </a>
-                  </div>
+                <p
+                  style={{
+                    margin: '0 0 18px',
+                    fontSize: '0.88rem',
+                    color: '#555',
+                    lineHeight: 1.7,
+                    fontFamily: INTER,
+                  }}
+                >
+                  Based on your pillar pattern, these are the two closest paths to start with next.
+                </p>
 
-                  <div style={{ width: '210px', flexShrink: 0 }}>
-                    <img
-                      src="/hj-finals-2-of-20-1.jpg"
-                      alt="Pheydrus program preview"
+                <div style={{ display: 'flex', gap: '18px', alignItems: 'stretch', flexWrap: 'wrap' as const }}>
+                  {recommendations.map((recommendation, index) => (
+                    <div
+                      key={recommendation.route}
                       style={{
-                        width: '100%',
-                        height: '100%',
-                        minHeight: '200px',
-                        objectFit: 'cover',
+                        flex: 1,
+                        minWidth: '250px',
+                        background: '#FFFFFF',
+                        border: '1px solid #D9C78E',
                         borderRadius: '4px',
-                        border: '1px solid #E3D4AA',
+                        padding: '22px 20px',
+                        display: 'flex',
+                        flexDirection: 'column',
                       }}
-                    />
-                  </div>
+                    >
+                      <div style={{ fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.1em', color: '#9A8650', fontWeight: 700, marginBottom: '8px', fontFamily: INTER }}>
+                        Recommendation {index + 1}
+                      </div>
+                      <h3 style={{ margin: '0 0 10px', fontFamily: CORMORANT, fontSize: '1.45rem', fontWeight: 700, color: '#1C1A2E' }}>
+                        {recommendation.title}
+                      </h3>
+                      <p style={{ margin: '0 0 18px', fontSize: '0.9rem', color: '#444444', lineHeight: 1.75, fontFamily: INTER, flex: 1 }}>
+                        {recommendation.description}
+                      </p>
+                      <a
+                        href={recommendation.link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        style={{
+                          display: 'inline-block',
+                          padding: '12px 20px',
+                          background: '#C9A84C',
+                          color: '#1C1A2E',
+                          fontWeight: 700,
+                          fontSize: '0.75rem',
+                          letterSpacing: '0.1em',
+                          textTransform: 'uppercase',
+                          textDecoration: 'none',
+                          borderRadius: '2px',
+                          fontFamily: INTER,
+                          alignSelf: 'flex-start',
+                        }}
+                      >
+                        Watch {recommendation.title} →
+                      </a>
+                    </div>
+                  ))}
                 </div>
               </div>
 
@@ -1052,6 +1050,20 @@ export function ClientResultsPage() {
                   }}
                 >
                   #2 Option
+                </div>
+                <div style={{ maxWidth: '360px', margin: '0 auto 14px' }}>
+                  <img
+                    src="/option-2-call-visual-v2.png"
+                    alt="Pheydrus alignment preview"
+                    style={{
+                      width: '100%',
+                      height: '210px',
+                      objectFit: 'cover',
+                      objectPosition: 'center 18%',
+                      borderRadius: '4px',
+                      border: '1px solid #E3D4AA',
+                    }}
+                  />
                 </div>
                 <h2
                   style={{
