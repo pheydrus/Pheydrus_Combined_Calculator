@@ -1270,13 +1270,13 @@ export function ClientResultsPage() {
   const longest = getLongestMaleficTransit(diagnosticItems, transits);
   const { finalGrade, score } = results.diagnostic!;
   const gc = gradeColor(finalGrade);
-  // CTA eligibility
-  const wordCount = intake.desiredOutcome.trim().split(/\s+/).filter(Boolean).length;
-  const soughtTherapyOrCoaches =
-    intake.priorHelp.includes('therapy') || intake.priorHelp.includes('coaches');
-  const notMonetizing = intake.currentSituation !== 'monetizing';
-  const scoredCOrWorse = finalGrade === 'C' || finalGrade === 'F';
-  const showCTA = wordCount > 1 && soughtTherapyOrCoaches && notMonetizing && scoredCOrWorse;
+  // CTA eligibility (unused — kept for future re-activation)
+  // const wordCount = intake.desiredOutcome.trim().split(/\s+/).filter(Boolean).length;
+  // const soughtTherapyOrCoaches =
+  //   intake.priorHelp.includes('therapy') || intake.priorHelp.includes('coaches');
+  // const notMonetizing = intake.currentSituation !== 'monetizing';
+  // const scoredCOrWorse = finalGrade === 'C' || finalGrade === 'F';
+  // const showCTA = wordCount > 1 && soughtTherapyOrCoaches && notMonetizing && scoredCOrWorse;
 
   async function handleExportPDF() {
     setIsExporting(true);
