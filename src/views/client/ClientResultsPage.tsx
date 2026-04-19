@@ -2107,13 +2107,14 @@ export function ClientResultsPage() {
             <h3
               style={{
                 fontFamily: CORMORANT,
-                color: '#C9A84C',
-                fontSize: '1.3rem',
+                color: '#1d4ed8',
+                fontSize: '1.6rem',
                 fontWeight: 700,
-                margin: '0 0 12px',
+                margin: '0 0 20px',
+                lineHeight: 1.3,
               }}
             >
-              THIS IS BIGGER THAN FIXING WHAT'S BROKEN
+              How To Improve Your Scores
             </h3>
             <p
               style={{ margin: '0 0 10px', fontSize: '0.85rem', color: '#444444', lineHeight: 1.8 }}
@@ -2128,16 +2129,19 @@ export function ClientResultsPage() {
             <p
               style={{ margin: '0 0 10px', fontSize: '0.85rem', color: '#444444', lineHeight: 1.8 }}
             >
+              <span style={{ color: '#38a169', fontWeight: 800, marginRight: '6px' }}>➜</span>
               For <strong>Pillar 1</strong> — we use a sequential deconditioning method that goes directly into your energetic blindspots (desires, addictions, dreams, etc). This isn’t talk therapy or journaling. A specific, structured process that helps you identify the unconscious karmic patterns running your decisions — and consciously transmute them into your greatest assets.
             </p>
             <p
               style={{ margin: '0 0 10px', fontSize: '0.85rem', color: '#444444', lineHeight: 1.8 }}
             >
+              <span style={{ color: '#38a169', fontWeight: 800, marginRight: '6px' }}>➜</span>
               For <strong>Pillar 2</strong> — we map your current and upcoming planetary transits so you're never caught off guard again. We show you exactly which seasons to push, which to rest, and how to prepare for the windows that — if you move correctly — will be the most expansive periods of your life.
             </p>
             <p
               style={{ margin: '0 0 10px', fontSize: '0.85rem', color: '#444444', lineHeight: 1.8 }}
             >
+              <span style={{ color: '#38a169', fontWeight: 800, marginRight: '6px' }}>➜</span>
               For <strong>Pillar 3</strong> — we use our proprietary Feng Shui × Astrocartography x Real Estate Numerology to find the best addresses+places in the world that accelerate your goals. This is different for everything. And it works even if you can't move yet. There are ways to shift the energetic frequency of your space, and protect yourself against unseel environmental forces that have been holding you back for years.
             </p>
             <div style={{ borderTop: '1px solid #C8E6C8', paddingTop: '14px', marginTop: '4px' }}>
@@ -2179,19 +2183,6 @@ export function ClientResultsPage() {
               textAlign: 'center',
             }}
           >
-            <div
-              style={{
-                fontSize: '11px',
-                textTransform: 'uppercase',
-                letterSpacing: '0.12em',
-                color: '#9A8650',
-                fontWeight: 700,
-                fontFamily: INTER,
-                marginBottom: '8px',
-              }}
-            >
-              Next Step
-            </div>
             <h3
               style={{
                 margin: '0 0 8px',
@@ -2212,7 +2203,7 @@ export function ClientResultsPage() {
                 lineHeight: 1.7,
               }}
             >
-              You now have clarity on which forces have been running your life. The next step is working with a team that knows exactly how to shift them — not one at a time, but all three together.
+              You now know what's been running your life. The next step is shifting it — all three forces, together, with a team that's done this thousands of times.
             </p>
             <p
               style={{
@@ -2223,7 +2214,7 @@ export function ClientResultsPage() {
                 lineHeight: 1.7,
               }}
             >
-              Hundreds of students around the world have broken these exact patterns through our 3-pillar method. People who couldn't move. People mid-divorce. People who had tried everything and couldn't figure out why nothing was landing. The breakthroughs they'd been chasing for years — unlocked once they had the right map.
+              People who couldn't move. People mid-divorce. People who'd tried everything. The breakthrough they'd been chasing for years — unlocked once they had the right map.
             </p>
             <p
               style={{
@@ -2234,7 +2225,7 @@ export function ClientResultsPage() {
                 lineHeight: 1.7,
               }}
             >
-              Start with your recommended path below — or book a call and we'll build yours together.
+              Start below. Or book a call and we'll build yours.
             </p>
           </div>
 
@@ -2251,6 +2242,111 @@ export function ClientResultsPage() {
 
             return (
               <>
+                <div style={optionCardStyle}>
+                  <div
+                    style={{
+                      fontSize: '11px',
+                      textTransform: 'uppercase',
+                      letterSpacing: '0.12em',
+                      fontWeight: 700,
+                      color: '#b91c1c',
+                      marginBottom: '10px',
+                      fontFamily: INTER,
+                    }}
+                  >
+                    #2 Option
+                  </div>
+                  <div style={{ maxWidth: '360px', margin: '0 auto 14px' }}>
+                    <img
+                      src="/option-2-call-visual-v2.png"
+                      alt="Pheydrus alignment preview"
+                      style={{
+                        width: '100%',
+                        height: '210px',
+                        objectFit: 'cover',
+                        objectPosition: 'center 18%',
+                        borderRadius: '4px',
+                        border: '1px solid #E3D4AA',
+                      }}
+                    />
+                  </div>
+                  <h2
+                    style={{
+                      fontFamily: CORMORANT,
+                      color: '#b91c1c',
+                      fontSize: '1.7rem',
+                      fontWeight: 700,
+                      margin: '0 0 6px',
+                      textAlign: 'center',
+                    }}
+                  >
+                    OR Book Your Alignment Call
+                  </h2>
+                  <p
+                    style={{
+                      color: '#666',
+                      fontSize: '0.8rem',
+                      margin: '0 0 20px',
+                      fontFamily: INTER,
+                      textAlign: 'center',
+                    }}
+                  >
+                    30-minute 1:1 with the Pheydrus team
+                  </p>
+                  <div style={{ maxWidth: '420px', margin: '0 auto 20px', textAlign: 'left' }}>
+                    <p style={{ margin: '0 0 8px', fontSize: '0.82rem', color: '#7A5A1A', lineHeight: 1.6, fontFamily: INTER }}>→ We map exactly which invisible forces are running your life right now — and build a personalized roadmap to shift all three simultaneously</p>
+                    <p style={{ margin: '0 0 8px', fontSize: '0.82rem', color: '#7A5A1A', lineHeight: 1.6, fontFamily: INTER }}>→ We show you what's coming next in your chart — and how to prepare for the identity shift that's already in motion so you're ready when it arrives</p>
+                    <p style={{ margin: '0 0 8px', fontSize: '0.82rem', color: '#7A5A1A', lineHeight: 1.6, fontFamily: INTER }}>→ We identify the specific <strong>Pillar 1</strong> deconditioning work, <strong>Pillar 2</strong> transit windows, and <strong>Pillar 3</strong> environmental shifts that will move the needle fastest for YOUR specific situation</p>
+                  </div>
+                  <p
+                    style={{
+                      fontSize: '0.82rem',
+                      color: '#7A5A1A',
+                      margin: '0 0 20px',
+                      lineHeight: 1.6,
+                      fontFamily: INTER,
+                      textAlign: 'center',
+                      fontStyle: 'italic',
+                    }}
+                  >
+                    Hundreds of students have transformed patterns they couldn't crack for years — not because they tried harder, but because they finally had the right map. This call is how you get yours.
+                  </p>
+                  <a
+                    href="https://calendly.com/pheydrus_strategy/1-1-alignment-strategy-call-report"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{
+                      display: 'block',
+                      padding: '15px 24px',
+                      background: '#C9A84C',
+                      color: '#1C1A2E',
+                      fontWeight: 700,
+                      fontSize: '0.75rem',
+                      letterSpacing: '0.1em',
+                      textTransform: 'uppercase',
+                      textDecoration: 'none',
+                      borderRadius: '2px',
+                      fontFamily: INTER,
+                      maxWidth: '420px',
+                      margin: '0 auto 12px',
+                      textAlign: 'center',
+                    }}
+                  >
+                    BOOK YOUR ALIGNMENT CALL →
+                  </a>
+                  <p
+                    style={{
+                      margin: 0,
+                      fontSize: '11px',
+                      color: '#999',
+                      fontFamily: INTER,
+                      textAlign: 'center',
+                    }}
+                  >
+                    Complimentary · No obligation · Limited availability this cycle
+                  </p>
+                </div>
+
                 <div style={optionCardStyle}>
                   <div
                     style={{
@@ -2372,111 +2468,6 @@ export function ClientResultsPage() {
                       </div>
                     ))}
                   </div>
-                </div>
-
-                <div style={optionCardStyle}>
-                  <div
-                    style={{
-                      fontSize: '11px',
-                      textTransform: 'uppercase',
-                      letterSpacing: '0.12em',
-                      fontWeight: 700,
-                      color: '#b91c1c',
-                      marginBottom: '10px',
-                      fontFamily: INTER,
-                    }}
-                  >
-                    #2 Option
-                  </div>
-                  <div style={{ maxWidth: '360px', margin: '0 auto 14px' }}>
-                    <img
-                      src="/option-2-call-visual-v2.png"
-                      alt="Pheydrus alignment preview"
-                      style={{
-                        width: '100%',
-                        height: '210px',
-                        objectFit: 'cover',
-                        objectPosition: 'center 18%',
-                        borderRadius: '4px',
-                        border: '1px solid #E3D4AA',
-                      }}
-                    />
-                  </div>
-                  <h2
-                    style={{
-                      fontFamily: CORMORANT,
-                      color: '#b91c1c',
-                      fontSize: '1.7rem',
-                      fontWeight: 700,
-                      margin: '0 0 6px',
-                      textAlign: 'center',
-                    }}
-                  >
-                    OR Book Your Alignment Call
-                  </h2>
-                  <p
-                    style={{
-                      color: '#666',
-                      fontSize: '0.8rem',
-                      margin: '0 0 20px',
-                      fontFamily: INTER,
-                      textAlign: 'center',
-                    }}
-                  >
-                    30-minute 1:1 with the Pheydrus team
-                  </p>
-                  <div style={{ maxWidth: '420px', margin: '0 auto 20px', textAlign: 'left' }}>
-                    <p style={{ margin: '0 0 8px', fontSize: '0.82rem', color: '#7A5A1A', lineHeight: 1.6, fontFamily: INTER }}>→ We map exactly which invisible forces are running your life right now — and build a personalized roadmap to shift all three simultaneously</p>
-                    <p style={{ margin: '0 0 8px', fontSize: '0.82rem', color: '#7A5A1A', lineHeight: 1.6, fontFamily: INTER }}>→ We show you what's coming next in your chart — and how to prepare for the identity shift that's already in motion so you're ready when it arrives</p>
-                    <p style={{ margin: '0 0 8px', fontSize: '0.82rem', color: '#7A5A1A', lineHeight: 1.6, fontFamily: INTER }}>→ We identify the specific <strong>Pillar 1</strong> deconditioning work, <strong>Pillar 2</strong> transit windows, and <strong>Pillar 3</strong> environmental shifts that will move the needle fastest for YOUR specific situation</p>
-                  </div>
-                  <p
-                    style={{
-                      fontSize: '0.82rem',
-                      color: '#7A5A1A',
-                      margin: '0 0 20px',
-                      lineHeight: 1.6,
-                      fontFamily: INTER,
-                      textAlign: 'center',
-                      fontStyle: 'italic',
-                    }}
-                  >
-                    Hundreds of students have transformed patterns they couldn't crack for years — not because they tried harder, but because they finally had the right map. This call is how you get yours.
-                  </p>
-                  <a
-                    href="https://calendly.com/pheydrus_strategy/1-1-alignment-strategy-call-report"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    style={{
-                      display: 'block',
-                      padding: '15px 24px',
-                      background: '#C9A84C',
-                      color: '#1C1A2E',
-                      fontWeight: 700,
-                      fontSize: '0.75rem',
-                      letterSpacing: '0.1em',
-                      textTransform: 'uppercase',
-                      textDecoration: 'none',
-                      borderRadius: '2px',
-                      fontFamily: INTER,
-                      maxWidth: '420px',
-                      margin: '0 auto 12px',
-                      textAlign: 'center',
-                    }}
-                  >
-                    BOOK YOUR ALIGNMENT CALL →
-                  </a>
-                  <p
-                    style={{
-                      margin: 0,
-                      fontSize: '11px',
-                      color: '#999',
-                      fontFamily: INTER,
-                      textAlign: 'center',
-                    }}
-                  >
-                    Complimentary · No obligation · Limited availability this cycle
-                  </p>
                 </div>
               </>
             );
