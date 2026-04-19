@@ -589,6 +589,7 @@ const REPORT_SECTIONS: Array<{ id: string; label: string }> = [
   { id: 'cover', label: 'Overview' },
   { id: 'pattern', label: 'Why This Happens' },
   { id: 'pillars', label: '3-Pillar Breakdown' },
+  { id: 'solution', label: 'Your Solution' },
   { id: 'next-steps', label: 'Next Steps' },
   { id: 'actions', label: 'Export & Reset' },
 ];
@@ -2087,6 +2088,7 @@ export function ClientResultsPage() {
         </section>
 
         {/* ── SECTION 4: COST OF INACTION + CTA ── */}
+        <section id="solution" data-report-section style={{ scrollMarginTop: '120px' }}>
         <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
           <CostOfInaction goalShort={goalShort} endYear={longest?.endYear ?? null} />
 
@@ -2114,7 +2116,7 @@ export function ClientResultsPage() {
                 lineHeight: 1.3,
               }}
             >
-              How To Improve Your Scores
+              How to Improve Your Scores, and Stop Living in Pain 🏆
             </h3>
             <p
               style={{ margin: '0 0 10px', fontSize: '0.85rem', color: '#444444', lineHeight: 1.8 }}
@@ -2160,6 +2162,7 @@ export function ClientResultsPage() {
             </div>
           </div>
         </div>
+        </section>
 
         {/* ── NEXT STEPS ANCHOR — "What's next is simple" ── */}
         <section
@@ -2192,7 +2195,7 @@ export function ClientResultsPage() {
                 color: '#1C1A2E',
               }}
             >
-              What's next is simple.
+              Two No-Brainer Paths
             </h3>
             <p
               style={{
@@ -2280,7 +2283,7 @@ export function ClientResultsPage() {
                       textAlign: 'center',
                     }}
                   >
-                    OR Book Your Alignment Call
+                    Book Your Alignment Call
                   </h2>
                   <p
                     style={{
