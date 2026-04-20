@@ -3,6 +3,8 @@ import path from 'node:path';
 import { spawnSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 import { config as loadDotenv } from 'dotenv';
+import https from 'node:https';
+import http from 'node:http';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -57,11 +59,68 @@ function requireArgUrl(argv: string[]): string {
   return first;
 }
 
-function main(): void {
+function postJsonToSlack(webhookUrl: string, body: object): Promise<void> {
+  return new Promise((resolve, reject) => {
+    const payload = JSON.stringify(body);
+    const url = new URL(webhookUrl);
+    const lib = url.protocol === 'https:' ? https : http;
+    const req = lib.request(
+      {
+        hostname: url.hostname,
+        path: url.pathname + url.search,
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Content-Length': Buffer.byteLength(payload) },
+      },
+      (res) => {
+        let data = '';
+        res.on('data', (chunk) => (data += chunk));
+        res.on('end', () => {
+          if (res.statusCode && res.statusCode >= 200 && res.statusCode < 300) {
+            resolve();
+          } else {
+            reject(new Error(`Slack returned ${res.statusCode}: ${data}`));
+          }
+        });
+      }
+    );
+    req.on('error', reject);
+    req.write(payload);
+    req.end();
+  });
+}
+
+async function postDriveLinkToSlack(driveViewUrl: string, videoUrl: string, skipSlack: boolean): Promise<void> {
+  if (skipSlack) return;
+  const webhookUrl = process.env.SLACK_TRANSCRIPT_WEBHOOK_URL || process.env.SLACK_WEBHOOK_URL;
+  if (!webhookUrl) {
+    console.warn('[transcript:send] No Slack webhook set; skipping Drive link notification.');
+    return;
+  }
+
+  const channel = process.env.SLACK_TRANSCRIPT_CHANNEL || '#video-transcripts';
+  const body = {
+    channel,
+    blocks: [
+      {
+        type: 'section',
+        text: {
+          type: 'mrkdwn',
+          text: `📹 *Watermark-Free Video uploaded to Drive*\n*Drive:* <${driveViewUrl}|Open video>\n*Source:* <${videoUrl}|Original post>`,
+        },
+      },
+    ],
+  };
+
+  await postJsonToSlack(webhookUrl, body);
+  console.log('[transcript:send] Drive link posted to Slack.');
+}
+
+async function main(): Promise<void> {
   loadEnvFiles();
 
   const forwardedArgs = process.argv.slice(2);
   const videoUrl = requireArgUrl(forwardedArgs);
+  const skipSlack = forwardedArgs.includes('--no-slack');
 
   const driveFolderId =
     process.env.WATERMARK_DRIVE_FOLDER_ID ||
@@ -84,11 +143,18 @@ function main(): void {
 
   const finalFile = finalFileMatch[1].trim();
 
-  runCommand(
+  const uploadOutput = runCommand(
     'npx',
     ['tsx', 'scripts/upload-to-drive.ts', finalFile, driveFolderId],
     'Step 2/3: Upload video to Google Drive'
   );
+
+  // Parse Drive view link and post it to Slack
+  const driveViewMatch = uploadOutput.match(/WEB_VIEW=(.+)/);
+  const driveViewUrl = driveViewMatch?.[1]?.trim();
+  if (driveViewUrl) {
+    await postDriveLinkToSlack(driveViewUrl, videoUrl, skipSlack);
+  }
 
   runCommand(
     'npx',
@@ -99,4 +165,7 @@ function main(): void {
   console.log('\nDONE: Full flow complete (download + Drive upload + transcript/slack).');
 }
 
-main();
+main().catch((err) => {
+  console.error(err instanceof Error ? err.message : String(err));
+  process.exit(1);
+});
