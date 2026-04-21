@@ -300,13 +300,14 @@ function extractAudio(ffmpeg: string, videoPath: string, audioPath: string): voi
 // Style: small white text with black outline, bottom-center, high MarginV so it
 // sits BELOW any existing text overlays (title cards, TikTok stickers, etc.).
 // Matches the caption look in attached reference image:
-//   - Font: Arial, size 14
-//   - White fill, 2px black outline (no box)
-//   - Bottom-center, 80px margin from bottom edge
+//   - Font: Arial, small size with fixed PlayRes to prevent oversized scaling
+//   - White fill, thin black outline (no box)
+//   - Lower-third placement to stay below top text overlays
 //
 const CAPTION_STYLE =
-  'FontName=Arial,FontSize=14,PrimaryColour=&H00FFFFFF,OutlineColour=&H00000000,' +
-  'BorderStyle=1,Outline=2,Shadow=1,MarginV=80,Alignment=2';
+  'PlayResX=1080,PlayResY=1920,FontName=Arial,FontSize=8,PrimaryColour=&H00FFFFFF,' +
+  'OutlineColour=&H00000000,BorderStyle=1,Outline=1,Shadow=0,MarginL=24,MarginR=24,' +
+  'MarginV=140,Alignment=2,WrapStyle=2';
 
 function muxSubtitle(
   ffmpeg: string,
