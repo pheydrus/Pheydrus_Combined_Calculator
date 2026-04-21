@@ -9,10 +9,10 @@ and uploads the captioned version back to the same Drive folder with a `-sitecap
 ## Caption Style (Reference Standard)
 Always use these ffmpeg `force_style` settings when burning captions:
 ```
-PlayResX=1080,PlayResY=1920,FontName=Arial,FontSize=25,PrimaryColour=&H00FFFFFF,OutlineColour=&H00000000,BorderStyle=1,Bold=0,Outline=0.75,Shadow=0,MarginL=24,MarginR=24,MarginV=140,Alignment=2,WrapStyle=2
+PlayResX=1080,PlayResY=1920,FontName=Arial,FontSize=35,PrimaryColour=&H00FFFFFF,OutlineColour=&H00000000,BorderStyle=1,Bold=0,Outline=0.75,Shadow=0,MarginL=24,MarginR=24,MarginV=140,Alignment=2,WrapStyle=2
 ```
 - **White text** with **thin black outline** and **non-bold weight** — no box background
-- **FontSize=25 + PlayResX/PlayResY** — tuned for clearer readability on vertical shorts
+- **FontSize=35 + PlayResX/PlayResY** — tuned for clearer readability on vertical shorts
 - **MarginV=140** — places captions in lower-third, below top heading blocks and away from center overlays
 - **Alignment=2** — bottom-center
 
