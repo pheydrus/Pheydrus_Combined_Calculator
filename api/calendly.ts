@@ -66,11 +66,18 @@ async function postToSlack(info: BookingInfo): Promise<void> {
     `2. *Invitee:* ${info.inviteeEmail}\n` +
     `3. *Event type:* ${info.eventTypeName}`;
 
-  await fetch(webhookUrl, {
+  const slackRes = await fetch(webhookUrl, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ text }),
   });
+
+  if (!slackRes.ok) {
+    const body = await slackRes.text();
+    console.error('[calendly] Slack post failed:', slackRes.status, body);
+  } else {
+    console.log('[calendly] Slack post succeeded, webhook url prefix:', webhookUrl.slice(0, 40));
+  }
 }
 
 // ── Flodesk subscriber add ────────────────────────────────────────────────────
