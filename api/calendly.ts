@@ -15,6 +15,7 @@
  *   FLODESK_API_KEY              — Flodesk API key (skip Flodesk if absent)
  *   FLODESK_SEGMENT_ID           — Legacy fallback Flodesk segment to add subscriber to
  *   FLODESK_HJ_CALENDLY_LEADS_SEGMENT_ID — Segment ID for HJ Calendly Leads
+ *   FLODESK_HJ_CALENDLY_LEADS_SEGMENT_NAME — Segment name lookup fallback (default: HJ Calendly Leads)
  *   CALENDLY_TARGET_EVENT_SLUG   — Event slug to match (default: 1-1-alignment-strategy-call-report)
  */
 
@@ -100,6 +101,64 @@ async function addToFlodesk(name: string, email: string): Promise<void> {
   }
 }
 
+function normalizeSegmentId(raw: string | undefined): string | null {
+  if (!raw) return null;
+  const trimmed = raw.trim();
+  if (!trimmed) return null;
+
+  const urlMatch = trimmed.match(/\/segment\/([^/?#]+)/i);
+  if (urlMatch?.[1]) return urlMatch[1];
+  return trimmed;
+}
+
+interface FlodeskSegment {
+  id?: string;
+  name?: string;
+}
+
+function parseFlodeskSegments(payload: unknown): FlodeskSegment[] {
+  if (Array.isArray(payload)) return payload as FlodeskSegment[];
+  if (payload && typeof payload === 'object') {
+    const p = payload as Record<string, unknown>;
+    if (Array.isArray(p['data'])) return p['data'] as FlodeskSegment[];
+    if (Array.isArray(p['segments'])) return p['segments'] as FlodeskSegment[];
+  }
+  return [];
+}
+
+async function resolveHJCalendlyLeadsSegmentId(apiKey: string): Promise<string | null> {
+  const configured =
+    normalizeSegmentId(process.env.FLODESK_HJ_CALENDLY_LEADS_SEGMENT_ID) ||
+    normalizeSegmentId(process.env.FLODESK_SEGMENT_ID);
+  if (configured) return configured;
+
+  const desiredName = (process.env.FLODESK_HJ_CALENDLY_LEADS_SEGMENT_NAME || 'HJ Calendly Leads')
+    .trim()
+    .toLowerCase();
+
+  const res = await fetch('https://api.flodesk.com/v1/segments', {
+    method: 'GET',
+    headers: {
+      Authorization: `Basic ${Buffer.from(`${apiKey}:`).toString('base64')}`,
+      'Content-Type': 'application/json',
+    },
+  });
+
+  if (!res.ok) {
+    const text = await res.text();
+    console.warn('[calendly] Flodesk segment lookup failed:', res.status, text);
+    return null;
+  }
+
+  const payload = (await res.json()) as unknown;
+  const segments = parseFlodeskSegments(payload);
+  const match = segments.find(
+    (segment) => typeof segment?.name === 'string' && segment.name.trim().toLowerCase() === desiredName
+  );
+
+  return match?.id || null;
+}
+
 function extractPathSlug(value: string | undefined): string | null {
   if (!value) return null;
   const trimmed = value.trim();
@@ -124,12 +183,26 @@ function isTargetCalendlyEvent(payload: CalendlyWebhookBody['payload']): boolean
     extractPathSlug(process.env.CALENDLY_TARGET_EVENT_SLUG) ||
     '1-1-alignment-strategy-call-report';
 
+  const eventTypeValue =
+    typeof payload.event_type === 'string' ? payload.event_type : payload.event_type?.slug;
+  const eventTypeSchedulingUrl =
+    typeof payload.event_type === 'object' ? payload.event_type?.scheduling_url : undefined;
+  const eventTypeUri = typeof payload.event_type === 'object' ? payload.event_type?.uri : undefined;
+
+  const scheduledEventTypeValue =
+    typeof payload.scheduled_event?.event_type === 'string'
+      ? payload.scheduled_event.event_type
+      : payload.scheduled_event?.event_type?.slug;
+
   const eventTypeSlug =
-    extractPathSlug(payload.event_type?.slug) ||
-    extractPathSlug(payload.event_type?.scheduling_url) ||
-    extractPathSlug(payload.event_type?.name);
+    extractPathSlug(eventTypeValue) ||
+    extractPathSlug(eventTypeSchedulingUrl) ||
+    extractPathSlug(eventTypeUri) ||
+    extractPathSlug(typeof payload.event_type === 'object' ? payload.event_type?.name : undefined);
 
   const scheduledEventSlug =
+    extractPathSlug(payload.invitee?.scheduling_url) ||
+    extractPathSlug(scheduledEventTypeValue) ||
     extractPathSlug(payload.scheduled_event?.name) ||
     extractPathSlug(payload.scheduled_event?.uri);
 
@@ -147,8 +220,12 @@ async function addToFlodeskHJCalendlyLeads(name: string, email: string): Promise
   const lastName = rest.join(' ');
 
   const body: Record<string, unknown> = { email, first_name: firstName, last_name: lastName };
-  const segmentId = process.env.FLODESK_HJ_CALENDLY_LEADS_SEGMENT_ID || process.env.FLODESK_SEGMENT_ID;
-  if (segmentId) body['segment_ids'] = [segmentId];
+  const segmentId = await resolveHJCalendlyLeadsSegmentId(apiKey);
+  if (!segmentId) {
+    console.warn('[calendly] Could not resolve HJ Calendly Leads segment ID; subscriber was not assigned to segment.');
+  } else {
+    body['segment_ids'] = [segmentId];
+  }
 
   const res = await fetch('https://api.flodesk.com/v1/subscribers', {
     method: 'POST',
@@ -173,15 +250,26 @@ interface CalendlyWebhookBody {
     invitee: {
       name: string;
       email: string;
-    };
-    event_type?: {
-      slug?: string;
-      name?: string;
       scheduling_url?: string;
     };
+    event_type?:
+      | string
+      | {
+          slug?: string;
+          name?: string;
+          scheduling_url?: string;
+          uri?: string;
+        };
     scheduled_event?: {
       name?: string;
       uri?: string;
+      event_type?:
+        | string
+        | {
+            slug?: string;
+            scheduling_url?: string;
+            uri?: string;
+          };
     };
   };
 }
