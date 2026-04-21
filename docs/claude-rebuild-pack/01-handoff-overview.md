@@ -6,9 +6,43 @@ Recreate the key automations built in this repository inside Claude.ai with pred
 ## Current Production Behavior
 1. Transcript workflow is active.
 2. Unified Drive video workflow is available via one command for full pipeline (captions + Google Doc + Slack).
-2. Client report submission posts to Slack.
-3. Client report submission does not sync to FloDesk by default.
-4. Calendly booking webhook posts to Slack.
+3. Client report submission posts to Slack.
+4. Client report submission does not sync to FloDesk by default.
+5. Calendly booking webhook posts to Slack.
+
+## What's Built (Expanded)
+- Transcript workflow (social URL -> transcript + assets):
+	- Accepts an Instagram/TikTok/YouTube URL.
+	- Pulls transcript text via transcription provider.
+	- Creates a Google Doc transcript and stores a local markdown transcript copy.
+	- Downloads watermark-free video when applicable and uploads it to Google Drive.
+	- Posts result summary in Slack with links.
+- Unified Drive full pipeline (Victorias Google Video command):
+	- Single command: npm run "victorias google video" -- <drive_video_link>
+	- Runs burned-in caption generation on the Drive video.
+	- Creates transcript Google Doc for the same source link.
+	- Posts one consolidated Slack message containing original video, captioned video, and Google Doc links.
+	- Supports batch inputs and --skip-slack for dry validation.
+- Captions-only workflow (Drive link or folder):
+	- Command: npm run captions:add -- <drive_video_link_or_folder_id>
+	- Produces a new _captioned video file in Drive (original untouched).
+	- Uses canonical caption defaults:
+		- FontSize 35, Bold 0, Outline 0.75
+		- MarginL/R 72, MarginV 140
+		- Safe wrap defaults: CAPTION_MAX_CHARS=24, CAPTION_MAX_LINES=3
+- Client report submission automation (/api/store-results):
+	- Validates inbound report payload.
+	- Stores results JSON in blob storage.
+	- Builds report URL and posts summary to Slack.
+	- FloDesk sync is opt-in only via env flag (disabled by default).
+- Calendly booking webhook automation (/api/calendly):
+	- Verifies webhook signature.
+	- Processes invitee.created booking events.
+	- Sends booking notifications to Slack.
+	- Optional FloDesk sync is fail-soft and never blocks core webhook success.
+- FloDesk safety posture:
+	- Calculator report submission sync remains explicitly disabled by default.
+	- Optional integration failures should warn/log without breaking core Slack/report flow.
 
 ## Command Quick Reference
 - Full pipeline (recommended for Drive videos):
