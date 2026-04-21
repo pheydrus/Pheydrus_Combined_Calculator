@@ -6,6 +6,18 @@ The workflow downloads each video locally, transcribes audio via OpenAI Whisper,
 captions directly into the video frames (hardcoded, always visible — no player toggle needed)
 and uploads the captioned version back to the same Drive folder with a `-sitecap` suffix.
 
+## Caption Style (Reference Standard)
+Always use these ffmpeg `force_style` settings when burning captions:
+```
+FontName=Arial,FontSize=14,PrimaryColour=&H00FFFFFF,OutlineColour=&H00000000,BorderStyle=1,Outline=2,Shadow=1,MarginV=80,Alignment=2
+```
+- **White text** with **2px black outline** — no box background
+- **FontSize=14** — small, unobtrusive (50% smaller than default)
+- **MarginV=80** — placed near the very bottom, below any existing text overlays (title cards, TikTok stickers, etc.)
+- **Alignment=2** — bottom-center
+
+If the video has a bottom text obstruction, increase `MarginV` (e.g. 120–160) rather than reducing font size further.
+
 ## What It Produces
 For every source video `pile-1.mp4` it creates:
 - `pile-1.srt` — plain text SRT caption file

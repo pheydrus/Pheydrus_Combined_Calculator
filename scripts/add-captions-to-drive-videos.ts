@@ -296,6 +296,17 @@ function extractAudio(ffmpeg: string, videoPath: string, audioPath: string): voi
 }
 
 // ── Burn subtitle into video (hardcoded, always visible) ──────────────────────
+//
+// Style: small white text with black outline, bottom-center, high MarginV so it
+// sits BELOW any existing text overlays (title cards, TikTok stickers, etc.).
+// Matches the caption look in attached reference image:
+//   - Font: Arial, size 14
+//   - White fill, 2px black outline (no box)
+//   - Bottom-center, 80px margin from bottom edge
+//
+const CAPTION_STYLE =
+  'FontName=Arial,FontSize=14,PrimaryColour=&H00FFFFFF,OutlineColour=&H00000000,' +
+  'BorderStyle=1,Outline=2,Shadow=1,MarginV=80,Alignment=2';
 
 function muxSubtitle(
   ffmpeg: string,
@@ -307,7 +318,7 @@ function muxSubtitle(
   // Escape path for ffmpeg filter — backslashes and colons need escaping on all platforms.
   const escapedSrt = srtPath.replace(/\\/g, '/').replace(/:/g, '\\:').replace(/'/g, "\\'");
   execSync(
-    `"${ffmpeg}" -y -i "${videoPath}" -vf "subtitles='${escapedSrt}'" -c:a copy "${outputPath}"`,
+    `"${ffmpeg}" -y -i "${videoPath}" -vf "subtitles='${escapedSrt}':force_style='${CAPTION_STYLE}'" -c:a copy "${outputPath}"`,
     { stdio: 'pipe' }
   );
 }
