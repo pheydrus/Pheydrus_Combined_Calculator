@@ -50,6 +50,7 @@ type ProgramRecommendation = {
   title: string;
   description: string;
   link: string;
+  buttonLabel: string;
 };
 
 const PROGRAM_DETAILS: Record<ProgramRoute, ProgramRecommendation> = {
@@ -59,6 +60,7 @@ const PROGRAM_DETAILS: Record<ProgramRoute, ProgramRecommendation> = {
     description:
       "Have you spent years being told you're too much, too difficult, too intense — no matter how much you work on yourself? That's not a personality flaw. That's a Pillar 1 pattern running unchecked. We use a proprietary sequential deconditioning method to decode your exact angular house placements — and turn what's been misread as your weakness into your most powerful asset.",
     link: 'https://pheydrusmetaverse.com/heros-journey/',
+    buttonLabel: "Watch Hero's Journey →",
   },
   'artists-way': {
     route: 'artists-way',
@@ -66,6 +68,7 @@ const PROGRAM_DETAILS: Record<ProgramRoute, ProgramRecommendation> = {
     description:
       "For people who REALLY need to fix Pillar 3 FAST. If you've done all the inner work and now looking for the PERFECT environment, Portal Activation is for you. It's our proprietary Feng Shui × Astrocartography × Real Estate Numerology method that helps you realign your external reality to match who you've already become.",
     link: 'https://pheydrusmetaverse.com/portal-activation/#',
+    buttonLabel: 'Watch Portal Activation →',
   },
   business: {
     route: 'business',
@@ -73,6 +76,7 @@ const PROGRAM_DETAILS: Record<ProgramRoute, ProgramRecommendation> = {
     description:
       "Good for people looking to discover their voice, quit their first content/course, go viral, and quit their job. If you're feeling the urge to launch, pivot, or make money in a completely new way, that's your business houses activating and telling you it's YOUR TIME to SHINE. Fully step into your purpose with our two viral business/purpose courses!",
     link: 'https://pheydrusmetaverse.com/career-bundle/',
+    buttonLabel: 'Activate Your Business Energy Blueprint! →',
   },
 };
 
@@ -2468,7 +2472,7 @@ export function ClientResultsPage() {
                             alignSelf: 'flex-start',
                           }}
                         >
-                          Watch {recommendation.title} →
+                          {recommendation.buttonLabel}
                         </a>
                       </div>
                     ))}
