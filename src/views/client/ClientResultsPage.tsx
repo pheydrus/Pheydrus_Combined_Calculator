@@ -62,17 +62,17 @@ const PROGRAM_DETAILS: Record<ProgramRoute, ProgramRecommendation> = {
   },
   'artists-way': {
     route: 'artists-way',
-    title: `Artist's Way`,
+    title: 'Portal Activation 🌎',
     description:
-      "Have you done all the inner work and still can't figure out why your outside life won't catch up? Your environment and timing are probably working against everything you've built inside. Through our Feng Shui × Astrocartography method and transit mapping — even if you can't move — we realign your external reality to match who you've already become.",
-    link: 'https://pheydrusmetaverse.com/artists-way/#',
+      "For people who REALLY need to fix Pillar 3 FAST. If you've done all the inner work and now looking for the PERFECT environment, Portal Activation is for you. It's our proprietary Feng Shui × Astrocartography × Real Estate Numerology method that helps you realign your external reality to match who you've already become.",
+    link: 'https://pheydrusmetaverse.com/portal-activation/#',
   },
   business: {
     route: 'business',
-    title: 'Business Growth',
+    title: 'Business Energy Blueprint Bundle 💵',
     description:
-      "Suddenly feeling the urge to launch, pivot, or make money in a completely new way? That's not restlessness — that's your business houses activated. All 3 pillars are telling you it's time. The question is whether you know how to move with that window — or let it pass.",
-    link: 'https://pheydrusmetaverse.com/business-growth/',
+      "Good for people looking to discover their voice, quit their first content/course, go viral, and quit their job. If you're feeling the urge to launch, pivot, or make money in a completely new way, that's your business houses activating and telling you it's YOUR TIME to SHINE. Fully step into your purpose with our two viral business/purpose courses!",
+    link: 'https://pheydrusmetaverse.com/career-bundle/',
   },
 };
 
@@ -866,7 +866,9 @@ export function ClientResultsPage() {
   const [scrollProgress, setScrollProgress] = useState(0);
   const [activeSection, setActiveSection] = useState<string>(REPORT_SECTIONS[0].id);
 
-  const isDemo = new URLSearchParams(location.search).get('demo') === 'true';
+  // Accept any truthy ?demo value (e.g., demo=1, demo=true, demo=yes)
+  const demoParam = new URLSearchParams(location.search).get('demo');
+  const isDemo = demoParam && demoParam !== '0' && demoParam.toLowerCase() !== 'false';
 
   const DEMO_STATE: { results: ConsolidatedResults; intake: ClientIntakeData } = {
     results: {
@@ -2373,7 +2375,7 @@ export function ClientResultsPage() {
                       margin: '0 0 16px',
                     }}
                   >
-                    Watch These Videos 🎥
+                    Checkout These Viral Mini Courses ✍️
                   </h2>
 
                   <p
