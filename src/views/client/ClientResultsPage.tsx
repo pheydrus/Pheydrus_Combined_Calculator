@@ -16,6 +16,7 @@ import {
   getTransitEndYear,
   type GoalCategory,
 } from '../../services/pdfExport/clientInterpretations';
+import { getLibraryEntry, MALEFIC_PLANETS, BENEFIC_PLANETS } from '../../data/planetHouseLibrary';
 import type { GradeItem, PillarSummary } from '../../models/diagnostic';
 import type { PlanetaryTransit } from '../../models/calculators';
 import type { ConsolidatedResults } from '../../models';
@@ -479,14 +480,126 @@ function AspectCard({
   transits: PlanetaryTransit[];
 }) {
   const gc = gradeColor(item.grade);
-  const interp = getItemInterpretation(item, goal, transits, goalText);
-  const mirror = getMirrorLine(item, goalShort);
-  const transmute = getTransmuteLine(item);
+  const libraryEntry = getLibraryEntry(item.planet, item.house, item.pillar);
   const label = item.section === 'Address' ? '🏠 Address Energy' : item.source;
   const endYear =
     item.section === 'Transit Angular' || item.section === 'Life Cycle'
       ? getTransitEndYear(item.planet ?? '', transits)
       : null;
+
+  const isMalefic = item.planet ? MALEFIC_PLANETS.has(item.planet) : false;
+  const isBenefic = item.planet ? BENEFIC_PLANETS.has(item.planet) : false;
+
+  if (libraryEntry) {
+    const hurtHelpLabel = isMalefic
+      ? { text: '⚡ Hurts Goal', bg: '#FFF5F5', color: '#C0392B', border: '#C0392B' }
+      : isBenefic
+        ? { text: '✓ Helps Goal', bg: '#F0FFF4', color: '#16a34a', border: '#2ecc71' }
+        : null;
+
+    return (
+      <div
+        style={{
+          background: '#FFFFFF',
+          borderLeft: `3px solid ${gc.border}`,
+          borderRadius: '4px',
+          padding: '14px 16px',
+          marginBottom: '10px',
+          border: `1px solid #E8E8E8`,
+        }}
+      >
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: '8px',
+            marginBottom: '8px',
+            flexWrap: 'wrap' as const,
+          }}
+        >
+          <span style={{ fontFamily: INTER, fontSize: '0.8rem', fontWeight: 700, color: '#1C1A2E' }}>
+            {label}
+          </span>
+          <span
+            style={{
+              display: 'inline-block',
+              padding: '2px 8px',
+              borderRadius: '2px',
+              fontSize: '10px',
+              fontWeight: 700,
+              background: gc.bg,
+              color: gc.text,
+              border: `1px solid ${gc.border}`,
+              fontFamily: INTER,
+            }}
+          >
+            {item.grade}
+            {endYear ? ` · thru ${endYear}` : ''}
+          </span>
+          {hurtHelpLabel && (
+            <span
+              style={{
+                display: 'inline-block',
+                padding: '2px 8px',
+                borderRadius: '2px',
+                fontSize: '10px',
+                fontWeight: 700,
+                background: hurtHelpLabel.bg,
+                color: hurtHelpLabel.color,
+                border: `1px solid ${hurtHelpLabel.border}`,
+                fontFamily: INTER,
+              }}
+            >
+              {hurtHelpLabel.text}
+            </span>
+          )}
+        </div>
+        <p
+          style={{
+            fontFamily: INTER,
+            fontSize: '0.72rem',
+            color: '#444',
+            lineHeight: 1.7,
+            margin: '0 0 6px',
+          }}
+        >
+          Based on your 90-day goal, {libraryEntry.hurt_or_help}
+        </p>
+        {libraryEntry.note && (
+          <p
+            style={{
+              fontFamily: INTER,
+              fontSize: '0.72rem',
+              fontStyle: 'italic',
+              color: '#C9A84C',
+              lineHeight: 1.6,
+              margin: '0 0 6px',
+              paddingLeft: '10px',
+              borderLeft: '2px solid #C9A84C',
+            }}
+          >
+            {libraryEntry.note}
+          </p>
+        )}
+        <p
+          style={{
+            fontFamily: INTER,
+            fontSize: '0.72rem',
+            color: '#555',
+            lineHeight: 1.7,
+            margin: 0,
+          }}
+        >
+          <strong style={{ color: '#1C1A2E' }}>Steps:</strong> {libraryEntry.steps}
+        </p>
+      </div>
+    );
+  }
+
+  // Fallback: original mirror/interp/transmute layout for entries not in the library
+  const interp = getItemInterpretation(item, goal, transits, goalText);
+  const mirror = getMirrorLine(item, goalShort);
+  const transmute = getTransmuteLine(item);
 
   return (
     <div
@@ -625,9 +738,28 @@ function PillarDeepDiveCard({
   pillar3Items: GradeItem[];
   addressMoveDate: string;
 }) {
-  const scoringItems = pillar.items.filter(
+  const rawScoringItems = pillar.items.filter(
     (i) => i.grade === 'F' || i.grade === 'C' || i.grade === 'A'
   );
+
+  // Skip: grade A + benefic planet (library shows no pressure)
+  // Skip: duplicate planet within the same pillar (show once)
+  const seenPlanets = new Set<string>();
+  const dedupedItems = rawScoringItems.filter((i) => {
+    if (i.planet && i.grade === 'A' && BENEFIC_PLANETS.has(i.planet)) return false;
+    if (i.planet) {
+      if (seenPlanets.has(i.planet)) return false;
+      seenPlanets.add(i.planet);
+    }
+    return true;
+  });
+
+  // Sort: F first, C second, A last
+  const GRADE_ORDER: Record<string, number> = { F: 0, C: 1, A: 2, Neutral: 3 };
+  const scoringItems = [...dedupedItems].sort(
+    (a, b) => (GRADE_ORDER[a.grade] ?? 3) - (GRADE_ORDER[b.grade] ?? 3)
+  );
+
   const callout = PILLAR_CALLOUT[index](goalShort, location);
   const accentColor = index === 1 ? '#C0392B' : index === 2 ? '#C9A84C' : '#9a7d4e';
   const pillarGrade = getPillarLetterGrade(pillar);
