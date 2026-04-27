@@ -229,13 +229,13 @@ export function ClientAssessmentPage() {
       case 2:
         return !!form.birthLocation && !!form.currentLocation;
       case 3:
-        return true;
+        return !!form.l1 && !!form.postalCode;
       case 4:
         return !!intake.desiredOutcome && !!intake.obstacle;
       case 5:
         return !!intake.preferredSolution && !!intake.currentSituation;
       case 6:
-        return true;
+        return intake.tosConsent;
       default:
         return false;
     }
@@ -407,7 +407,7 @@ export function ClientAssessmentPage() {
               </div>
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className={labelClass}>Unit number</label>
+                  <label className={labelClass}>Unit number <span className="text-[#9a7d4e]">*</span></label>
                   <input
                     type="text"
                     value={form.l1}
@@ -439,7 +439,7 @@ export function ClientAssessmentPage() {
               </div>
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className={labelClass}>Postal code</label>
+                  <label className={labelClass}>Postal code <span className="text-[#9a7d4e]">*</span></label>
                   <input
                     type="text"
                     value={form.postalCode}
@@ -617,7 +617,7 @@ export function ClientAssessmentPage() {
                   className="mt-1 h-4 w-4 rounded border-gray-300 text-[#9a7d4e] focus:ring-[#9a7d4e]"
                 />
                 <span>
-                  I understand that this calculator is for my personal use only. Sharing,
+                  ⚠️ <span className="text-[#9a7d4e] font-semibold">*</span> I understand that this calculator is for my personal use only. Sharing,
                   redistributing, or forwarding this link is a violation of Pheydrus' Terms of Use
                   and will be pursued legally. All access is recorded for security purposes.
                 </span>
