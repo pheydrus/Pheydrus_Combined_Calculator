@@ -8,7 +8,7 @@
 
 import { useState } from 'react';
 import { StandalonePageWrapper } from './StandalonePageWrapper';
-import { calculateAstrocartography } from '../../services/calculators';
+import { calculateAstrocartography } from '../../calculators';
 import { AstrocartographyResults } from '../../components/results';
 import { CityAutocomplete } from '../../components/form/CityAutocomplete';
 import type { AstrocartographyResult } from '../../models/calculators';
@@ -108,11 +108,11 @@ export function AstrocartographyPage() {
             <span className="font-semibold">Angles:</span> ASC · DSC · MC · IC
             <br />
             <span className="text-xs text-[#a08c6e]">
-              Checks ~300 major cities worldwide — may take a few seconds.
-              Results are sorted by <span className="font-semibold">tightest orb first</span>: the
-              city at the top of each list is the closest match to the exact line, meaning that
-              planet's influence is strongest there. Cities further down the list are still within
-              range (up to 9°) but with weaker influence.
+              Checks ~300 major cities worldwide — may take a few seconds. Results are sorted by{' '}
+              <span className="font-semibold">tightest orb first</span>: the city at the top of each
+              list is the closest match to the exact line, meaning that planet's influence is
+              strongest there. Cities further down the list are still within range (up to 9°) but
+              with weaker influence.
             </span>
           </div>
         </div>

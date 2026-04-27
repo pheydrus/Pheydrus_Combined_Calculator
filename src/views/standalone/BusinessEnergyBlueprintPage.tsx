@@ -4,7 +4,10 @@
 
 import { useState } from 'react';
 import { StandalonePageWrapper } from './StandalonePageWrapper';
-import { calculateHumanDesign, validateHumanDesignInput } from '../../services/calculators/humanDesignCalculator';
+import {
+  calculateHumanDesign,
+  validateHumanDesignInput,
+} from '../../calculators/humanDesignCalculator';
 import { HumanDesignResults } from '../../components/results/HumanDesignResults';
 import { CityAutocomplete } from '../../components/form/CityAutocomplete';
 import type { HumanDesignResult } from '../../models/calculators';
@@ -58,12 +61,11 @@ export function BusinessEnergyBlueprintPage() {
       subtitle="Discover your Human Design type, authority, and profile."
     >
       <div className="space-y-6">
-
         {/* Intro callout */}
         <div className="bg-gradient-to-r from-[#9a7d4e]/10 to-[#4a4560]/10 rounded-xl border border-[#9a7d4e]/20 p-4">
           <p className="text-sm text-[#4a4560] leading-relaxed">
-            Human Design combines the I-Ching, Kabbalah, chakra system, and quantum physics
-            to map your unique energetic blueprint. Enter your exact birth data below.
+            Human Design combines the I-Ching, Kabbalah, chakra system, and quantum physics to map
+            your unique energetic blueprint. Enter your exact birth data below.
           </p>
         </div>
 

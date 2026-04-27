@@ -9,12 +9,12 @@ import type {
   AstrologyPlanet,
   AstrologyAspect,
   AngleAspects,
-} from '../../models/calculators';
-import { getPlanetLongitudes, getAngles, initEphemeris } from '../../utils/astro/swephClient';
-import { birthLocalToJulianDay } from '../../utils/astro/time';
-import { assignWholeSignHouses } from '../../utils/astro/houses';
+} from '../models/calculators';
+import { getPlanetLongitudes, getAngles, initEphemeris } from '../utils/astro/swephClient';
+import { birthLocalToJulianDay } from '../utils/astro/time';
+import { assignWholeSignHouses } from '../utils/astro/houses';
 import { degreeToZodiacSign } from './natalChartHelpers';
-import { ASPECTS } from '../../utils/data/constants';
+import { ASPECTS } from '../utils/data/constants';
 
 const ANGLE_NAMES = ['Ascendant', 'Descendant', 'MC', 'IC'];
 

@@ -4,8 +4,8 @@
  */
 
 import { describe, it, expect } from 'vitest';
-import type { FormData, CityData } from '../../../models/form';
-import { runAllCalculators } from '../../orchestration/calculatorOrchestrator';
+import type { FormData, CityData } from '../../models/form';
+import { runAllCalculators } from '../../services/orchestration/calculatorOrchestrator';
 
 describe('Diagnostic - Single Test Case', () => {
   it('should show detailed error information', async () => {

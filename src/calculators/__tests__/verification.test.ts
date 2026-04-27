@@ -13,7 +13,7 @@ import { calculateTransits } from '../transitsCalculator';
 import { calculateLifePath } from '../lifePathCalculator';
 import { calculateAddressNumerology } from '../addressNumerologyCalculator';
 
-import type { TransitsInput, LifePathInput, AddressNumerologyInput } from '../../../models';
+import type { TransitsInput, LifePathInput, AddressNumerologyInput } from '../../models';
 
 /**
  * Test Cases: Transits Calculator

@@ -34,10 +34,7 @@ export {
 } from './astrocartographyCalculator';
 
 // Human Design Calculator
-export {
-  calculateHumanDesign,
-  validateHumanDesignInput,
-} from './humanDesignCalculator';
+export { calculateHumanDesign, validateHumanDesignInput } from './humanDesignCalculator';
 
 // Re-export types
 export type {
@@ -55,4 +52,4 @@ export type {
   AstrocartographyResult,
   HumanDesignInput,
   HumanDesignResult,
-} from '../../models/calculators';
+} from '../models/calculators';

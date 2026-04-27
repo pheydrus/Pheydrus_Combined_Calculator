@@ -5,7 +5,7 @@
 
 import { useState } from 'react';
 import { StandalonePageWrapper } from './StandalonePageWrapper';
-import { calculateRelocation } from '../../services/calculators';
+import { calculateRelocation } from '../../calculators';
 import { RelocationResults } from '../../components/results';
 import { CityAutocomplete } from '../../components/form/CityAutocomplete';
 import type { RelocationResult } from '../../models/calculators';

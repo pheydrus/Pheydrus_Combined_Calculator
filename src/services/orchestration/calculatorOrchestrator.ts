@@ -14,7 +14,7 @@ import {
   validateRelocationInput,
   calculateAddressNumerology,
   validateAddressNumerologyInput,
-} from '../calculators';
+} from '../../calculators';
 import {
   mapToNatalChartInput,
   mapToLifePathInput,

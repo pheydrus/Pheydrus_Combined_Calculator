@@ -10,15 +10,15 @@ import type {
   AddressNumerologyResult,
   NumerologyLevel,
   ZodiacMeaning,
-} from '../../models/calculators';
-import { chaldeanNumerologyCalculator } from '../../utils/numerology/chaldean';
-import { getChineseZodiac } from '../../utils/numerology/chineseZodiac';
-import { areZodiacsCompatible } from '../../utils/numerology/compatibility';
+} from '../models/calculators';
+import { chaldeanNumerologyCalculator } from '../utils/numerology/chaldean';
+import { getChineseZodiac } from '../utils/numerology/chineseZodiac';
+import { areZodiacsCompatible } from '../utils/numerology/compatibility';
 import {
   NUMEROLOGY_MEANINGS,
   EXTENDED_NUMEROLOGY_MEANINGS,
   CHINESE_ZODIAC_MEANINGS,
-} from '../../utils/data/constants';
+} from '../utils/data/constants';
 
 /**
  * Get numerology meaning for a number (basic + extended)
@@ -213,12 +213,19 @@ export function calculateAddressNumerology(input: AddressNumerologyInput): Addre
   if (l3CompNums.length >= 1) {
     let l3Num = l3CompNums.reduce((a, b) => a + b, 0);
     while (l3Num > 9 && l3Num !== 11) {
-      let s = 0, n = l3Num;
-      while (n) { s += n % 10; n = Math.floor(n / 10); }
+      let s = 0,
+        n = l3Num;
+      while (n) {
+        s += n % 10;
+        n = Math.floor(n / 10);
+      }
       l3Num = s;
     }
 
-    const displayValue = [L1, L2A, L3].filter(Boolean).map((c) => c!.value).join(' + ');
+    const displayValue = [L1, L2A, L3]
+      .filter(Boolean)
+      .map((c) => c!.value)
+      .join(' + ');
     const meaning = getFullMeaning(l3Num);
     levels.push({
       level: `L${levels.length + 1}`,

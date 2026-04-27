@@ -5,7 +5,7 @@
 
 import { useState } from 'react';
 import { StandalonePageWrapper } from './StandalonePageWrapper';
-import { calculateTransits } from '../../services/calculators';
+import { calculateTransits } from '../../calculators';
 import { TransitsResults } from '../../components/results';
 import { ZODIAC_SIGNS_OPTIONS } from '../../models/form';
 import type { TransitsResult } from '../../models/calculators';

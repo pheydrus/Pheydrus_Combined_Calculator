@@ -9,8 +9,8 @@ import type {
   TransitsResult,
   PlanetaryTransit,
   Placement,
-} from '../../models/calculators';
-import { HOUSE_THEMES, PLANET_THEMES, ZODIAC_SIGNS } from '../../utils/data/constants';
+} from '../models/calculators';
+import { HOUSE_THEMES, PLANET_THEMES, ZODIAC_SIGNS } from '../utils/data/constants';
 
 /**
  * Transit placement data for 6 major planets/nodes

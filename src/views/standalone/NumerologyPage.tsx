@@ -6,7 +6,7 @@
 
 import { useState } from 'react';
 import { StandalonePageWrapper } from './StandalonePageWrapper';
-import { calculateAddressNumerology, calculateLifePath } from '../../services/calculators';
+import { calculateAddressNumerology, calculateLifePath } from '../../calculators';
 import { AddressNumerologyResults, LifePathResults } from '../../components/results';
 import type { AddressNumerologyResult, LifePathResult } from '../../models/calculators';
 

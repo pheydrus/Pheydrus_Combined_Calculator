@@ -9,7 +9,7 @@ import {
   degreeToZodiacSign,
   formatDegree,
   getZodiacSign,
-} from '../../../services/calculators/natalChartHelpers';
+} from '../../../calculators/natalChartHelpers';
 
 // ============================================================================
 // DEGREE TO ZODIAC SIGN — all 12 boundaries

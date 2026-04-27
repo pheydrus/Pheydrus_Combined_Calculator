@@ -8,9 +8,9 @@
  *   Design (Unconscious)    — ~88° solar arc before birth (≈88 days prior)
  */
 
-import type { HumanDesignInput, HumanDesignResult } from '../../models/calculators';
-import { getPlanetLongitudes, initEphemeris } from '../../utils/astro/swephClient';
-import { birthLocalToJulianDay, julianDayToUtcDate } from '../../utils/astro/time';
+import type { HumanDesignInput, HumanDesignResult } from '../models/calculators';
+import { getPlanetLongitudes, initEphemeris } from '../utils/astro/swephClient';
+import { birthLocalToJulianDay, julianDayToUtcDate } from '../utils/astro/time';
 import {
   longitudeToGateLine,
   getDesignJulianDay,
@@ -18,13 +18,21 @@ import {
   getTypeAndAuthority,
   getProfile,
   type GateLine,
-} from '../../utils/humanDesign/calculations';
-import { ALL_CENTERS, TYPE_INFO } from '../../utils/humanDesign/constants';
+} from '../utils/humanDesign/calculations';
+import { ALL_CENTERS, TYPE_INFO } from '../utils/humanDesign/constants';
 
 // Planets to calculate in HD order (matches pyswisseph reference)
 const HD_PLANETS = [
-  'Sun', 'Moon', 'Mercury', 'Venus', 'Mars',
-  'Jupiter', 'Saturn', 'Uranus', 'Neptune', 'Pluto',
+  'Sun',
+  'Moon',
+  'Mercury',
+  'Venus',
+  'Mars',
+  'Jupiter',
+  'Saturn',
+  'Uranus',
+  'Neptune',
+  'Pluto',
   'True Node', // North Node
 ] as const;
 
@@ -55,9 +63,7 @@ async function getHDGates(jdUT: number): Promise<Record<string, GateLine>> {
 /**
  * Calculate a full Human Design chart.
  */
-export async function calculateHumanDesign(
-  input: HumanDesignInput
-): Promise<HumanDesignResult> {
+export async function calculateHumanDesign(input: HumanDesignInput): Promise<HumanDesignResult> {
   await initEphemeris();
 
   const { year, month, day, hour, minute, timeZone } = input;
@@ -97,7 +103,10 @@ export async function calculateHumanDesign(
   // DEBUG — remove after diagnosis
   console.log('[HD] personality gates:', JSON.stringify(personalityGates));
   console.log('[HD] design gates:', JSON.stringify(designGates));
-  console.log('[HD] all active gate numbers:', [...allGates].sort((a, b) => a - b));
+  console.log(
+    '[HD] all active gate numbers:',
+    [...allGates].sort((a, b) => a - b)
+  );
 
   const { definedCenters, activeChannels } = getDefinedCentersAndChannels(allGates);
   const { type, authority } = getTypeAndAuthority(definedCenters, allGates);

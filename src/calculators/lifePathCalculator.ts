@@ -4,10 +4,10 @@
  * Based on birth date only
  */
 
-import type { LifePathInput, LifePathResult } from '../../models/calculators';
-import { chaldeanNumerologyCalculator } from '../../utils/numerology/chaldean';
-import { getChineseZodiac } from '../../utils/numerology/chineseZodiac';
-import { NUMEROLOGY_MEANINGS } from '../../utils/data/constants';
+import type { LifePathInput, LifePathResult } from '../models/calculators';
+import { chaldeanNumerologyCalculator } from '../utils/numerology/chaldean';
+import { getChineseZodiac } from '../utils/numerology/chineseZodiac';
+import { NUMEROLOGY_MEANINGS } from '../utils/data/constants';
 
 /**
  * Parse date string and extract year, month, day

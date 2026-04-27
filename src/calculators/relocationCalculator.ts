@@ -8,11 +8,11 @@ import type {
   RelocationResult,
   AngularHit,
   BusinessHouseActivation,
-} from '../../models/calculators';
-import { getPlanetLongitudes, getAngles, initEphemeris } from '../../utils/astro/swephClient';
-import { birthLocalToJulianDay } from '../../utils/astro/time';
-import { assignWholeSignHouses } from '../../utils/astro/houses';
-import { BUSINESS_HOUSES, classifyPlanet } from '../../utils/data/constants';
+} from '../models/calculators';
+import { getPlanetLongitudes, getAngles, initEphemeris } from '../utils/astro/swephClient';
+import { birthLocalToJulianDay } from '../utils/astro/time';
+import { assignWholeSignHouses } from '../utils/astro/houses';
+import { BUSINESS_HOUSES, classifyPlanet } from '../utils/data/constants';
 
 /**
  * Calculate Relocation

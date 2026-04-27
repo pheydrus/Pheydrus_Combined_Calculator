@@ -5,7 +5,7 @@
 
 import { useState } from 'react';
 import { StandalonePageWrapper } from './StandalonePageWrapper';
-import { calculateLifePath } from '../../services/calculators';
+import { calculateLifePath } from '../../calculators';
 import { LifePathResults } from '../../components/results';
 import type { LifePathResult } from '../../models/calculators';
 

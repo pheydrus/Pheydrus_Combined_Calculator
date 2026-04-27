@@ -11,7 +11,7 @@ import { describe, it, expect } from 'vitest';
 import { calculateTransits } from '../transitsCalculator';
 import { calculateLifePath } from '../lifePathCalculator';
 import { calculateAddressNumerology } from '../addressNumerologyCalculator';
-import { chaldeanNumerologyCalculator } from '../../../utils/numerology/chaldean';
+import { chaldeanNumerologyCalculator } from '../../utils/numerology/chaldean';
 
 // ============================================================================
 // TRANSITS: Verify exact data matches legacy PheydrusCalculators/src/app/transits/page.tsx

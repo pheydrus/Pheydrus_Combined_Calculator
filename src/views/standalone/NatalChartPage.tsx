@@ -5,7 +5,7 @@
 
 import { useState } from 'react';
 import { StandalonePageWrapper } from './StandalonePageWrapper';
-import { calculateNatalChart } from '../../services/calculators';
+import { calculateNatalChart } from '../../calculators';
 import { NatalChartResults } from '../../components/results';
 import { CityAutocomplete } from '../../components/form/CityAutocomplete';
 import type { NatalChartResult } from '../../models/calculators';

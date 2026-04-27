@@ -14,11 +14,11 @@ import type {
   AstrocartographyResult,
   AstrocartographyLine,
   AstrocartographyPoint,
-} from '../../models/calculators';
-import { getPlanetLongitudes, getAngles, initEphemeris } from '../../utils/astro/swephClient';
-import { birthLocalToJulianDay } from '../../utils/astro/time';
-import { MAJOR_CITIES } from '../../utils/data/majorCities';
-import type { Angles } from '../../utils/astro/types';
+} from '../models/calculators';
+import { getPlanetLongitudes, getAngles, initEphemeris } from '../utils/astro/swephClient';
+import { birthLocalToJulianDay } from '../utils/astro/time';
+import { MAJOR_CITIES } from '../utils/data/majorCities';
+import type { Angles } from '../utils/astro/types';
 
 // ─── Constants ───────────────────────────────────────────────────────────────
 
@@ -41,10 +41,14 @@ function angularDiff(a: number, b: number): number {
 /** Extract the angle value from an Angles object by key. */
 function getAngleValue(angles: Angles, key: 'ASC' | 'DSC' | 'MC' | 'IC'): number {
   switch (key) {
-    case 'ASC': return angles.asc;
-    case 'DSC': return angles.dsc;
-    case 'MC':  return angles.mc;
-    case 'IC':  return angles.ic;
+    case 'ASC':
+      return angles.asc;
+    case 'DSC':
+      return angles.dsc;
+    case 'MC':
+      return angles.mc;
+    case 'IC':
+      return angles.ic;
   }
 }
 
@@ -145,7 +149,11 @@ export async function calculateAstrocartography(
       const hits = hitMap[planet][angleKey];
       if (hits.length === 0) continue;
       hits.sort((a, b) => a.orb - b.orb);
-      lines.push({ planet, angle: angleKey, points: hits.slice(0, MAX_RESULTS_PER_LINE).map((h) => h.point) });
+      lines.push({
+        planet,
+        angle: angleKey,
+        points: hits.slice(0, MAX_RESULTS_PER_LINE).map((h) => h.point),
+      });
     }
   }
 
@@ -156,7 +164,11 @@ export async function calculateAstrocartography(
       const hits = hitMap[planet][angleKey];
       if (hits.length === 0) continue;
       hits.sort((a, b) => a.orb - b.orb);
-      warningLines.push({ planet, angle: angleKey, points: hits.slice(0, MAX_RESULTS_PER_LINE).map((h) => h.point) });
+      warningLines.push({
+        planet,
+        angle: angleKey,
+        points: hits.slice(0, MAX_RESULTS_PER_LINE).map((h) => h.point),
+      });
     }
   }
 

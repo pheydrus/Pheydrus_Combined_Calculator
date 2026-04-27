@@ -2,7 +2,7 @@
  * Helper functions for Natal Chart calculations
  */
 
-import { ZODIAC_SIGNS } from '../../utils/data/constants';
+import { ZODIAC_SIGNS } from '../utils/data/constants';
 
 /**
  * Convert ecliptic longitude to zodiac sign and degree
