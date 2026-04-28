@@ -47,6 +47,7 @@ interface Results {
 
 interface Intake {
   marketingConsent?: boolean;
+  tosConsent?: boolean;
   desiredOutcome?: string;
   obstacle?: string;
   currentSituation?: string;
@@ -306,7 +307,8 @@ async function appendToGoogleSheet(
   email: string,
   results: Results,
   intake: Intake,
-  resultsUrl: string | null
+  resultsUrl: string | null,
+  addressCountry?: string
 ): Promise<void> {
   const spreadsheetId = process.env.GOOGLE_SHEETS_SPREADSHEET_ID;
   const jsonBase64 = process.env.GOOGLE_SERVICE_ACCOUNT_JSON_BASE64;
@@ -342,6 +344,8 @@ async function appendToGoogleSheet(
     intake.addressMoveDate || '',
     intake.additionalNotes || '',
     intake.marketingConsent ? 'Yes' : 'No',
+    addressCountry || '',
+    intake.tosConsent ? 'Yes' : 'No',
     resultsUrl || '',
   ];
 
@@ -369,11 +373,12 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
-  const { name, email, results, intake } = (req.body ?? {}) as {
+  const { name, email, results, intake, addressCountry } = (req.body ?? {}) as {
     name?: string;
     email?: string;
     results?: Results;
     intake?: Intake;
+    addressCountry?: string;
   };
 
   if (!email || typeof email !== 'string' || !email.includes('@')) {
@@ -418,7 +423,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     await Promise.all([
       postToSlack(displayName, email, results, resultsUrl),
       addToFlodesk(displayName, email, intake.marketingConsent),
-      appendToGoogleSheet(displayName, email, results, intake, resultsUrl),
+      appendToGoogleSheet(displayName, email, results, intake, resultsUrl, addressCountry),
     ]);
     return res.status(200).json({ ok: true, id, blobDebug });
   } catch (err) {

@@ -257,7 +257,7 @@ export function ClientAssessmentPage() {
             const storeRes = await fetch('/api/store-results', {
               method: 'POST',
               headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({ name: form.name, email: intake.email, results, intake }),
+              body: JSON.stringify({ name: form.name, email: intake.email, results, intake, addressCountry: form.addressCountry }),
             });
             const { id } = await storeRes.json();
             if (id) resultsPath = `/client/results?id=${id}`;
