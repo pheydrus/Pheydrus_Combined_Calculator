@@ -110,6 +110,9 @@ export async function calculateAstrocartography(
   }
 
   // One getAngles call per city — compute all planet × angle orbs in one shot
+  // Also track the nearest cities for Sun IC regardless of orb (fallback for sparse charts)
+  const sunIcFallback: Hit[] = [];
+
   for (const city of MAJOR_CITIES) {
     let angles: Angles;
     try {
@@ -138,8 +141,28 @@ export async function calculateAstrocartography(
             },
           });
         }
+
+        // Always track nearest cities for Sun IC so it's never missing from results
+        if (planet === 'Sun' && angleKey === 'IC') {
+          sunIcFallback.push({
+            orb,
+            point: {
+              latitude: city.lat,
+              longitude: city.lon,
+              orb: Math.round(orb * 100) / 100,
+              region: getGeographicRegion(city.lat, city.lon),
+              locationName: city.name,
+            },
+          });
+        }
       }
     }
+  }
+
+  // If Sun IC had no cities within the default orb, populate from the fallback
+  if (hitMap['Sun']['IC'].length === 0) {
+    sunIcFallback.sort((a, b) => a.orb - b.orb);
+    hitMap['Sun']['IC'] = sunIcFallback.slice(0, MAX_RESULTS_PER_LINE);
   }
 
   // Build benefic lines sorted by orb
