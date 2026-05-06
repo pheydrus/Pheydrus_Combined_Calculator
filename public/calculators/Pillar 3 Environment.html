@@ -1,0 +1,905 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Pillar 3 — Environment Wheel · Pheydrus</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f6f1e7;
+    --bg-deep: #efe7d4;
+    --bg-card: #fbf7ee;
+    --ink: #1f1a14;
+    --ink-soft: #4a4234;
+    --ink-mute: #847a68;
+    --rule: #d9cfb8;
+    --rule-soft: #e8dfc9;
+    --benefic: #8a6a1f;
+    --benefic-bg: #f4ead0;
+    --malefic: #8a3a28;
+    --malefic-bg: #f0d8cd;
+    --quiet: #2f4a3a;
+    --quiet-bg: #dde6dd;
+    --gold: #b8923a;
+  }
+
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; height: 100%; }
+
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Inter', -apple-system, system-ui, sans-serif;
+    font-size: 14px;
+    -webkit-font-smoothing: antialiased;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* ---------- Header ---------- */
+  header.app {
+    padding: 18px 28px;
+    border-bottom: 1px solid var(--rule);
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    background: var(--bg);
+    z-index: 10;
+  }
+  .brand {
+    display: flex;
+    flex-direction: column;
+    line-height: 1;
+  }
+  .brand-eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink-mute);
+    margin-bottom: 6px;
+  }
+  .brand-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 500;
+    font-size: 22px;
+    letter-spacing: 0.005em;
+  }
+  .brand-title em { font-style: italic; color: var(--ink-soft); }
+
+  .legend {
+    margin-left: auto;
+    display: flex;
+    gap: 18px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-mute);
+  }
+  .legend-item { display: flex; align-items: center; gap: 6px; }
+  .legend-dot {
+    width: 8px; height: 8px; border-radius: 50%;
+  }
+  .legend-dot.benefic { background: var(--benefic); }
+  .legend-dot.malefic { background: var(--malefic); }
+  .legend-dot.quiet   { background: var(--quiet); }
+
+  /* ---------- Main split ---------- */
+  main {
+    flex: 1;
+    display: grid;
+    grid-template-columns: 240px 1fr 380px;
+    min-height: 0;
+  }
+
+  /* ---------- Planet rail ---------- */
+  .planet-rail {
+    border-right: 1px solid var(--rule);
+    padding: 24px 16px;
+    overflow-y: auto;
+    background: var(--bg);
+  }
+  .rail-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink-mute);
+    padding: 0 8px 12px;
+  }
+  .planet-btn {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 12px;
+    background: transparent;
+    border: 1px solid transparent;
+    border-radius: 8px;
+    cursor: pointer;
+    text-align: left;
+    color: var(--ink-soft);
+    transition: all 0.15s ease;
+    margin-bottom: 2px;
+    font-family: inherit;
+  }
+  .planet-btn:hover {
+    background: var(--bg-card);
+    color: var(--ink);
+  }
+  .planet-btn.active {
+    background: var(--ink);
+    color: var(--bg);
+    border-color: var(--ink);
+  }
+  .planet-btn.active .planet-glyph { color: var(--bg); }
+  .planet-btn.active .planet-kind  { color: rgba(246, 241, 231, 0.7); }
+  .planet-glyph {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 24px;
+    line-height: 1;
+    width: 24px;
+    text-align: center;
+    color: var(--ink);
+  }
+  .planet-meta { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+  .planet-name-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 1;
+  }
+  .planet-kind {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--ink-mute);
+  }
+
+  /* ---------- Wheel center ---------- */
+  .wheel-stage {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: radial-gradient(circle at center, var(--bg) 0%, var(--bg-deep) 100%);
+    overflow: hidden;
+    min-width: 0;
+  }
+  .wheel-stage::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      radial-gradient(circle at 20% 30%, rgba(184, 146, 58, 0.05) 0%, transparent 40%),
+      radial-gradient(circle at 80% 70%, rgba(138, 58, 40, 0.04) 0%, transparent 40%);
+    pointer-events: none;
+  }
+
+  .wheel-svg {
+    width: min(96%, calc(100vh - 140px));
+    height: auto;
+    max-width: 760px;
+    aspect-ratio: 1;
+    display: block;
+    z-index: 1;
+  }
+
+  /* SVG element styling */
+  .ring-bg { fill: var(--bg-card); stroke: var(--rule); stroke-width: 1; }
+  .ring-inner { fill: var(--bg); stroke: var(--rule); stroke-width: 1; }
+  .ring-mid { fill: none; stroke: var(--rule-soft); stroke-width: 1; }
+  .ring-axis { fill: none; stroke: var(--ink); stroke-width: 1.2; }
+  .house-divider { stroke: var(--rule); stroke-width: 0.8; }
+  .house-divider.angular { stroke: var(--ink); stroke-width: 1.4; }
+
+  .house-slice {
+    cursor: pointer;
+    transition: fill 0.18s ease;
+  }
+  .house-slice.benefic { fill: rgba(244, 234, 208, 0.55); }
+  .house-slice.malefic { fill: rgba(240, 216, 205, 0.55); }
+  .house-slice.quiet   { fill: rgba(221, 230, 221, 0.55); }
+  .house-slice.empty   { fill: transparent; }
+
+  .house-slice:hover { filter: brightness(0.96); }
+  .house-slice.benefic:hover { fill: rgba(244, 234, 208, 0.95); }
+  .house-slice.malefic:hover { fill: rgba(240, 216, 205, 0.95); }
+  .house-slice.quiet:hover   { fill: rgba(221, 230, 221, 0.95); }
+
+  .house-slice.active.benefic { fill: var(--benefic-bg); }
+  .house-slice.active.malefic { fill: var(--malefic-bg); }
+  .house-slice.active.quiet   { fill: var(--quiet-bg); }
+  .house-slice.active {
+    stroke-width: 2;
+  }
+  .house-slice.active.benefic { stroke: var(--benefic); }
+  .house-slice.active.malefic { stroke: var(--malefic); }
+  .house-slice.active.quiet   { stroke: var(--quiet); }
+
+  .house-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 18px;
+    font-weight: 500;
+    fill: var(--ink-soft);
+    pointer-events: none;
+    text-anchor: middle;
+    dominant-baseline: middle;
+  }
+  .house-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 8.5px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    fill: var(--ink-mute);
+    pointer-events: none;
+    text-anchor: middle;
+    dominant-baseline: middle;
+  }
+  .house-effect-dot {
+    pointer-events: none;
+  }
+
+  .axis-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    fill: var(--ink);
+    font-weight: 500;
+    text-anchor: middle;
+    dominant-baseline: middle;
+    pointer-events: none;
+  }
+
+  .center-glyph {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 96px;
+    fill: var(--ink);
+    text-anchor: middle;
+    dominant-baseline: central;
+    pointer-events: none;
+  }
+  .center-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    font-weight: 500;
+    fill: var(--ink-soft);
+    text-anchor: middle;
+    dominant-baseline: middle;
+    font-style: italic;
+    pointer-events: none;
+  }
+
+  /* ---------- Detail panel ---------- */
+  .detail {
+    border-left: 1px solid var(--rule);
+    background: var(--bg-card);
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+  }
+  .detail-empty {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 40px;
+    color: var(--ink-mute);
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 18px;
+    line-height: 1.5;
+  }
+  .detail-content {
+    padding: 28px 28px 40px;
+    display: none;
+  }
+  .detail-content.show { display: block; }
+
+  .detail-eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink-mute);
+    margin-bottom: 8px;
+  }
+  .detail-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 500;
+    font-size: 36px;
+    line-height: 1.05;
+    margin: 0 0 4px;
+    letter-spacing: -0.005em;
+  }
+  .detail-title .x { color: var(--ink-mute); font-style: italic; margin: 0 6px; }
+  .detail-house {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 18px;
+    color: var(--ink-soft);
+    margin: 0 0 18px;
+  }
+
+  .detail-effect {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 5px 11px;
+    border-radius: 999px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    margin-bottom: 24px;
+  }
+  .detail-effect.benefic { background: var(--benefic-bg); color: var(--benefic); }
+  .detail-effect.malefic { background: var(--malefic-bg); color: var(--malefic); }
+  .detail-effect.quiet   { background: var(--quiet-bg); color: var(--quiet); }
+  .detail-effect::before {
+    content: '';
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: currentColor;
+  }
+
+  .detail-block { margin-bottom: 22px; }
+  .detail-block:last-child { margin-bottom: 0; }
+  .detail-block-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink-mute);
+    margin-bottom: 8px;
+  }
+  .detail-block p {
+    margin: 0;
+    font-size: 15px;
+    line-height: 1.6;
+    color: var(--ink-soft);
+  }
+  .detail-block.steps p { color: var(--ink); }
+  .detail-block.steps {
+    padding: 18px 20px;
+    background: var(--bg);
+    border-radius: 8px;
+    border-left: 3px solid var(--gold);
+  }
+
+  .detail-multi-section {
+    margin-top: 28px;
+    padding-top: 24px;
+    border-top: 1px dashed var(--rule);
+  }
+  .detail-section-head {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 24px;
+    font-weight: 500;
+    margin: 0 0 4px;
+  }
+  .detail-section-sub {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 15px;
+    color: var(--ink-mute);
+    margin: 0 0 18px;
+  }
+
+  /* ---------- Notice bar ---------- */
+  .notice-bar {
+    background: #2a1f12;
+    color: #f4ead0;
+    padding: 9px 28px;
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    line-height: 1.4;
+    letter-spacing: 0.01em;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    border-bottom: 1px solid #1a1209;
+    z-index: 11;
+  }
+  .notice-icon {
+    font-size: 14px;
+    color: #d9b85c;
+    flex-shrink: 0;
+  }
+  .notice-text strong {
+    font-weight: 600;
+    color: #fff;
+    margin-right: 4px;
+  }
+
+  .stage-caption {
+    position: absolute;
+    bottom: 18px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink-mute);
+    text-align: center;
+    z-index: 5;
+  }
+
+  /* Scrollbars */
+  ::-webkit-scrollbar { width: 8px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: var(--rule); border-radius: 4px; }
+  ::-webkit-scrollbar-thumb:hover { background: var(--ink-mute); }
+
+  @media (max-width: 1100px) {
+    main { grid-template-columns: 200px 1fr 340px; }
+  }
+  @media (max-width: 900px) {
+    main { grid-template-columns: 1fr; grid-template-rows: auto auto auto; overflow-y: auto; }
+    body { overflow: auto; }
+    .planet-rail {
+      display: flex;
+      gap: 6px;
+      padding: 12px;
+      overflow-x: auto;
+      border-right: none;
+      border-bottom: 1px solid var(--rule);
+    }
+    .planet-rail .rail-label { display: none; }
+    .planet-btn {
+      flex: 0 0 auto;
+      padding: 6px 10px;
+      margin-bottom: 0;
+    }
+    .planet-btn .planet-kind { display: none; }
+    .wheel-stage { min-height: 480px; padding: 24px 12px 60px; }
+    .detail { border-left: none; border-top: 1px solid var(--rule); }
+    .legend { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="notice-bar" role="alert">
+  <span class="notice-icon" aria-hidden="true">⚠</span>
+  <span class="notice-text"><strong>Pheydrus Proprietary Material</strong> &middot; For enrolled students only. Access is being recorded. Redistribution is a violation of the Terms &amp; Conditions and will be legally penalized.</span>
+</div>
+
+<header class="app">
+  <div class="brand">
+    <span class="brand-eyebrow">Pheydrus · Pillar 3</span>
+    <span class="brand-title">The Environment <em>Wheel</em></span>
+  </div>
+  <div class="legend">
+    <span class="legend-item"><span class="legend-dot benefic"></span> Helps</span>
+    <span class="legend-item"><span class="legend-dot malefic"></span> Hurts</span>
+    <span class="legend-item"><span class="legend-dot quiet"></span> Quiet</span>
+  </div>
+</header>
+
+<main>
+  <!-- Planet selector -->
+  <aside class="planet-rail">
+    <div class="rail-label">Malefics</div>
+    <div id="malefic-buttons"></div>
+    <div class="rail-label" style="margin-top: 18px;">Benefics</div>
+    <div id="benefic-buttons"></div>
+  </aside>
+
+  <!-- Wheel -->
+  <section class="wheel-stage">
+    <svg class="wheel-svg" id="wheel" viewBox="-400 -400 800 800" xmlns="http://www.w3.org/2000/svg"></svg>
+
+    <div class="stage-caption" id="stageCaption">Click a house to see how it interacts</div>
+  </section>
+
+  <!-- Detail panel -->
+  <aside class="detail">
+    <div class="detail-empty" id="detailEmpty">
+      Select a house on the wheel to see how this planet expresses environmentally there.
+    </div>
+    <div class="detail-content" id="detailContent"></div>
+  </aside>
+</main>
+
+<script>
+/* =========================================================
+   DATA
+   ========================================================= */
+const PLANETS = [
+  { name:'Mars',    glyph:'♂', kind:'malefic', blurb:'Drive · friction · combative edge' },
+  { name:'Saturn',  glyph:'♄', kind:'malefic', blurb:'Restriction · mastery through time' },
+  { name:'Pluto',   glyph:'♇', kind:'malefic', blurb:'Power · transformation · depths' },
+  { name:'Neptune', glyph:'♆', kind:'malefic', blurb:'Fog · idealization · dissolution' },
+  { name:'Uranus',  glyph:'♅', kind:'malefic', blurb:'Disruption · novelty · sudden shifts' },
+  { name:'Sun',     glyph:'☉', kind:'benefic', blurb:'Visibility · vitality · leadership' },
+  { name:'Moon',    glyph:'☽', kind:'benefic', blurb:'Warmth · nourishment · resonance' },
+  { name:'Venus',   glyph:'♀', kind:'benefic', blurb:'Charm · beauty · harmony' },
+  { name:'Jupiter', glyph:'♃', kind:'benefic', blurb:'Expansion · abundance · opportunity' }
+];
+
+/* House definitions — wheel positions (1=ASC, 4=IC, 7=DSC, 10=MC).
+   Astrology convention: 1st house at 9 o'clock (left), houses run counter-clockwise.
+   We'll orient with 1st at left, 10th at top, 7th at right, 4th at bottom. */
+const HOUSES = [
+  { num: 1,  key:'ASC', label:'Self · Identity',          axis:'ASC' },
+  { num: 2,  key:'2nd', label:'Income · Resources',       axis:null },
+  { num: 3,  key:'3rd', label:'Communication',            axis:null },
+  { num: 4,  key:'IC',  label:'Home · Foundation',        axis:'IC' },
+  { num: 5,  key:'5th', label:'Creativity · Romance',     axis:null },
+  { num: 6,  key:'6th', label:'Daily Work · Health',      axis:null },
+  { num: 7,  key:'DSC', label:'Partners · 1:1',           axis:'DSC' },
+  { num: 8,  key:'8th', label:'Multiplication · Shared',  axis:null },
+  { num: 9,  key:'9th', label:'Expansion · Belief',       axis:null },
+  { num: 10, key:'MC',  label:'Career · Public',          axis:'MC' },
+  { num: 11, key:'11th',label:'Community · Network',      axis:null },
+  { num: 12, key:'12th',label:'Hidden · Subconscious',    axis:null }
+];
+
+const PLACEMENTS = [
+  // ANGULAR — MALEFICS
+  { p:'Mars', h:'ASC', effect:'malefic', summary:'Your current location amplifies Mars on your ASC — placing you in an environment that constantly triggers your reactive side. Power struggles and conflict are the dominant frequency around you.', steps:'If you can\'t move, redesign your immediate workspace to be calm and minimal as a counter-frequency. Seek out environments where drive is rewarded rather than met with equal aggression.' },
+  { p:'Mars', h:'DSC', effect:'malefic', summary:'Your current location consistently draws combative or competitive people into your 1:1 relationships. The environment is magnetizing the wrong collaborators and clients.', steps:'Be highly selective about new partnerships formed in this location. If possible, initiate key relationships in a different city or context where this environmental influence is weaker.' },
+  { p:'Mars', h:'MC', effect:'malefic', summary:'Your current location amplifies the aggressive edge of your public-facing energy — making it harder to be perceived as trustworthy or authoritative in your field.', steps:'Consider which cities or professional environments reward boldness over polish. Your Mars MC energy thrives where disruption is valued — find that context.' },
+  { p:'Mars', h:'IC', effect:'malefic', summary:'Your current home address or living situation carries a combative frequency that makes it hard to rest, recover, or feel stable — all of which are necessary for sustained progress.', steps:'Look at the numerology of your address and the astrocartography of your current city. Small environmental shifts can meaningfully reduce this friction.' },
+  { p:'Saturn', h:'ASC', effect:'malefic', summary:'Your current location activates Saturn on your ASC — making you feel restricted, underestimated, or blocked in how you show up publicly. The environment is amplifying the heaviness.', steps:'Research locations where your Saturn ASC energy shifts. Astrocartography can identify cities where this placement expresses as authority rather than limitation.' },
+  { p:'Saturn', h:'DSC', effect:'malefic', summary:'Your current location makes you attract partners that make you "grow up" or "teach" you lessons. The environment magnetizes heavy or withholding relational dynamics.', steps:'Be especially intentional about how much "disciplinarian dynamic" you\'re willing to tolerate in 1:1 partnerships. Consider initiating key collaborations outside your current city where this environmental influence is weaker.' },
+  { p:'Saturn', h:'MC', effect:'malefic', summary:'Your current location amplifies the Saturn MC energy — making career advancement feel slower and more effortful than it should be here. Over time, it CAN help you achieve mastery in your field.', steps:'Research cities where your professional archetype thrives. Saturn MC often performs better in structured, traditional industries or cities that reward longevity over flash.' },
+  { p:'Saturn', h:'IC', effect:'malefic', summary:'Your current home environment carries a Saturn IC frequency — cold, restrictive, or emotionally heavy. It is harder to rest and recover here than it should be.', steps:'Look at both the numerology of your address and whether this city supports your IC energy. Even small changes to your home\'s warmth and structure can meaningfully shift this.' },
+  { p:'Pluto', h:'ASC', effect:'malefic', summary:'Your current location amplifies the Pluto ASC energy — consistently putting you in situations where you\'re perceived as a threat or disruptor, making trust-building and collaboration significantly harder.', steps:'Seek environments where intensity and transformation are valued — not feared. Your Pluto ASC energy thrives in high-stakes, high-transformation contexts.' },
+  { p:'Pluto', h:'DSC', effect:'malefic', summary:'Your current location consistently attracts Plutonian energy into your partnerships — power struggles, betrayal dynamics, and controlling collaborators are more common here than they would be elsewhere.', steps:'Be extremely selective about who you partner with in this location. Consider relocating key business or personal partnerships to contexts where this environmental influence is weaker.' },
+  { p:'Pluto', h:'MC', effect:'malefic', summary:'Your current location amplifies Pluto MC energy — placing you in professional environments where power struggles and reputation battles are more frequent and intense than they need to be. You CAN thrive if you play a "Plutonian" archetype: not afraid of the taboo, willing to dig deep, investigative, intense.', steps:'Research whether your professional archetype performs better in different cities. Pluto MC thrives in environments that reward depth and intensity.' },
+  { p:'Pluto', h:'IC', effect:'malefic', summary:'Your current home environment carries a Plutonian frequency — intense, transformative, and often destabilizing. It is hard to feel safe or grounded here, which directly impacts your ability to build outward.', steps:'Assess whether your current living situation is adding to your psychological load. Even temporary changes to your home environment can reduce the intensity of this placement.' },
+  { p:'Neptune', h:'ASC', effect:'malefic', summary:'Your current location amplifies the Neptune ASC blur — making it consistently harder to be seen clearly and taken seriously in this environment. You could struggle with personal boundaries.', steps:'Seek cities or professional contexts where your specific gifts are understood. Neptune ASC thrives in creative, spiritual, or artistic environments where ambiguity is a feature, not a flaw.' },
+  { p:'Neptune', h:'DSC', effect:'malefic', summary:'Your current location consistently draws unclear or unreliable partners into your life. The environmental frequency is attracting the wrong collaborators.', steps:'Be especially rigorous in vetting partnerships formed in this location. Consider whether key collaborations initiated elsewhere feel clearer and more grounded.' },
+  { p:'Neptune', h:'MC', effect:'malefic', summary:'Your current location amplifies Neptune MC confusion — making it harder to be perceived as a clear, credible authority in your field here than elsewhere.', steps:'Research cities where your specific professional archetype is understood and valued. Neptune MC often thrives in creative capitals or spiritual hubs where visionary thinking is rewarded.' },
+  { p:'Neptune', h:'IC', effect:'malefic', summary:'Your current home environment carries a Neptune IC frequency — dreamy, unstable, or unclear. It is hard to feel truly grounded or safe here, which affects everything built outward from this base.', steps:'Prioritize creating physical order and routine in your home as a grounding mechanism. Consider whether this location is contributing to emotional fog or instability.' },
+  { p:'Uranus', h:'ASC', effect:'malefic', summary:'Your current location amplifies Uranus ASC volatility — consistently placing you in unpredictable situations that disrupt your focus and momentum. You feel lonely as you are the only person in your sphere that thinks the way you do. Could go through many personal identity changes.', steps:'Seek environments that are structured and stable enough to contain your Uranus energy. Your disruptive nature thrives when the container around it is solid.' },
+  { p:'Uranus', h:'DSC', effect:'malefic', summary:'Your current location consistently attracts unstable or unpredictable partners. The environmental frequency is magnetizing the wrong collaborative energy.', steps:'Vet new partners formed in this location with extra scrutiny. Consider whether partnerships initiated in different environments feel more stable and reliable.' },
+  { p:'Uranus', h:'MC', effect:'malefic', summary:'Your current location amplifies Uranus MC unpredictability in your professional life — making career momentum harder to sustain here than it would be elsewhere.', steps:'Research cities where innovation and disruption are rewarded professionally. Uranus MC thrives in tech hubs, startup ecosystems, and industries that move fast.' },
+  { p:'Uranus', h:'IC', effect:'malefic', summary:'Your current home environment carries a Uranus IC frequency — unpredictable, unstable, and hard to settle into. It is difficult to feel truly grounded here, which undermines your ability to build outward. Frequent moves.', steps:'Prioritize physical stability in your home environment above all else. Consider whether frequent moves or an unsettled living situation is actively costing you focus and momentum.' },
+
+  // ANGULAR — BENEFICS
+  { p:'Sun', h:'ASC', effect:'benefic', summary:'Your current location activates Sun on your ASC — you are more visible, magnetic, and authoritative here than you would be elsewhere.', steps:'Double down on visibility in this location. Your personal brand and leadership presence are amplified here — use it to its full potential.' },
+  { p:'Sun', h:'DSC', effect:'benefic', summary:'Your current location consistently attracts high-caliber, leadership-oriented partners and collaborators into your orbit.', steps:'Say yes to partnership conversations and collaborative opportunities in this location. The environment is magnetizing influential connections — be open and available to them.' },
+  { p:'Sun', h:'MC', effect:'benefic', summary:'Your current location amplifies your professional visibility and authority — you are more likely to be recognized and respected in your field here than in other locations.', steps:'Maximize professional visibility in this city. Events, networking, press, and public-facing opportunities are more likely to pay off here than elsewhere.' },
+  { p:'Sun', h:'IC', effect:'benefic', summary:'Your current home environment carries a supportive, solar IC frequency — warm, stable, and confidence-building. You feel more grounded and motivated here than in other locations.', steps:'Protect this environment. The stability it provides is actively supporting your ability to build outward — don\'t disrupt it unnecessarily.' },
+  { p:'Moon', h:'ASC', effect:'benefic', summary:'Your current location activates a warm, emotionally resonant quality in how you\'re perceived — people in this environment respond to you with more openness and trust than in other locations.', steps:'Leverage the relational warmth this location creates. Community-building, networking, and trust-based sales all perform better for you here.' },
+  { p:'Moon', h:'DSC', effect:'benefic', summary:'Your current location consistently draws nurturing, supportive partners into your orbit. The environment is creating a relational foundation that supports your work. Note: supportive doesn\'t always mean growth-activating — make sure your partnerships are also driving you forward, not just making you comfortable.', steps:'Cultivate the supportive partnerships this location is attracting — but stay intentional about whether they\'re moving your goal forward or just feeling good.' },
+  { p:'Moon', h:'MC', effect:'benefic', summary:'Your current location amplifies the warm, community-building quality of your public presence. You are more beloved and trusted in your professional field here than in other locations.', steps:'Invest in community-building and audience cultivation in this city. Your professional warmth is amplified here — use it to build the loyal base that sustains long-term momentum.' },
+  { p:'Moon', h:'IC', effect:'benefic', summary:'Your current home environment carries a deeply nurturing, emotionally safe frequency — you feel genuinely at home here in a way that supports rest, recovery, and sustained output.', steps:'Protect this home environment deliberately. The emotional safety it provides is a genuine competitive advantage — it allows you to recover faster and build longer.' },
+  { p:'Venus', h:'ASC', effect:'benefic', summary:'Your current location amplifies your natural charm and attractiveness — you are more magnetic and well-received here than in other environments.', steps:'Maximize in-person visibility and first-impression opportunities in this location. Your Venus ASC energy is amplified here — use it for sales, networking, and brand-building.' },
+  { p:'Venus', h:'DSC', effect:'benefic', summary:'Your current location consistently attracts harmonious, high-quality partners and collaborators into your orbit. The environment is magnetizing aligned relationships.', steps:'Stay open and available to new partnership conversations in this location. The relational quality here is working in your favor — don\'t isolate.' },
+  { p:'Venus', h:'MC', effect:'benefic', summary:'Your current location amplifies the charm and aesthetic appeal of your professional presence — you are more well-received and liked in your field here than in other locations.', steps:'Focus on building your public brand and professional reputation in this city. The environmental frequency is making you more appealing and magnetic professionally — use it.' },
+  { p:'Venus', h:'IC', effect:'benefic', summary:'Your current home environment carries a Venusian frequency — warm, beautiful, and harmonious. You feel genuinely nourished and creatively inspired here.', steps:'Protect and invest in the beauty of this home environment. The creative and emotional nourishment it provides is directly supporting your ability to build and sustain output.' },
+  { p:'Jupiter', h:'ASC', effect:'benefic', summary:'Your current location amplifies Jupiter\'s expansive energy — you encounter more opportunity, more helpful people, and more abundance here than in other locations.', steps:'Maximize your presence and visibility in this location. The environment is actively amplifying your luck and opportunity — show up fully and move on what comes.' },
+  { p:'Jupiter', h:'DSC', effect:'benefic', summary:'Your current location consistently attracts abundant, generous, and growth-oriented partners and collaborators. The environment is magnetizing high-quality connections.', steps:'Stay highly visible and socially engaged in this location. The relational abundance available here is one of your greatest assets — don\'t retreat into solo work when the environment is actively sending you allies.' },
+  { p:'Jupiter', h:'MC', effect:'benefic', summary:'Your current location amplifies professional expansion and career recognition — you are more likely to experience breakthrough opportunities, helpful industry connections, and public visibility here than elsewhere.', steps:'Go all in on professional visibility and career development in this location. The environmental frequency is actively amplifying your career luck — maximize it.' },
+  { p:'Jupiter', h:'IC', effect:'benefic', summary:'Your current home environment carries a Jupiterian frequency — abundant, warm, and expansive. You feel genuinely supported, resourced, and optimistic here in a way that directly fuels outward momentum.', steps:'Protect this home environment deliberately. The abundance and warmth it provides is a genuine advantage — it allows you to take bigger risks externally because your foundation is genuinely secure.' },
+
+  // MONEY HOUSES (2nd, 6th, 8th, 10th overlap with MC)
+  { p:'Mars', h:'2nd', effect:'malefic', summary:'Your current location is activating a combative energy around your personal finances — costs may feel higher, income harder to stabilize, and financial competition more intense here than elsewhere.', steps:'This location is asking you to sharpen your financial discipline. Build tighter systems around income and expenses — the environment won\'t hand you ease, but it will reward those who build strong financial foundations here.' },
+  { p:'Mars', h:'6th', effect:'malefic', summary:'Your current location amplifies the combative work energy of Mars in the 6th — the professional environment here is more high-pressure, competitive, and draining than it would be elsewhere.', steps:'This location is calling you to build bulletproof work systems and health routines. The environment is intense — but those who master their daily discipline here build an edge that follows them everywhere.' },
+  { p:'Mars', h:'8th', effect:'malefic', summary:'Your current location activates a combative energy around shared finances and investments. Joint ventures and financial partnerships formed here carry more conflict risk than they would elsewhere.', steps:'This location is raising the stakes on what you invest in. Be discerning — only pour resources into things with a solid foundation. The 8th house multiplies what you put in, and this environment amplifies that effect.' },
+  { p:'Saturn', h:'2nd', effect:'malefic', summary:'Your current location is activating Saturn energy in your 2nd house — income may feel harder to build here, and financial restrictions may feel more pronounced than they would elsewhere.', steps:'This location is not a punishment — it\'s a classroom. The financial discipline you build here will be more solid than what comes easily elsewhere. Upskill, build systems, and trust that the foundation is being laid.' },
+  { p:'Saturn', h:'6th', effect:'malefic', summary:'Your current location activates Saturn energy in your 6th — the work environment here is demanding, and health and daily routine require more conscious attention than they might elsewhere.', steps:'This location is calling you to master your craft and your daily discipline. The environment won\'t reward shortcuts — but those who show up consistently and build real expertise here earn it.' },
+  { p:'Saturn', h:'8th', effect:'malefic', summary:'Your current location is activating Saturn energy in your 8th house — investment and shared financial opportunities here require more due diligence, stronger foundations, and longer timelines before they pay off.', steps:'This location is not blocking your financial multiplication — it\'s raising the bar for what deserves your investment. Be discerning. The opportunities that meet Saturn\'s standard here will compound significantly.' },
+  { p:'Pluto', h:'2nd', effect:'malefic', summary:'Your current location is activating Pluto energy in your 2nd house — financial structures here are being disrupted and transformed. What you earn and how you earn it is being called to evolve in this environment.', steps:'This location is not destroying your finances — it\'s forcing them to transform. Lean into the reinvention. The financial identity that emerges from this environment will be far more powerful than the one that went in.' },
+  { p:'Pluto', h:'6th', effect:'malefic', summary:'Your current location is activating Pluto energy in your 6th house — daily work here carries an intensity and transformative pressure that demands you operate at a higher level.', steps:'This location is asking you to master your craft and rebuild your daily systems from the ground up. The pressure is real — but those who rise to it emerge with an edge that follows them everywhere.' },
+  { p:'Pluto', h:'8th', effect:'malefic', summary:'Your current location is activating Pluto energy in your 8th house — investments and shared financial arrangements here are subject to intense transformation. What you put in multiplies — but only if the foundation is solid enough to hold it.', steps:'This location demands exceptional financial discernment. Only invest in — and partner with — things and people that can withstand scrutiny. The transformation available here is extraordinary for those who build on real foundations.' },
+  { p:'Neptune', h:'2nd', effect:'malefic', summary:'Your current location is activating Neptune energy in your 2nd house — financial structures here feel less defined, income may be harder to pin down, and money can slip through without clear accounting.', steps:'This location requires you to be more financially rigorous than you naturally are. Build tighter systems, track everything, and be especially wary of financial arrangements that feel vague or inspirational but lack clear terms.' },
+  { p:'Neptune', h:'6th', effect:'malefic', summary:'Your current location activates Neptune energy in your 6th house — daily work here may feel less focused, health may require more attention, and professional clarity can be harder to maintain.', steps:'This location is asking you to build exceptionally clear work systems and health practices. The fog is real — but structure is the antidote. Those who build strong daily routines here create a clarity that serves them well beyond this location.' },
+  { p:'Neptune', h:'8th', effect:'malefic', summary:'Your current location is activating Neptune energy in your 8th house — investments and shared financial arrangements here require exceptional clarity and due diligence. Things may not be what they appear financially in this environment.', steps:'Apply the highest level of financial scrutiny to any investment or partnership formed in this location. The 8th house multiplies — and Neptune can multiply confusion as easily as abundance. Clarity before commitment, every time.' },
+  { p:'Uranus', h:'2nd', effect:'malefic', summary:'Your current location activates Uranus energy in your 2nd house — income patterns here are more volatile and unconventional than they would be elsewhere.', steps:'This location is calling you to be innovative and flexible with how you earn. Don\'t force traditional income models here — explore unconventional paths and stay open to sudden financial opportunities that come from unexpected directions.' },
+  { p:'Uranus', h:'6th', effect:'malefic', summary:'Your current location activates Uranus energy in your 6th house — the work environment here is unpredictable, and daily routines are harder to maintain consistently.', steps:'This location is asking you to innovate your work approach. Don\'t try to force conventional work structures here — lean into flexibility, experimentation, and unconventional methods. The breakthroughs in this environment come from those willing to work differently.' },
+  { p:'Uranus', h:'8th', effect:'malefic', summary:'Your current location activates Uranus energy in your 8th house — investment and shared financial opportunities here tend to be unconventional, fast-moving, and subject to sudden change.', steps:'This location rewards financial innovation and the willingness to take unconventional investment paths. Be discerning about what you multiply — but don\'t be afraid to explore financial models that don\'t look like what you\'ve done before.' },
+  { p:'Sun', h:'2nd', effect:'benefic', summary:'Your current location activates Sun energy in your 2nd house — income opportunities are more visible and accessible here, and your financial confidence is amplified in this environment.', steps:'Maximize income-generating activity in this location. The environment is actively amplifying your earning potential — show up visibly and make your financial moves here.' },
+  { p:'Sun', h:'6th', effect:'benefic', summary:'Your current location activates Sun energy in your 6th house — daily work here feels more energizing, your professional leadership presence is amplified, and your work output carries more authority.', steps:'Invest fully in your professional craft and daily work in this location. The environment is amplifying your work vitality and leadership quality — use it to build something lasting.' },
+  { p:'Sun', h:'8th', effect:'benefic', summary:'Your current location activates Sun energy in your 8th house — investment opportunities, financial partnerships, and shared resource multiplications are more available and more potent here.', steps:'Pursue investment opportunities and financial partnerships in this location with confidence. The environment is amplifying your 8th house multiplication potential — what you put in here, done wisely, tends to grow.' },
+  { p:'Moon', h:'2nd', effect:'benefic', summary:'Your current location activates Moon energy in your 2nd house — income opportunities that feel personally meaningful and emotionally resonant are more available here.', steps:'Pursue income opportunities that align with your values and feel genuinely nourishing in this location. The environment is amplifying the emotional resonance of your earning — use it.' },
+  { p:'Moon', h:'6th', effect:'benefic', summary:'Your current location activates Moon energy in your 6th house — daily work here feels more emotionally nourishing, and your care and intuition in professional settings is amplified.', steps:'Invest in the relational and service quality of your work in this location. The environment is amplifying your natural emotional intelligence in daily work — let it show.' },
+  { p:'Moon', h:'8th', effect:'benefic', summary:'Your current location activates Moon energy in your 8th house — trust-based financial partnerships and investment opportunities that feel emotionally resonant are more available here.', steps:'Cultivate the trust-based financial relationships this location is attracting. Moon in the 8th multiplies through genuine connection — the deeper the trust, the greater the potential return.' },
+  { p:'Venus', h:'2nd', effect:'benefic', summary:'Your current location activates Venus energy in your 2nd house — income flows more easily here, and your ability to attract financial opportunity through charm and aesthetic value is amplified.', steps:'Maximize income-generating activity in this location. The environment is making you more financially magnetic — put yourself in front of the right opportunities and let Venus do its work.' },
+  { p:'Venus', h:'6th', effect:'benefic', summary:'Your current location activates Venus energy in your 6th house — daily work here feels more harmonious, professional relationships are warmer, and your charm in work settings is amplified.', steps:'Invest in the relationship quality and aesthetic of your daily work in this location. The environment is making your professional presence more appealing — use it to deepen client and colleague relationships.' },
+  { p:'Venus', h:'8th', effect:'benefic', summary:'Your current location activates Venus energy in your 8th house — harmonious, trust-based financial partnerships and investment opportunities are more available here than in other locations.', steps:'Cultivate the aligned financial partnerships this location is attracting. The 8th house multiplies — and Venus here means those partnerships carry unusual potential for pleasurable and profitable returns.' },
+  { p:'Jupiter', h:'2nd', effect:'benefic', summary:'Your current location activates Jupiter energy in your 2nd house — income opportunities are more abundant here, financial luck is amplified, and your earning potential is genuinely higher in this environment.', steps:'This is a powerful earning location for you. Maximize income-generating activity here — Jupiter in the 2nd through astrocartography is one of the most sought-after financial placements.' },
+  { p:'Jupiter', h:'6th', effect:'benefic', summary:'Your current location activates Jupiter energy in your 6th house — daily work opportunities are more abundant here, professional growth comes more easily, and your work output carries an expansive quality.', steps:'Invest fully in your professional development and daily work in this location. Jupiter in the 6th through astrocartography attracts quality work opportunities — show up consistently and let the expansion build.' },
+  { p:'Jupiter', h:'8th', effect:'benefic', summary:'Your current location activates Jupiter energy in your 8th house — investment opportunities and shared financial arrangements here carry exceptional multiplication potential. This is one of the most financially powerful location placements.', steps:'Pursue investment and partnership opportunities in this location with real ambition. Jupiter in the 8th through astrocartography is one of the most sought-after financial abundance placements — what you invest here, done wisely, has genuine potential to multiply extraordinarily.' },
+
+  // 5TH HOUSE
+  { p:'Mars', h:'5th', effect:'malefic', summary:'Your current location amplifies Mars energy in your 5th — the creative and romantic environment here is intense, competitive, and prone to conflict. Speculative opportunities here carry higher volatility than elsewhere.', steps:'Seek creative environments where your drive is channeled productively rather than met with equal aggression. Be especially discerning about romantic connections formed in this location — the Mars energy here amplifies attraction and conflict in equal measure.' },
+  { p:'Saturn', h:'5th', effect:'malefic', summary:'Your current location activates Saturn energy in your 5th — creative expression here requires more effort, romance feels more serious and less playful, and speculative opportunities carry heavier consequences.', steps:'This location is calling you to build real creative discipline. The creative work built under Saturn\'s pressure here will be more technically excellent than what comes easily elsewhere. Trust the process.' },
+  { p:'Pluto', h:'5th', effect:'malefic', summary:'Your current location activates Pluto energy in your 5th — the creative and romantic environment here demands transformation. Creative work here carries an unusual intensity, and romantic connections formed in this location tend to be transformative rather than comfortable.', steps:'Lean into the depth and intensity this location amplifies creatively. The creative work produced here has the potential to be some of your most powerful — but only if you\'re willing to go to the uncomfortable places.' },
+  { p:'Neptune', h:'5th', effect:'malefic', summary:'Your current location activates Neptune energy in your 5th — creative inspiration flows freely here but romantic connections may be idealized, and speculative opportunities may not be as solid as they appear.', steps:'Use this location for creative inspiration and spiritual creative work. Be especially rigorous about vetting romantic connections and speculative financial opportunities formed here — Neptune in the 5th environment makes things look more beautiful than they are.' },
+  { p:'Uranus', h:'5th', effect:'malefic', summary:'Your current location activates Uranus energy in your 5th — the creative environment here is innovative and unconventional, romantic connections tend to be sudden and non-traditional, and speculative opportunities come from unexpected directions.', steps:'Lean into the creative innovation this location amplifies. Be open to unconventional romantic connections and speculative opportunities that don\'t look like what you\'ve tried before. Uranus in the 5th environment rewards those willing to do it differently.' },
+  { p:'Sun', h:'5th', effect:'benefic', summary:'Your current location activates Sun energy in your 5th — creative confidence, romantic magnetism, and joyful self-expression are amplified here. You feel more alive, more visible, and more creatively potent in this environment.', steps:'Maximize creative output and romantic openness in this location. The environment is amplifying your natural creative leadership — use it to produce your most expressive and visible work.' },
+  { p:'Moon', h:'5th', effect:'benefic', summary:'Your current location activates Moon energy in your 5th — emotional creativity flows more freely here, romantic connections carry genuine warmth, and your heart-centered creative work resonates more deeply with audiences in this environment.', steps:'Use this location to create your most personal and emotionally honest work. The environment is amplifying the emotional depth of your creative expression — let it show.' },
+  { p:'Venus', h:'5th', effect:'benefic', summary:'Your current location activates Venus energy in your 5th — creative work here carries unusual beauty and charm, romantic connections are more harmonious, and speculative opportunities feel pleasurable rather than stressful.', steps:'Invest in your most aesthetically driven creative projects in this location. The environment is amplifying the beauty and charm of your creative expression — use it for your most important creative launches.' },
+  { p:'Jupiter', h:'5th', effect:'benefic', summary:'Your current location activates Jupiter energy in your 5th — creative abundance, romantic generosity, and speculative financial luck are all amplified here. This is one of the most enjoyable location placements available.', steps:'Go all in on creative expression, romantic openness, and aligned speculative ventures in this location. Jupiter in the 5th through astrocartography is a genuinely lucky placement for joy, creativity, and financial speculation.' },
+
+  // 11TH HOUSE
+  { p:'Mars', h:'11th', effect:'malefic', summary:'Your current location activates Mars energy in your 11th — the community and network environment here is more competitive, combative, and prone to friction than it would be elsewhere.', steps:'Be selective about the communities and networks you invest in within this location. Seek groups that channel competitive energy productively. Your online presence may attract more aggressive responses from this environment — engage strategically, not reactively.' },
+  { p:'Saturn', h:'11th', effect:'malefic', summary:'Your current location activates Saturn energy in your 11th — community building here is slower, audience growth is more effortful, and network connections require more time and consistency to develop.', steps:'This location is asking you to build genuine community — not a fast following. The audience built through Saturn\'s discipline here will be among the most loyal you\'ll ever have. Play the long game.' },
+  { p:'Pluto', h:'11th', effect:'malefic', summary:'Your current location activates Pluto energy in your 11th — community and network dynamics here are intense, transformative, and prone to sudden power shifts. Your online presence may attract unusually intense responses from this environment.', steps:'Be intentional about the communities you invest in within this location. Pluto in the 11th environment rewards those who build communities around genuine transformation — not surface-level connection.' },
+  { p:'Neptune', h:'11th', effect:'malefic', summary:'Your current location activates Neptune energy in your 11th — community connections here may be idealized, online audience responses may be unclear, and network dynamics may lack the substance they appear to have.', steps:'Apply rigorous discernment to communities and online opportunities in this location. Neptune in the 11th environment makes groups look more aligned than they are — verify before investing.' },
+  { p:'Uranus', h:'11th', effect:'malefic', summary:'Your current location activates Uranus energy in your 11th — the community and online environment here is innovative, unpredictable, and prone to sudden shifts. Viral moments are more accessible here — as is sudden audience volatility.', steps:'Lean into the unconventional community and online opportunities this location amplifies. Be Uranian in your approach — experiment, innovate, and don\'t be afraid to try approaches that have never been done before in your space.' },
+  { p:'Sun', h:'11th', effect:'benefic', summary:'Your current location activates Sun energy in your 11th — community leadership, online authority, and audience-building potential are all amplified here. You are more visible and more influential in group contexts in this environment than elsewhere.', steps:'Maximize community engagement and online visibility in this location. The environment is actively amplifying your natural leadership in group contexts — use it to build the audience and network that supports your long-term goals.' },
+  { p:'Moon', h:'11th', effect:'benefic', summary:'Your current location activates Moon energy in your 11th — your community connections here feel more emotionally resonant, your online audience responds with unusual warmth and loyalty, and group dynamics carry a genuinely nurturing quality.', steps:'Invest in emotionally authentic community-building in this location. The environment is amplifying the warmth and loyalty of your audience connections — use it to deepen the relationships that matter most.' },
+  { p:'Venus', h:'11th', effect:'benefic', summary:'Your current location activates Venus energy in your 11th — your online presence here carries unusual charm and beauty, community connections are more harmonious, and your network magnetism is amplified in this environment.', steps:'Invest in community-building and online presence development in this location. The environment is making your online energy more attractive and your network connections more naturally aligned — use it.' },
+  { p:'Jupiter', h:'11th', effect:'benefic', summary:'Your current location activates Jupiter energy in your 11th — online reach, community growth, and network abundance are all amplified here. Viral moments and significant audience expansion are more accessible in this environment than elsewhere.', steps:'Go all in on online visibility and community-building in this location. Jupiter in the 11th through astrocartography is one of the most powerful placements for internet reach and audience growth — the environment is actively working in your favor.' },
+
+  // 12TH HOUSE
+  { p:'Mars', h:'12th', effect:'malefic', summary:'Your current location activates Mars energy in your 12th — your drive and assertiveness are operating more quietly and less effectively in public in this environment. The force that works elsewhere feels muffled here.', steps:'This location is calling you to work behind the scenes rather than leading publicly. Use the environment for deep solo creative or professional work. The output built in private here has more power than you can see from inside it.' },
+  { p:'Saturn', h:'12th', effect:'malefic', summary:'Your current location activates Saturn energy in your 12th — invisible restrictions and subconscious patterns are more pronounced here. Progress feels heavier and more effortful in this environment than it would elsewhere.', steps:'This location is calling you to do the deep inner work. The discipline and self-awareness built through Saturn\'s pressure in this environment will clear blocks that no amount of external strategy can touch. Go inward.' },
+  { p:'Pluto', h:'12th', effect:'malefic', summary:'Your current location activates Pluto energy in your 12th — hidden psychological transformation is amplified in this environment. Subconscious patterns that might remain dormant elsewhere are being activated and surfaced here.', steps:'This location is a powerful one for deep inner transformation work. Use it for shadow work, spiritual practice, and psychological clearing. The transformation available here is profound — but only for those willing to look at what Pluto is illuminating.' },
+  { p:'Neptune', h:'12th', effect:'benefic', summary:'Your current location activates Neptune energy in your 12th — spiritual attunement, creative inspiration, and intuitive sensitivity are all amplified here. This is a powerful location for inner work, spiritual practice, and deep creative output. (Neptune is at home in the 12th and operates at full strength.)', steps:'Use this location for your most spiritually and creatively significant work. Neptune in the 12th through astrocartography is a genuine spiritual power placement — the environment supports depth, inspiration, and transcendent creative output.' },
+  { p:'Uranus', h:'12th', effect:'malefic', summary:'Your current location activates Uranus energy in your 12th — inner restlessness, subconscious disruption, and unexpected internal shifts are more pronounced here than elsewhere.', steps:'Use this location for deliberate inner innovation. Be Uranian in your spiritual and psychological approach — try completely unconventional methods for inner work, meditation, and self-understanding. The breakthroughs available here are internal first, external second.' },
+  { p:'Sun', h:'12th', effect:'quiet', summary:'Your current location activates Sun energy in your 12th — your natural leadership and visibility are quieter here than they would be elsewhere. The solar confidence is present but not publicly amplified in this environment. (12th-house benefics operate quietly.)', steps:'Use this location for private, behind-the-scenes work where your leadership operates through depth rather than visibility. Consider whether a different location might amplify your public solar expression more powerfully.' },
+  { p:'Moon', h:'12th', effect:'quiet', summary:'Your current location activates Moon energy in your 12th — emotional sensitivity and intuition are heightened here but operating privately. The emotional depth available in this environment is genuine but not publicly visible.', steps:'Use this location for private healing, creative, and spiritual work that draws on your emotional depth. The Moon in the 12th environment supports profound inner work — honor it rather than trying to make it public.' },
+  { p:'Venus', h:'12th', effect:'quiet', summary:'Your current location activates Venus energy in your 12th — charm and relational magnetism are present here but operating quietly. Financial and relational opportunities in this environment tend to come through private channels rather than public visibility.', steps:'Invest in private relationship-building and behind-the-scenes networking in this location. Venus in the 12th environment delivers its gifts quietly — stay open to opportunities that arrive through trust and intimacy rather than visibility.' },
+  { p:'Jupiter', h:'12th', effect:'quiet', summary:'Your current location activates Jupiter energy in your 12th — abundance and expansion are present here but operating quietly and privately. Hidden resources, unexpected support, and behind-the-scenes opportunities are more available in this environment than they appear.', steps:'Stay receptive to private and unexpected opportunities in this location. Jupiter in the 12th delivers abundance through faith and surrender — not force. Trust the process and stay open to help arriving from unexpected directions.' }
+];
+
+/* =========================================================
+   STATE
+   ========================================================= */
+const state = {
+  planet: 'Mars',
+  set: 'angular',     // 'angular' or 'full'
+  selectedHouse: null
+};
+
+const ANGULAR_KEYS = ['ASC','IC','DSC','MC'];
+
+function placementsFor(planet) {
+  return PLACEMENTS.filter(p => p.p === planet);
+}
+
+function placementFor(planet, houseKey) {
+  return PLACEMENTS.find(p => p.p === planet && p.h === houseKey);
+}
+
+/* =========================================================
+   PLANET RAIL
+   ========================================================= */
+const maleficContainer = document.getElementById('malefic-buttons');
+const beneficContainer = document.getElementById('benefic-buttons');
+
+PLANETS.forEach(pl => {
+  const btn = document.createElement('button');
+  btn.className = 'planet-btn';
+  btn.dataset.planet = pl.name;
+  btn.innerHTML = `
+    <span class="planet-glyph">${pl.glyph}</span>
+    <span class="planet-meta">
+      <span class="planet-name-text">${pl.name}</span>
+      <span class="planet-kind">${pl.blurb}</span>
+    </span>
+  `;
+  btn.addEventListener('click', () => selectPlanet(pl.name));
+  (pl.kind === 'malefic' ? maleficContainer : beneficContainer).appendChild(btn);
+});
+
+function refreshRail() {
+  document.querySelectorAll('.planet-btn').forEach(b => {
+    b.classList.toggle('active', b.dataset.planet === state.planet);
+  });
+}
+
+/* =========================================================
+   WHEEL SVG
+   ========================================================= */
+const wheel = document.getElementById('wheel');
+
+/* Geometry:
+   - house 1 starts at 180° (left/9 o'clock), goes counter-clockwise (decreasing angle in SVG y-flipped sense).
+   - In SVG, y is down, so to go counter-clockwise we use angles that increase but draw with negative y.
+   We'll define each house occupying a 30° slice. House N's start angle:
+     startDeg(N) = 180 + (N - 1) * 30  → measured in standard math (CCW from +x axis)
+   Then convert to SVG by flipping y. */
+
+const R_OUTER = 360;
+const R_HOUSE = 290;       // outer ring outer
+const R_RING = 230;        // outer ring inner / mid divider
+const R_LABEL = 175;       // label ring
+const R_INNER = 130;       // inner circle radius
+const R_LABEL_HOUSE = 260; // house number radius
+const R_LABEL_TXT = 250;   // small label radius
+
+function polarToCart(r, deg) {
+  const rad = (deg) * Math.PI / 180;
+  // SVG y-down: invert sin
+  return { x: r * Math.cos(rad), y: -r * Math.sin(rad) };
+}
+
+function houseStartAngle(num) {
+  // House 1 begins at 180° and houses run CCW (increasing math angle)
+  return 180 + (num - 1) * 30;
+}
+
+function arcPath(r1, r2, startDeg, endDeg) {
+  const p1 = polarToCart(r2, startDeg);
+  const p2 = polarToCart(r2, endDeg);
+  const p3 = polarToCart(r1, endDeg);
+  const p4 = polarToCart(r1, startDeg);
+  const largeArc = (endDeg - startDeg) > 180 ? 1 : 0;
+  // sweep flag: in SVG coords (y-down), going from start to end with increasing math-angle
+  // means going COUNTER-clockwise in math, which in SVG-y-down is CLOCKWISE visually... need sweep=0
+  return [
+    `M ${p1.x} ${p1.y}`,
+    `A ${r2} ${r2} 0 ${largeArc} 0 ${p2.x} ${p2.y}`,
+    `L ${p3.x} ${p3.y}`,
+    `A ${r1} ${r1} 0 ${largeArc} 1 ${p4.x} ${p4.y}`,
+    'Z'
+  ].join(' ');
+}
+
+function buildWheel() {
+  let svg = '';
+
+  // Outer decorative circle
+  svg += `<circle class="ring-bg" cx="0" cy="0" r="${R_OUTER}" />`;
+  // Mid ring (between house slices and inner)
+  svg += `<circle class="ring-bg" cx="0" cy="0" r="${R_HOUSE}" />`;
+  // House slice ring inner boundary
+  svg += `<circle class="ring-inner" cx="0" cy="0" r="${R_RING}" />`;
+
+  // House slices
+  for (const house of HOUSES) {
+    const start = houseStartAngle(house.num);
+    const end = start + 30;
+    const placement = placementFor(state.planet, house.key);
+    let cls = 'house-slice empty';
+    if (placement) cls = `house-slice ${placement.effect}`;
+    if (state.selectedHouse === house.key) cls += ' active';
+    const interactive = !!placement;
+    svg += `<path class="${cls}" data-house="${house.key}" data-num="${house.num}" d="${arcPath(R_RING, R_HOUSE, start, end)}" ${interactive ? '' : 'pointer-events="none"'} />`;
+  }
+
+  // House dividers (lines from R_RING to R_OUTER)
+  for (let i = 0; i < 12; i++) {
+    const deg = 180 + i * 30;
+    const p1 = polarToCart(R_RING, deg);
+    const p2 = polarToCart(R_HOUSE, deg);
+    const isAngular = (i % 3 === 0); // 1, 4, 7, 10
+    svg += `<line class="house-divider${isAngular ? ' angular' : ''}" x1="${p1.x}" y1="${p1.y}" x2="${p2.x}" y2="${p2.y}" />`;
+  }
+
+  // Axis cross (ASC-DSC and IC-MC)
+  svg += `<line class="ring-axis" x1="${-R_HOUSE}" y1="0" x2="${R_HOUSE}" y2="0" />`;
+  svg += `<line class="ring-axis" x1="0" y1="${-R_HOUSE}" x2="0" y2="${R_HOUSE}" />`;
+
+  // House numbers + labels (centered in slice)
+  for (const house of HOUSES) {
+    const mid = houseStartAngle(house.num) + 15;
+    const numPos = polarToCart(R_LABEL_HOUSE, mid);
+    const txtPos = polarToCart(R_LABEL_TXT, mid);
+    svg += `<text class="house-num" x="${numPos.x}" y="${numPos.y}">${house.num}</text>`;
+  }
+
+  // Axis labels (ASC, MC, DSC, IC) — positioned just outside the wheel
+  const axisLabels = [
+    { txt: 'ASC',  deg: 180, dx: -22, dy: 0 },
+    { txt: 'MC',   deg: 90,  dx: 0,   dy: -18 },
+    { txt: 'DSC',  deg: 0,   dx: 22,  dy: 0 },
+    { txt: 'IC',   deg: 270, dx: 0,   dy: 18 }
+  ];
+  for (const a of axisLabels) {
+    const p = polarToCart(R_OUTER + 4, a.deg);
+    svg += `<text class="axis-label" x="${p.x + a.dx}" y="${p.y + a.dy}">${a.txt}</text>`;
+  }
+
+  // Inner circle (background for center glyph)
+  svg += `<circle class="ring-bg" cx="0" cy="0" r="${R_INNER}" />`;
+  svg += `<circle class="ring-mid" cx="0" cy="0" r="${R_INNER - 12}" />`;
+
+  // Center glyph + planet name
+  const planet = PLANETS.find(p => p.name === state.planet);
+  svg += `<text class="center-glyph" x="0" y="-12">${planet.glyph}</text>`;
+  svg += `<text class="center-name" x="0" y="58">${planet.name}</text>`;
+
+  wheel.innerHTML = svg;
+
+  // Wire up clicks
+  wheel.querySelectorAll('.house-slice').forEach(slice => {
+    slice.addEventListener('click', () => {
+      const key = slice.dataset.house;
+      const placement = placementFor(state.planet, key);
+      if (!placement) return;
+      state.selectedHouse = key;
+      buildWheel();
+      renderDetail();
+    });
+  });
+}
+
+/* =========================================================
+   DETAIL PANEL
+   ========================================================= */
+const detailEmpty = document.getElementById('detailEmpty');
+const detailContent = document.getElementById('detailContent');
+
+function houseLabelText(key) {
+  const h = HOUSES.find(x => x.key === key);
+  if (!h) return key;
+  return `${h.num}${ordinal(h.num)} House${h.axis ? ' · ' + h.axis : ''} — ${h.label}`;
+}
+
+function ordinal(n) {
+  const s = ['th','st','nd','rd'], v = n % 100;
+  return s[(v - 20) % 10] || s[v] || s[0];
+}
+
+function effectLabel(e) {
+  if (e === 'benefic') return 'Helps · Benefic';
+  if (e === 'malefic') return 'Hurts · Malefic';
+  if (e === 'quiet')   return 'Helps quietly';
+  return e;
+}
+function effectLead(e) {
+  if (e === 'benefic') return 'Helps your 90-day goal';
+  if (e === 'quiet')   return 'Helps quietly';
+  return 'Hurts your 90-day goal';
+}
+
+function renderDetail() {
+  if (!state.selectedHouse) {
+    detailEmpty.style.display = 'flex';
+    detailContent.classList.remove('show');
+    return;
+  }
+  const placement = placementFor(state.planet, state.selectedHouse);
+  if (!placement) {
+    detailEmpty.style.display = 'flex';
+    detailEmpty.textContent = 'No data for this combination.';
+    detailContent.classList.remove('show');
+    return;
+  }
+  detailEmpty.style.display = 'none';
+  detailContent.classList.add('show');
+
+  const planet = PLANETS.find(p => p.name === state.planet);
+  detailContent.innerHTML = `
+    <div class="detail-eyebrow">${planet.kind === 'benefic' ? 'Benefic' : 'Malefic'} · Pillar 3 · Environment</div>
+    <h2 class="detail-title">${state.planet}<span class="x">×</span>${state.selectedHouse}</h2>
+    <p class="detail-house">${houseLabelText(state.selectedHouse)}</p>
+    <span class="detail-effect ${placement.effect}">${effectLabel(placement.effect)}</span>
+
+    <div class="detail-block">
+      <div class="detail-block-label">${effectLead(placement.effect)}</div>
+      <p>${placement.summary}</p>
+    </div>
+
+    <div class="detail-block steps">
+      <div class="detail-block-label">Steps</div>
+      <p>${placement.steps}</p>
+    </div>
+  `;
+}
+
+/* =========================================================
+   SELECTION
+   ========================================================= */
+function selectPlanet(name) {
+  state.planet = name;
+  state.selectedHouse = null;
+  refreshRail();
+  buildWheel();
+  renderDetail();
+}
+
+/* Init */
+refreshRail();
+buildWheel();
+renderDetail();
+</script>
+</body>
+</html>
